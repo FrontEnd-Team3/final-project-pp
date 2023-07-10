@@ -1,6 +1,6 @@
-const { Outlet } = require("react-router-dom");
-const { default: Header } = require("./Header/Header");
-const { default: Footer } = require("./Footer/Footer");
+import { Outlet } from "react-router-dom";
+import Footer from "./Footer/Footer";
+import Header from "./Header/Header";
 
 const Layout = () => {
 	return (
