@@ -1,0 +1,74 @@
+{
+	"name": "hello-react",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
+		"@fortawesome/free-solid-svg-icons": "^6.4.0",
+		"@fortawesome/react-fontawesome": "^0.2.0",
+		"@mui/material": "^5.13.6",
+		"@mui/styled-engine-sc": "^5.12.0",
+		"@mui/material": "^5.13.6",
+		"@mui/material": "^5.13.6",
+		"@tanstack/react-query": "^4.29.15",
+		"@testing-library/jest-dom": "^5.16.5",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^13.5.0",
+		"axios": "^1.4.0",
+		"dotenv": "^16.3.1",
+		"inko": "^1.1.1",
+		"lodash": "^4.17.21",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-icons": "^4.9.0",
+		"react-intersection-observer": "^9.5.1",
+		"react-query": "^3.39.3",
+		"react-router-dom": "^6.6.2",
+		"react-scripts": "5.0.1",
+		"react-slick": "^0.29.0",
+		"slick-carousel": "^1.8.1",
+		"styled-components": "^5.3.11",
+		"styled-reset": "^4.4.7",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"lint": "eslint --cache \"src/**/*.{js,jsx}\"",
+		"lint:fix": "eslint --fix --cache \"src/**/*.{js,jsx}\"",
+		"formatter": "prettier --write --cache \"src/**/*.{js,jsx}\"",
+		"install": "husky install"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@babel/plugin-proposal-private-property-in-object": "7.21.11",
+		"eslint": "^8.43.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-react": "^7.32.2",
+		"eslint-plugin-unused-imports": "^2.0.0",
+		"husky": "^8.0.3",
+		"prettier": "^2.8.8"
+	}
+}
