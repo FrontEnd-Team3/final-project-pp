@@ -23,10 +23,10 @@ const Header = () => {
 				</S.Wrapper>
 			</S.Container>
 			<S.NameWrapper>
-				<ImageName>JOIN</ImageName>
-				<ImageName>LOGIN</ImageName>
-				<ImageName>MYPAGE</ImageName>
-				<ImageName>TALK</ImageName>
+				<S.ImageName>JOIN</S.ImageName>
+				<S.ImageName>LOGIN</S.ImageName>
+				<S.ImageName>MYPAGE</S.ImageName>
+				<S.ImageName>TALK</S.ImageName>
 			</S.NameWrapper>
 		</>
 	);
@@ -130,4 +130,5 @@ const S = {
 	SearchImage,
 	Subtitle,
 	NameWrapper,
+	ImageName,
 };
