@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import EXAMPLE from "./images/product1.png";
 
 const OneProduct = ({ product }) => {
 	console.log(product);
 	const localPrice = product.price.toLocaleString("ko-KR");
+	const ImageURL = product.image;
 	return (
 		<S.Container>
-			<S.Image src={EXAMPLE}></S.Image>
+			<S.Image src={ImageURL}></S.Image>
 			<S.ProductInfo>
 				<div className="infoTop">
 					<p className="name">{product.name}</p>

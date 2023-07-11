@@ -1,58 +1,9 @@
 import styled from "styled-components";
 import OneProduct from "./one-product";
+import { productList } from "mock/products";
 
 const ProductList = () => {
 	// date: 추후 날짜 관련 라이브러리로 변경
-	const productList = [
-		{
-			name: "메르세데스 벤츠 123123",
-			date: "1일 전",
-			location: "서울시 강남구 역삼2동",
-			price: 50000000,
-		},
-		{
-			name: "메르세데스 벤츠 123123",
-			date: "1일 전",
-			location: "서울시 강남구 역삼2동",
-			price: 50000000,
-		},
-		{
-			name: "메르세데스 벤츠 123123",
-			date: "1일 전",
-			location: "서울시 강남구 역삼2동",
-			price: 50000000,
-		},
-		{
-			name: "메르세데스 벤츠 123123",
-			date: "1일 전",
-			location: "서울시 강남구 역삼2동",
-			price: 50000000,
-		},
-		{
-			name: "메르세데스 벤츠 123123",
-			date: "1일 전",
-			location: "서울시 강남구 역삼2동",
-			price: 50000000,
-		},
-		{
-			name: "메르세데스 벤츠 123123",
-			date: "1일 전",
-			location: "서울시 강남구 역삼2동",
-			price: 50000000,
-		},
-		{
-			name: "메르세데스 벤츠 123123",
-			date: "1일 전",
-			location: "서울시 강남구 역삼2동",
-			price: 50000000,
-		},
-		{
-			name: "메르세데스 벤츠 123123",
-			date: "1일 전",
-			location: "서울시 강남구 역삼2동",
-			price: 50000000,
-		},
-	];
 	if (productList)
 		return (
 			<S.Container>
