@@ -1,31 +1,33 @@
 import styled from "styled-components";
+import { primaryFont } from "styles/common";
 
 const AlertMessage = () => {
 	return (
-		<Container>
-			<Header>
-				<Text>PPYONG PPYONG</Text>
-				<Xbutton>X</Xbutton>
-			</Header>
-			<Main>
-				<Mtext>A NEW MESSAGE HAS ARRIVED!</Mtext>
-				<Mproduct>물품명: OOOOOOO</Mproduct>
-				<Mtimer>11:32pm</Mtimer>
-			</Main>
-		</Container>
+		<S.Container>
+			<S.Header>
+				<S.Text>PPYONG PPYONG</S.Text>
+				<S.Xbutton>X</S.Xbutton>
+			</S.Header>
+			<S.Main>
+				<S.Mtext>A NEW MESSAGE HAS ARRIVED!</S.Mtext>
+				<S.Mproduct>물품명: OOOOOOO</S.Mproduct>
+				<S.Mtimer>11:32pm</S.Mtimer>
+			</S.Main>
+		</S.Container>
 	);
 };
 export default AlertMessage;
 
 const Container = styled.div`
+	border: 3px solid black;
 	width: 334px;
-	height: 198px;
 	margin: 0 auto;
 	align-items: center;
+	${primaryFont}
 `;
 const Header = styled.div`
+	border: 3px solid black;
 	background-color: #fcf9f3;
-	text-align: center;
 	padding-left: 87px;
 `;
 
@@ -34,13 +36,16 @@ const Text = styled.span`
 `;
 
 const Xbutton = styled.button`
-	margin-left: 87px;
 	width: 23px;
+	border: 3px solid black;
+	float: right;
+	cursor: pointer;
 `;
 
 const Main = styled.div`
 	background-color: ${({ theme }) => theme.PALETTE.secondary};
 	font-size: 32px;
+	border: 3px solid black;
 `;
 
 const Mtext = styled.div`
@@ -57,3 +62,14 @@ const Mtimer = styled.div`
 	font-size: 16px;
 	text-align: end;
 `;
+
+const S = {
+	Container,
+	Header,
+	Text,
+	Xbutton,
+	Main,
+	Mtext,
+	Mproduct,
+	Mtimer,
+};
