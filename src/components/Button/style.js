@@ -7,7 +7,7 @@ const variantCSS = {
 };
 
 const shapeCSS = {
-	shape: css`
+	primary: css`
 		border-radius: 12px;
 	`,
 };

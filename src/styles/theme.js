@@ -8,6 +8,7 @@ const PALETTE = {
 	red: "#e44b4b",
 	yellow: "#FACC47",
 	black: "#404040",
+	white: "#FFFFFF",
 };
 
 const FONT_SIZE = {
