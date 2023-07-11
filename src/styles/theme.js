@@ -1,3 +1,25 @@
+const PALETTE = {
+	primary: {
+		dark: "#8490C8",
+		light: "#E2E2FE",
+	},
+	secondary: "#EFD6FB",
+	gray: "#D8D8D8",
+	red: "#e44b4b",
+	yellow: "#FACC47",
+	black: "#404040",
+	white: "#FFFFFF",
+};
+
+const FONT_SIZE = {
+	xsmail: "10px",
+	small: "16px",
+	medium: "24px",
+	large: "32px",
+	xlarge: "48px",
+	xxlarge: "60px",
+};
+
 const deviceSizes = {
 	mobile: "580px",
 	tablet: "768px",
@@ -11,7 +33,10 @@ const DEVICE = {
 };
 
 const theme = {
+	deviceSizes,
 	DEVICE,
+	PALETTE,
+	FONT_SIZE,
 };
 
 export default theme;
