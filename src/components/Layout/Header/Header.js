@@ -71,6 +71,9 @@ const SearchBar = styled.input`
 	padding-bottom: 6px;
 	width: 230px;
 	border: none;
+	:focus {
+		outline: none;
+	}
 	border-bottom: 1.3px solid #404040;
 	::placeholder {
 		color: black;
