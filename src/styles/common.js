@@ -5,7 +5,7 @@
 
 */
 import { css } from "styled-components";
-import "@kfonts/neodgm";
+
 export const primaryFont = css`
 	font-family: "Neo둥근모", "neodgm";
 `;

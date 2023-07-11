@@ -76,6 +76,7 @@ const SearchBar = styled.input`
 		color: black;
 		font-size: 13px;
 	}
+	outline: none;
 `;
 const ImageWrapper = styled.div`
 	width: 190px;
