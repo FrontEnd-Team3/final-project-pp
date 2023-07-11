@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { color, font } from "styles/common";
+import { color, primaryFont } from "styles/common";
 
 const Header = () => {
 	return (
@@ -54,7 +54,7 @@ const NameWrapper = styled.div`
 `;
 const ImageName = styled.p`
 	margin-left: 0px;
-	${font}
+	${primaryFont}
 	font-size: 12px;
 `;
 
@@ -108,7 +108,7 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 auto;
-	${font}
+	${primaryFont}
 	width: 1060px;
 	height: 90px;
 `;
