@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexColumn } from "styles/common";
+import { flexColumn, primaryFont } from "styles/common";
 
 const Footer = () => {
 	return (
@@ -7,9 +7,9 @@ const Footer = () => {
 			<S.Wrapper>
 				<S.FooterTop>
 					<S.FooterTopLeft>
-						<p>
+						<S.CSCenter>
 							고객센터 <S.CSTell>1234-5678</S.CSTell>
-						</p>
+						</S.CSCenter>
 						<S.CSdesc>월-금 09:00 ~ 12:00 / 전화 잘 안받음</S.CSdesc>
 					</S.FooterTopLeft>
 					<S.FooterRight>
@@ -42,11 +42,17 @@ const Footer = () => {
 						</S.FooterBottomLeft>
 						<S.FooterBottomRight>
 							<S.InfoLink>
-								회사소개 | 인재채용 | 제휴제안 | 이용약관 | 개인정보처리방침
+								<li>회사소개</li>
+								<li>인재채용</li>
+								<li>제휴제안</li>
+								<li>이용약관</li>
+								<li>개인정보처리방침</li>
 							</S.InfoLink>
 							<S.CopyRight>
 								본 사이트의 저작권은 (주)뿅뿅마켓에 있으며 내용을 무단 복제
-								하세요 Copyright ©PPYONG PPYONG Corp. All rights reserved.
+								하세요
+								<br />
+								Copyright ©PPYONG PPYONG Corp. All rights reserved.
 							</S.CopyRight>
 						</S.FooterBottomRight>
 					</S.FooterBottom>
@@ -64,6 +70,9 @@ const Container = styled.div`
 	background-color: #f4f4f4;
 	border-bottom: 2px solid #404040;
 	border-top: 2px solid #404040;
+	& * {
+		${primaryFont}
+	}
 `;
 
 const Wrapper = styled.div`
@@ -78,10 +87,9 @@ const FooterTop = styled.div`
 `;
 
 const FooterTopLeft = styled.div`
-	padding: 0 50px;
-	display: flex;
-	align-items: center;
-	width: 560px;
+	${flexColumn}
+	justify-content: center;
+	width: 480px;
 	height: 100%;
 	border-right: 2px solid #404040;
 `;
@@ -104,13 +112,17 @@ const Icon = styled.div`
 	}
 `;
 
+const CSCenter = styled.p`
+	font-size: 20px;
+	margin-bottom: 5px;
+`;
+
 const CSTell = styled.span`
 	margin-left: 10px;
 `;
 
 const CSdesc = styled.span`
 	color: #6f6666;
-	margin-left: 20px;
 `;
 
 const BottomContainer = styled.div`
@@ -125,40 +137,70 @@ const FooterBottom = styled.div`
 `;
 
 const FooterBottomLeft = styled.div`
-	padding: 0px 50px;
 	${flexColumn}
 	justify-content: center;
-	width: 560px;
-	height: 100%;
+	width: 480px;
 	border-right: 2px solid #404040;
+	margin-right: -10px;
 `;
 
 const FooterLogo = styled.p`
-	font-size: 32px;
+	font-size: ${({ theme }) => theme.FONT_SIZE.large};
 	font-weight: bold;
-	color: #8490c8;
-	-webkit-text-stroke: 1px black;
+	color: ${({ theme }) => theme.PALETTE.primary["dark"]};
+	-webkit-text-stroke: 0.2px black;
+	letter-spacing: 1px;
 `;
 
 const Info = styled.ul`
 	margin-top: 10px;
 `;
 
-const Li = styled.li``;
+const Li = styled.li`
+	margin-bottom: 5px;
+`;
 
 const FooterBottomRight = styled.div`
 	margin-left: 30px;
-	padding: 27px 0;
+	padding: 36px 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 `;
 
-const InfoLink = styled.div``;
+const InfoLink = styled.ul`
+	display: flex;
+
+	li {
+		display: flex;
+		align-items: center;
+		padding-left: 12px;
+		cursor: pointer;
+	}
+
+	li:first-of-type {
+		padding-left: 0;
+	}
+
+	li:last-of-type {
+		font-weight: bold;
+		padding-right: 0;
+		color: ${({ theme }) => theme.PALETTE.pricePoint};
+	}
+
+	li::after {
+		content: "";
+		display: inline-block;
+		margin-left: 10px;
+		width: 2px;
+		height: 12px;
+		background-color: #000;
+	}
+`;
 
 const CopyRight = styled.p`
-	width: 400px;
 	color: #8a8a8a;
+	line-height: 1.2rem;
 `;
 
 const S = {
@@ -168,6 +210,7 @@ const S = {
 	FooterTopLeft,
 	FooterRight,
 	Icon,
+	CSCenter,
 	CSTell,
 	CSdesc,
 	BottomContainer,
