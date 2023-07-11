@@ -1,5 +1,7 @@
+import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
+
 const Main = () => {
-	return <div></div>;
+	return <RecentlyClicked />;
 };
 
 export default Main;
