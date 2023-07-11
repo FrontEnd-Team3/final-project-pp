@@ -34,7 +34,7 @@ const Container = styled.div`
 	border-radius: 12px;
 	border: 3px solid;
 	border-color: ${({ theme }) => theme.PALETTE.black};
-	background: #e2e2fe;
+	background: ${({ theme }) => theme.PALETTE.primary["light"]};
 	${primaryFont}
 `;
 
