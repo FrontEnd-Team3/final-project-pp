@@ -5,7 +5,7 @@ import EX4 from "./images/product4.png";
 
 export const productList = [
 	{
-		name: "메르세데스 벤츠 123123",
+		name: "메르세데스 벤츠 123123123123",
 		date: "1일 전",
 		image: EX1,
 		location: "서울시 강남구 역삼2동",
