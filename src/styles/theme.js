@@ -9,6 +9,7 @@ const PALETTE = {
 	yellow: "#FACC47",
 	black: "#404040",
 	white: "#FFFFFF",
+	pricePoint: "#705ECB",
 };
 
 const FONT_SIZE = {
