@@ -4,6 +4,7 @@
                 ${flexCenter}` 
 
 */
+import { css } from "styled-components";
 
 import { css } from "styled-components";
 
@@ -16,4 +17,8 @@ export const flexCenter = css`
 export const flexColumn = css`
 	display: flex;
 	flex-direction: column;
+`;
+
+export const primaryFont = css`
+	font-family: "Neo둥근모", "neodgm";
 `;
