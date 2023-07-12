@@ -71,7 +71,7 @@ const ProductDetailPage = () => {
 								<BasicButton
 									variant={"white"}
 									shape={"primary"}
-									size={"medium"}
+									size={"mediumSecond"}
 									children={"❤ Like"}
 									style={{
 										fontSize: "20px",
@@ -81,7 +81,7 @@ const ProductDetailPage = () => {
 								<BasicButton
 									variant={"secondary"}
 									shape={"primary"}
-									size={"medium"}
+									size={"mediumSecond"}
 									children={"Buy Now"}
 									style={{
 										fontSize: "20px",
