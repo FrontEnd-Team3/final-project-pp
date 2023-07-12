@@ -1,4 +1,5 @@
 import ProductList from "components/ProductList";
+import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
 import { productList } from "mock/products";
 
 const Main = () => {
@@ -8,8 +9,8 @@ const Main = () => {
 			{/* <AlertMessage />
 			<ChatList />
 			<ConsumerChat />
-			<SellerChat />
-			{/* <RecentlyClicked /> */}
+			<SellerChat />*/}
+			<RecentlyClicked />
 		</>
 	);
 };
