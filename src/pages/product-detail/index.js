@@ -9,6 +9,7 @@ import SUB3 from "./images/3.jpg";
 import SUB4 from "./images/4.jpg";
 import FAKEPROFILE from "./images/fakeProfile.png";
 import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
+import BasicButton from "components/Button";
 
 const ProductDetailPage = () => {
 	const { id } = useParams();
@@ -67,11 +68,40 @@ const ProductDetailPage = () => {
 							</S.Introduction>
 							<S.ProductPrice>{localPrice}원</S.ProductPrice>
 							<S.ProductButtons>
-								<button className="like">❤ Like</button>
-								<button className="buyNow">Buy Now</button>
+								<BasicButton
+									variant={"white"}
+									shape={"primary"}
+									size={"medium"}
+									children={"❤ Like"}
+									style={{
+										fontSize: "20px",
+										border: "3px solid #404040",
+									}}
+								/>
+								<BasicButton
+									variant={"secondary"}
+									shape={"primary"}
+									size={"medium"}
+									children={"Buy Now"}
+									style={{
+										fontSize: "20px",
+										border: "3px solid #404040",
+									}}
+								/>
 							</S.ProductButtons>
 							<div>
-								<S.ChatBtn>채팅</S.ChatBtn>
+								<BasicButton
+									variant={"primary"}
+									shape={"primary"}
+									size={"mediumLarge"}
+									children={"채팅"}
+									style={{
+										color: "#ffffff",
+										fontSize: "20px",
+										border: "3px solid #404040",
+										letterSpacing: "5px",
+									}}
+								/>
 							</div>
 						</S.InfoContainer>
 					</S.DetailTop>
@@ -101,7 +131,7 @@ const DetailTop = styled.div`
 `;
 
 const ImageContainer = styled.div`
-	width: 500px;
+	width: 450px;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(6, 1fr);
@@ -111,7 +141,7 @@ const ImageContainer = styled.div`
 		grid-area: 1 / 1 / 5 / 5;
 		margin: 0 auto;
 		img {
-			width: 500px;
+			width: 450px;
 			height: 400px;
 			border-radius: 16px;
 			border: 3px solid #404040;
@@ -221,36 +251,7 @@ const ProductPrice = styled.div`
 const ProductButtons = styled.div`
 	display: flex;
 	justify-content: space-between;
-	button {
-		${primaryFont}
-		width: 160px;
-		border-radius: 12px;
-		border: 3px solid #404040;
-		font-size: 20px;
-		/* box-shadow: 4px 4px 0px 0px #404040; */
-		padding: 7px 0;
-	}
-	.like {
-		background: #fff;
-	}
-	.buyNow {
-		background: #efd6fb;
-	}
 	padding: 30px 0;
-`;
-
-const ChatBtn = styled.button`
-	${primaryFont}
-	width: 340px;
-	border-radius: 12px;
-	border: 3px solid #404040;
-	background: #8490c8;
-	/* box-shadow: 4px 4px 0px 0px #404040; */
-	padding: 7px 0;
-	color: #ffffff;
-	font-size: 20px;
-	letter-spacing: 5px;
-	margin-bottom: 15px;
 `;
 
 const OtherProductTitle = styled.button`
@@ -276,6 +277,5 @@ const S = {
 	Introduction,
 	ProductPrice,
 	ProductButtons,
-	ChatBtn,
 	OtherProductTitle,
 };
