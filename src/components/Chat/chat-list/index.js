@@ -33,7 +33,6 @@ const Container = styled.div`
 	border: 3px solid black;
 	width: 430px;
 	height: 1275px;
-	background-color: darkgreen;
 	margin: 0 auto;
 	${primaryFont}
 `;
