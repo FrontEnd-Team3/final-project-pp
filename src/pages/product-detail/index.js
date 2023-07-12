@@ -2,7 +2,7 @@ import ProductList from "components/ProductList";
 import { productList } from "mock/products";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
+import { gothicFont, primaryFont } from "styles/common";
 import SUB1 from "./images/1.jpg";
 import SUB2 from "./images/2.jpg";
 import SUB3 from "./images/3.jpg";
@@ -54,7 +54,17 @@ const ProductDetailPage = () => {
 									<div className="dealCount">(총 거래 건: 10)</div>
 								</div>
 							</S.UserInfo>
-							<S.Introduction>딱 한번 사용했습니다 :)</S.Introduction>
+							<S.Introduction>
+								개성과 다양성을 상징하는 아디다스 슈퍼스타가 틀을 깨는 새로운
+								버전으로 돌아왔습니다. 과거에서 얻은 영감을 기반으로 모던한
+								스트리트웨어에 변화를 주도록 재구성된 아디폼 SST 부츠를
+								만나보세요. 지속 가능한 소재로 제작된 부츠 컷 디자인이 미래를
+								향해 진화하는 대담한 룩을 선사하고, 아이코닉한 쉘토가 슈퍼스타의
+								역사를 재조명합니다. 부드러운 폼 소재를 사용해 편안하고 기분
+								좋은 착화감을 제공합니다. 한정된 자원을 절약하고 플라스틱
+								폐기물을 줄이기 위해 천연 원료와 재생 소재로 제작된 친환경
+								제품입니다.
+							</S.Introduction>
 							<S.ProductPrice>{localPrice}원</S.ProductPrice>
 							<S.ProductButtons>
 								<button className="like">❤ Like</button>
@@ -101,11 +111,12 @@ const ImageContainer = styled.div`
 		grid-area: 1 / 1 / 5 / 5;
 		margin: 0 auto;
 		img {
+			width: 500px;
+			height: 400px;
 			border-radius: 16px;
 			border: 3px solid #404040;
 			background: #fff;
-			box-shadow: 4px 4px 0px 0px #404040;
-			padding: 50px 143px;
+			/* box-shadow: 4px 4px 0px 0px #404040; */
 		}
 	}
 	.sub1 {
@@ -116,7 +127,7 @@ const ImageContainer = styled.div`
 			border-radius: 16px;
 			border: 3px solid #404040;
 			background: #fff;
-			box-shadow: 4px 4px 0px 0px #404040;
+			/* box-shadow: 4px 4px 0px 0px #404040; */
 		}
 	}
 	.sub2 {
@@ -127,7 +138,7 @@ const ImageContainer = styled.div`
 			border-radius: 16px;
 			border: 3px solid #404040;
 			background: #fff;
-			box-shadow: 4px 4px 0px 0px #404040;
+			/* box-shadow: 4px 4px 0px 0px #404040; */
 		}
 	}
 	.sub3 {
@@ -138,7 +149,7 @@ const ImageContainer = styled.div`
 			border-radius: 16px;
 			border: 3px solid #404040;
 			background: #fff;
-			box-shadow: 4px 4px 0px 0px #404040;
+			/* box-shadow: 4px 4px 0px 0px #404040; */
 		}
 	}
 	.sub4 {
@@ -149,7 +160,7 @@ const ImageContainer = styled.div`
 			border-radius: 16px;
 			border: 3px solid #404040;
 			background: #fff;
-			box-shadow: 4px 4px 0px 0px #404040;
+			/* box-shadow: 4px 4px 0px 0px #404040; */
 		}
 	}
 `;
@@ -162,7 +173,7 @@ const InfoContainer = styled.div`
 `;
 
 const ProductName = styled.div`
-	font-size: 32px;
+	font-size: 24px;
 `;
 
 const ProductLocation = styled.div`
@@ -196,10 +207,12 @@ const Introduction = styled.div`
 	padding-top: 20px;
 	border-bottom: 1px solid #b6b6b6;
 	padding-bottom: 10px;
+	line-height: 23px;
+	${gothicFont}
 `;
 
 const ProductPrice = styled.div`
-	font-size: 40px;
+	font-size: 28px;
 	color: #705ecb;
 	text-align: right;
 	padding-top: 30px;
@@ -214,7 +227,7 @@ const ProductButtons = styled.div`
 		border-radius: 12px;
 		border: 3px solid #404040;
 		font-size: 20px;
-		box-shadow: 4px 4px 0px 0px #404040;
+		/* box-shadow: 4px 4px 0px 0px #404040; */
 		padding: 7px 0;
 	}
 	.like {
@@ -232,7 +245,7 @@ const ChatBtn = styled.button`
 	border-radius: 12px;
 	border: 3px solid #404040;
 	background: #8490c8;
-	box-shadow: 4px 4px 0px 0px #404040;
+	/* box-shadow: 4px 4px 0px 0px #404040; */
 	padding: 7px 0;
 	color: #ffffff;
 	font-size: 20px;
@@ -246,9 +259,9 @@ const OtherProductTitle = styled.button`
 	background-color: ${({ theme }) => theme.PALETTE.primary["light"]};
 	${primaryFont}
 	font-size: 20px;
-	border: 2px solid ${({ theme }) => theme.PALETTE.black};
+	border: 3px solid ${({ theme }) => theme.PALETTE.black};
 	border-radius: 12px;
-	box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+	/* box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8); */
 	margin-bottom: 25px;
 `;
 

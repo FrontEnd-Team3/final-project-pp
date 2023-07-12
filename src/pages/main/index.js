@@ -1,3 +1,6 @@
+import ProductList from "components/ProductList";
+import { productList } from "mock/products";
+
 const Main = () => {
 	return (
 		<>
