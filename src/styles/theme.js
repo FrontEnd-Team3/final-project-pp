@@ -13,18 +13,26 @@ const PALETTE = {
 };
 
 const FONT_SIZE = {
-	xsmail: "10px",
+	xxxsmall: "10px",
+	xxsmall: "12px",
+	xsmall: "14px",
 	small: "16px",
+	xsmedium: "18px",
+	smedium: "20px",
+	semimedium: "22px",
 	medium: "24px",
+	mlarge: "28px",
 	large: "32px",
-	xlarge: "48px",
-	xxlarge: "60px",
+	mlarge: "36px",
+	xlarge: "40px",
+	xxlarge: "48px",
+	xxxlarge: "60px",
 };
 
 const deviceSizes = {
 	mobile: "580px",
 	tablet: "768px",
-	pc: "1024px",
+	pc: "1060px",
 };
 
 const DEVICE = {

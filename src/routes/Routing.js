@@ -1,5 +1,6 @@
 import Layout from "components/Layout";
 import Main from "pages/main";
+import ProductRegister from "pages/product-register";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -9,6 +10,10 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Main />,
+			},
+			{
+				path: "/productRegister",
+				element: <ProductRegister />,
 			},
 		],
 	},
