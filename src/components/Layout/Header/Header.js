@@ -23,11 +23,16 @@ const Header = () => {
 					<S.SearchBar placeholder=" 물품명, 태그명을 검색해 보세요 "></S.SearchBar>
 					<S.SearchImage src="img/searchtest.jpg"></S.SearchImage>
 					<S.ImageWrapper>
-						<S.Image src="img/signup.jpg"></S.Image>
+						<S.Image
+							src="img/signup.jpg"
+							onClick={() => {
+								navigate(`/Signin`);
+							}}
+						></S.Image>
 						<S.Image
 							src="img/login.jpg"
 							onClick={() => {
-								navigate(`/Signin`);
+								navigate(`/Signup`);
 							}}
 						></S.Image>
 						<S.Image src="img/mypage.jpg"></S.Image>

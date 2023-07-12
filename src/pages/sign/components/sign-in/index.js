@@ -2,13 +2,11 @@ import BasicButton from "components/Button";
 import BasicInput from "components/Input";
 import styled from "styled-components";
 import { color, flexColumn, primaryFont } from "styles/common";
-/* <BasicInput
 
-></BasicInput> */
 const Signin = () => {
 	return (
 		<S.Container>
-			<S.RealTitle>PYONG PYONG</S.RealTitle>
+			<S.RealTitle>PPYONG PPYONG</S.RealTitle>
 			<S.Wrapper>
 				<S.Title>이름</S.Title>
 				<BasicInput
@@ -22,7 +20,7 @@ const Signin = () => {
 			<S.Wrapper>
 				<S.Title>이메일 주소</S.Title>
 				<BasicInput
-					placeholder="EX) pyongpyong@naver.com"
+					placeholder="EX) example@pyongpyong.com"
 					size={"medium"}
 					color={"primary"}
 					variant={"primary"}
@@ -70,11 +68,9 @@ const Signin = () => {
 						color={"primary"}
 						variant={"primary"}
 					></BasicInput>
-					<BasicButton
-						size={"small"}
-						variant={"primary"}
-						shape={"primary"}
-					></BasicButton>
+					<BasicButton size={"small"} variant={"primary"} shape={"primary"}>
+						찾기
+					</BasicButton>
 				</div>
 			</S.Wrapper>
 			<S.Wrapper>
@@ -86,20 +82,43 @@ const Signin = () => {
 					variant={"primary"}
 				></BasicInput>
 			</S.Wrapper>
+			<S.ButtonWrapper>
+				<BasicButton size={"large"} variant={"primary"} shape={"primary"}>
+					회원가입
+				</BasicButton>
+			</S.ButtonWrapper>
 		</S.Container>
 	);
 };
 
 export default Signin;
-
+const ButtonWrapper = styled.div`
+	width: 500px;
+	position: relative;
+	top: 115px;
+	height: 140px;
+	button {
+		border: none;
+		${primaryFont}
+		font-size: 15px;
+		color: white;
+		background-color: #e6e6e6;
+		:hover {
+			background-color: #8490c8;
+		}
+		:disabled {
+			background-color: #e6e6e6;
+		}
+	}
+`;
 const RealTitle = styled.div`
-	font-size: 35px;
+	font-size: 38px;
 	font-weight: 900;
 	word-spacing: -10px;
 	${color}
 	-webkit-text-stroke: 0.1px black;
 	position: relative;
-	top: 30px;
+	top: 40px;
 `;
 
 const Title = styled.p`
@@ -117,11 +136,12 @@ const Subtitle = styled.p`
 const Wrapper = styled.div`
 	margin: 25px;
 	position: relative;
-	top: 80px;
+	top: 90px;
 `;
 
 const Container = styled.div`
 	margin: 0 auto;
+	margin-bottom: 60px;
 	width: 640px;
 	height: 998px;
 	border: 2px solid #404040;
@@ -129,7 +149,31 @@ const Container = styled.div`
 	${flexColumn}
 	${primaryFont}
 	align-items: center;
-	margin-top: 50px;
+	margin-top: 40px;
+
+	div:nth-child(7) {
+		position: relative;
+		right: 8px;
+
+		p {
+			position: relative;
+			top: 0.1px;
+		}
+		input {
+			position: relative;
+			top: 7px;
+			width: 410px;
+		}
+		button {
+			position: relative;
+			left: 12px;
+			top: 5px;
+			${primaryFont}
+			font-size: 14px;
+			border: none;
+			color: white;
+		}
+	}
 `;
 
 const S = {
@@ -138,4 +182,5 @@ const S = {
 	Title,
 	Subtitle,
 	RealTitle,
+	ButtonWrapper,
 };
