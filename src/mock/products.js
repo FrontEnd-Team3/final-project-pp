@@ -5,6 +5,7 @@ import EX4 from "./images/product4.png";
 
 export const productList = [
 	{
+		id: 0,
 		name: "메르세데스 벤츠 123123123123",
 		date: "1일 전",
 		image: EX1,
@@ -12,6 +13,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 1,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX1,
@@ -19,6 +21,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 2,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX1,
@@ -26,6 +29,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 3,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX1,
@@ -33,6 +37,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 4,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX1,
@@ -40,6 +45,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 5,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX1,
@@ -47,6 +53,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 6,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX1,
@@ -54,6 +61,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 7,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX1,
@@ -61,6 +69,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 8,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX2,
@@ -68,6 +77,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 9,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX2,
@@ -75,6 +85,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 10,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX2,
@@ -82,6 +93,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 11,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX2,
@@ -89,6 +101,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 12,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX2,
@@ -96,6 +109,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 13,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX2,
@@ -103,6 +117,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 14,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX2,
@@ -110,6 +125,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 15,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX2,
@@ -117,6 +133,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 16,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX3,
@@ -124,6 +141,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 17,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX3,
@@ -131,6 +149,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 18,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX3,
@@ -138,6 +157,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 19,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX3,
@@ -145,6 +165,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 20,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX3,
@@ -152,6 +173,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 21,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX3,
@@ -159,6 +181,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 22,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX3,
@@ -166,6 +189,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 23,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX3,
@@ -173,6 +197,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 24,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX4,
@@ -180,6 +205,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 25,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX4,
@@ -187,6 +213,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 26,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX4,
@@ -194,6 +221,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 27,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX4,
@@ -201,6 +229,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 28,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX4,
@@ -208,6 +237,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 29,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX4,
@@ -215,6 +245,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 30,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX4,
@@ -222,6 +253,7 @@ export const productList = [
 		price: 50000000,
 	},
 	{
+		id: 31,
 		name: "메르세데스 벤츠 123123",
 		date: "1일 전",
 		image: EX4,
