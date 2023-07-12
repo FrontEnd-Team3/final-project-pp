@@ -5,7 +5,7 @@ import { PiHeartDuotone, PiHeartLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 
 const OneProduct = ({ product }) => {
-	console.log(product);
+	// console.log(product);
 	const localPrice = product.price.toLocaleString("ko-KR");
 	const ImageURL = product.image;
 

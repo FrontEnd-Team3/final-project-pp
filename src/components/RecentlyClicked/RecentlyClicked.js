@@ -62,7 +62,7 @@ const RecentlyClicked = () => {
 
 	// Scroll to Top
 	const [scrollY, setScrollY] = useState(0);
-	console.log("Y", scrollY);
+	// console.log("Y", scrollY);
 
 	const handleScroll = () => {
 		setScrollY(window.scrollY);
