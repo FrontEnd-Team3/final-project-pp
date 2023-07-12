@@ -1,14 +1,15 @@
-import ProductList from "components/ProductList";
-import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
+import AlertMessage from "components/AlertMessege";
+import ChatList from "components/Chat/chat-list";
+import ConsumerChat from "components/Chat/consumer-chat";
 
 const Main = () => {
 	return (
 		<>
-			<ProductList />
-			{/* <AlertMessage />
+			{/* <ProductList /> */}
+			<AlertMessage />
 			<ChatList />
-			<ConsumerChat /> */}
-			<RecentlyClicked />
+			<ConsumerChat />
+			{/* <RecentlyClicked /> */}
 		</>
 	);
 };
