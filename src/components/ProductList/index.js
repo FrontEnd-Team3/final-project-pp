@@ -13,8 +13,8 @@ const ProductList = () => {
 		return (
 			<>
 				<S.Container>
-					{productList.slice(offset, offset + dataLimit).map((product, i) => (
-						<OneProduct key={i} product={product} />
+					{productList.slice(offset, offset + dataLimit).map(product => (
+						<OneProduct key={product.id} product={product} />
 					))}
 				</S.Container>
 				<Pagination
