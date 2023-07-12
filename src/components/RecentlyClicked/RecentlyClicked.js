@@ -31,6 +31,7 @@ const RecentlyClicked = () => {
 				}
 			}, 0);
 		} else {
+			slideRef.current.style.transition = "all 0.5s ease-in-out";
 			setCurrentIndex(prev => prev + 1);
 		}
 	};
@@ -45,6 +46,7 @@ const RecentlyClicked = () => {
 				}
 			}, 0);
 		} else {
+			slideRef.current.style.transition = "all 0.5s ease-in-out";
 			setCurrentIndex(prev => prev - 1);
 		}
 	};
@@ -55,7 +57,6 @@ const RecentlyClicked = () => {
 	const InfiniteArr = [firstElement, ...ImageArr, lastElement];
 
 	useEffect(() => {
-		// console.log("current", currentIndex);
 		slideRef.current.style.transform = `translateY(-${SLIDE_RANGE}px)`;
 	}, [currentIndex]);
 
@@ -126,6 +127,7 @@ const Container = styled.div`
 	${primaryFont}
 	text-align: center;
 	font-size: 18px;
+	background-color: ${({ theme }) => theme.PALETTE.white};
 `;
 
 const Top = styled.div`

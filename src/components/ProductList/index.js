@@ -2,6 +2,7 @@ import styled from "styled-components";
 import OneProduct from "./one-product";
 import { productList } from "mock/products";
 import { useState } from "react";
+import Pagination from "components/Pagination";
 
 const ProductList = () => {
 	const [dataLimit, setDataLimit] = useState(8);
@@ -10,11 +11,19 @@ const ProductList = () => {
 
 	if (productList)
 		return (
-			<S.Container>
-				{productList.map((product, i) => (
-					<OneProduct key={i} product={product} />
-				))}
-			</S.Container>
+			<>
+				<S.Container>
+					{productList.slice(offset, offset + dataLimit).map(product => (
+						<OneProduct key={product.id} product={product} />
+					))}
+				</S.Container>
+				<Pagination
+					totalData={productList.length}
+					dataLimit={dataLimit}
+					page={page}
+					setPage={setPage}
+				/>
+			</>
 		);
 };
 
