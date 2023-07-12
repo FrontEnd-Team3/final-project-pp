@@ -1,5 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
+import { PiHeartDuotone, PiHeartLight } from "react-icons/pi";
 
 const OneProduct = ({ product }) => {
 	console.log(product);
@@ -7,9 +9,27 @@ const OneProduct = ({ product }) => {
 	const ImageURL = product.image;
 
 	// 하트 넣기
+	const [isLiked, setIsLiked] = useState(false);
 	return (
 		<S.Container>
-			<S.Image src={ImageURL}></S.Image>
+			<div>
+				<S.Heart>
+					{isLiked ? (
+						<PiHeartDuotone
+							color="red"
+							size="20"
+							onClick={() => setIsLiked(false)}
+						/>
+					) : (
+						<PiHeartLight
+							color="red"
+							size="20"
+							onClick={() => setIsLiked(true)}
+						/>
+					)}
+				</S.Heart>
+				<S.Image src={ImageURL}></S.Image>
+			</div>
 			<S.ProductInfo>
 				<div className="infoTop">
 					<p className="name">{product.name}</p>
@@ -36,6 +56,13 @@ const Container = styled.div`
 	border-color: ${({ theme }) => theme.PALETTE.black};
 	background: ${({ theme }) => theme.PALETTE.primary["light"]};
 	${primaryFont}
+	position: relative;
+`;
+
+const Heart = styled.p`
+	position: absolute;
+	top: 20px;
+	left: 150px;
 `;
 
 const Image = styled.img`
@@ -81,4 +108,4 @@ const ProductInfo = styled.div`
 	}
 `;
 
-const S = { Container, Image, ProductInfo };
+const S = { Container, Heart, Image, ProductInfo };
