@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 import { PiHeartDuotone, PiHeartLight } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 
 const OneProduct = ({ product }) => {
 	console.log(product);
@@ -10,8 +11,14 @@ const OneProduct = ({ product }) => {
 
 	// 하트 넣기
 	const [isLiked, setIsLiked] = useState(false);
+
+	// 상품 상세 페이지로 이동
+	const navigate = useNavigate();
+	const HandlePageMove = () => {
+		navigate(`/product/${product.id}`);
+	};
 	return (
-		<S.Container>
+		<S.Container onClick={HandlePageMove}>
 			<div>
 				<S.Heart>
 					{isLiked ? (
