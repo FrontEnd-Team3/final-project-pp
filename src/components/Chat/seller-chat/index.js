@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 
-const ConsumerChat = () => {
+const SellerChat = () => {
 	return (
 		<S.Container>
 			<S.Header>
@@ -9,16 +9,30 @@ const ConsumerChat = () => {
 				<S.Xbutton>X</S.Xbutton>
 			</S.Header>
 			<S.Main>
-				<S.day>2023.07.11</S.day>
-				<S.hr />
-				<S.Chatbuy>:)</S.Chatbuy>
-				<S.ChatSeller>안~팔~아~</S.ChatSeller>
+				<S.Chat>
+					<S.day>2023.07.11</S.day>
+					<S.hr />
+					<S.Chatbuy>:)</S.Chatbuy>
+					<S.ChatSeller>안~팔~아~</S.ChatSeller>
+				</S.Chat>
+				<S.List>
+					<Item></Item>
+					<Item></Item>
+					<Item></Item>
+					<Item></Item>
+					<Item></Item>
+					<Item></Item>
+					<Item></Item>
+					<Item></Item>
+					<Item>하</Item>
+					<Item>하</Item>
+				</S.List>
 			</S.Main>
 		</S.Container>
 	);
 };
 
-export default ConsumerChat;
+export default SellerChat;
 
 const Container = styled.div`
 	border: 3px solid black;
@@ -55,6 +69,15 @@ const Main = styled.div`
 	height: 800px;
 	overflow-x: hidden;
 	overflow-y: scroll;
+`;
+
+const Chat = styled.div`
+	width: 345px;
+	height: 500px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	position: relative;
+	float: left;
 	&::-webkit-scrollbar {
 		width: 15px;
 	}
@@ -69,13 +92,32 @@ const Main = styled.div`
 	}
 `;
 
+const List = styled.div`
+	width: 65px;
+	float: right;
+	height: 1000px;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+`;
+
+const Item = styled.div`
+	background-color: #8490c8;
+	height: 65px;
+	display: flex;
+	border: 3px solid black;
+	align-items: center;
+	text-align: center;
+`;
+
 const day = styled.div`
 	font-size: 30px;
 	text-align: center;
 `;
 
 const hr = styled.hr`
-	/* width: 420px; */
+	width: 600px;
 `;
 
 const Chatbuy = styled.div`
@@ -107,4 +149,6 @@ const S = {
 	hr,
 	Chatbuy,
 	ChatSeller,
+	Chat,
+	List,
 };
