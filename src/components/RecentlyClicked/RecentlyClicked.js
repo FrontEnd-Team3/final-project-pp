@@ -126,6 +126,7 @@ const Container = styled.div`
 	${primaryFont}
 	text-align: center;
 	font-size: 18px;
+	background-color: ${({ theme }) => theme.PALETTE.white};
 `;
 
 const Top = styled.div`
