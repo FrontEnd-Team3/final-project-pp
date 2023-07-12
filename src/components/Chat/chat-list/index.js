@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
+import gkgk from "./gkgk.png";
 
 const ChatList = () => {
 	return (
@@ -11,7 +12,7 @@ const ChatList = () => {
 			<S.Main>
 				<S.Item>
 					<S.Iimg>
-						<img src="1.jpg"></img>
+						<img src={gkgk} width="150px" height="150px" float="left"></img>
 					</S.Iimg>
 					<S.Itext>상품명</S.Itext>
 					<S.Itext>마지막 채팅</S.Itext>
@@ -30,7 +31,7 @@ export default ChatList;
 
 const Container = styled.div`
 	border: 3px solid black;
-	width: 1158px;
+	width: 430px;
 	height: 1275px;
 	background-color: darkgreen;
 	margin: 0 auto;
@@ -38,34 +39,40 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-	width: 1158px;
+	width: 100%;
 	height: 71px;
 	text-align: center;
 	display: flex;
+	div {
+		width: 50%;
+		cursor: pointer;
+		:hover {
+			opacity: 0.7;
+		}
+	}
 `;
 
 const Hsale = styled.div`
 	background-color: #8490c8;
 	border: 1px solid black;
 	width: 577px;
-	font-size: 32px;
+	font-size: 24px;
 `;
 
 const Hbuy = styled.div`
 	border: 1px solid black;
 	background-color: #d5d5d5;
 	width: 576px;
-	font-size: 32px;
+	font-size: 24px;
 `;
 
 const Main = styled.div`
-	margin: 0 auto;
-	width: 100%;
-	height: 1183px;
+	height: 1100px;
+	padding-left: 4px;
+	align-items: center;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
-		width: 30px;
-		height: 100px;
+		width: 15px;
 	}
 	&::-webkit-scrollbar-thumb {
 		border-radius: 16px;
@@ -79,9 +86,12 @@ const Main = styled.div`
 `;
 
 const Item = styled.div`
+	padding-left: 5px;
+	padding-top: 5px;
 	border: 3px solid black;
 	border-radius: 16px;
-	width: 1045px;
+
+	width: 400px;
 	height: 249px;
 	background-color: white;
 	margin-top: 35px;
@@ -92,10 +102,12 @@ const Item = styled.div`
 const Iimg = styled.div`
 	width: 210px;
 	height: 210px;
+	border-radius: 16px;
 `;
 
 const Itext = styled.div`
-	font-size: 38px;
+	font-size: 24px;
+	float: right;
 `;
 
 const S = {
