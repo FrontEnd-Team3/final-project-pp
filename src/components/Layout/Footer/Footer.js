@@ -191,6 +191,15 @@ const InfoLink = styled.ul`
 		padding-left: 0;
 	}
 
+	li:first-of-type::before {
+		content: "";
+		display: inline-block;
+		margin-right: 10px;
+		width: 2px;
+		height: 12px;
+		background-color: #000;
+	}
+
 	li:last-of-type {
 		font-weight: bold;
 		padding-right: 0;

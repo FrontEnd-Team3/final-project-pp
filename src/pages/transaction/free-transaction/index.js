@@ -15,9 +15,13 @@ const FreeTransaction = () => {
 				<S.Address>
 					<div>
 						서울시 성동구 성수동{" "}
-						<BasicButton variant="primary" size="primary" shape="primary">
-							변경
-						</BasicButton>
+						<BasicButton
+							variant={"primary"}
+							shape={"primary"}
+							size={"xsmall"}
+							children={"변경"}
+							style={{ fontSize: "14px", marginLeft: "15px" }}
+						/>
 					</div>
 					<S.Filtering>
 						<li>등록순</li>
@@ -64,8 +68,7 @@ const Address = styled.div`
 	margin: 12px 0;
 	& button {
 		color: ${({ theme }) => theme.PALETTE.white};
-		padding: 4px 14px;
-		box-shadow: 2px 2px 0px 0px rgba(64, 64, 64, 1);
+		/* box-shadow: 2px 2px 0px 0px #404040; */
 	}
 `;
 
