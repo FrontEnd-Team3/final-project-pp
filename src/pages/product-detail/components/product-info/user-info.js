@@ -1,16 +1,15 @@
-import FAKEPROFILE from "../../images/fakeProfile.png";
 import styled from "styled-components";
 
-const UserInfo = () => {
+const UserInfo = ({ user }) => {
 	return (
 		<S.Container>
 			<div style={{ display: "flex" }}>
-				<img src={FAKEPROFILE} className="profileImg" />
-				<div className="nickname">。그ㅣ염 둥 ② 째원。</div>
+				<img src={user.profileImg} className="profileImg" />
+				<div className="nickname">{user.nickname}</div>
 			</div>
 			<div>
-				<div className="degree">매너온도: 36도</div>
-				<div className="dealCount">(총 거래 건: 10)</div>
+				<div className="degree">매너온도: {user.degree}도</div>
+				<div className="dealCount">(총 거래 건: {user.dealCount})</div>
 			</div>
 		</S.Container>
 	);

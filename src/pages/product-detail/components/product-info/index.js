@@ -17,7 +17,7 @@ const ProductInfo = () => {
 				<S.InfoContainer>
 					<S.ProductName>{TARGET.name}</S.ProductName>
 					<S.ProductLocation>{TARGET.location}(위도, 경도)</S.ProductLocation>
-					<UserInfo />
+					<UserInfo user={TARGET.user} />
 					<S.Introduction>{TARGET.introduction}</S.Introduction>
 					<S.ProductPrice>{localPrice}원</S.ProductPrice>
 					<ButtonContainer />

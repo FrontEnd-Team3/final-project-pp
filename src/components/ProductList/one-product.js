@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const OneProduct = ({ product }) => {
 	// console.log(product);
 	const localPrice = product.price.toLocaleString("ko-KR");
-	const ImageURL = product.image;
+	const ImageURL = product.image[0];
 
 	// 하트 넣기
 	const [isLiked, setIsLiked] = useState(false);
