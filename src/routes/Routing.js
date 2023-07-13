@@ -4,6 +4,8 @@ import ProductDetailPage from "pages/product-detail";
 import ProductRegister from "pages/product-register";
 import Signin from "pages/sign/components/sign-in";
 import Signup from "pages/sign/components/sign-up";
+import FreeTransaction from "pages/transaction/free-transaction";
+import UsedTransaction from "pages/transaction/used-transaction";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
 			{
 				path: "/productRegister",
 				element: <ProductRegister />,
+			},
+			{
+				path: "/used-transaction",
+				element: <UsedTransaction />,
+			},
+			{
+				path: "/free-transaction",
+				element: <FreeTransaction />,
 			},
 		],
 	},

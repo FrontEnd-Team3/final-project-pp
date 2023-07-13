@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { flexColumn, primaryFont } from "styles/common";
+import { BiSolidGame } from "react-icons/bi";
 
 const Footer = () => {
 	return (
@@ -48,12 +49,20 @@ const Footer = () => {
 								<li>이용약관</li>
 								<li>개인정보처리방침</li>
 							</S.InfoLink>
-							<S.CopyRight>
-								본 사이트의 저작권은 (주)뿅뿅마켓에 있으며 내용을 무단 복제
-								하세요
-								<br />
-								Copyright ©PPYONG PPYONG Corp. All rights reserved.
-							</S.CopyRight>
+							<S.CopyIconBox>
+								<S.CopyRight>
+									본 사이트의 저작권은 (주)뿅뿅마켓에 있으며 내용을 무단 복제
+									하세요
+									<br />
+									Copyright ©PPYONG PPYONG Corp. All rights reserved.
+								</S.CopyRight>
+								<S.IconPackman>
+									<BiSolidGame size={40} />
+									<span></span>
+									<span></span>
+									<span></span>
+								</S.IconPackman>
+							</S.CopyIconBox>
 						</S.FooterBottomRight>
 					</S.FooterBottom>
 				</S.Wrapper>
@@ -161,7 +170,7 @@ const Li = styled.li`
 `;
 
 const FooterBottomRight = styled.div`
-	margin-left: 30px;
+	margin-left: 40px;
 	padding: 36px 0;
 	display: flex;
 	flex-direction: column;
@@ -182,6 +191,15 @@ const InfoLink = styled.ul`
 		padding-left: 0;
 	}
 
+	li:first-of-type::before {
+		content: "";
+		display: inline-block;
+		margin-right: 10px;
+		width: 2px;
+		height: 12px;
+		background-color: #000;
+	}
+
 	li:last-of-type {
 		font-weight: bold;
 		padding-right: 0;
@@ -198,9 +216,38 @@ const InfoLink = styled.ul`
 	}
 `;
 
+const CopyIconBox = styled.div`
+	display: flex;
+`;
+
+const IconPackman = styled.div`
+	display: flex;
+	align-items: center;
+	svg {
+		color: #ffeea4;
+	}
+
+	path {
+		stroke-width: 1.2px;
+		stroke: ${({ theme }) => theme.PALETTE.black};
+	}
+
+	span {
+		display: inline-block;
+		background-color: #ffeea4;
+		width: 10px;
+		height: 10px;
+		border: 2px solid ${({ theme }) => theme.PALETTE.BLACK};
+		border-radius: 50%;
+		margin-right: 6px;
+	}
+`;
+
 const CopyRight = styled.p`
 	color: #8a8a8a;
 	line-height: 1.2rem;
+	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
+	margin-right: 30px;
 `;
 
 const S = {
@@ -221,5 +268,7 @@ const S = {
 	Info,
 	Li,
 	InfoLink,
+	CopyIconBox,
 	CopyRight,
+	IconPackman,
 };

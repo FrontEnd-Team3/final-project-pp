@@ -22,6 +22,7 @@ const FONT_SIZE = {
 	smedium: "20px",
 	semimedium: "22px",
 	medium: "24px",
+	mmlarge: "26px",
 	mlarge: "28px",
 	large: "32px",
 	mlarge: "36px",
