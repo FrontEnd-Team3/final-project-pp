@@ -1,10 +1,12 @@
 import BasicButton from "components/Button";
 import ProductList from "components/ProductList";
 import { productList } from "mock/products";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 
 const UsedProduct = () => {
+	const navigate = useNavigate();
 	return (
 		<S.Container>
 			<div>
@@ -19,6 +21,16 @@ const UsedProduct = () => {
 						size={"xsmall"}
 						children={"변경"}
 						style={{ color: "white", fontSize: "14px", marginLeft: "15px" }}
+					/>
+				</div>
+				<div style={{ float: "right" }}>
+					<BasicButton
+						variant={"primary"}
+						shape={"primary"}
+						size={"medium"}
+						children={"상품 등록 + "}
+						style={{ color: "white", fontSize: "20px", margin: "40px 0" }}
+						onClick={() => navigate("/productRegister")}
 					/>
 				</div>
 			</div>
