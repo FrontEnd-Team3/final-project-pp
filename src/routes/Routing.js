@@ -2,6 +2,7 @@ import Layout from "components/Layout";
 import Main from "pages/main";
 import ProductDetailPage from "pages/product-detail";
 import ProductRegister from "pages/product-register";
+import SearchPage from "pages/search-page";
 import Signin from "pages/sign/components/sign-in";
 import Signup from "pages/sign/components/sign-up";
 import FreeTransaction from "pages/transaction/free-transaction";
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
 			{
 				path: "/free-transaction",
 				element: <FreeTransaction />,
+			},
+			{
+				path: "/search",
+				element: <SearchPage />,
 			},
 		],
 	},

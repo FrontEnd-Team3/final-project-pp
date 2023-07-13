@@ -89,7 +89,7 @@ export const productList = [
 		location: "서울시 성동구 성수동",
 		price: 340200,
 		introduction:
-			"- 양가죽을 사용하여 부드러워 착화감이 좋으며,<br/> 창과 어퍼에 폴리곤 모양의 퀼팅 재봉으로<br/> 밋밋할수있는 샌들에 포인트를 주었다. <br/> - 앤틱 버클장식을 적용하여 고급스러운 스타일.",
+			"- 양가죽을 사용하여 부드러워 착화감이 좋으며, 창과 어퍼에 폴리곤 모양의 퀼팅 재봉으로 밋밋할수있는 샌들에 포인트를 주었다. 앤틱 버클장식을 적용하여 고급스러운 스타일.",
 		user: {
 			profileImg: FAKEPROFILE,
 			nickname: "。그ㅣ염 둥 ② 째원",
@@ -153,7 +153,7 @@ export const productList = [
 		location: "서울시 성동구 성수동",
 		price: 90300,
 		introduction:
-			"스트리트 컬쳐와 스포츠를 아우르는 디자인으로 <br/> 나이키의 도전정신을 기념하다. <br/> 클래식 스타일을 과감하게 재해석하여, <br/> 시선을 사로잡는 나이키 뉴 컬렉션을 만나보세요.",
+			"스트리트 컬쳐와 스포츠를 아우르는 디자인으로 나이키의 도전정신을 기념하다. 클래식 스타일을 과감하게 재해석하여, 시선을 사로잡는 나이키 뉴 컬렉션을 만나보세요.",
 		user: {
 			profileImg: FAKEPROFILE,
 			nickname: "。그ㅣ염 둥 ② 째원",
@@ -169,7 +169,7 @@ export const productList = [
 		location: "서울시 성동구 성수동",
 		price: 189000,
 		introduction:
-			"나일론 재질의 라운드 호보 모양. <br/> 스트랩에 6개의 넉넉한 홀로 길이 조절 가능하여 크로스와 숄더로 착용 가능",
+			"나일론 재질의 라운드 호보 모양. 스트랩에 6개의 넉넉한 홀로 길이 조절 가능하여 크로스와 숄더로 착용 가능",
 		user: {
 			profileImg: FAKEPROFILE,
 			nickname: "。그ㅣ염 둥 ② 째원",
@@ -217,7 +217,7 @@ export const productList = [
 		location: "서울시 성동구 성수동",
 		price: 398000,
 		introduction:
-			"어깨 라인 끈으로 원하는 스타일 연출 <br/> 앞뒤 비대칭 기장 <br/> 러플을 이용하여 볼륨감 있는 러블리한 디자인",
+			"어깨 라인 끈으로 원하는 스타일 연출 앞뒤 비대칭 기장 러플을 이용하여 볼륨감 있는 러블리한 디자인",
 		user: {
 			profileImg: FAKEPROFILE,
 			nickname: "。그ㅣ염 둥 ② 째원",
@@ -264,7 +264,7 @@ export const productList = [
 		location: "서울시 성동구 성수동",
 		price: 364000,
 		introduction:
-			"레드 아미 드 꾀흐 가슴 자수 <br/> 네크라인 뒷면의 비슷한 톤 아미 자수 <br/> 포르투갈에서 사랑을 담아 제작한 상품입니다",
+			"레드 아미 드 꾀흐 가슴 자수 네크라인 뒷면의 비슷한 톤 아미 자수 포르투갈에서 사랑을 담아 제작한 상품입니다",
 		user: {
 			profileImg: FAKEPROFILE,
 			nickname: "。그ㅣ염 둥 ② 째원",
