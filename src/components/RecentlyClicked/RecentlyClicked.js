@@ -92,7 +92,7 @@ const RecentlyClicked = () => {
 			<S.Middle>
 				<div className="title">최근 본 상품</div>
 				<S.Arrow src={TOPARROW} onClick={handleUpSlideIndex} />
-				<SlideWrapper>
+				<S.SlideWrapper>
 					<S.SlideContainer ref={slideRef} length={InfiniteArr.length}>
 						{InfiniteArr.length ? (
 							<>
@@ -106,7 +106,7 @@ const RecentlyClicked = () => {
 							<S.Empty>...없어욤</S.Empty>
 						)}
 					</S.SlideContainer>
-				</SlideWrapper>
+				</S.SlideWrapper>
 				<S.Arrow src={DOWNARROW} onClick={handleDownSlideIndex} />
 			</S.Middle>
 			<S.Bottom onClick={handleScrollToTop}>TOP</S.Bottom>
@@ -123,7 +123,7 @@ const Container = styled.div`
 	border-color: ${({ theme }) => theme.PALETTE.black};
 	position: fixed;
 	top: 250px;
-	left: 1350px;
+	left: 75em;
 	${primaryFont}
 	text-align: center;
 	font-size: 18px;
@@ -194,9 +194,10 @@ const S = {
 	Container,
 	Top,
 	Middle,
-	Bottom,
-	Arrow,
+	SlideWrapper,
 	SlideContainer,
 	SlideImage,
+	Arrow,
 	Empty,
+	Bottom,
 };

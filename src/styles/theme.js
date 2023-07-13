@@ -10,6 +10,7 @@ const PALETTE = {
 	black: "#404040",
 	white: "#FFFFFF",
 	pricePoint: "#705ECB",
+	green: "#7FC0BC",
 };
 
 const FONT_SIZE = {
