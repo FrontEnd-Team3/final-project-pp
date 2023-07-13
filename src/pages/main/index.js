@@ -1,15 +1,14 @@
-import ProductList from "components/ProductList";
 import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
-import { productList } from "mock/products";
+import FreeProduct from "./components/free-product/FreeProduct";
+import UsedProduct from "./components/used-product/UsedProduct";
+import Banner from "./components/banner/Banner";
 
 const Main = () => {
 	return (
 		<>
-			<ProductList productList={productList} />
-			{/* <AlertMessage />
-			<ChatList />
-			<ConsumerChat />
-			<SellerChat />*/}
+			<Banner />
+			<UsedProduct />
+			<FreeProduct />
 			<RecentlyClicked />
 		</>
 	);

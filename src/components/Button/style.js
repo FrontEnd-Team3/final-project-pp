@@ -50,6 +50,10 @@ const sizeCSS = {
 		width: 160px;
 		height: 42px;
 	`,
+	xsmall: css`
+		width: 62px;
+		height: 21px;
+	`,
 };
 
 const Button = styled.button`
