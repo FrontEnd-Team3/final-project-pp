@@ -16,8 +16,12 @@ const Header = () => {
 						PPYONG PPYONG
 					</S.Title>
 					<S.Subtitle>
-						<div>중고거래</div>
-						<div>무료나눔</div>
+						<S.NavPage onClick={() => navigate(`/used-transaction`)}>
+							중고거래
+						</S.NavPage>
+						<S.NavPage onClick={() => navigate(`/free-transaction`)}>
+							무료나눔
+						</S.NavPage>
 						<div>실시간 시세</div>
 					</S.Subtitle>
 					<S.SearchBar placeholder=" 물품명, 태그명을 검색해 보세요 "></S.SearchBar>
@@ -51,6 +55,13 @@ const Header = () => {
 };
 
 export default Header;
+
+const NavPage = styled.div`
+	cursor: pointer;
+	:hover {
+		color: ${({ theme }) => theme.PALETTE.pricePoint};
+	}
+`;
 
 const Subtitle = styled.div`
 	display: flex;
@@ -155,4 +166,5 @@ const S = {
 	Subtitle,
 	NameWrapper,
 	ImageName,
+	NavPage,
 };
