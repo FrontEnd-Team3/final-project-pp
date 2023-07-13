@@ -28,18 +28,21 @@ const Banner = () => {
 			<S.BannerButtons>
 				<BsFillCircleFill
 					size="15"
-					color="white"
+					color={currentIndex === 0 ? "white" : "gray"}
 					onClick={() => setCurrentIndex(0)}
+					className="bannerBtn"
 				/>
 				<BsFillCircleFill
 					size="15"
-					color="white"
+					color={currentIndex === 1 ? "white" : "gray"}
 					onClick={() => setCurrentIndex(1)}
+					className="bannerBtn"
 				/>
 				<BsFillCircleFill
 					size="15"
-					color="white"
+					color={currentIndex === 2 ? "white" : "gray"}
 					onClick={() => setCurrentIndex(2)}
+					className="bannerBtn"
 				/>
 			</S.BannerButtons>
 		</S.BannerWrapper>
