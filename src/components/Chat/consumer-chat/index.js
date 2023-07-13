@@ -42,7 +42,7 @@ const ConsumerChat = () => {
 export default ConsumerChat;
 
 const Container = styled.div`
-	border: 3px solid black;
+	border: 2px solid black;
 	margin: 0 auto;
 	width: 430px;
 	height: 1158px;
@@ -50,7 +50,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-	border: 3px solid black;
+	border-bottom: 3px solid black;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -75,7 +75,7 @@ const Htext = styled.div`
 
 const Xbutton = styled.button`
 	width: 50px;
-	border: 3px solid black;
+	border-left: 3px solid black;
 	font-size: 38px;
 	cursor: pointer;
 	float: right;
