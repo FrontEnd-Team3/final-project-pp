@@ -11,12 +11,14 @@ const ChatList = () => {
 			</S.Header>
 			<S.Main>
 				<S.Item>
-					<S.Iimg>
-						<img src={gkgk} width="150px" height="150px" float="left"></img>
-					</S.Iimg>
-					<S.Itext>상품명</S.Itext>
-					<S.Itext>마지막 채팅</S.Itext>
-					<S.Itext>가격</S.Itext>
+					<S.IimgContainer>
+						<S.Iimg src={gkgk} />
+					</S.IimgContainer>
+					<S.TextContainer>
+						<S.Itext>상품명</S.Itext>
+						<S.Itext>마지막 채팅</S.Itext>
+						<S.Itext>가격</S.Itext>
+					</S.TextContainer>
 				</S.Item>
 				<S.Item></S.Item>
 				<S.Item></S.Item>
@@ -40,7 +42,7 @@ const Container = styled.div`
 const Header = styled.div`
 	width: 100%;
 	height: 71px;
-	text-align: center;
+	border-bottom: 3px solid black;
 	display: flex;
 	div {
 		width: 50%;
@@ -53,16 +55,21 @@ const Header = styled.div`
 
 const Hsale = styled.div`
 	background-color: #8490c8;
-	border: 1px solid black;
 	width: 577px;
 	font-size: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Hbuy = styled.div`
-	border: 1px solid black;
 	background-color: #d5d5d5;
+	border-left: 3px solid black;
 	width: 576px;
 	font-size: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Main = styled.div`
@@ -85,28 +92,38 @@ const Main = styled.div`
 `;
 
 const Item = styled.div`
+	display: flex;
 	padding-left: 5px;
 	padding-top: 5px;
 	border: 3px solid black;
 	border-radius: 16px;
-
 	width: 400px;
 	height: 249px;
 	background-color: white;
 	margin-top: 35px;
-	display: flex;
-	flex-direction: column;
 `;
 
-const Iimg = styled.div`
-	width: 210px;
-	height: 210px;
+const TextContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding-top: 10px;
+`;
+
+const IimgContainer = styled.div`
+	width: 150px;
+	height: 150px;
 	border-radius: 16px;
+	overflow: hidden;
+`;
+
+const Iimg = styled.img`
+	width: 100%;
+	height: 100%;
 `;
 
 const Itext = styled.div`
 	font-size: 24px;
-	float: right;
+	padding-top: 5px;
 `;
 
 const S = {
@@ -118,4 +135,6 @@ const S = {
 	Item,
 	Iimg,
 	Itext,
+	TextContainer,
+	IimgContainer,
 };
