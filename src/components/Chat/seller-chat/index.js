@@ -71,7 +71,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-	border: 3px solid black;
+	border-bottom: 3px solid black;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -86,7 +86,7 @@ const Htext = styled.div`
 
 const Xbutton = styled.button`
 	width: 50px;
-	border: 3px solid black;
+	border-left: 3px solid black;
 	font-size: 38px;
 	cursor: pointer;
 	float: right;
@@ -134,7 +134,8 @@ const Item = styled.div`
 	background-color: #8490c8;
 	height: 65px;
 	display: flex;
-	border: 3px solid black;
+	border-left: 3px solid black;
+	border-bottom: 3px solid black;
 	align-items: center;
 	text-align: center;
 `;
