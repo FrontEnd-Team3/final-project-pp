@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 import OneProduct from "./one-soldoutproduct";
 import { productList } from "mock/products";
 import { useState } from "react";
@@ -43,14 +42,14 @@ const Button = styled.button`
 	height: 46px;
 	font-size: 17px;
 	padding-bottom: 8px;
-	${primaryFont}
-	background-color: #C8C8FF;
+	background-color: #c8c8ff;
 	border-radius: 12px;
 	color: #404040;
 	box-shadow: 1px 1px 1px 1px;
 	position: relative;
 	left: 203px;
 `;
+s;
 
 const Icon = styled.img`
 	width: 20px;
