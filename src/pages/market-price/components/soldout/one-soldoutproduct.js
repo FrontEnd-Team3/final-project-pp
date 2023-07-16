@@ -4,10 +4,7 @@ const OneProduct = ({ product }) => {
 	return (
 		<>
 			<S.Container>
-				<div>
-					{product.id}
-					<img src={product.image}></img>
-				</div>
+				<div>{product.id}</div>
 			</S.Container>
 		</>
 	);

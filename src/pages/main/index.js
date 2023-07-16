@@ -1,14 +1,14 @@
-import ProductList from "components/ProductList";
+import ChatList from "components/Chat/chat-list";
 
 const Main = () => {
 	return (
 		<>
-			<ProductList />
-			{/* <AlertMessage />
-			<ChatList />
-			<ConsumerChat />
-			<SellerChat />
+			{/* <Banner /> */}
+			{/* <UsedProduct /> */}
+			{/* <FreeProduct /> */}
 			{/* <RecentlyClicked /> */}
+			{/* <SearchPage /> */}
+			<ChatList />
 		</>
 	);
 };

@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import OneProduct from "./one-product";
-import { productList } from "mock/products";
 import { useState } from "react";
 import Pagination from "components/Pagination";
 
-const ProductList = () => {
+const ProductList = ({ productList }) => {
 	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * dataLimit;

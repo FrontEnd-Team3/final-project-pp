@@ -58,6 +58,13 @@ const Header = () => {
 
 export default Header;
 
+const NavPage = styled.div`
+	cursor: pointer;
+	:hover {
+		color: ${({ theme }) => theme.PALETTE.pricePoint};
+	}
+`;
+
 const Subtitle = styled.div`
 	display: flex;
 	width: 300px;
@@ -161,4 +168,5 @@ const S = {
 	Subtitle,
 	NameWrapper,
 	ImageName,
+	NavPage,
 };

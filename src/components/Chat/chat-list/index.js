@@ -1,50 +1,75 @@
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 import gkgk from "./gkgk.png";
+import { useState } from "react";
 
 const ChatList = () => {
-	return (
-		<S.Container>
-			<S.Header>
-				<S.Hsale>판매 채팅 내역</S.Hsale>
-				<S.Hbuy>구매 채팅 내역</S.Hbuy>
-			</S.Header>
-			<S.Main>
-				<S.Item>
-					<S.Iimg>
-						<img src={gkgk} width="150px" height="150px" float="left"></img>
-					</S.Iimg>
-					<S.Itext>상품명</S.Itext>
-					<S.Itext>마지막 채팅</S.Itext>
-					<S.Itext>가격</S.Itext>
-				</S.Item>
-				<S.Item></S.Item>
-				<S.Item></S.Item>
-				<S.Item></S.Item>
-				<S.Item></S.Item>
-				<S.Item></S.Item>
-			</S.Main>
-		</S.Container>
-	);
+	const [isOpen, setIsOpen] = useState(true);
+	if (isOpen)
+		return (
+			<S.Container>
+				<S.Header>
+					<S.Hsale>판매 내역</S.Hsale>
+					<S.Hbuy>구매 내역</S.Hbuy>
+					<S.HChat>CHATTING</S.HChat>
+					<S.Xbutton onClick={() => setIsOpen(false)}>X</S.Xbutton>
+				</S.Header>
+				<S.AllMain>
+					<S.Main>
+						<S.Item>
+							<S.IimgContainer>
+								<S.Iimg src={gkgk} />
+							</S.IimgContainer>
+							<S.TextContainer>
+								<S.Inew>New</S.Inew>
+								<S.Iproduct>파란 오리 판매합니다</S.Iproduct>
+								<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
+								<S.Iprice>20,000 원</S.Iprice>
+								<S.Imove>상품이동 ▶</S.Imove>
+							</S.TextContainer>
+						</S.Item>
+						<S.Item></S.Item>
+						<S.Item></S.Item>
+						<S.Item></S.Item>
+						<S.Item></S.Item>
+						<S.Item></S.Item>
+					</S.Main>
+					<S.ChatMain>
+						<S.Chat>
+							<S.day>2023.07.06</S.day>
+							<S.hr />
+							<S.BuyWrapper>
+								<S.Buytime>10:53</S.Buytime>
+								<S.Chatbuy>일이삼사오육칠팔구십일이삼사오육칠팔구십</S.Chatbuy>
+							</S.BuyWrapper>
+							<S.SellerWrapper>
+								<S.ChatSeller>
+									일이삼사오육칠팔구십일이삼사오육칠팔구십
+								</S.ChatSeller>
+								<S.Sellertime>10:55</S.Sellertime>
+							</S.SellerWrapper>
+						</S.Chat>
+						<S.SendWrapper>
+							<S.Message placeholder="채팅치는곳"></S.Message>
+							<S.Send>전송</S.Send>
+						</S.SendWrapper>
+					</S.ChatMain>
+				</S.AllMain>
+			</S.Container>
+		);
 };
 export default ChatList;
 
 const Container = styled.div`
-	border: 3px solid black;
-	width: 430px;
-	height: 1275px;
-	background-color: darkgreen;
-	margin: 0 auto;
-	${primaryFont}
+	width: 900px;
+	border: 1px solid #ebebeb;
+	margin: 100px auto;
 `;
 
 const Header = styled.div`
-	width: 100%;
-	height: 71px;
-	text-align: center;
+	width: 900px;
+	height: 60px;
 	display: flex;
 	div {
-		width: 50%;
 		cursor: pointer;
 		:hover {
 			opacity: 0.7;
@@ -53,61 +78,233 @@ const Header = styled.div`
 `;
 
 const Hsale = styled.div`
-	background-color: #8490c8;
-	border: 1px solid black;
-	width: 577px;
-	font-size: 24px;
+	background-color: #3cb371;
+	color: #ffffff;
+	width: 225px;
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
 `;
 
 const Hbuy = styled.div`
-	border: 1px solid black;
 	background-color: #d5d5d5;
-	width: 576px;
-	font-size: 24px;
+	color: #ffffff;
+	width: 225px;
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+`;
+
+const HChat = styled.div`
+	width: 449px;
+	background-color: #fcf9f3;
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: bold;
+`;
+
+const Xbutton = styled.div`
+	width: 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	background-color: #d5d5d5;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	float: right;
+`;
+
+const AllMain = styled.div`
+	width: 900px;
+	display: flex;
 `;
 
 const Main = styled.div`
-	height: 1100px;
-	padding-left: 4px;
+	width: 450px;
+	height: 500px;
+	border-right: 1px solid #ebebeb;
 	align-items: center;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
-		width: 15px;
-	}
-	&::-webkit-scrollbar-thumb {
-		border-radius: 16px;
-		background: #8490c8;
-	}
-	&::-webkit-scrollbar-track {
-		background-color: #e2e2fe;
-		border-radius: 16px;
-		width: 10px;
+		display: none;
 	}
 `;
 
 const Item = styled.div`
-	padding-left: 5px;
-	padding-top: 5px;
-	border: 3px solid black;
-	border-radius: 16px;
-
-	width: 400px;
-	height: 249px;
-	background-color: white;
-	margin-top: 35px;
 	display: flex;
+	border-bottom: 1px solid #ebebeb;
+	width: 450px;
+	height: 150px;
+	background-color: white;
+	padding: 15px 20px;
+`;
+
+const TextContainer = styled.div`
+	display: flex;
+	margin-left: 8px;
 	flex-direction: column;
 `;
 
-const Iimg = styled.div`
-	width: 210px;
-	height: 210px;
-	border-radius: 16px;
+const IimgContainer = styled.div`
+	width: 90px;
+	margin-top: 10px;
+	height: 90px;
+	border-radius: 50%;
+	overflow: hidden;
 `;
 
-const Itext = styled.div`
-	font-size: 24px;
+const Iimg = styled.img`
+	width: 100%;
+	height: 100%;
+`;
+
+const Inew = styled.div`
+	color: #3cb371;
+	font-size: 10px;
+	margin-left: 290px;
+`;
+
+const Iproduct = styled.div`
+	width: 200px;
+	font-size: 16px;
+	font-weight: bold;
+`;
+
+const Ichat = styled.div`
+	width: 200px;
+	padding-top: 5px;
+	font-size: 16px;
+	color: #575757;
+`;
+
+const Iprice = styled.div`
+	font-size: 14px;
+	padding-top: 5px;
+	font-weight: bold;
+`;
+
+const Imove = styled.div`
+	font-size: 12px;
+	color: #222222;
+	margin-left: 245px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	cursor: pointer;
+`;
+
+const ChatMain = styled.div`
+	width: 450px;
+`;
+
+const Chat = styled.div`
+	padding: 20px;
+	height: 450px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	float: left;
+	&::-webkit-scrollbar {
+		width: 15px;
+		display: none;
+	}
+`;
+
+const day = styled.div`
+	font-size: 16px;
+	text-align: center;
+	margin-bottom: 10px;
+`;
+
+const hr = styled.hr`
+	width: 400px;
+	color: #d9d9d9;
+`;
+
+const BuyWrapper = styled.div`
+	display: flex;
+	align-items: flex-end;
+	width: 280px;
 	float: right;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	word-wrap: break-word;
+	text-align: right;
+`;
+
+const SellerWrapper = styled.div`
+	display: flex;
+	float: left;
+	width: 280px;
+	align-items: flex-end;
+`;
+
+const Buytime = styled.div`
+	font-size: 8px;
+	color: #242424;
+	margin-right: 8px;
+`;
+
+const Sellertime = styled.div`
+	font-size: 8px;
+	color: #242424;
+	margin-left: 8px;
+`;
+
+const Chatbuy = styled.div`
+	font-size: 16px;
+	padding: 10px;
+	align-items: start;
+	float: right;
+	background-color: #e6e6e6;
+	word-wrap: break-word;
+	border-radius: 6px;
+	text-align: right;
+`;
+
+const ChatSeller = styled.div`
+	font-size: 16px;
+	float: left;
+	align-items: start;
+	padding: 10px;
+	background-color: #ffffff;
+	border: 1px solid #dddddd;
+	word-wrap: break-word;
+	border-radius: 6px;
+`;
+
+const SendWrapper = styled.div`
+	display: flex;
+	height: 50px;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 10px;
+	position: sticky;
+	bottom: 0;
+`;
+
+const Message = styled.input`
+	width: 300px;
+	padding: 8px;
+	border: none;
+	background-color: #f4f4f4;
+`;
+
+const Send = styled.div`
+	width: 100px;
+	padding: 8px;
+	background-color: #3cb371;
+	color: #ffffff;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: center;
 `;
 
 const S = {
@@ -115,8 +312,30 @@ const S = {
 	Header,
 	Hsale,
 	Hbuy,
+	HChat,
 	Main,
 	Item,
 	Iimg,
-	Itext,
+	Iproduct,
+	Ichat,
+	TextContainer,
+	IimgContainer,
+	Iprice,
+	Inew,
+	AllMain,
+	Imove,
+	BuyWrapper,
+	SellerWrapper,
+	ChatMain,
+	Chat,
+	day,
+	hr,
+	Chatbuy,
+	ChatSeller,
+	Buytime,
+	Sellertime,
+	SendWrapper,
+	Message,
+	Send,
+	Xbutton,
 };
