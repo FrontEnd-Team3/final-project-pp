@@ -1,15 +1,16 @@
 import ProductList from "components/ProductList";
 import { productList } from "mock/products";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 
 const SearchPage = () => {
 	return (
 		<S.Main>
 			<S.SearchText>신발의 검색결과 8개</S.SearchText>
 			<S.Select>
-				<S.Option>중고상품</S.Option>
-				<S.Option>무료 나눔</S.Option>
+				<S.Option>최신순</S.Option>
+				<S.Option>인기순</S.Option>
+				<S.Option>고가순</S.Option>
+				<S.Option>저가순</S.Option>
 			</S.Select>
 			<ProductList productList={productList} />
 		</S.Main>
@@ -24,15 +25,16 @@ const Main = styled.div`
 `;
 
 const Select = styled.select`
-	background-color: #efd6fb;
+	background-color: #3cb371;
 	float: right;
 	margin-right: 5px;
 	margin-bottom: 10px;
-	${primaryFont}
+	font-size: 16px;
 	width: 100px;
 	text-align: center;
 	padding: 5px;
-	border: 2px solid black;
+	border: 1px solid #3cb371;
+	border-radius: 8px;
 `;
 
 const Option = styled.option`
@@ -47,7 +49,7 @@ const AllButton = styled.div`
 `;
 
 const SearchText = styled.div`
-	${primaryFont}
+	font-size: 22px;
 `;
 
 const S = {
