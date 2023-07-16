@@ -18,7 +18,13 @@ const Header = () => {
 					<S.Subtitle>
 						<div>중고거래</div>
 						<div>무료나눔</div>
-						<div>실시간 시세</div>
+						<div
+							onClick={() => {
+								navigate(`/MarketPrice`);
+							}}
+						>
+							실시간 시세
+						</div>
 					</S.Subtitle>
 					<S.SearchBar placeholder=" 물품명, 태그명을 검색해 보세요 "></S.SearchBar>
 					<S.SearchImage src="img/searchtest.jpg"></S.SearchImage>
