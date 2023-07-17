@@ -17,7 +17,6 @@ const FreeTransaction = () => {
 						서울시 성동구 성수동{" "}
 						<BasicButton
 							variant={"primary"}
-							shape={"primary"}
 							size={"xsmall"}
 							children={"변경"}
 							style={{ fontSize: "14px", marginLeft: "15px" }}
@@ -56,7 +55,7 @@ const Title = styled.p`
 	margin-bottom: 50px;
 	font-size: ${({ theme }) => theme.FONT_SIZE.mmlarge};
 	& span {
-		color: ${({ theme }) => theme.PALETTE.pricePoint};
+		color: ${({ theme }) => theme.PALETTE.hightlightTitle};
 	}
 `;
 
@@ -85,7 +84,7 @@ const Filtering = styled.ul`
 
 	// active시 컬러 확인용
 	li:first-of-type {
-		color: ${({ theme }) => theme.PALETTE.pricePoint};
+		color: ${({ theme }) => theme.PALETTE.hightlightTitle};
 	}
 
 	li:first-of-type::before {

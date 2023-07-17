@@ -132,16 +132,15 @@ const Container = styled.div`
 
 const Top = styled.div`
 	height: 52px;
-	background-color: ${({ theme }) => theme.PALETTE.secondary};
+	background-color: ${({ theme }) => theme.PALETTE.primary};
+	color: ${({ theme }) => theme.PALETTE.white};
 	font-weight: 400;
 	line-height: 52px;
 	.heart {
-		color: ${({ theme }) => theme.PALETTE.red};
 		font-size: 17px;
 		font-weight: 700;
 	}
 	border-bottom: 3px solid;
-	border-color: ${({ theme }) => theme.PALETTE.black};
 `;
 
 const Middle = styled.div`

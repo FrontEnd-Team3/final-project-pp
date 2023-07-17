@@ -48,6 +48,7 @@ const ControlBtn = styled.button`
 	${primaryFont}
 	font-size: 24px;
 	&[disabled] {
+		background-color: ${({ theme }) => theme.PALETTE.disabled};
 	}
 `;
 
@@ -61,7 +62,7 @@ const PageBtn = styled.button`
 	padding-left: 1px;
 	${primaryFont}
 	&[aria-current] {
-		background: ${({ theme }) => theme.PALETTE.primary["light"]};
+		background: ${({ theme }) => theme.PALETTE.primary};
 		border-radius: 50%;
 		transition-duration: 0.3s;
 	}

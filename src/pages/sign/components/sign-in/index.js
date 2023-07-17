@@ -68,7 +68,7 @@ const Signin = () => {
 						color={"primary"}
 						variant={"primary"}
 					></BasicInput>
-					<BasicButton size={"small"} variant={"primary"} shape={"primary"}>
+					<BasicButton size={"small"} variant={"primary"}>
 						찾기
 					</BasicButton>
 				</div>
@@ -83,7 +83,7 @@ const Signin = () => {
 				></BasicInput>
 			</S.Wrapper>
 			<S.ButtonWrapper>
-				<BasicButton size={"large"} variant={"primary"} shape={"primary"}>
+				<BasicButton size={"large"} variant={"primary"}>
 					회원가입
 				</BasicButton>
 			</S.ButtonWrapper>

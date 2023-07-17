@@ -17,7 +17,6 @@ const FreeProduct = () => {
 					서울시 성동구 성수동
 					<BasicButton
 						variant={"primary"}
-						shape={"primary"}
 						size={"xsmall"}
 						children={"변경"}
 						style={{ color: "white", fontSize: "14px", marginLeft: "15px" }}
@@ -26,7 +25,6 @@ const FreeProduct = () => {
 				<div style={{ float: "right" }}>
 					<BasicButton
 						variant={"primary"}
-						shape={"primary"}
 						size={"medium"}
 						children={"상품 등록 + "}
 						style={{ color: "white", fontSize: "20px", margin: "40px 0" }}
@@ -55,7 +53,7 @@ const Title = styled.div`
 `;
 
 const Free = styled.span`
-	color: ${({ theme }) => theme.PALETTE.pricePoint};
+	color: ${({ theme }) => theme.PALETTE.highlightTitle};
 `;
 
 const S = { Container, Free, Title };

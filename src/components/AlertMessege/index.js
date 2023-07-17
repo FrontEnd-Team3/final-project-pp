@@ -74,7 +74,7 @@ const Xbutton = styled.button`
 `;
 
 const Main = styled.div`
-	background-color: ${({ theme }) => theme.PALETTE.secondary};
+	background-color: ${({ theme }) => theme.PALETTE.ivory};
 	font-size: 32px;
 `;
 

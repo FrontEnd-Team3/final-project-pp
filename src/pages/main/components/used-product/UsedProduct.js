@@ -17,7 +17,6 @@ const UsedProduct = () => {
 					서울시 성동구 성수동
 					<BasicButton
 						variant={"primary"}
-						shape={"primary"}
 						size={"xsmall"}
 						children={"변경"}
 						style={{ color: "white", fontSize: "14px", marginLeft: "15px" }}
@@ -26,7 +25,6 @@ const UsedProduct = () => {
 				<div style={{ float: "right" }}>
 					<BasicButton
 						variant={"primary"}
-						shape={"primary"}
 						size={"medium"}
 						children={"상품 등록 + "}
 						style={{ color: "white", fontSize: "20px", margin: "40px 0" }}
@@ -56,7 +54,7 @@ const Title = styled.div`
 	margin-bottom: 10px;
 `;
 const Used = styled.span`
-	color: ${({ theme }) => theme.PALETTE.green};
+	color: ${({ theme }) => theme.PALETTE.highlightTitle};
 `;
 
 const S = { Container, Used, Title };

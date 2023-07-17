@@ -61,7 +61,6 @@ const Container = styled.div`
 	border-radius: 12px;
 	border: 3px solid;
 	border-color: ${({ theme }) => theme.PALETTE.black};
-	background: ${({ theme }) => theme.PALETTE.primary["light"]};
 	${primaryFont}
 	position: relative;
 `;
@@ -77,7 +76,6 @@ const Image = styled.img`
 	height: 180px;
 	border-radius: 12px;
 	border: 3px solid;
-	border-color: ${({ theme }) => theme.PALETTE.black};
 	background-color: ${({ theme }) => theme.PALETTE.white};
 	margin: 10px 10px 7px 10px;
 `;
