@@ -1,17 +1,14 @@
 import styled from "styled-components";
-import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
 import { primaryFont } from "styles/common";
-import ProductInfo from "./components/product-info";
-import OtherProducts from "./components/other-products/OtherProducts";
 
 const ProductDetailPage = () => {
 	return (
 		<>
-			<RecentlyClicked />
+			{/* <RecentlyClicked />
 			<S.Container>
 				<ProductInfo />
 				<OtherProducts />
-			</S.Container>
+			</S.Container> */}
 		</>
 	);
 };

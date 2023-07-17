@@ -1,7 +1,7 @@
 import { primaryFont } from "styles/common";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { productList } from "mock/products";
+import { productList } from "mock/productsList";
 import ProductImages from "./product-images";
 import UserInfo from "./user-info";
 import ButtonContainer from "./buttons";

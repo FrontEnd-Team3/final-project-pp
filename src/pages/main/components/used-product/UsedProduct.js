@@ -1,6 +1,6 @@
 import BasicButton from "components/Button";
 import ProductList from "components/ProductList";
-import { productList } from "mock/products";
+import { productList } from "mock/productsList";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";

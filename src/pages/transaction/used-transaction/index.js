@@ -1,7 +1,5 @@
 import BasicButton from "components/Button";
-import ProductList from "components/ProductList";
 import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
-import { productList } from "mock/products";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 
@@ -30,7 +28,7 @@ const UsedTransaction = () => {
 						<li>고가순</li>
 					</S.Filtering>
 				</S.Address>
-				<ProductList productList={productList} /> {/* 임시 데이터 */}
+				{/* <ProductList productList={productList} /> */}
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>
