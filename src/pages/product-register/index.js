@@ -35,10 +35,10 @@ const ProductRegister = () => {
 				</S.Images>
 				<FormRegister />
 				<S.SubmitBtns>
-					<BasicButton size="medium" shape="medium" variant="light">
+					<BasicButton size="medium" variant="priamry">
 						등록하기
 					</BasicButton>
-					<BasicButton size="medium" shape="medium" variant="secondary">
+					<BasicButton size="medium" variant="white">
 						리셋
 					</BasicButton>
 				</S.SubmitBtns>
@@ -69,7 +69,7 @@ const Title = styled.p`
 `;
 
 const Essential = styled.span`
-	color: ${({ theme }) => theme.PALETTE.primary.dark};
+	color: ${({ theme }) => theme.PALETTE.primary};
 `;
 
 const MainImg = styled.div`
@@ -77,7 +77,7 @@ const MainImg = styled.div`
 	flex-direction: column;
 	width: 450px;
 	height: 450px;
-	background-color: ${({ theme }) => theme.PALETTE.primary.light};
+	background-color: ${({ theme }) => theme.PALETTE.primary.white};
 `;
 
 const Icons = styled.img`

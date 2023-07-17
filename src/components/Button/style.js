@@ -1,28 +1,20 @@
 import styled, { css } from "styled-components";
 import { primaryFont } from "styles/common";
 
-const variantCSS = {
+const colorCSS = {
 	primary: css`
-		background-color: ${({ theme }) => theme.PALETTE.primary["dark"]};
+		background-color: ${({ theme }) => theme.PALETTE.primary};
 	`,
-	secondary: css`
-		background-color: ${({ theme }) => theme.PALETTE.secondary};
+	black: css`
+		background-color: ${({ theme }) => theme.PALETTE.black};
+	`,
+	gray: css`
+		background-color: ${({ theme }) => theme.PALETTE.gray};
 	`,
 	white: css`
 		background-color: ${({ theme }) => theme.PALETTE.white};
-	`,
-	light: css`
-		background-color: ${({ theme }) => theme.PALETTE.primary["light"]};
-	`,
-};
-
-const shapeCSS = {
-	primary: css`
-		border-radius: 12px;
-	`,
-	medium: css`
-		border-radius: 16px;
-		font-size: ${({ theme }) => theme.FONT_SIZE.xsmedium};
+		border: 1px solid;
+		border-color: ${({ theme }) => theme.PALETTE.primary};
 	`,
 };
 
@@ -57,9 +49,8 @@ const sizeCSS = {
 };
 
 const Button = styled.button`
-	${({ variant }) => variantCSS[variant]}
-	${({ shape }) => shapeCSS[shape]}
-    ${({ size }) => sizeCSS[size]}
+	${({ variant }) => colorCSS[variant]}
+	${({ size }) => sizeCSS[size]}
     cursor: pointer;
 	${primaryFont}
 `;

@@ -156,7 +156,7 @@ const FooterBottomLeft = styled.div`
 const FooterLogo = styled.p`
 	font-size: ${({ theme }) => theme.FONT_SIZE.large};
 	font-weight: bold;
-	color: ${({ theme }) => theme.PALETTE.primary["dark"]};
+	color: ${({ theme }) => theme.PALETTE.primary};
 	-webkit-text-stroke: 0.2px black;
 	letter-spacing: 1px;
 `;
@@ -203,7 +203,7 @@ const InfoLink = styled.ul`
 	li:last-of-type {
 		font-weight: bold;
 		padding-right: 0;
-		color: ${({ theme }) => theme.PALETTE.pricePoint};
+		color: ${({ theme }) => theme.PALETTE.highlightTitle};
 	}
 
 	li::after {
@@ -237,7 +237,7 @@ const IconPackman = styled.div`
 		background-color: #ffeea4;
 		width: 10px;
 		height: 10px;
-		border: 2px solid ${({ theme }) => theme.PALETTE.BLACK};
+		border: 2px solid ${({ theme }) => theme.PALETTE.black};
 		border-radius: 50%;
 		margin-right: 6px;
 	}

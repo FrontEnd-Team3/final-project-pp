@@ -17,10 +17,10 @@ export default OtherProducts;
 const OtherProductTitle = styled.button`
 	width: 260px;
 	padding: 10px;
-	background-color: ${({ theme }) => theme.PALETTE.primary["light"]};
+	background-color: ${({ theme }) => theme.PALETTE.black};
+	color: ${({ theme }) => theme.PALETTE.white};
 	${primaryFont}
 	font-size: 20px;
-	border: 3px solid ${({ theme }) => theme.PALETTE.black};
 	border-radius: 12px;
 	margin-bottom: 25px;
 `;

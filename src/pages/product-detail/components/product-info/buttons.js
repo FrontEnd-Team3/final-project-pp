@@ -6,20 +6,9 @@ const ButtonContainer = () => {
 		<>
 			<S.ProductButtons>
 				<BasicButton
-					variant={"white"}
-					shape={"primary"}
+					variant={"gray"}
 					size={"mediumSecond"}
 					children={"❤ Like"}
-					style={{
-						fontSize: "20px",
-						border: "3px solid #404040",
-					}}
-				/>
-				<BasicButton
-					variant={"secondary"}
-					shape={"primary"}
-					size={"mediumSecond"}
-					children={"Buy Now"}
 					style={{
 						fontSize: "20px",
 						border: "3px solid #404040",
@@ -28,8 +17,7 @@ const ButtonContainer = () => {
 			</S.ProductButtons>
 			<div>
 				<BasicButton
-					variant={"primary"}
-					shape={"primary"}
+					variant={"black"}
 					size={"mediumLarge"}
 					children={"채팅"}
 					style={{

@@ -1,4 +1,4 @@
-import { gothicFont, primaryFont } from "styles/common";
+import { primaryFont } from "styles/common";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { productList } from "mock/products";
@@ -58,7 +58,6 @@ const Introduction = styled.div`
 	border-bottom: 1px solid #b6b6b6;
 	padding-bottom: 10px;
 	line-height: 23px;
-	${gothicFont}
 `;
 
 const ProductPrice = styled.div`
@@ -66,6 +65,7 @@ const ProductPrice = styled.div`
 	color: #705ecb;
 	text-align: right;
 	padding-top: 30px;
+	color: ${({ theme }) => theme.PALETTE.black};
 `;
 
 const S = {
