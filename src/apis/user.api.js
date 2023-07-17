@@ -44,7 +44,7 @@ export const addUser = rest.post("/users:id", async (req, res, ctx) => {
 });
 
 const updateUser = key => {
-	rest.patch("/users/:id", async (req, res, ctx) => {
+	return rest.patch("/users/:id", async (req, res, ctx) => {
 		const { id } = req.params;
 		const editedData = { id: parseInt(id) };
 

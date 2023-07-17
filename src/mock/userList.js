@@ -44,16 +44,3 @@ export const userList = [
 		boughtProducts: [],
 	},
 ];
-
-/*
-필요
-등록상품
-관심상품
-가계부
-내가 남긴 후기..?
-*/
-
-/* 
-총 판매 금액..? 
-state(판매완료) filter > price reduce
-*/
