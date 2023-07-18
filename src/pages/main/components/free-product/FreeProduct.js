@@ -1,9 +1,9 @@
 import BasicButton from "components/Button";
-import ProductList from "components/ProductList";
+import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import { productList } from "mock/productsList";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
+import { flexCenter, primaryFont } from "styles/common";
 
 const FreeProduct = () => {
 	const navigate = useNavigate();
@@ -13,26 +13,26 @@ const FreeProduct = () => {
 				<S.Title>
 					우리 동네 <S.Free>무료</S.Free> 나눔
 				</S.Title>
-				<div>
+				<S.Location>
 					서울시 성동구 성수동
 					<BasicButton
 						variant={"primary"}
 						size={"xsmall"}
 						children={"변경"}
-						style={{ color: "white", fontSize: "14px", marginLeft: "15px" }}
+						style={{ marginLeft: "15px" }}
 					/>
-				</div>
-				<div style={{ float: "right" }}>
-					<BasicButton
-						variant={"primary"}
-						size={"medium"}
-						children={"상품 등록 + "}
-						style={{ color: "white", fontSize: "20px", margin: "40px 0" }}
-						onClick={() => navigate("/productRegister")}
-					/>
-				</div>
+				</S.Location>
 			</div>
-			<ProductList productList={productList} />
+			<ProductListWithoutPagination productList={productList} />
+			<S.ButtonContainer>
+				<BasicButton
+					variant={"black"}
+					size={"small"}
+					children={"MORE +"}
+					style={{ fontSize: "14px", height: "28px" }}
+					onClick={() => navigate("/free-transaction")}
+				/>
+			</S.ButtonContainer>
 		</S.Container>
 	);
 };
@@ -40,20 +40,29 @@ const FreeProduct = () => {
 export default FreeProduct;
 
 const Container = styled.div`
-	width: 860px;
-	margin: 0 auto;
-	margin-bottom: 40px;
+	width: 1060px;
+	margin: 40px auto;
 	${primaryFont}
 `;
 
 const Title = styled.div`
 	font-size: 32px;
 	color: #6c6c6c;
-	margin-bottom: 10px;
+	text-align: center;
 `;
 
 const Free = styled.span`
 	color: ${({ theme }) => theme.PALETTE.highlightTitle};
 `;
 
-const S = { Container, Free, Title };
+const Location = styled.div`
+	margin: 20px 0;
+	${flexCenter}
+`;
+
+const ButtonContainer = styled.div`
+	${flexCenter}
+	margin: 20px 0;
+`;
+
+const S = { Container, Free, Title, Location, ButtonContainer };

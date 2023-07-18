@@ -10,7 +10,7 @@ const Banner = () => {
 
 	const slideRef = useRef(null);
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const IMAGE_SIZE = 860;
+	const IMAGE_SIZE = 1065;
 	const SLIDE_RANGE = currentIndex * IMAGE_SIZE;
 
 	useEffect(() => {
@@ -52,7 +52,7 @@ const Banner = () => {
 export default Banner;
 
 const BannerWrapper = styled.div`
-	width: 860px;
+	width: 1060px;
 	margin: 50px auto;
 	position: relative;
 	overflow: hidden;
@@ -64,10 +64,8 @@ const BannerContainer = styled.div`
 `;
 
 const BannerImg = styled.img`
-	width: 860px;
-	height: 350px;
-	border: 3px solid black;
-	border-radius: 20px;
+	width: 1060px;
+	height: 428px;
 	margin-right: 5px;
 `;
 
