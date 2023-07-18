@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import TOPARROW from "./images/TopArrow.png";
-import DOWNARROW from "./images/DownArrow.png";
 import ONE from "./images/product1.png";
 import TWO from "./images/product2.png";
 import THREE from "./images/product3.png";
 import FOUR from "./images/product4.png";
+import { GoBookmark } from "react-icons/go";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const RecentlyClicked = () => {
 	// 추후 API로 데이터 들어오면 수정
@@ -86,12 +86,11 @@ const RecentlyClicked = () => {
 	return (
 		<S.Container>
 			<S.Top>
-				찜한 상품 <span className="heart">❤ </span>
-				{likes}
+				찜한 상품 <GoBookmark color="white" size="22" /> {likes}
 			</S.Top>
 			<S.Middle>
 				<div className="title">최근 본 상품</div>
-				<S.Arrow src={TOPARROW} onClick={handleUpSlideIndex} />
+				<IoIosArrowUp size="30" onClick={handleUpSlideIndex} />
 				<S.SlideWrapper>
 					<S.SlideContainer ref={slideRef} length={InfiniteArr.length}>
 						{InfiniteArr.length ? (
@@ -107,7 +106,7 @@ const RecentlyClicked = () => {
 						)}
 					</S.SlideContainer>
 				</S.SlideWrapper>
-				<S.Arrow src={DOWNARROW} onClick={handleDownSlideIndex} />
+				<IoIosArrowDown size="30" onClick={handleDownSlideIndex} />
 			</S.Middle>
 			<S.Bottom onClick={handleScrollToTop}>TOP</S.Bottom>
 		</S.Container>
@@ -117,13 +116,14 @@ const RecentlyClicked = () => {
 export default RecentlyClicked;
 
 const Container = styled.div`
-	width: 156px;
+	z-index: 100;
+	width: 152.5px;
 	height: 345px;
-	border: 3px solid;
-	border-color: ${({ theme }) => theme.PALETTE.black};
+	border: 1px solid;
+	border-color: ${({ theme }) => theme.PALETTE.primary};
 	position: fixed;
 	top: 250px;
-	left: 75em;
+	left: 90%;
 	${primaryFont}
 	text-align: center;
 	font-size: 18px;
@@ -131,6 +131,9 @@ const Container = styled.div`
 `;
 
 const Top = styled.div`
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0 15px;
 	height: 52px;
 	background-color: ${({ theme }) => theme.PALETTE.primary};
 	color: ${({ theme }) => theme.PALETTE.white};
@@ -141,11 +144,18 @@ const Top = styled.div`
 		font-weight: 700;
 	}
 	border-bottom: 3px solid;
+
+	svg {
+		vertical-align: middle;
+	}
 `;
 
 const Middle = styled.div`
 	height: 242px;
 	padding: 20px 0;
+	.title {
+		margin-bottom: 10px;
+	}
 	button {
 		border: none;
 		background-color: transparent;
@@ -169,11 +179,6 @@ const SlideImage = styled.img`
 	height: 110px;
 `;
 
-const Arrow = styled.img`
-	width: 24px;
-	margin: 7px 0;
-`;
-
 const Empty = styled.li`
 	width: 110px;
 	height: 110px;
@@ -183,8 +188,8 @@ const Empty = styled.li`
 
 const Bottom = styled.div`
 	height: 45px;
-	border-top: 3px solid;
-	border-color: ${({ theme }) => theme.PALETTE.black};
+	border-top: 1px solid;
+	border-color: ${({ theme }) => theme.PALETTE.primary};
 	line-height: 45px;
 	cursor: pointer;
 `;
@@ -196,7 +201,6 @@ const S = {
 	SlideWrapper,
 	SlideContainer,
 	SlideImage,
-	Arrow,
 	Empty,
 	Bottom,
 };

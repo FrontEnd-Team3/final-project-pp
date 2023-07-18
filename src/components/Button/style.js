@@ -4,12 +4,17 @@ import { primaryFont } from "styles/common";
 const colorCSS = {
 	primary: css`
 		background-color: ${({ theme }) => theme.PALETTE.primary};
+		border: none;
+		color: ${({ theme }) => theme.PALETTE.white};
 	`,
 	black: css`
 		background-color: ${({ theme }) => theme.PALETTE.black};
+		border: none;
+		color: ${({ theme }) => theme.PALETTE.white};
 	`,
 	gray: css`
 		background-color: ${({ theme }) => theme.PALETTE.gray};
+		border: none;
 	`,
 	white: css`
 		background-color: ${({ theme }) => theme.PALETTE.white};
@@ -42,9 +47,18 @@ const sizeCSS = {
 		width: 160px;
 		height: 42px;
 	`,
+	mediumThird: css`
+		width: 349px;
+		height: 50px;
+	`,
 	xsmall: css`
-		width: 62px;
-		height: 21px;
+		width: 59px;
+		height: 28px;
+		font-size: 14px;
+	`,
+	xxsmall: css`
+		width: 60px;
+		height: 50px;
 	`,
 };
 
