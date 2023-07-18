@@ -7,7 +7,7 @@ const UserInfo = ({ user }) => {
 				<img src={user.profileImg} className="profileImg" />
 				<div className="nickname">{user.nickname}</div>
 			</div>
-			<div>
+			<div style={{ display: "flex" }}>
 				<div className="degree">매너온도: {user.degree}도</div>
 				<div className="dealCount">(총 거래 건: {user.dealCount})</div>
 			</div>
@@ -20,7 +20,6 @@ export default UserInfo;
 const Container = styled.div`
 	padding-top: 20px;
 	display: flex;
-	justify-content: space-between;
 	.profileImg {
 		width: 40px;
 		height: 40px;

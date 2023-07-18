@@ -47,10 +47,18 @@ const sizeCSS = {
 		width: 160px;
 		height: 42px;
 	`,
+	mediumThird: css`
+		width: 349px;
+		height: 50px;
+	`,
 	xsmall: css`
 		width: 59px;
 		height: 28px;
 		font-size: 14px;
+	`,
+	xxsmall: css`
+		width: 60px;
+		height: 50px;
 	`,
 };
 
