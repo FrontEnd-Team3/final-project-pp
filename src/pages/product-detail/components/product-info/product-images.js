@@ -19,7 +19,7 @@ const ProductImages = ({ image }) => {
 export default ProductImages;
 
 const ImageContainer = styled.div`
-	width: 600px;
+	width: 615px;
 `;
 
 const MainImage = styled.div`
@@ -34,7 +34,6 @@ const MainImage = styled.div`
 `;
 const SubImages = styled.div`
 	display: flex;
-	justify-content: space-between;
 	margin: 0 auto;
 	img {
 		width: 142px;
@@ -44,6 +43,7 @@ const SubImages = styled.div`
 		background: #fff;
 		margin-top: 10px;
 		/* box-shadow: 4px 4px 0px 0px #404040; */
+		margin-right: 10px;
 	}
 `;
 

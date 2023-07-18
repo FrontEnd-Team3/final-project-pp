@@ -116,13 +116,14 @@ const RecentlyClicked = () => {
 export default RecentlyClicked;
 
 const Container = styled.div`
+	z-index: 100;
 	width: 152.5px;
 	height: 345px;
 	border: 1px solid;
 	border-color: ${({ theme }) => theme.PALETTE.primary};
 	position: fixed;
 	top: 250px;
-	left: 75em;
+	left: 90%;
 	${primaryFont}
 	text-align: center;
 	font-size: 18px;

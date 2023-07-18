@@ -5,15 +5,26 @@ import UsedProduct from "./components/used-product/UsedProduct";
 import FreeProduct from "./components/free-product/FreeProduct";
 import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
+import axios from "axios";
 
 const Main = () => {
+	// useEffect(() => {
+	// 	fetch("/users")
+	// 		.then(res => res.json())
+	// 		.then(data => {
+	// 			console.log(data);
+	// 		});
+	// }, []);
 	useEffect(() => {
-		fetch("/users")
-			.then(res => res.json())
-			.then(data => {
-				console.log(data);
-			});
+		axios.get("/products").then(res => console.log(res.data));
 	}, []);
+	// useEffect(() => {
+	// 	fetch("/chat")
+	// 		.then(res => res.json())
+	// 		.then(data => {
+	// 			console.log(data);
+	// 		});
+	// }, []);
 
 	return (
 		<>
