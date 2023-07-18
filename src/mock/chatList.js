@@ -1,5 +1,6 @@
 export const chatList = [
 	{
+		roomID: 0,
 		prouductID: 23,
 		seller: true, // 판매자 user id 1
 		20230706: [
@@ -28,6 +29,7 @@ export const chatList = [
 		],
 	},
 	{
+		roomID: 1,
 		prouductID: 24,
 		seller: false, // 구매자 user id 0
 		20230706: [

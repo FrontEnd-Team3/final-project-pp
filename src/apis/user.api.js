@@ -5,7 +5,7 @@ export const getUsers = rest.get("/users", async (req, res, ctx) => {
 	return res(ctx.status(200), ctx.json(userList));
 });
 
-export const addUser = rest.post("/users:id", async (req, res, ctx) => {
+export const addUser = rest.post("/users", async (req, res, ctx) => {
 	// 가입 시 받아와야 하는 정보들
 	let email;
 	let password;
