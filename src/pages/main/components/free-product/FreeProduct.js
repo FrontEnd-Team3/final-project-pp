@@ -6,6 +6,9 @@ import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
 
 const FreeProduct = () => {
+	const PRODUCTLIST = productList.filter(
+		product => product.status !== "판매완료",
+	);
 	const navigate = useNavigate();
 	return (
 		<S.Container>
@@ -23,7 +26,7 @@ const FreeProduct = () => {
 					/>
 				</S.Location>
 			</div>
-			<ProductListWithoutPagination productList={productList} />
+			<ProductListWithoutPagination productList={PRODUCTLIST} />
 			<S.ButtonContainer>
 				<BasicButton
 					variant={"black"}

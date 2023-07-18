@@ -4,10 +4,13 @@ import styled from "styled-components";
 import { primaryFont } from "styles/common";
 
 const OtherProducts = () => {
+	const PRODUCTLIST = productList.filter(
+		product => product.status !== "판매완료",
+	);
 	return (
 		<>
 			<S.OtherProductTitle>연관 상품 보러가기</S.OtherProductTitle>
-			<ProductList productList={productList} />
+			<ProductList productList={PRODUCTLIST} />
 		</>
 	);
 };
