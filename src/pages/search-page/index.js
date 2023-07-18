@@ -1,5 +1,5 @@
 import ProductList from "components/ProductList";
-import { productList } from "mock/products";
+import { productList } from "mock/productsList";
 import styled from "styled-components";
 
 const SearchPage = () => {

@@ -1,19 +1,19 @@
-import ChatList from "components/Chat/chat-list";
+import React, { useEffect } from "react";
 import Banner from "./components/banner/Banner";
-import UsedProduct from "./components/used-product/UsedProduct";
-import FreeProduct from "./components/free-product/FreeProduct";
-import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
-import SearchPage from "pages/search-page";
 
 const Main = () => {
+	useEffect(() => {
+		fetch("/users")
+			.then(res => res.json())
+			.then(data => {
+				console.log(data);
+			});
+	}, []);
+
 	return (
 		<>
 			<Banner />
-			<UsedProduct />
-			<FreeProduct />
-			<RecentlyClicked />
-			<SearchPage />
-			<ChatList />
+			{/* Render users data... */}
 		</>
 	);
 };
