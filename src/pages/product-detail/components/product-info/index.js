@@ -19,12 +19,12 @@ const ProductInfo = () => {
 					<S.ProductLocation>{TARGET.location}(위도, 경도)</S.ProductLocation>
 					<UserInfo targetUser={TARGET.user} />
 					<S.Introduction>{TARGET.introduction}</S.Introduction>
-					<S.ProductPrice>{localPrice} 원</S.ProductPrice>
 					<div>
 						{TARGET.tags.map(tag => (
 							<S.Tag># {tag}</S.Tag>
 						))}
 					</div>
+					<S.ProductPrice>{localPrice} 원</S.ProductPrice>
 					<ButtonContainer />
 				</S.InfoContainer>
 			</S.Container>
@@ -58,7 +58,7 @@ const ProductLocation = styled.div`
 `;
 
 const Introduction = styled.div`
-	height: 350px;
+	height: 310px;
 	padding-top: 20px;
 	border-bottom: 1px solid #b6b6b6;
 	padding-bottom: 10px;
@@ -66,6 +66,7 @@ const Introduction = styled.div`
 	font-size: 16px;
 	font-weight: 100;
 	vertical-align: bottom;
+	margin-bottom: 10px;
 `;
 
 const ProductPrice = styled.div`
