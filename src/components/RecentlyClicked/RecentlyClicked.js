@@ -1,19 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import ONE from "./images/product1.png";
-import TWO from "./images/product2.png";
-import THREE from "./images/product3.png";
-import FOUR from "./images/product4.png";
 import { GoBookmark } from "react-icons/go";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import useRecentlyClicked from "hooks/useRecentlyClicked";
+import { productList } from "mock/productsList";
 
 const RecentlyClicked = () => {
 	// 추후 API로 데이터 들어오면 수정
 	const [likes, setLikes] = useState(0);
 
 	// 이미지 배열
-	const ImageArr = [ONE, TWO, THREE, FOUR];
+	// localStorage에서 최근 본 상품 가져오기
+	const recentlyClicked = useRecentlyClicked();
+
+	// 최근 본 상품 배열에 들어있는 id 값과 일치하는 상품의 이미지 가져오기
+	// localstorage에는 id가 문자열로 들어가므로 빈 문자열 더해서 검사
+	const ImageArr = productList
+		.filter(product => recentlyClicked.includes(product.id + ""))
+		.map(product => product.image[0]);
+	// console.log("최근 본 상품", ImageArr);
 
 	// 슬라이드 구현
 	const slideRef = useRef(null);
@@ -63,20 +69,6 @@ const RecentlyClicked = () => {
 	// Scroll to Top
 	const [scrollY, setScrollY] = useState(0);
 	// console.log("Y", scrollY);
-
-	const handleScroll = () => {
-		setScrollY(window.scrollY);
-	};
-
-	useEffect(() => {
-		const watchScroll = () => {
-			window.addEventListener("scroll", handleScroll);
-		};
-		watchScroll();
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	});
 
 	const handleScrollToTop = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
