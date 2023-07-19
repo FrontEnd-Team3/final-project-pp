@@ -5,7 +5,6 @@ import { useState } from "react";
 import Pagenation from "../pagenation";
 
 const Soldout = () => {
-	// const [product, setProduct] = useState(productList);
 	const [limit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * limit;
@@ -49,7 +48,6 @@ const Button = styled.button`
 	position: relative;
 	left: 203px;
 `;
-s;
 
 const Icon = styled.img`
 	width: 20px;
