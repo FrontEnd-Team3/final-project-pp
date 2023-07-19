@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import OneProduct from "./one-soldoutproduct";
-import { productList } from "mock/products";
+import { productList } from "mock/__products";
 import { useState } from "react";
 import Pagenation from "../pagenation";
 
