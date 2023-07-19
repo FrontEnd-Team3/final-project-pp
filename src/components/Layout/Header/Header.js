@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { pointColor, primaryFont } from "styles/common";
+import { primaryFont } from "styles/common";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -69,7 +69,7 @@ const NewChat = styled.div`
 	height: 30px;
 	position: relative;
 	left: 140px;
-	${pointColor};
+	color: ${({ theme }) => theme.PALETTE.darkPrimary};
 `;
 const Sellbutton = styled.button`
 	width: 110px;
@@ -100,7 +100,7 @@ const InfoWrapper = styled.div`
 	top: 10px;
 	right: 3px;
 	div:nth-child(3) {
-		${pointColor};
+		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 		position: relative;
 		bottom: 7px;
 	}
@@ -119,7 +119,7 @@ const SideTitle = styled.div`
 const NavPage = styled.div`
 	cursor: pointer;
 	:hover {
-		${pointColor}
+		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 	}
 `;
 

@@ -9,10 +9,6 @@ export const color = css`
 	color: #8490c8;
 `;
 
-export const pointColor = css`
-	color: #2e8b57;
-`;
-
 export const flexCenter = css`
 	display: flex;
 	justify-content: center;
