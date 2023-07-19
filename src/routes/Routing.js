@@ -1,5 +1,6 @@
 import ChatList from "components/Chat/chat-list";
 import Layout from "components/Layout";
+import LayoutwithoutHeader from "components/Layoutwithoutheader";
 import Main from "pages/main";
 import ProductDetailPage from "pages/product-detail";
 import ProductRegister from "pages/product-register";
@@ -18,14 +19,14 @@ const router = createBrowserRouter([
 				path: "/",
 				element: <Main />,
 			},
-			{
-				path: "/Signin",
-				element: <Signin />,
-			},
-			{
-				path: "/Signup",
-				element: <Signup />,
-			},
+			// {
+			// 	path: "/Signin",
+			// 	element: <Signin />,
+			// },
+			// {
+			// 	path: "/Signup",
+			// 	element: <Signup/>,
+			// },
 			{
 				path: "/product/:id",
 				element: <ProductDetailPage />,
@@ -49,6 +50,19 @@ const router = createBrowserRouter([
 			{
 				path: "/search",
 				element: <SearchPage />,
+			},
+		],
+	},
+	{
+		element: <LayoutwithoutHeader />,
+		children: [
+			{
+				path: "/Signin",
+				element: <Signin />,
+			},
+			{
+				path: "/Signup",
+				element: <Signup />,
 			},
 		],
 	},

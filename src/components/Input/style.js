@@ -11,9 +11,13 @@ const variantCSS = {
 };
 
 const sizeCSS = {
+	small: css`
+		width: 340px;
+		font-size: 11px;
+	`,
 	medium: css`
-		width: 500px;
-		font-size: 13px;
+		width: 370px;
+		font-size: 11px;
 	`,
 };
 
