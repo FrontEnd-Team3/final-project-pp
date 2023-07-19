@@ -35,8 +35,9 @@ const Header = () => {
 								LOGIN
 							</div>
 							<div>MYPAGE</div>
-							<div>
-								CHAT<S.Chaticon src="img/chat.png"></S.Chaticon>
+							<div onClick={() => navigate(`/Chat`)}>
+								CHAT
+								<S.Chaticon src="img/chat.png"></S.Chaticon>
 							</div>
 						</S.InfoWrapper>
 					</div>
