@@ -1,61 +1,55 @@
 import styled from "styled-components";
 import gkgk from "./gkgk.png";
-import { useState } from "react";
 
 const ChatList = () => {
-	const [isOpen, setIsOpen] = useState(true);
-	if (isOpen)
-		return (
-			<S.Container>
-				<S.Header>
-					<S.Hsale>판매 내역</S.Hsale>
-					<S.Hbuy>구매 내역</S.Hbuy>
-					<S.HChat>CHATTING</S.HChat>
-					<S.Xbutton onClick={() => setIsOpen(false)}>X</S.Xbutton>
-				</S.Header>
-				<S.AllMain>
-					<S.Main>
-						<S.Item>
-							<S.IimgContainer>
-								<S.Iimg src={gkgk} />
-							</S.IimgContainer>
-							<S.TextContainer>
-								<S.Inew>New</S.Inew>
-								<S.Iproduct>파란 오리 판매합니다</S.Iproduct>
-								<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
-								<S.Iprice>20,000 원</S.Iprice>
-								<S.Imove>상품이동 ▶</S.Imove>
-							</S.TextContainer>
-						</S.Item>
-						<S.Item></S.Item>
-						<S.Item></S.Item>
-						<S.Item></S.Item>
-						<S.Item></S.Item>
-						<S.Item></S.Item>
-					</S.Main>
-					<S.ChatMain>
-						<S.Chat>
-							<S.day>2023.07.06</S.day>
-							<S.hr />
-							<S.BuyWrapper>
-								<S.Buytime>10:53</S.Buytime>
-								<S.Chatbuy>일이삼사오육칠팔구십일이삼사오육칠팔구십</S.Chatbuy>
-							</S.BuyWrapper>
-							<S.SellerWrapper>
-								<S.ChatSeller>
-									일이삼사오육칠팔구십일이삼사오육칠팔구십
-								</S.ChatSeller>
-								<S.Sellertime>10:55</S.Sellertime>
-							</S.SellerWrapper>
-						</S.Chat>
-						<S.SendWrapper>
-							<S.Message placeholder="채팅치는곳"></S.Message>
-							<S.Send>전송</S.Send>
-						</S.SendWrapper>
-					</S.ChatMain>
-				</S.AllMain>
-			</S.Container>
-		);
+	return (
+		<S.Container>
+			<S.Header>
+				<S.Hsale>판매 내역</S.Hsale>
+				<S.Hbuy>구매 내역</S.Hbuy>
+				<S.HChat>CHATTING</S.HChat>
+			</S.Header>
+			<S.AllMain>
+				<S.Main>
+					<S.Item>
+						<S.IimgContainer>
+							<S.Iimg src={gkgk} />
+						</S.IimgContainer>
+						<S.TextContainer>
+							<S.Delete>X</S.Delete>
+							<S.Iproduct>
+								파란 오리 판매합니다
+								<S.Span>New</S.Span>
+							</S.Iproduct>
+							<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
+							<S.Iprice>20,000 원</S.Iprice>
+							<S.Imove>상품이동 ▶</S.Imove>
+						</S.TextContainer>
+					</S.Item>
+				</S.Main>
+				<S.ChatMain>
+					<S.Chat>
+						<S.day>2023.07.06</S.day>
+						<S.hr />
+						<S.BuyWrapper>
+							<S.Buytime>10:53</S.Buytime>
+							<S.Chatbuy>일이삼사오육칠팔구십일이삼사오육칠팔구십</S.Chatbuy>
+						</S.BuyWrapper>
+						<S.SellerWrapper>
+							<S.ChatSeller>
+								일이삼사오육칠팔구십일이삼사오육칠팔구십
+							</S.ChatSeller>
+							<S.Sellertime>10:55</S.Sellertime>
+						</S.SellerWrapper>
+					</S.Chat>
+					<S.SendWrapper>
+						<S.Message placeholder="채팅치는곳"></S.Message>
+						<S.Send>전송</S.Send>
+					</S.SendWrapper>
+				</S.ChatMain>
+			</S.AllMain>
+		</S.Container>
+	);
 };
 export default ChatList;
 
@@ -100,26 +94,13 @@ const Hbuy = styled.div`
 `;
 
 const HChat = styled.div`
-	width: 449px;
+	width: 448px;
 	background-color: #fcf9f3;
 	font-size: 18px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-weight: bold;
-`;
-
-const Xbutton = styled.div`
-	width: 50px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-	background-color: #d5d5d5;
-	font-size: 20px;
-	font-weight: bold;
-	cursor: pointer;
-	float: right;
 `;
 
 const AllMain = styled.div`
@@ -141,15 +122,14 @@ const Main = styled.div`
 const Item = styled.div`
 	display: flex;
 	border-bottom: 1px solid #ebebeb;
-	width: 450px;
 	height: 150px;
 	background-color: white;
-	padding: 15px 20px;
+	padding: 10px 20px;
 `;
 
 const TextContainer = styled.div`
 	display: flex;
-	margin-left: 8px;
+	margin-left: 10px;
 	flex-direction: column;
 `;
 
@@ -166,14 +146,21 @@ const Iimg = styled.img`
 	height: 100%;
 `;
 
-const Inew = styled.div`
+const Delete = styled.div`
+	font-size: 16px;
+	margin-left: 290px;
+	font-weight: bold;
+	cursor: pointer;
+`;
+
+const Span = styled.span`
 	color: #3cb371;
 	font-size: 10px;
-	margin-left: 290px;
+	margin-left: 10px;
+	box-shadow: inset 0 -1px #3cb371;
 `;
 
 const Iproduct = styled.div`
-	width: 200px;
 	font-size: 16px;
 	font-weight: bold;
 `;
@@ -194,8 +181,8 @@ const Iprice = styled.div`
 const Imove = styled.div`
 	font-size: 12px;
 	color: #222222;
-	margin-left: 245px;
-	margin-bottom: 5px;
+	margin-left: 240px;
+	margin-bottom: 10px;
 	font-weight: bold;
 	cursor: pointer;
 `;
@@ -292,6 +279,8 @@ const SendWrapper = styled.div`
 const Message = styled.input`
 	width: 300px;
 	padding: 8px;
+	height: 40px;
+	border-radius: 8px;
 	border: none;
 	background-color: #f4f4f4;
 `;
@@ -299,6 +288,7 @@ const Message = styled.input`
 const Send = styled.div`
 	width: 100px;
 	padding: 8px;
+	height: 40px;
 	background-color: #3cb371;
 	color: #ffffff;
 	border: none;
@@ -321,7 +311,6 @@ const S = {
 	TextContainer,
 	IimgContainer,
 	Iprice,
-	Inew,
 	AllMain,
 	Imove,
 	BuyWrapper,
@@ -337,5 +326,6 @@ const S = {
 	SendWrapper,
 	Message,
 	Send,
-	Xbutton,
+	Delete,
+	Span,
 };

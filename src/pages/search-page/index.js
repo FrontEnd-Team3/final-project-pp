@@ -1,5 +1,3 @@
-import ProductList from "components/ProductList";
-import { productList } from "mock/productsList";
 import styled from "styled-components";
 
 const SearchPage = () => {
@@ -12,7 +10,7 @@ const SearchPage = () => {
 				<S.Option>고가순</S.Option>
 				<S.Option>저가순</S.Option>
 			</S.Select>
-			<ProductList productList={productList} />
+			{/* <ProductList productList={productList} /> */}
 		</S.Main>
 	);
 };
@@ -25,7 +23,6 @@ const Main = styled.div`
 `;
 
 const Select = styled.select`
-	background-color: #3cb371;
 	float: right;
 	margin-right: 5px;
 	margin-bottom: 10px;
@@ -33,12 +30,13 @@ const Select = styled.select`
 	width: 100px;
 	text-align: center;
 	padding: 5px;
-	border: 1px solid #3cb371;
+	border: 1px solid #dddddd;
 	border-radius: 8px;
 `;
 
 const Option = styled.option`
 	background-color: white;
+	border-bottom: 1px solid #dddddd;
 `;
 
 const AllButton = styled.div`
