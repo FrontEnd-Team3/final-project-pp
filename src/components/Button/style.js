@@ -12,6 +12,11 @@ const colorCSS = {
 		border: none;
 		color: ${({ theme }) => theme.PALETTE.white};
 	`,
+	darkBlack: css`
+		background-color: ${({ theme }) => theme.PALETTE.darkBlack};
+		border: none;
+		color: ${({ theme }) => theme.PALETTE.white};
+	`,
 	gray: css`
 		background-color: ${({ theme }) => theme.PALETTE.gray};
 		border: none;
@@ -51,6 +56,10 @@ const sizeCSS = {
 		width: 349px;
 		height: 50px;
 	`,
+	mediumfourth: css`
+		width: 370px;
+		height: 45px;
+	`,
 	xsmall: css`
 		width: 59px;
 		height: 28px;
@@ -65,6 +74,7 @@ const sizeCSS = {
 const Button = styled.button`
 	${({ variant }) => colorCSS[variant]}
 	${({ size }) => sizeCSS[size]}
+	${({ color }) => colorCSS[color]}
     cursor: pointer;
 	${primaryFont}
 `;
