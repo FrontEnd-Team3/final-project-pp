@@ -125,7 +125,7 @@ const SubmitBtns = styled.div`
 		font-size: ${({ theme }) => theme.FONT_SIZE.small};
 	}
 	button:hover {
-		background: ${({ theme }) => theme.PALETTE.darkPrimary};
+		background: rgba(60, 179, 113, 0.9);
 	}
 
 	button:last-of-type {
