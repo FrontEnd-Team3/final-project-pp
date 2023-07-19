@@ -12,7 +12,7 @@ export const productList = [
 		price: 0,
 		introduction: "23FW 브루넬로 쿠치넬리 부츠 MZIDG2535C101 Black",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 5,
 		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -28,7 +28,7 @@ export const productList = [
 		introduction:
 			"귀여운 색감의 컬러 배색이 들어간 링거티입니다. 크롭 기장감으로 트렌디한 연출을 할 수 있고 총 5가지 컬러로 출시되어 스타일에 포인트를 줄 수 있습니다. ",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 3,
 		status: "거래중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -44,7 +44,7 @@ export const productList = [
 		introduction:
 			"개성과 다양성을 상징하는 아디다스 슈퍼스타가 틀을 깨는 새로운 버전으로 돌아왔습니다. 과거에서 얻은 영감을 기반으로 모던한 스트리트웨어에 변화를 주도록 재구성된 아디폼 SST 부츠를 만나보세요. 지속 가능한 소재로 제작된 부츠 컷 디자인이 미래를 향해 진화하는 대담한 룩을 선사하고, 아이코닉한 쉘토가 슈퍼스타의 역사를 재조명합니다. 부드러운 폼 소재를 사용해 편안하고 기분 좋은 착화감을 제공합니다.",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 2,
 		status: "판매완료",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -60,7 +60,7 @@ export const productList = [
 		introduction:
 			"Salt-Water®는 손바느질 된 미끄럼 방지 밑창과, 흠집에 강한 생활 방수 가죽으로 만들어졌습니다. 청소가 간편하고 녹슬지 않는 황동 버클이 장착되어있어, 물 안과 밖 어느 곳에서든 편하게 착용할 수 있습니다.",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 4,
 		status: "판매완료",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -76,7 +76,7 @@ export const productList = [
 		introduction:
 			"Triple buckle strap design gives uniqueness of this sandal heel.",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 100,
 		status: "거래중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -92,7 +92,7 @@ export const productList = [
 		introduction:
 			"양가죽을 사용하여 부드러워 착화감이 좋으며, 창과 어퍼에 폴리곤 모양의 퀼팅 재봉으로 밋밋할수있는 샌들에 포인트를 주었다. 앤틱 버클장식을 적용하여 고급스러운 스타일.",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 10,
 		status: "판매완료",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -108,7 +108,7 @@ export const productList = [
 		introduction:
 			"XT-6은 2013년 처음 출시된 이후 혹독한 조건을 이겨내고 장시간 러닝을 하는 세계적인 선수들이 선호하는 런닝슈즈로 자리매김했습니다. 최고의 쿠셔닝, 내구성, 컨트롤 능력은 그대로 유지하면서 컬러와 소재가 더욱 업그레이드 되었습니다.",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 4,
 		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -124,7 +124,7 @@ export const productList = [
 		introduction:
 			"유럽 감성의 미니멀한 디자인과 아이들에게 즐거움을 주는 다양한 컬러가 특징이며, 부드러운 PVC 재질로 제작되어 어른, 아이 할 것 없이 편안한 착화감을 제공합니다.",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 40,
 		status: "거래중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -156,7 +156,7 @@ export const productList = [
 		introduction:
 			"스트리트 컬쳐와 스포츠를 아우르는 디자인으로 나이키의 도전정신을 기념하다. 클래식 스타일을 과감하게 재해석하여, 시선을 사로잡는 나이키 뉴 컬렉션을 만나보세요.",
 		user: 1,
-		bookmarkCount: 0,
+		bookmarkCount: 20,
 		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
@@ -247,7 +247,7 @@ export const productList = [
 		date: new Date(),
 		image: Images.product15,
 		location: "서울시 성동구 성수동",
-		price: 0,
+		price: 90000,
 		category: true,
 		introduction: "선물 받았는데 사용하지 않아 판매합니다.",
 		user: 1,
@@ -339,7 +339,7 @@ export const productList = [
 		date: new Date(),
 		image: Images.product21,
 		location: "서울시 성동구 성수동",
-
+		category: true,
 		price: 29700,
 		introduction:
 			"3D 불가사리 포인트의 써니라이프 비치볼. 가득 들어있는 홀로그램 글리터로 물 위에서 더욱 반짝반짝 빛이 나요. 써니라이프만의 무드와 함께 여름을 특별하게 보내보세요",
@@ -356,7 +356,7 @@ export const productList = [
 		image: Images.product22,
 		location: "서울시 성동구 성수동",
 		category: true,
-		price: 0,
+		price: 150000,
 		introduction: "23FW 주니어 발망 티셔츠 BT8Q71 Z0116100NE",
 		user: 1,
 		bookmarkCount: 0,

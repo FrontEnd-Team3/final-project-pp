@@ -41,6 +41,7 @@ const Container = styled.div`
 	grid-template-rows: repeat(2, 1fr);
 	grid-column-gap: 0px;
 	grid-row-gap: 0px;
+	grid-gap: 20px;
 `;
 
 const S = { Container };

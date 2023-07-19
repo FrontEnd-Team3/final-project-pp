@@ -11,6 +11,7 @@ const PALETTE = {
 	turquoise: "#005666",
 	disabled: "#E6E6E6",
 	darkPrimary: "#2E8B57",
+	darkBlack: "#222222",
 };
 
 const FONT_SIZE = {
