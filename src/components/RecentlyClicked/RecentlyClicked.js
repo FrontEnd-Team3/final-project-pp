@@ -1,0 +1,206 @@
+import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import { primaryFont } from "styles/common";
+import ONE from "./images/product1.png";
+import TWO from "./images/product2.png";
+import THREE from "./images/product3.png";
+import FOUR from "./images/product4.png";
+import { GoBookmark } from "react-icons/go";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+
+const RecentlyClicked = () => {
+	// 추후 API로 데이터 들어오면 수정
+	const [likes, setLikes] = useState(0);
+
+	// 이미지 배열
+	const ImageArr = [ONE, TWO, THREE, FOUR];
+
+	// 슬라이드 구현
+	const slideRef = useRef(null);
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const IMAGE_SIZE = 115;
+	const SLIDE_RANGE = currentIndex * IMAGE_SIZE;
+
+	const handleDownSlideIndex = () => {
+		if (currentIndex === InfiniteArr.length - 1) {
+			slideRef.current.style.transition = "";
+			setCurrentIndex(1);
+			setTimeout(() => {
+				if (slideRef.current) {
+					slideRef.current.style.transition = "all 0.5s ease-in-out";
+				}
+			}, 0);
+		} else {
+			slideRef.current.style.transition = "all 0.5s ease-in-out";
+			setCurrentIndex(prev => prev + 1);
+		}
+	};
+
+	const handleUpSlideIndex = () => {
+		if (currentIndex === 0) {
+			slideRef.current.style.transition = "";
+			setCurrentIndex(InfiniteArr.length - 2);
+			setTimeout(() => {
+				if (slideRef.current) {
+					slideRef.current.style.transition = "all 0.5s ease-in-out";
+				}
+			}, 0);
+		} else {
+			slideRef.current.style.transition = "all 0.5s ease-in-out";
+			setCurrentIndex(prev => prev - 1);
+		}
+	};
+
+	// 무한 슬라이드
+	const firstElement = ImageArr[ImageArr.length - 1];
+	const lastElement = ImageArr[0];
+	const InfiniteArr = [firstElement, ...ImageArr, lastElement];
+
+	useEffect(() => {
+		slideRef.current.style.transform = `translateY(-${SLIDE_RANGE}px)`;
+	}, [currentIndex]);
+
+	// Scroll to Top
+	const [scrollY, setScrollY] = useState(0);
+	// console.log("Y", scrollY);
+
+	const handleScroll = () => {
+		setScrollY(window.scrollY);
+	};
+
+	useEffect(() => {
+		const watchScroll = () => {
+			window.addEventListener("scroll", handleScroll);
+		};
+		watchScroll();
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	});
+
+	const handleScrollToTop = () => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+		setScrollY(0);
+	};
+
+	return (
+		<S.Container>
+			<S.Top>
+				찜한 상품 <GoBookmark color="white" size="22" /> {likes}
+			</S.Top>
+			<S.Middle>
+				<div className="title">최근 본 상품</div>
+				<IoIosArrowUp size="30" onClick={handleUpSlideIndex} />
+				<S.SlideWrapper>
+					<S.SlideContainer ref={slideRef} length={InfiniteArr.length}>
+						{InfiniteArr.length ? (
+							<>
+								<li>
+									{InfiniteArr.map((image, i) => (
+										<SlideImage src={image} key={i} />
+									))}
+								</li>
+							</>
+						) : (
+							<S.Empty>...없어욤</S.Empty>
+						)}
+					</S.SlideContainer>
+				</S.SlideWrapper>
+				<IoIosArrowDown size="30" onClick={handleDownSlideIndex} />
+			</S.Middle>
+			<S.Bottom onClick={handleScrollToTop}>TOP</S.Bottom>
+		</S.Container>
+	);
+};
+
+export default RecentlyClicked;
+
+const Container = styled.div`
+	z-index: 100;
+	width: 152.5px;
+	height: 345px;
+	border: 1px solid;
+	border-color: ${({ theme }) => theme.PALETTE.primary};
+	position: fixed;
+	top: 250px;
+	left: 90%;
+	${primaryFont}
+	text-align: center;
+	font-size: 18px;
+	background-color: ${({ theme }) => theme.PALETTE.white};
+`;
+
+const Top = styled.div`
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0 15px;
+	height: 52px;
+	background-color: ${({ theme }) => theme.PALETTE.primary};
+	color: ${({ theme }) => theme.PALETTE.white};
+	font-weight: 400;
+	line-height: 52px;
+	.heart {
+		font-size: 17px;
+		font-weight: 700;
+	}
+	border-bottom: 3px solid;
+
+	svg {
+		vertical-align: middle;
+	}
+`;
+
+const Middle = styled.div`
+	height: 242px;
+	padding: 20px 0;
+	.title {
+		margin-bottom: 10px;
+	}
+	button {
+		border: none;
+		background-color: transparent;
+		font-size: 25px;
+		display: block;
+	}
+`;
+
+const SlideWrapper = styled.div`
+	overflow: hidden;
+	height: 110px;
+`;
+
+const SlideContainer = styled.ul`
+	width: 100%;
+	height: 100%;
+`;
+
+const SlideImage = styled.img`
+	width: 110px;
+	height: 110px;
+`;
+
+const Empty = styled.li`
+	width: 110px;
+	height: 110px;
+	line-height: 110px;
+	color: ${({ theme }) => theme.PALETTE.gray};
+`;
+
+const Bottom = styled.div`
+	height: 45px;
+	border-top: 1px solid;
+	border-color: ${({ theme }) => theme.PALETTE.primary};
+	line-height: 45px;
+	cursor: pointer;
+`;
+
+const S = {
+	Container,
+	Top,
+	Middle,
+	SlideWrapper,
+	SlideContainer,
+	SlideImage,
+	Empty,
+	Bottom,
+};
