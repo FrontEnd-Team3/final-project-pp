@@ -1,15 +1,25 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Slogan = () => {
 	return (
 		<S.Container>
 			<S.TopBox>
-				TRADE · REUSE · INNOVATE AND MAKE YOUR MOMENT . TRADE · REUSE · INNOVATE
-				AND MAKE YOUR MOMENT
+				<S.TopText>
+					TRADE · REUSE · INNOVATE AND MAKE YOUR MOMENT . TRADE · REUSE ·
+					INNOVATE AND MAKE YOUR MOMENT TRADE · REUSE · INNOVATE AND MAKE YOUR
+					MOMENT . TRADE · REUSE · INNOVATE AND MAKE YOUR MOMENT TRADE · REUSE ·
+					INNOVATE AND MAKE YOUR MOMENT . TRADE · REUSE · INNOVATE AND MAKE YOUR
+					MOMENT
+				</S.TopText>
 			</S.TopBox>
 			<S.BottomBox>
-				TRADE · REUSE · INNOVATE AND MAKE YOUR MOMENT . TRADE · REUSE · INNOVATE
-				AND MAKE YOUR MOMENT
+				<S.BottomText>
+					TRADE · REUSE · INNOVATE AND MAKE YOUR MOMENT . TRADE · REUSE ·
+					INNOVATE AND MAKE YOUR MOMENT TRADE · REUSE · INNOVATE AND MAKE YOUR
+					MOMENT . TRADE · REUSE · INNOVATE AND MAKE YOUR MOMENT TRADE · REUSE ·
+					INNOVATE AND MAKE YOUR MOMENT . TRADE · REUSE · INNOVATE AND MAKE YOUR
+					MOMENT
+				</S.BottomText>
 			</S.BottomBox>
 		</S.Container>
 	);
@@ -18,10 +28,28 @@ const Slogan = () => {
 export default Slogan;
 
 const Container = styled.div`
-	margin: 20px 0;
+	margin: 90px 0;
 	font-weight: 500;
 	font-style: italic;
 	font-size: 36px;
+`;
+
+const moveToLeft = keyframes`
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
+`;
+
+const moveToRight = keyframes`
+0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(0);
+	}
 `;
 
 const TopBox = styled.div`
@@ -33,6 +61,10 @@ const TopBox = styled.div`
 	white-space: nowrap;
 `;
 
+const TopText = styled.div`
+	animation: ${moveToLeft} 125s linear infinite; /* Adjust the animation duration as needed */
+`;
+
 const BottomBox = styled.div`
 	border-bottom: 2px solid;
 	border-color: ${({ theme }) => theme.PALETTE.black};
@@ -41,4 +73,8 @@ const BottomBox = styled.div`
 	white-space: nowrap;
 `;
 
-const S = { Container, TopBox, BottomBox };
+const BottomText = styled.div`
+	animation: ${moveToRight} 125s linear infinite;
+`;
+
+const S = { Container, TopBox, BottomBox, TopText, BottomText };

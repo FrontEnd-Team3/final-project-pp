@@ -1,3 +1,4 @@
+import ChatList from "components/Chat/chat-list";
 import Layout from "components/Layout";
 import LayoutwithoutHeader from "components/Layoutwithoutheader";
 import Main from "pages/main";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
 			{
 				path: "/free-transaction",
 				element: <FreeTransaction />,
+			},
+			{
+				path: "/Chat",
+				element: <ChatList />,
 			},
 			{
 				path: "/search",
