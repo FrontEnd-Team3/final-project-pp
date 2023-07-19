@@ -1,59 +1,55 @@
 import styled from "styled-components";
 import gkgk from "./gkgk.png";
-import { useState } from "react";
 
 const ChatList = () => {
-	const [isOpen, setIsOpen] = useState(true);
-	if (isOpen)
-		return (
-			<S.Container>
-				<S.Header>
-					<S.Hsale>판매 내역</S.Hsale>
-					<S.Hbuy>구매 내역</S.Hbuy>
-					<S.HChat>CHATTING</S.HChat>
-					<S.Xbutton onClick={() => setIsOpen(false)}>X</S.Xbutton>
-				</S.Header>
-				<S.AllMain>
-					<S.Main>
-						<S.Item>
-							<S.IimgContainer>
-								<S.Iimg src={gkgk} />
-							</S.IimgContainer>
-							<S.TextContainer>
-								<S.Delete>X</S.Delete>
-								<S.Iproduct>
-									파란 오리 판매합니다
-									<S.Span>New</S.Span>
-								</S.Iproduct>
-								<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
-								<S.Iprice>20,000 원</S.Iprice>
-								<S.Imove>상품이동 ▶</S.Imove>
-							</S.TextContainer>
-						</S.Item>
-					</S.Main>
-					<S.ChatMain>
-						<S.Chat>
-							<S.day>2023.07.06</S.day>
-							<S.hr />
-							<S.BuyWrapper>
-								<S.Buytime>10:53</S.Buytime>
-								<S.Chatbuy>일이삼사오육칠팔구십일이삼사오육칠팔구십</S.Chatbuy>
-							</S.BuyWrapper>
-							<S.SellerWrapper>
-								<S.ChatSeller>
-									일이삼사오육칠팔구십일이삼사오육칠팔구십
-								</S.ChatSeller>
-								<S.Sellertime>10:55</S.Sellertime>
-							</S.SellerWrapper>
-						</S.Chat>
-						<S.SendWrapper>
-							<S.Message placeholder="채팅치는곳"></S.Message>
-							<S.Send>전송</S.Send>
-						</S.SendWrapper>
-					</S.ChatMain>
-				</S.AllMain>
-			</S.Container>
-		);
+	return (
+		<S.Container>
+			<S.Header>
+				<S.Hsale>판매 내역</S.Hsale>
+				<S.Hbuy>구매 내역</S.Hbuy>
+				<S.HChat>CHATTING</S.HChat>
+			</S.Header>
+			<S.AllMain>
+				<S.Main>
+					<S.Item>
+						<S.IimgContainer>
+							<S.Iimg src={gkgk} />
+						</S.IimgContainer>
+						<S.TextContainer>
+							<S.Delete>X</S.Delete>
+							<S.Iproduct>
+								파란 오리 판매합니다
+								<S.Span>New</S.Span>
+							</S.Iproduct>
+							<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
+							<S.Iprice>20,000 원</S.Iprice>
+							<S.Imove>상품이동 ▶</S.Imove>
+						</S.TextContainer>
+					</S.Item>
+				</S.Main>
+				<S.ChatMain>
+					<S.Chat>
+						<S.day>2023.07.06</S.day>
+						<S.hr />
+						<S.BuyWrapper>
+							<S.Buytime>10:53</S.Buytime>
+							<S.Chatbuy>일이삼사오육칠팔구십일이삼사오육칠팔구십</S.Chatbuy>
+						</S.BuyWrapper>
+						<S.SellerWrapper>
+							<S.ChatSeller>
+								일이삼사오육칠팔구십일이삼사오육칠팔구십
+							</S.ChatSeller>
+							<S.Sellertime>10:55</S.Sellertime>
+						</S.SellerWrapper>
+					</S.Chat>
+					<S.SendWrapper>
+						<S.Message placeholder="채팅치는곳"></S.Message>
+						<S.Send>전송</S.Send>
+					</S.SendWrapper>
+				</S.ChatMain>
+			</S.AllMain>
+		</S.Container>
+	);
 };
 export default ChatList;
 
@@ -98,26 +94,13 @@ const Hbuy = styled.div`
 `;
 
 const HChat = styled.div`
-	width: 400px;
+	width: 448px;
 	background-color: #fcf9f3;
 	font-size: 18px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-weight: bold;
-`;
-
-const Xbutton = styled.div`
-	width: 50px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-	background-color: #d5d5d5;
-	font-size: 20px;
-	font-weight: bold;
-	cursor: pointer;
-	float: right;
 `;
 
 const AllMain = styled.div`
@@ -343,7 +326,6 @@ const S = {
 	SendWrapper,
 	Message,
 	Send,
-	Xbutton,
 	Delete,
 	Span,
 };
