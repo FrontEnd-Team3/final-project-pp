@@ -1,32 +1,20 @@
 import styled from "styled-components";
 import OneProduct from "./one-product";
-import { useState } from "react";
-import Pagination from "components/Pagination";
 
-const ProductList = ({ productList }) => {
-	const [dataLimit, setDataLimit] = useState(8);
-	const [page, setPage] = useState(1);
-	const offset = (page - 1) * dataLimit;
-
+const ProductListWithoutPagination = ({ productList }) => {
 	if (productList)
 		return (
 			<>
 				<S.Container>
-					{productList.slice(offset, offset + dataLimit).map((product, i) => (
+					{productList.slice(0, 8).map((product, i) => (
 						<OneProduct key={product.id} product={product} grid={"box" + i} />
 					))}
 				</S.Container>
-				<Pagination
-					totalData={productList.length}
-					dataLimit={dataLimit}
-					page={page}
-					setPage={setPage}
-				/>
 			</>
 		);
 };
 
-export default ProductList;
+export default ProductListWithoutPagination;
 
 const Container = styled.div`
 	/* display: flex;

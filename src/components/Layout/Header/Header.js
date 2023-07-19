@@ -1,21 +1,48 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { color, primaryFont } from "styles/common";
+import { primaryFont } from "styles/common";
 
 const Header = () => {
 	const navigate = useNavigate();
 	return (
 		<>
 			<S.Container>
-				<S.Wrapper>
-					<S.Title
-						onClick={() => {
-							navigate(`/`);
-						}}
-					>
-						PPYONG PPYONG
-					</S.Title>
-					<S.Subtitle>
+				<S.LogoWrapper>
+					<div>
+						<S.Title
+							onClick={() => {
+								navigate(`/`);
+							}}
+						>
+							TRIMM
+						</S.Title>
+						<S.SideTitle>
+							Trade, Reuse, Innovate and Make your Moment
+						</S.SideTitle>
+					</div>
+					<S.SearchWrapper>
+						<S.SearchBar></S.SearchBar>
+						<S.Searchicon src="img/search.png"></S.Searchicon>
+					</S.SearchWrapper>
+					<div>
+						<S.NewChat>새로운 채팅 도착!</S.NewChat>
+						<S.InfoWrapper>
+							<div
+								onClick={() => {
+									navigate(`/Signup`);
+								}}
+							>
+								LOGIN
+							</div>
+							<div>MYPAGE</div>
+							<div>
+								CHAT<S.Chaticon src="img/chat.png"></S.Chaticon>
+							</div>
+						</S.InfoWrapper>
+					</div>
+				</S.LogoWrapper>
+				<S.CategoryWrapper>
+					<S.Category>
 						<S.NavPage onClick={() => navigate(`/used-transaction`)}>
 							중고거래
 						</S.NavPage>
@@ -23,148 +50,160 @@ const Header = () => {
 							무료나눔
 						</S.NavPage>
 						<div>실시간 시세</div>
-					</S.Subtitle>
-					<S.SearchBar placeholder=" 물품명, 태그명을 검색해 보세요 "></S.SearchBar>
-					<S.SearchImage src="img/searchtest.jpg"></S.SearchImage>
-					<S.ImageWrapper>
-						<S.Image
-							src="img/signup.jpg"
-							onClick={() => {
-								navigate(`/Signin`);
-							}}
-						></S.Image>
-						<S.Image
-							src="img/login.jpg"
-							onClick={() => {
-								navigate(`/Signup`);
-							}}
-						></S.Image>
-						<S.Image src="img/mypage.jpg"></S.Image>
-						<S.Image src="img/chat.jpg"></S.Image>
-					</S.ImageWrapper>
-				</S.Wrapper>
+					</S.Category>
+					<S.Sellbutton>판매하기</S.Sellbutton>
+				</S.CategoryWrapper>
 			</S.Container>
-			<S.NameWrapper>
-				<S.ImageName>JOIN</S.ImageName>
-				<S.ImageName>LOGIN</S.ImageName>
-				<S.ImageName>MYPAGE</S.ImageName>
-				<S.ImageName>TALK</S.ImageName>
-			</S.NameWrapper>
 		</>
 	);
 };
 
 export default Header;
-
+const NewChat = styled.div`
+	border: 1.8px solid #2e8b57;
+	width: 105px;
+	font-size: 12px;
+	font-weight: bold;
+	padding-left: 4px;
+	padding-top: 6px;
+	height: 30px;
+	position: relative;
+	left: 140px;
+	color: ${({ theme }) => theme.PALETTE.darkPrimary};
+`;
+const Sellbutton = styled.button`
+	width: 110px;
+	height: 45px;
+	border-radius: 0;
+	border: none;
+	${primaryFont}
+	font-size: 16px;
+	color: white;
+	font-weight: 900;
+	background-color: #3cb371;
+	position: relative;
+	bottom: 5px;
+`;
+const Chaticon = styled.img`
+	width: 22px;
+	position: relative;
+	top: 4px;
+	left: 4px;
+`;
+const InfoWrapper = styled.div`
+	display: flex;
+	width: 230px;
+	justify-content: space-between;
+	font-weight: bold;
+	font-size: 16px;
+	position: relative;
+	top: 10px;
+	right: 3px;
+	div:nth-child(3) {
+		color: ${({ theme }) => theme.PALETTE.darkPrimary};
+		position: relative;
+		bottom: 7px;
+	}
+`;
+const Container = styled.div`
+	width: 100%;
+	border-bottom: 1px solid #dddddd;
+	padding-bottom: 20px;
+`;
+const SideTitle = styled.div`
+	${primaryFont}
+	font-style: italic;
+	font-weight: bold;
+	font-size: 11px;
+`;
 const NavPage = styled.div`
 	cursor: pointer;
 	:hover {
-		color: ${({ theme }) => theme.PALETTE.highlightTitle};
+		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 	}
 `;
 
-const Subtitle = styled.div`
+const Category = styled.div`
 	display: flex;
-	width: 300px;
-	position: relative;
-	left: 10px;
-	justify-content: space-around;
-`;
-const NameWrapper = styled.div`
-	width: 178px;
-	display: flex;
-	bottom: 25px;
-	position: relative;
-	justify-content: space-around;
-	margin: 0 auto;
-	left: 440px;
-	p:nth-child(2) {
-		padding-left: 4px;
-	}
-`;
-const ImageName = styled.p`
-	margin-left: 0px;
+	font-size: 16px;
+	font-weight: bold;
+	width: 270px;
+	justify-content: space-between;
 	${primaryFont}
-	font-size: 12px;
+`;
+const Searchicon = styled.img`
+	width: 18px;
+	z-index: 1;
+	position: relative;
+	right: 14px;
+	cursor: pointer;
+`;
+const SearchWrapper = styled.div`
+	position: relative;
+	top: 15px;
 `;
 
-const SearchImage = styled.img`
-	width: 16px;
-	position: relative;
-	right: 15px;
-	bottom: 2px;
-`;
 const SearchBar = styled.input`
 	position: relative;
-	top: 2px;
-	left: 20px;
 	padding-bottom: 6px;
-	width: 230px;
+	width: 450px;
+	left: 12px;
 	border: none;
 	:focus {
 		outline: none;
 	}
-	border-bottom: 1.3px solid #404040;
+	border-bottom: 1.5px solid #404040;
 	::placeholder {
 		color: black;
 		font-size: 13px;
 	}
 `;
-const ImageWrapper = styled.div`
-	width: 190px;
-	position: relative;
-	bottom: 10px;
-	height: 73px;
-	padding-left: 10px;
-	border-left: 2px solid #404040;
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-`;
-
-const Image = styled.img`
-	position: relative;
-	width: 18px;
-	height: 18px;
-	cursor: pointer;
-`;
 
 const Title = styled.div`
-	font-size: 43px;
-	font-weight: 900;
-	word-spacing: -10px;
+	font-size: 48px;
+	font-weight: bold;
 	cursor: pointer;
-	${color}
-	-webkit-text-stroke: 0.1px black;
+	font-style: italic;
 `;
 
-const Wrapper = styled.div`
+const LogoWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 auto;
 	${primaryFont}
 	width: 1060px;
-	height: 90px;
+	position: relative;
+	top: 20px;
 `;
 
-const Container = styled.div`
+const CategoryWrapper = styled.div`
 	display: flex;
-	width: 100%;
-	height: 73px;
-	border-bottom: 2px solid #404040;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 auto;
+	${primaryFont}
+	width: 1060px;
+	height: 30px;
+	position: relative;
+	top: 80px;
+	margin-bottom: 60px;
+	padding-bottom: 40px;
 `;
 
 const S = {
-	Wrapper,
-	Container,
+	LogoWrapper,
 	Title,
-	Image,
-	ImageWrapper,
 	SearchBar,
-	SearchImage,
-	Subtitle,
-	NameWrapper,
-	ImageName,
+	Category,
 	NavPage,
+	CategoryWrapper,
+	SideTitle,
+	Container,
+	InfoWrapper,
+	Chaticon,
+	SearchWrapper,
+	Searchicon,
+	Sellbutton,
+	NewChat,
 };
