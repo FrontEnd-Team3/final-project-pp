@@ -11,19 +11,6 @@ const ProductInfo = () => {
 	const TARGET = productList.find(product => product.id === parseInt(id));
 	const localPrice = TARGET?.price.toLocaleString("ko-KR");
 
-	// 해당 상품의 id를 local storage에 저장하여 최근 본 상품에 등록되도록 하기
-	// useEffect(() => {
-	// 	let newRecentArr = JSON.parse(localStorage.getItem("key")) || [];
-	// 	if (newRecentArr.includes(id)) {
-	// 		// 최근 본 상품 중복 방지
-	// 		newRecentArr = newRecentArr.filter(el => el !== id);
-	// 		newRecentArr.push(id);
-	// 	} else {
-	// 		newRecentArr.push(id);
-	// 	}
-	// 	localStorage.setItem("key", JSON.stringify(newRecentArr));
-	// }, [id]);
-
 	if (TARGET)
 		return (
 			<S.Container>
