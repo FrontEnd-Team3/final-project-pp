@@ -28,14 +28,13 @@ const Header = () => {
 						<S.NewChat>새로운 채팅 도착!</S.NewChat>
 						<S.InfoWrapper>
 							<div
-								style={{ cursor: "pointer" }}
 								onClick={() => {
 									navigate(`/Signup`);
 								}}
 							>
 								LOGIN
 							</div>
-							<div style={{ cursor: "pointer" }}>MYPAGE</div>
+							<div>MYPAGE</div>
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => navigate(`/Chat`)}
