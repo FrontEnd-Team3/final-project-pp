@@ -100,7 +100,7 @@ const Hbuy = styled.div`
 `;
 
 const HChat = styled.div`
-	width: 449px;
+	width: 400px;
 	background-color: #fcf9f3;
 	font-size: 18px;
 	display: flex;
@@ -292,6 +292,8 @@ const SendWrapper = styled.div`
 const Message = styled.input`
 	width: 300px;
 	padding: 8px;
+	height: 40px;
+	border-radius: 8px;
 	border: none;
 	background-color: #f4f4f4;
 `;
@@ -299,6 +301,7 @@ const Message = styled.input`
 const Send = styled.div`
 	width: 100px;
 	padding: 8px;
+	height: 40px;
 	background-color: #3cb371;
 	color: #ffffff;
 	border: none;
