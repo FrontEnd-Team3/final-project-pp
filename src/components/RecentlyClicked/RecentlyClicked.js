@@ -5,6 +5,7 @@ import { GoBookmark } from "react-icons/go";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import useRecentlyClicked from "hooks/useRecentlyClicked";
 import { productList } from "mock/productsList";
+import { useNavigate } from "react-router-dom";
 
 const RecentlyClicked = () => {
 	// 추후 API로 데이터 들어오면 수정
@@ -20,6 +21,9 @@ const RecentlyClicked = () => {
 		.filter(product => recentlyClicked.includes(product.id + ""))
 		.map(product => product.image[0]);
 	// console.log("최근 본 상품", ImageArr);
+
+	// 각 이미지 클릭 시 해당 상품 상세 페이지로 이동
+	const navigate = useNavigate();
 
 	// 슬라이드 구현
 	const slideRef = useRef(null);
@@ -89,7 +93,19 @@ const RecentlyClicked = () => {
 							<>
 								<li>
 									{InfiniteArr.map((image, i) => (
-										<SlideImage src={image} key={i} />
+										<SlideImage
+											src={image}
+											key={i}
+											onClick={() =>
+												navigate(
+													`/product/${
+														productList.find(
+															product => product.image[0] === image,
+														).id
+													}`,
+												)
+											}
+										/>
 									))}
 								</li>
 							</>
