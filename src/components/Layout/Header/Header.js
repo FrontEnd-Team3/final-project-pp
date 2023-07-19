@@ -52,7 +52,9 @@ const Header = () => {
 						</S.NavPage>
 						<div>실시간 시세</div>
 					</S.Category>
-					<S.Sellbutton>판매하기</S.Sellbutton>
+					<S.Sellbutton onClick={() => navigate(`/productRegister`)}>
+						판매하기
+					</S.Sellbutton>
 				</S.CategoryWrapper>
 			</S.Container>
 		</>
@@ -84,6 +86,12 @@ const Sellbutton = styled.button`
 	background-color: #3cb371;
 	position: relative;
 	bottom: 5px;
+	cursor: pointer;
+	transition: background 0.1s;
+
+	:hover {
+		background: rgba(60, 179, 113, 0.9);
+	}
 `;
 const Chaticon = styled.img`
 	width: 22px;
