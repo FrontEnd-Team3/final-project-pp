@@ -1,4 +1,5 @@
 import FAKEPROFILE from "./fakeProfile.png";
+import { productList } from "./productsList";
 
 export const userList = [
 	{
@@ -12,11 +13,7 @@ export const userList = [
 		degree: 36.5,
 		profileImg: FAKEPROFILE,
 		aboutMe: "자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.",
-		registerProducts: [
-			{
-				id: 0,
-			},
-		],
+		registerProducts: productList.filter(product => product.user === 1),
 		boughtProducts: [
 			{
 				id: 11,
@@ -39,7 +36,7 @@ export const userList = [
 		degree: 36.5,
 		profileImg: FAKEPROFILE,
 		aboutMe: "자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.",
-		registerProducts: [],
+		registerProducts: productList.filter(product => product.user === 0),
 		likeProducts: [],
 		boughtProducts: [],
 	},

@@ -58,7 +58,6 @@ const Container = styled.div`
 	border: 1px solid #ebebeb;
 	margin: 100px auto;
 `;
-
 const Header = styled.div`
 	width: 900px;
 	height: 60px;
@@ -70,7 +69,6 @@ const Header = styled.div`
 		}
 	}
 `;
-
 const Hsale = styled.div`
 	background-color: #3cb371;
 	color: #ffffff;

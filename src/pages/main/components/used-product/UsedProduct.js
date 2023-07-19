@@ -1,14 +1,14 @@
 import BasicButton from "components/Button";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
-import { productList } from "mock/productsList";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
 
-const UsedProduct = () => {
-	const PRODUCTLIST = productList.filter(
+const UsedProduct = ({ productList }) => {
+	const PRODUCTLIST = productList?.filter(
 		product => product.status !== "판매완료" && product.price,
 	);
+
 	const navigate = useNavigate();
 	return (
 		<S.Container>
