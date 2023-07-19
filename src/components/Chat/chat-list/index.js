@@ -30,11 +30,6 @@ const ChatList = () => {
 								<S.Imove>상품이동 ▶</S.Imove>
 							</S.TextContainer>
 						</S.Item>
-						<S.Item></S.Item>
-						<S.Item></S.Item>
-						<S.Item></S.Item>
-						<S.Item></S.Item>
-						<S.Item></S.Item>
 					</S.Main>
 					<S.ChatMain>
 						<S.Chat>
