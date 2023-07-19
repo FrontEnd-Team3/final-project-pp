@@ -20,8 +20,11 @@ const ChatList = () => {
 								<S.Iimg src={gkgk} />
 							</S.IimgContainer>
 							<S.TextContainer>
-								<S.Inew>New</S.Inew>
-								<S.Iproduct>파란 오리 판매합니다</S.Iproduct>
+								<S.Delete>X</S.Delete>
+								<S.Iproduct>
+									파란 오리 판매합니다
+									<S.Span>New</S.Span>
+								</S.Iproduct>
 								<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
 								<S.Iprice>20,000 원</S.Iprice>
 								<S.Imove>상품이동 ▶</S.Imove>
@@ -100,7 +103,7 @@ const Hbuy = styled.div`
 `;
 
 const HChat = styled.div`
-	width: 449px;
+	width: 400px;
 	background-color: #fcf9f3;
 	font-size: 18px;
 	display: flex;
@@ -141,15 +144,14 @@ const Main = styled.div`
 const Item = styled.div`
 	display: flex;
 	border-bottom: 1px solid #ebebeb;
-	width: 450px;
 	height: 150px;
 	background-color: white;
-	padding: 15px 20px;
+	padding: 10px 20px;
 `;
 
 const TextContainer = styled.div`
 	display: flex;
-	margin-left: 8px;
+	margin-left: 10px;
 	flex-direction: column;
 `;
 
@@ -166,14 +168,21 @@ const Iimg = styled.img`
 	height: 100%;
 `;
 
-const Inew = styled.div`
+const Delete = styled.div`
+	font-size: 16px;
+	margin-left: 290px;
+	font-weight: bold;
+	cursor: pointer;
+`;
+
+const Span = styled.span`
 	color: #3cb371;
 	font-size: 10px;
-	margin-left: 290px;
+	margin-left: 10px;
+	box-shadow: inset 0 -1px #3cb371;
 `;
 
 const Iproduct = styled.div`
-	width: 200px;
 	font-size: 16px;
 	font-weight: bold;
 `;
@@ -194,8 +203,8 @@ const Iprice = styled.div`
 const Imove = styled.div`
 	font-size: 12px;
 	color: #222222;
-	margin-left: 245px;
-	margin-bottom: 5px;
+	margin-left: 240px;
+	margin-bottom: 10px;
 	font-weight: bold;
 	cursor: pointer;
 `;
@@ -292,6 +301,8 @@ const SendWrapper = styled.div`
 const Message = styled.input`
 	width: 300px;
 	padding: 8px;
+	height: 40px;
+	border-radius: 8px;
 	border: none;
 	background-color: #f4f4f4;
 `;
@@ -299,6 +310,7 @@ const Message = styled.input`
 const Send = styled.div`
 	width: 100px;
 	padding: 8px;
+	height: 40px;
 	background-color: #3cb371;
 	color: #ffffff;
 	border: none;
@@ -321,7 +333,6 @@ const S = {
 	TextContainer,
 	IimgContainer,
 	Iprice,
-	Inew,
 	AllMain,
 	Imove,
 	BuyWrapper,
@@ -338,4 +349,6 @@ const S = {
 	Message,
 	Send,
 	Xbutton,
+	Delete,
+	Span,
 };
