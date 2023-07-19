@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { userList } from "mock/userList";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 import HouseKeeping from "./components/housekeeping-book";
@@ -11,16 +11,18 @@ import SalesDetail from "./components/sales-details";
 import TransactionHistory from "./components/transaction-history";
 
 const Mypage = () => {
-	const [data, setData] = useState("hi");
+	const UserList = userList.filter(user => user.id === 0);
+	console.log(UserList);
 	/**
 	 * 데이터가 없을때 EmptyData 추가
 	 */
-	if (!data) {
+	if (!UserList) {
 		return <EmptyData />;
 	}
 	return (
 		<S.MypageContainer>
-			<MyProfile />
+			<MyProfile userList={UserList} />
+			<S.DivisionLine />
 			<SalesDetail />
 			<RegisterProduct />
 			<HouseKeeping />
@@ -41,6 +43,14 @@ const MypageContainer = styled.div`
 	${primaryFont}
 `;
 
+const DivisionLine = styled.hr`
+	width: 1060px;
+	height: 1px;
+	background-color: #cccccc;
+	margin: 0 auto;
+`;
+
 const S = {
 	MypageContainer,
+	DivisionLine,
 };

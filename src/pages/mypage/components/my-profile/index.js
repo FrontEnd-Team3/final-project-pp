@@ -3,48 +3,56 @@ import styled from "styled-components";
 import { flexRow, primaryFont } from "styles/common";
 import ProgressBar from "./components/ProgressBar";
 
-const MyProfile = () => {
-	return (
-		<S.Container>
-			<S.RowBox>
-				<S.MyImage>
-					<img src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/268603692_1079647486200861_7234371429734502581_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=wWRMloMNrDAAX8ro7XI&_nc_ht=scontent-ssn1-1.xx&oh=00_AfAzoaUyV9Zr7fMfj3YwJ4ah0DuB_4bgBW-uQxZzqZCsDg&oe=64BD3C88" />
-				</S.MyImage>
-				<S.TextBox>
-					<S.RowBox>
-						<p>닉네임 </p>
-						<TextP1>응애나는아가뚱이 </TextP1>
-					</S.RowBox>
-					<S.RowBox>
-						<p>활동 지역</p>
-						<TextP2>서울시 성동구 성수동</TextP2>
-					</S.RowBox>
-					<div>
-						<p>나의 온도</p>
+const MyProfile = ({ userList }) => {
+	if (userList) {
+		return (
+			<>
+				{userList.map(user => (
+					<S.Container key={user.id}>
 						<S.RowBox>
-							<p>36도</p>
-							<ProgressBar percentage={36} />
+							<S.MyImage>
+								<img src={user.profileImg} />
+							</S.MyImage>
+							<S.TextBox>
+								<S.RowBox>
+									<p>닉네임 </p>
+									<TextP1>{user.nickname} </TextP1>
+								</S.RowBox>
+								<S.RowBox>
+									<p>활동 지역</p>
+									<TextP2>{user.address}</TextP2>
+								</S.RowBox>
+								<div>
+									<p>나의 온도</p>
+									<S.RowBox>
+										<p>{user.degree}℃</p>
+										<ProgressBar percentage={user.degree} />
+									</S.RowBox>
+								</div>
+							</S.TextBox>
 						</S.RowBox>
-					</div>
-				</S.TextBox>
-			</S.RowBox>
-			<div>
-				<p>등록물품 9개</p>
-				<p>관심상품 12개</p>
-				<BasicButton
-					variant={"primary"}
-					size={"small"}
-					children={"채팅하기"}
-					style={{
-						fontSize: "14px",
-						height: "28px",
-						borderRadius: "6px",
-						fontWeight: "600",
-					}}
-				/>
-			</div>
-		</S.Container>
-	);
+						<div>
+							<p>등록물품 {user.registerProducts.length}개</p>
+							<p>관심상품 {user.likeProducts.length}개</p>
+							<BasicButton
+								variant={"primary"}
+								size={"small"}
+								children={"채팅하기"}
+								style={{
+									fontSize: "14px",
+									height: "28px",
+									borderRadius: "6px",
+									fontWeight: "600",
+								}}
+							/>
+						</div>
+					</S.Container>
+				))}
+			</>
+		);
+	} else {
+		return <></>;
+	}
 };
 export default MyProfile;
 
