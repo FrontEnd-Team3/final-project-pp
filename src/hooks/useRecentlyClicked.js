@@ -5,14 +5,15 @@ const useRecentlyClicked = () => {
 	const [recentlyClicked, setRecentlyClicked] = useState(
 		JSON.parse(localStorage.getItem("key"))
 			? JSON.parse(localStorage.getItem("key"))
-			: null,
+			: [],
 	);
 
 	// id 바뀔 때마다 등록
 	const { id } = useParams();
 	useEffect(() => {
+		if (!id) return;
 		let newRecentArr = JSON.parse(localStorage.getItem("key")) || [];
-		if (newRecentArr.includes(id)) {
+		if (newRecentArr?.includes(id)) {
 			// 최근 본 상품 중복 방지
 			newRecentArr = newRecentArr.filter(el => el !== id);
 			newRecentArr.push(id);

@@ -32,6 +32,7 @@ const RecentlyClicked = () => {
 	const SLIDE_RANGE = currentIndex * IMAGE_SIZE;
 
 	const handleDownSlideIndex = () => {
+		if (!recentlyClicked.length || recentlyClicked.length === 1) return;
 		if (currentIndex === InfiniteArr.length - 1) {
 			slideRef.current.style.transition = "";
 			setCurrentIndex(1);
@@ -47,6 +48,7 @@ const RecentlyClicked = () => {
 	};
 
 	const handleUpSlideIndex = () => {
+		if (!recentlyClicked.length || recentlyClicked.length === 1) return;
 		if (currentIndex === 0) {
 			slideRef.current.style.transition = "";
 			setCurrentIndex(InfiniteArr.length - 2);
@@ -89,7 +91,7 @@ const RecentlyClicked = () => {
 				<IoIosArrowUp size="30" onClick={handleUpSlideIndex} />
 				<S.SlideWrapper>
 					<S.SlideContainer ref={slideRef} length={InfiniteArr.length}>
-						{InfiniteArr.length ? (
+						{recentlyClicked.length ? (
 							<>
 								<li>
 									{InfiniteArr.map((image, i) => (
@@ -187,11 +189,12 @@ const SlideImage = styled.img`
 	height: 110px;
 `;
 
-const Empty = styled.li`
-	width: 110px;
+const Empty = styled.div`
+	width: 100%;
 	height: 110px;
 	line-height: 110px;
 	color: ${({ theme }) => theme.PALETTE.gray};
+	margin-right: 0;
 `;
 
 const Bottom = styled.div`
