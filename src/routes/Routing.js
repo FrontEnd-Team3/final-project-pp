@@ -1,5 +1,6 @@
 import Layout from "components/Layout";
 import Main from "pages/main";
+import Mypage from "pages/mypage";
 import ProductDetailPage from "pages/product-detail";
 import ProductRegister from "pages/product-register";
 import SearchPage from "pages/search-page";
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
 			{
 				path: "/search",
 				element: <SearchPage />,
+			},
+			{
+				path: "/mypage",
+				element: <Mypage />,
 			},
 		],
 	},

@@ -20,6 +20,11 @@ export const flexColumn = css`
 	flex-direction: column;
 `;
 
+export const flexRow = css`
+	display: flex;
+	flex-direction: row;
+`;
+
 export const registerInput = css`
 	outline: none;
 	border-right: none;
