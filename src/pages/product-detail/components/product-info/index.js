@@ -10,6 +10,7 @@ const ProductInfo = () => {
 	const { id } = useParams();
 	const TARGET = productList.find(product => product.id === parseInt(id));
 	const localPrice = TARGET?.price.toLocaleString("ko-KR");
+
 	if (TARGET)
 		return (
 			<S.Container>
