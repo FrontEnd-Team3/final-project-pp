@@ -15,7 +15,7 @@ const Container = styled.div`
 	width: 332px;
 	height: 32px;
 	background-color: white;
-	margin-left: 16px;
+	margin-left: 20px;
 `;
 
 const Progress = styled.div`
