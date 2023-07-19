@@ -19,7 +19,7 @@ const sizeCSS = {
 
 const colorCSS = {
 	primary: css`
-		color: black;
+		color: ${({ theme }) => theme.PALETTE.black};
 	`,
 };
 

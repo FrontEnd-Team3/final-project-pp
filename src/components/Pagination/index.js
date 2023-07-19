@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Pagination = ({ totalData, dataLimit, page, setPage }) => {
 	const pageCount = Math.ceil(totalData / dataLimit);
@@ -7,7 +8,7 @@ const Pagination = ({ totalData, dataLimit, page, setPage }) => {
 	return (
 		<S.Container>
 			<S.ControlBtn onClick={() => setPage(page - 1)} disabled={page === 1}>
-				{"<"}
+				<IoIosArrowBack color="white" size="15" />
 			</S.ControlBtn>
 			<div>
 				{Array(pageCount)
@@ -26,7 +27,7 @@ const Pagination = ({ totalData, dataLimit, page, setPage }) => {
 				onClick={() => setPage(page + 1)}
 				disabled={page === pageCount}
 			>
-				{">"}
+				<IoIosArrowForward color="white" size="15" />
 			</S.ControlBtn>
 		</S.Container>
 	);
@@ -44,26 +45,32 @@ const Container = styled.div`
 
 const ControlBtn = styled.button`
 	border: none;
-	background-color: white;
+	width: 34px;
+	height: 34px;
+	background-color: ${({ theme }) => theme.PALETTE.darkPrimary};
 	${primaryFont}
 	font-size: 24px;
 	&[disabled] {
+		background-color: ${({ theme }) => theme.PALETTE.gray};
 	}
+	line-height: 5px;
 `;
 
 const PageBtn = styled.button`
-	border: none;
-	width: 30px;
-	height: 30px;
-	margin: 0 15px;
+	border: 1px solid;
+	border-color: ${({ theme }) => theme.PALETTE.primary};
+	color: ${({ theme }) => theme.PALETTE.primary};
+	width: 34px;
+	height: 34px;
+	margin: 0 7px;
 	background-color: white;
 	line-height: 33px;
 	padding-left: 1px;
 	${primaryFont}
 	&[aria-current] {
-		background: ${({ theme }) => theme.PALETTE.primary["light"]};
-		border-radius: 50%;
-		transition-duration: 0.3s;
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		transition-duration: 0.1s;
+		color: ${({ theme }) => theme.PALETTE.white};
 	}
 `;
 

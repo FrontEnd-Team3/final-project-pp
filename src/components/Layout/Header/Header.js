@@ -61,7 +61,7 @@ export default Header;
 const NavPage = styled.div`
 	cursor: pointer;
 	:hover {
-		color: ${({ theme }) => theme.PALETTE.pricePoint};
+		color: ${({ theme }) => theme.PALETTE.highlightTitle};
 	}
 `;
 

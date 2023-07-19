@@ -1,16 +1,17 @@
 const PALETTE = {
-	primary: {
-		dark: "#8490C8",
-		light: "#E2E2FE",
-	},
-	secondary: "#EFD6FB",
-	gray: "#D8D8D8",
-	red: "#e44b4b",
-	yellow: "#FACC47",
+	primary: "#3CB371",
+	neon: "#B8F11A",
 	black: "#404040",
 	white: "#FFFFFF",
-	pricePoint: "#705ECB",
-	green: "#7FC0BC",
+	gray: "#D9D9D9",
+	yellow: "#FACC47",
+	highlightTitle: "#7FC0BC",
+	ivory: "#FCF9F3",
+	orange: "#FD5E09",
+	turquoise: "#005666",
+	disabled: "#E6E6E6",
+	darkPrimary: "#2E8B57",
+	darkBlack: "#222222",
 };
 
 const FONT_SIZE = {

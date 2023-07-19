@@ -1,16 +1,16 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import { PiHeartDuotone, PiHeartLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { GoBookmark } from "react-icons/go";
+import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 
-const OneProduct = ({ product }) => {
+const OneProduct = ({ product, grid }) => {
 	// console.log(product);
 	const localPrice = product.price.toLocaleString("ko-KR");
 	const ImageURL = product.image[0];
 
 	// 하트 넣기
-	const [isLiked, setIsLiked] = useState(false);
+	// const [isBookmarked, setIsBookmarked] = useState(false);
 
 	// 상품 상세 페이지로 이동
 	const navigate = useNavigate();
@@ -18,35 +18,32 @@ const OneProduct = ({ product }) => {
 		navigate(`/product/${product.id}`);
 	};
 	return (
-		<S.Container onClick={HandlePageMove}>
+		<S.Container onClick={HandlePageMove} className={grid}>
 			<div>
-				<S.Heart>
-					{isLiked ? (
-						<PiHeartDuotone
-							color="red"
-							size="20"
-							onClick={() => setIsLiked(false)}
-						/>
-					) : (
-						<PiHeartLight
-							color="red"
-							size="20"
-							onClick={() => setIsLiked(true)}
-						/>
-					)}
-				</S.Heart>
 				<S.Image src={ImageURL}></S.Image>
 			</div>
-			<S.ProductInfo>
+			<S.ProductInfo status={product.status}>
 				<div className="infoTop">
-					<p className="name">{product.name}</p>
+					<p className="name">
+						{product.name}&nbsp;&nbsp;
+						<span className="status">{product.status}</span>
+					</p>
 				</div>
-				<div className="infoMedium">
+				<div className="infoMiddle">
 					<p className="location">{product.location}</p>
+					<p className="icons">
+						<GoBookmark size="16" />
+						{product.bookmarkCount}
+						<HiOutlineChatBubbleLeftRight
+							size="16"
+							style={{ marginLeft: "10px" }}
+						/>
+						{product.chat.length}
+					</p>
 				</div>
 				<div className="infoBottom">
 					<p className="price">{localPrice} 원</p>
-					<p className="date">{product.date}</p>
+					<p className="date">1일 전</p> {/* new Date 관련 로직 만든 후 수정 */}
 				</div>
 			</S.ProductInfo>
 		</S.Container>
@@ -56,63 +53,93 @@ const OneProduct = ({ product }) => {
 export default OneProduct;
 
 const Container = styled.div`
-	width: 194px;
-	height: 270px;
-	border-radius: 12px;
-	border: 3px solid;
-	border-color: ${({ theme }) => theme.PALETTE.black};
-	background: ${({ theme }) => theme.PALETTE.primary["light"]};
+	margin-bottom: 20px;
 	${primaryFont}
 	position: relative;
-`;
-
-const Heart = styled.p`
-	position: absolute;
-	top: 20px;
-	left: 150px;
+	.box1 {
+		grid-area: 1 / 1 / 2 / 2;
+	}
+	.box2 {
+		grid-area: 1 / 2 / 2 / 3;
+	}
+	.box3 {
+		grid-area: 1 / 3 / 2 / 4;
+	}
+	.box4 {
+		grid-area: 1 / 4 / 2 / 5;
+	}
+	.box5 {
+		grid-area: 2 / 1 / 3 / 2;
+	}
+	.box6 {
+		grid-area: 2 / 2 / 3 / 3;
+	}
+	.box7 {
+		grid-area: 2 / 3 / 3 / 4;
+	}
+	.box8 {
+		grid-area: 2 / 4 / 3 / 5;
+	}
 `;
 
 const Image = styled.img`
-	width: 170px;
-	height: 180px;
-	border-radius: 12px;
-	border: 3px solid;
-	border-color: ${({ theme }) => theme.PALETTE.black};
-	background-color: ${({ theme }) => theme.PALETTE.white};
-	margin: 10px 10px 7px 10px;
+	width: 250px;
+	height: 250px;
+	border-radius: 4px;
 `;
 
 const ProductInfo = styled.div`
-	margin: 0 11px;
+	width: 250px;
 	.infoTop {
-		display: flex;
-		justify-content: space-between;
 		.name {
 			font-size: 14px;
 			font-weight: 700;
-			width: 140px;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
+			width: 250px;
+			height: 40px;
+			span {
+				display: inline-block;
+				border-radius: 2px;
+				background-color: ${({ theme, status }) => {
+					if (status === "판매완료") return theme.PALETTE.gray;
+					if (status === "거래중") return theme.PALETTE.turquoise;
+					return theme.PALETTE.primary;
+				}};
+				font-size: 10px;
+				font-weight: 700;
+				color: ${({ theme }) => theme.PALETTE.white};
+				padding: 5px 10px;
+			}
+		}
+	}
+	.infoMiddle {
+		margin-top: 10px;
+		display: flex;
+		justify-content: space-between;
+		font-size: 10px;
+		.location {
+			margin-right: 5px;
+		}
+		.icons {
+			display: inline-block;
+			vertical-align: middle;
+			svg {
+				vertical-align: middle;
+			}
+		}
+	}
+	.infoBottom {
+		margin-top: 10px;
+		display: flex;
+		justify-content: space-between;
+		font-size: 10px;
+		.price {
+			font-size: 16px;
+			font-weight: 600;
 		}
 		.date {
 			font-size: 10px;
 		}
 	}
-	.infoMedium {
-		margin-top: 10px;
-		display: flex;
-		font-size: 10px;
-	}
-	.infoBottom {
-		margin-top: 10px;
-		display: flex;
-		font-size: 10px;
-		justify-content: space-between;
-		.location {
-			margin-right: 5px;
-		}
-	}
 `;
 
-const S = { Container, Heart, Image, ProductInfo };
+const S = { Container, Image, ProductInfo };

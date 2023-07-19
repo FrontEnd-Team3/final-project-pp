@@ -30,7 +30,7 @@ const Signup = () => {
 				</S.Subtitle>
 			</S.Wrapper>
 			<ButtonWrapper>
-				<BasicButton size={"large"} variant={"primary"} shape={"primary"}>
+				<BasicButton size={"large"} variant={"primary"}>
 					로그인
 				</BasicButton>
 			</ButtonWrapper>

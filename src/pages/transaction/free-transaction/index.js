@@ -1,11 +1,35 @@
 import BasicButton from "components/Button";
 import ProductList from "components/ProductList";
 import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
-import { productList } from "mock/products";
+import BasicSelect from "components/Select";
+import { productList } from "mock/productsList";
+import { useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 
 const FreeTransaction = () => {
+	const PRODUCTLIST = productList.filter(
+		product => product.status !== "판매완료" && !product.category,
+	);
+	const [filterdProducts, setFilterdProducts] = useState(PRODUCTLIST);
+
+	const onFiltering = value => {
+		let filteredList = [...PRODUCTLIST];
+
+		if (value === "등록순") {
+			filteredList.sort((a, b) => a.date - b.date);
+		} else if (value === "인기순") {
+			filteredList.sort((a, b) => b.bookmarkCount - a.bookmarkCount);
+		}
+
+		setFilterdProducts(filteredList);
+	};
+
+	const options = [
+		{ value: "등록순", label: "등록순" },
+		{ value: "인기순", label: "인기순" },
+	];
+
 	return (
 		<S.Container>
 			<S.Wrapper>
@@ -17,20 +41,19 @@ const FreeTransaction = () => {
 						서울시 성동구 성수동{" "}
 						<BasicButton
 							variant={"primary"}
-							shape={"primary"}
 							size={"xsmall"}
 							children={"변경"}
 							style={{ fontSize: "14px", marginLeft: "15px" }}
 						/>
 					</div>
-					<S.Filtering>
-						<li>등록순</li>
-						<li>인기순</li>
-						<li>저가순</li>
-						<li>고가순</li>
-					</S.Filtering>
+					<BasicSelect
+						variant={"primary"}
+						options={options}
+						selectedValue={"등록순"}
+						onChange={onFiltering}
+					/>
 				</S.Address>
-				<ProductList productList={productList} /> {/* 임시 데이터 */}
+				<ProductList productList={filterdProducts} />
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>
@@ -40,7 +63,6 @@ export default FreeTransaction;
 
 const Container = styled.div`
 	width: 100%;
-	background-color: #fcf9f3; // bg컬러 테스트
 	* {
 		${primaryFont}
 	}
@@ -48,7 +70,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
 	margin: 50px auto;
-	max-width: 860px;
+	max-width: 1060px;
 `;
 
 const Title = styled.p`
@@ -56,7 +78,7 @@ const Title = styled.p`
 	margin-bottom: 50px;
 	font-size: ${({ theme }) => theme.FONT_SIZE.mmlarge};
 	& span {
-		color: ${({ theme }) => theme.PALETTE.pricePoint};
+		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 	}
 `;
 
@@ -68,42 +90,6 @@ const Address = styled.div`
 	margin: 12px 0;
 	& button {
 		color: ${({ theme }) => theme.PALETTE.white};
-		/* box-shadow: 2px 2px 0px 0px #404040; */
-	}
-`;
-
-const Filtering = styled.ul`
-	display: flex;
-
-	li {
-		display: flex;
-		align-items: center;
-		font-size: ${({ theme }) => theme.FONT_SIZE.small};
-		padding-left: 12px;
-		cursor: pointer;
-	}
-
-	// active시 컬러 확인용
-	li:first-of-type {
-		color: ${({ theme }) => theme.PALETTE.pricePoint};
-	}
-
-	li:first-of-type::before {
-		content: "";
-		display: inline-block;
-		margin-right: 10px;
-		width: 1px;
-		height: 12px;
-		background-color: #000;
-	}
-
-	li::after {
-		content: "";
-		display: inline-block;
-		margin-left: 10px;
-		width: 2px;
-		height: 12px;
-		background-color: #000;
 	}
 `;
 
@@ -112,5 +98,4 @@ const S = {
 	Wrapper,
 	Title,
 	Address,
-	Filtering,
 };
