@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import { TiDelete } from "react-icons/ti";
 
 const OneImg = ({ img }) => {
 	console.log(img.image);
 	return (
 		<S.OneImage>
-			<S.DeleteIcons>X</S.DeleteIcons>
+			<S.DeleteIcons>
+				<TiDelete size={20} />
+			</S.DeleteIcons>
 			<S.Image src={img.image} />
 		</S.OneImage>
 	);
@@ -17,23 +20,23 @@ const OneImage = styled.div`
 `;
 
 const Image = styled.img`
-	width: 160px;
-	height: 160px;
+	width: 196px;
+	height: 196px;
+	border: 1px solid #ddd;
 `;
 
 const DeleteIcons = styled.p`
 	font-size: 13px;
-	padding: 2px 0px 1px 1px;
+	padding: 4px;
 	text-align: center;
-	background-color: #797979;
-	border-radius: 50%;
-	width: 16px;
-	height: 16px;
 	position: absolute;
 	top: 6px;
 	right: 6px;
 	color: ${({ theme }) => theme.PALETTE.white};
 	cursor: pointer;
+	svg {
+		color: #797979;
+	}
 `;
 
 const S = {
