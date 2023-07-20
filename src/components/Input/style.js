@@ -15,9 +15,19 @@ const variantCSS = {
 	line: css`
 		border: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 	`,
+	chat: css`
+		border-radius: 8px;
+		border: none;
+		background-color: #f4f4f4;
+	`,
 };
 
 const sizeCSS = {
+	xsmall: css`
+		width: 300px;
+		padding: 8px;
+		height: 40px;
+	`,
 	small: css`
 		width: 340px;
 		font-size: 11px;

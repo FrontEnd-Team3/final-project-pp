@@ -1,6 +1,22 @@
+import BasicButton from "components/Button";
+import BasicInput from "components/Input";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Chatting = () => {
+	// 전송 시 input 값 전송
+	const [inputVal, setInputVal] = useState("");
+	const [sendedContents, setSendedContents] = useState([]);
+	const handleInput = e => {
+		// console.log(e.target.value);
+		setInputVal(e.target.value);
+	};
+	const handleChatContent = e => {
+		e.preventDefault();
+		console.log(inputVal);
+		setSendedContents(prev => [...prev, inputVal]);
+	};
+
 	return (
 		<S.Container>
 			<S.Header>
@@ -10,20 +26,42 @@ const Chatting = () => {
 				<S.Chat>
 					<S.day>2023.07.06</S.day>
 					<S.hr />
-					<S.BuyWrapper>
-						<S.Buytime>10:53</S.Buytime>
-						<S.Chatbuy>일이삼사오육칠팔구십일이삼사오육칠팔구십</S.Chatbuy>
-					</S.BuyWrapper>
-					<S.SellerWrapper>
-						<S.ChatSeller>
+					<S.MyChats>
+						<S.SendedTime>10:53</S.SendedTime>
+						<S.SendedByMe>
 							일이삼사오육칠팔구십일이삼사오육칠팔구십
-						</S.ChatSeller>
-						<S.Sellertime>10:55</S.Sellertime>
-					</S.SellerWrapper>
+						</S.SendedByMe>
+					</S.MyChats>
+					<S.OtherChat>
+						<S.SendedByOther>
+							일이삼사오육칠팔구십일이삼사오육칠팔구십
+						</S.SendedByOther>
+						<S.ReceivedTime>10:55</S.ReceivedTime>
+					</S.OtherChat>
+					<S.MyChats>
+						{sendedContents.map(content => (
+							<S.OneChat>
+								<S.SendedTime>15:49</S.SendedTime>
+								<S.SendedByMe>{content}</S.SendedByMe>
+							</S.OneChat>
+						))}
+					</S.MyChats>
 				</S.Chat>
-				<S.SendWrapper>
-					<S.Message placeholder="채팅치는곳"></S.Message>
-					<S.Send>전송</S.Send>
+				<S.SendWrapper onSubmit={handleChatContent}>
+					<BasicInput
+						variant={"chat"}
+						size={"xsmall"}
+						placeholder="채팅치는곳"
+						onChange={handleInput}
+						value={inputVal}
+					/>
+					<BasicButton
+						type="submit"
+						variant={"primary"}
+						size={"xmedium"}
+						children="전송"
+						style={{ borderRadius: "4px" }}
+					/>
 				</S.SendWrapper>
 			</S.ChatMain>
 		</S.Container>
@@ -87,9 +125,7 @@ const hr = styled.hr`
 	color: #d9d9d9;
 `;
 
-const BuyWrapper = styled.div`
-	display: flex;
-	align-items: flex-end;
+const MyChats = styled.div`
 	width: 280px;
 	float: right;
 	margin-top: 20px;
@@ -98,26 +134,26 @@ const BuyWrapper = styled.div`
 	text-align: right;
 `;
 
-const SellerWrapper = styled.div`
+const OtherChat = styled.div`
 	display: flex;
 	float: left;
 	width: 280px;
 	align-items: flex-end;
 `;
 
-const Buytime = styled.div`
+const SendedTime = styled.div`
 	font-size: 8px;
 	color: #242424;
 	margin-right: 8px;
 `;
 
-const Sellertime = styled.div`
+const ReceivedTime = styled.div`
 	font-size: 8px;
 	color: #242424;
 	margin-left: 8px;
 `;
 
-const Chatbuy = styled.div`
+const SendedByMe = styled.div`
 	font-size: 16px;
 	padding: 10px;
 	align-items: start;
@@ -128,7 +164,7 @@ const Chatbuy = styled.div`
 	text-align: right;
 `;
 
-const ChatSeller = styled.div`
+const SendedByOther = styled.div`
 	font-size: 16px;
 	float: left;
 	align-items: start;
@@ -139,7 +175,7 @@ const ChatSeller = styled.div`
 	border-radius: 6px;
 `;
 
-const SendWrapper = styled.div`
+const SendWrapper = styled.form`
 	display: flex;
 	height: 50px;
 	justify-content: space-evenly;
@@ -149,25 +185,11 @@ const SendWrapper = styled.div`
 	bottom: 0;
 `;
 
-const Message = styled.input`
-	width: 300px;
-	padding: 8px;
-	height: 40px;
-	border-radius: 8px;
-	border: none;
-	background-color: #f4f4f4;
-`;
-
-const Send = styled.div`
-	width: 100px;
-	padding: 8px;
-	height: 40px;
-	background-color: #3cb371;
-	color: #ffffff;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	text-align: center;
+const OneChat = styled.div`
+	width: 280px;
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 20px;
 `;
 
 const S = {
@@ -178,13 +200,12 @@ const S = {
 	Chat,
 	day,
 	hr,
-	BuyWrapper,
-	SellerWrapper,
-	Buytime,
-	Sellertime,
-	Chatbuy,
-	ChatSeller,
+	MyChats,
+	OtherChat,
+	ReceivedTime,
+	SendedTime,
+	SendedByMe,
+	SendedByOther,
 	SendWrapper,
-	Message,
-	Send,
+	OneChat,
 };

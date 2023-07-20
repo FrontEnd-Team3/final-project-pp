@@ -3,6 +3,9 @@ import styled from "styled-components";
 
 const UserInfo = ({ targetUser }) => {
 	const TargetUser = userList.find(user => user.id == targetUser);
+	const DealCount = TargetUser.registerProducts.filter(
+		product => product.status === "판매완료",
+	)?.length;
 
 	return (
 		<S.Container>
@@ -13,7 +16,7 @@ const UserInfo = ({ targetUser }) => {
 				</div>
 				<div style={{ display: "flex" }}>
 					<div className="degree">매너온도: {TargetUser.degree}도</div>
-					<div className="dealCount">(총 거래 건: {TargetUser.dealCount})</div>
+					<div className="dealCount">(총 거래 건: {DealCount})</div>
 				</div>
 			</S.InfoContainer>
 		</S.Container>
