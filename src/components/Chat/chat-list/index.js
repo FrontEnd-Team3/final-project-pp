@@ -32,7 +32,7 @@ const Header = styled.div`
 	div {
 		cursor: pointer;
 		:hover {
-			opacity: 0.7;
+			opacity: 0.6;
 		}
 	}
 `;
