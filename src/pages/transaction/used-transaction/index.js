@@ -93,7 +93,7 @@ const Address = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	font-size: 12px;
+	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
 	margin: 12px 0;
 	& button {
 		color: ${({ theme }) => theme.PALETTE.white};

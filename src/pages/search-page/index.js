@@ -1,42 +1,89 @@
+import ProductList from "components/ProductList";
+import BasicSelect from "components/Select";
+import { productList } from "mock/productsList";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { primaryFont } from "styles/common";
 
 const SearchPage = () => {
+	const PRODUCTLIST = productList.filter(
+		product => product.status !== "판매완료",
+	);
+	const [filteredProducts, setfilteredProducts] = useState(PRODUCTLIST);
+
+	useEffect(() => {
+		const filteredList = PRODUCTLIST.filter(item => item.name.includes("T"));
+
+		setfilteredProducts(filteredList);
+	}, []);
+
+	const onFiltering = value => {
+		console.log("옵션밸류값", value, typeof value);
+		let filteredList = [...PRODUCTLIST];
+
+		if (value === "등록순") {
+			filteredList.sort((a, b) => a.date - b.date);
+		} else if (value === "인기순") {
+			filteredList.sort((a, b) => b.bookmarkCount - a.bookmarkCount);
+		} else if (value === "저가순") {
+			filteredList.sort((a, b) => a.price - b.price);
+		} else if (value === "고가순") {
+			filteredList.sort((a, b) => b.price - a.price);
+		}
+
+		filteredList = filteredList.filter(item => item.name.includes("T"));
+
+		console.log("필터링", filteredList);
+		setfilteredProducts(filteredList);
+	};
+
+	const options = [
+		{ value: "등록순", label: "등록순" },
+		{ value: "인기순", label: "인기순" },
+		{ value: "저가순", label: "저가순" },
+		{ value: "고가순", label: "고가순" },
+	];
+
 	return (
-		<S.Main>
-			<S.SearchText>신발의 검색결과 8개</S.SearchText>
-			<S.Select>
-				<S.Option>최신순</S.Option>
-				<S.Option>인기순</S.Option>
-				<S.Option>고가순</S.Option>
-				<S.Option>저가순</S.Option>
-			</S.Select>
-			{/* <ProductList productList={productList} /> */}
-		</S.Main>
+		<S.Container>
+			<S.Wrapper>
+				<S.ResultandFilter>
+					<S.SearchText>
+						<span>"T"</span>의 검색결과 {filteredProducts.length}개
+					</S.SearchText>
+					<BasicSelect
+						variant={"primary"}
+						options={options}
+						selectedValue={"등록순"}
+						onChange={onFiltering}
+					/>
+				</S.ResultandFilter>
+				<ProductList productList={filteredProducts} />
+			</S.Wrapper>
+		</S.Container>
 	);
 };
 
 export default SearchPage;
-const Main = styled.div`
-	width: 860px;
-	margin: 20px auto;
-	flex-wrap: wrap;
+
+const Container = styled.div`
+	width: 100%;
+	* {
+		${primaryFont}
+	}
 `;
 
-const Select = styled.select`
-	float: right;
-	margin-right: 5px;
-	margin-bottom: 10px;
-	font-size: 16px;
-	width: 100px;
-	text-align: center;
-	padding: 5px;
-	border: 1px solid #dddddd;
-	border-radius: 8px;
+const Wrapper = styled.div`
+	width: 1060px;
+	margin: 50px auto;
 `;
 
-const Option = styled.option`
-	background-color: white;
-	border-bottom: 1px solid #dddddd;
+const ResultandFilter = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
 `;
 
 const AllButton = styled.div`
@@ -46,14 +93,18 @@ const AllButton = styled.div`
 	text-align: center;
 `;
 
-const SearchText = styled.div`
-	font-size: 22px;
+const SearchText = styled.p`
+	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
+	font-weight: bold;
+	span {
+		color: ${({ theme }) => theme.PALETTE.primary};
+	}
 `;
 
 const S = {
+	Container,
+	Wrapper,
+	ResultandFilter,
 	SearchText,
-	Main,
 	AllButton,
-	Select,
-	Option,
 };
