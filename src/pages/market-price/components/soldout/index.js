@@ -2,28 +2,27 @@ import styled from "styled-components";
 import OneProduct from "./one-soldoutproduct";
 import { productList } from "mock/productsList";
 import { useState } from "react";
-import Pagenation from "../pagenation";
+import Pagination from "components/Pagination";
 import { flexColumn } from "styles/common";
 
 const Soldout = () => {
-	const [limit] = useState(8);
+	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);
-	const offset = (page - 1) * limit;
+	const offset = (page - 1) * dataLimit;
 	const SoldoutList = productList.filter(v => v.status == "판매완료");
 	return (
 		<S.Container>
 			<S.Button>최근 거래 종료 품목</S.Button>
 			<S.GridContainer>
 				<S.Gridwrapper>
-					{SoldoutList.slice(offset, offset + limit).map(product => (
+					{SoldoutList.slice(offset, offset + dataLimit).map(product => (
 						<OneProduct product={product} />
 					))}
 				</S.Gridwrapper>
 			</S.GridContainer>
-
-			<Pagenation
-				total={SoldoutList.length}
-				limit={limit}
+			<Pagination
+				totalData={SoldoutList.length}
+				dataLimit={dataLimit}
 				page={page}
 				setPage={setPage}
 			/>
@@ -34,7 +33,7 @@ export default Soldout;
 
 const GridContainer = styled.div`
 	width: 1060px;
-	height: 880px;
+	height: 940px;
 	${flexColumn}
 	align-items: center;
 	position: relative;
