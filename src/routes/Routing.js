@@ -1,14 +1,16 @@
 import Chat from "components/Chat";
 import Layout from "components/Layout";
+import LayoutwithoutHeader from "components/Layoutwithoutheader";
 import Main from "pages/main";
 import ProductDetailPage from "pages/product-detail";
-import ProductRegister from "pages/product-register";
-import SearchPage from "pages/search-page";
 import Signin from "pages/sign/components/sign-in";
 import Signup from "pages/sign/components/sign-up";
+import ProductRegister from "pages/product-register";
+import SearchPage from "pages/search-page";
 import FreeTransaction from "pages/transaction/free-transaction";
 import UsedTransaction from "pages/transaction/used-transaction";
 import { createBrowserRouter } from "react-router-dom";
+import MarketPrice from "pages/market-price";
 
 const router = createBrowserRouter([
 	{
@@ -19,21 +21,14 @@ const router = createBrowserRouter([
 				element: <Main />,
 			},
 			{
-				path: "/Signin",
-				element: <Signin />,
-			},
-			{
-				path: "/Signup",
-				element: <Signup />,
-			},
-			{
 				path: "/product/:id",
 				element: <ProductDetailPage />,
 			},
 			{
-				path: "/productRegister",
-				element: <ProductRegister />,
+				path: "/MarketPrice",
+				element: <MarketPrice />,
 			},
+			{ path: "/productRegister", element: <ProductRegister /> },
 			{
 				path: "/used-transaction",
 				element: <UsedTransaction />,
@@ -49,6 +44,19 @@ const router = createBrowserRouter([
 			{
 				path: "/search",
 				element: <SearchPage />,
+			},
+		],
+	},
+	{
+		element: <LayoutwithoutHeader />,
+		children: [
+			{
+				path: "/Signin",
+				element: <Signin />,
+			},
+			{
+				path: "/Signup",
+				element: <Signup />,
 			},
 		],
 	},

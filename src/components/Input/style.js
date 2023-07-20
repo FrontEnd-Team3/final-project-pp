@@ -4,16 +4,30 @@ import { primaryFont } from "styles/common";
 const variantCSS = {
 	primary: css`
 		border: none;
-		border-bottom: 1.3px solid #d9d9d9;
+		border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 		padding: 8px 1px;
 		${primaryFont}
+	`,
+	bgBox: css`
+		border: none;
+		background-color: #f1f1f1;
+	`,
+	line: css`
+		border: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 	`,
 };
 
 const sizeCSS = {
+	small: css`
+		width: 340px;
+		font-size: 11px;
+	`,
 	medium: css`
-		width: 500px;
-		font-size: 13px;
+		width: 370px;
+		font-size: 11px;
+	`,
+	full: css`
+		width: 100%;
 	`,
 };
 
