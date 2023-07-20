@@ -13,13 +13,16 @@ const Soldout = () => {
 	return (
 		<S.Container>
 			<S.Button>최근 거래 종료 품목</S.Button>
-			<S.Gridwrapper>
-				{SoldoutList.slice(offset, offset + limit).map(product => (
-					<OneProduct product={product} />
-				))}
-			</S.Gridwrapper>
+			<S.GridContainer>
+				<S.Gridwrapper>
+					{SoldoutList.slice(offset, offset + limit).map(product => (
+						<OneProduct product={product} />
+					))}
+				</S.Gridwrapper>
+			</S.GridContainer>
+
 			<Pagenation
-				total={productList.length}
+				total={SoldoutList.length}
 				limit={limit}
 				page={page}
 				setPage={setPage}
@@ -28,10 +31,21 @@ const Soldout = () => {
 	);
 };
 export default Soldout;
+
+const GridContainer = styled.div`
+	width: 1060px;
+	height: 880px;
+	${flexColumn}
+	align-items: center;
+	position: relative;
+	margin-top: -60px;
+`;
+
 const Gridwrapper = styled.div`
 	display: grid;
 	grid-template-columns: repeat(4, 253px);
-	grid-gap: 10px;
+	grid-column-gap: 10px;
+	grid-row-gap: 30px;
 	position: relative;
 	top: 65px;
 `;
@@ -47,13 +61,15 @@ const Button = styled.button`
 const Container = styled.div`
 	position: relative;
 	width: 100%;
-	top: 600px;
-	height: 800px;
+	top: 300px;
+	height: 1200px;
 	${flexColumn}
 	align-items: center;
 `;
+
 const S = {
 	Button,
 	Container,
 	Gridwrapper,
+	GridContainer,
 };

@@ -5,9 +5,15 @@ const Pagenation = ({ total, limit, page, setPage }) => {
 	return (
 		<>
 			<Nav>
-				<Button onClick={() => setPage(page - 1)} disabled={page === 1}>
+				<NavButton
+					onClick={() => setPage(page - (page - 1))}
+					disabled={page === 1}
+				>
+					&lt;&lt;
+				</NavButton>
+				<NavButton onClick={() => setPage(page - 1)} disabled={page === 1}>
 					&lt;
-				</Button>
+				</NavButton>
 				{Array(numPage)
 					.fill()
 					.map((_, i) => (
@@ -19,42 +25,61 @@ const Pagenation = ({ total, limit, page, setPage }) => {
 							{i + 1}
 						</Button>
 					))}
-				<Button onClick={() => setPage(page + 1)} disabled={page === numPage}>
+				<NavButton
+					onClick={() => setPage(page + 1)}
+					disabled={page === numPage}
+				>
 					&gt;
-				</Button>
+				</NavButton>
+				<NavButton
+					onClick={() => setPage(page + (numPage - page))}
+					disabled={page === numPage}
+				>
+					&gt;&gt;
+				</NavButton>
 			</Nav>
 		</>
 	);
 };
 export default Pagenation;
+const NavButton = styled.button`
+	width: 34px;
+	height: 34px;
+	margin: 5px;
+	cursor: pointer;
+	font-weight: bold;
+	border: none;
+	color: ${({ theme }) => theme.PALETTE.white};
+	background-color: ${({ theme }) => theme.PALETTE.darkPrimary};
+	&[disabled] {
+		background-color: ${({ theme }) => theme.PALETTE.gray};
+		border: none;
+		cursor: revert;
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+`;
 
 const Nav = styled.nav`
 	position: relative;
-	top: 110px;
+	top: 60px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 `;
 
 const Button = styled.button`
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
-	border: none;
-	margin: 20px;
+	width: 34px;
+	height: 34px;
+	border: 1px solid ${({ theme }) => theme.PALETTE.primary};
+	margin: 13px;
 	cursor: pointer;
 	font-weight: bold;
+	color: ${({ theme }) => theme.PALETTE.primary};
 	background-color: white;
-	:hover {
-		background-color: #e2e2fe;
-	}
-	&[disabled] {
-		background-color: white;
-		cursor: revert;
-	}
 
 	&[aria-current] {
-		background-color: #e2e2fe;
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: white;
 	}
 `;
 
