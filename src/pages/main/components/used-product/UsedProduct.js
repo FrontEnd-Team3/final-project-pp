@@ -1,5 +1,7 @@
 import BasicButton from "components/Button";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
+import SearchAddress from "components/searchAddress";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
@@ -10,33 +12,43 @@ const UsedProduct = ({ productList }) => {
 	);
 
 	const navigate = useNavigate();
+
+	// 주소 변경
+	const [isOpen, setIsOpen] = useState(false);
+	const [address, setAddress] = useState("서울시 성동구 성수동");
 	return (
-		<S.Container>
-			<div>
-				<S.Title>
-					우리 동네 <S.Used>중고</S.Used> 물품
-				</S.Title>
-				<S.Location>
-					서울시 성동구 성수동
+		<>
+			{isOpen && (
+				<SearchAddress setAddress={setAddress} setIsOpen={setIsOpen} />
+			)}
+			<S.Container>
+				<div>
+					<S.Title>
+						우리 동네 <S.Used>중고</S.Used> 물품
+					</S.Title>
+					<S.Location>
+						{address}
+						<BasicButton
+							variant={"primary"}
+							size={"xsmall"}
+							children={"변경"}
+							style={{ marginLeft: "15px" }}
+							onClick={() => setIsOpen(true)}
+						/>
+					</S.Location>
+				</div>
+				<ProductListWithoutPagination productList={PRODUCTLIST} />
+				<S.ButtonContainer>
 					<BasicButton
-						variant={"primary"}
-						size={"xsmall"}
-						children={"변경"}
-						style={{ marginLeft: "15px" }}
+						variant={"black"}
+						size={"small"}
+						children={"MORE +"}
+						style={{ fontSize: "14px", height: "28px" }}
+						onClick={() => navigate("/used-transaction")}
 					/>
-				</S.Location>
-			</div>
-			<ProductListWithoutPagination productList={PRODUCTLIST} />
-			<S.ButtonContainer>
-				<BasicButton
-					variant={"black"}
-					size={"small"}
-					children={"MORE +"}
-					style={{ fontSize: "14px", height: "28px" }}
-					onClick={() => navigate("/used-transaction")}
-				/>
-			</S.ButtonContainer>
-		</S.Container>
+				</S.ButtonContainer>
+			</S.Container>
+		</>
 	);
 };
 
