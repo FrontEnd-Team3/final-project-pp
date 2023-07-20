@@ -70,7 +70,7 @@ const Container = styled.div`
 	border-radius: 10px;
 	width: 500px;
 	height: 168px;
-	position: relative;
+	position: fixed;
 	top: 29%;
 	left: 34%;
 	padding-top: 5px;
