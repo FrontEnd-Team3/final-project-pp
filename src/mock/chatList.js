@@ -1,6 +1,31 @@
 export const chatList = [
 	{
 		roomID: 0,
+		prouductID: "admin",
+		seller: false, // 판매자 user id 1
+		20230704: [
+			{
+				user: "admin",
+				time: "20:36",
+				content:
+					"안녕하세요 TRIMM입니다 :) <TRIMM 채팅 거래시 안내사항> <사기 거래 주의사항>",
+			},
+		],
+	},
+	{
+		roomID: 0,
+		prouductID: 23,
+		seller: true, // 판매자 user id 1
+		20230704: [
+			{
+				user: "admin",
+				time: "20:36",
+				content: "어서오세요 당신의 첫 판매를 응원합니다. Recycling start!",
+			},
+		],
+	},
+	{
+		roomID: 1,
 		prouductID: 23,
 		seller: true, // 판매자 user id 1
 		20230706: [
@@ -66,3 +91,5 @@ export const chatList = [
 - 구매자 아이디
 - 대화 내용 / 시간
 */
+
+// 판매내역: seller false user가 보낸 것이 왼쪽, se
