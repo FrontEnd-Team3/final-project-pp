@@ -28,13 +28,14 @@ const Header = () => {
 						<S.NewChat>새로운 채팅 도착!</S.NewChat>
 						<S.InfoWrapper>
 							<div
+								style={{ cursor: "pointer" }}
 								onClick={() => {
 									navigate(`/Signup`);
 								}}
 							>
 								LOGIN
 							</div>
-							<div>MYPAGE</div>
+							<div style={{ cursor: "pointer" }}>MYPAGE</div>
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => navigate(`/Chat`)}
@@ -53,13 +54,13 @@ const Header = () => {
 						<S.NavPage onClick={() => navigate(`/free-transaction`)}>
 							무료나눔
 						</S.NavPage>
-						<div
+						<S.NavPage
 							onClick={() => {
 								navigate("/MarketPrice");
 							}}
 						>
 							실시간 시세
-						</div>
+						</S.NavPage>
 					</S.Category>
 					<S.Sellbutton onClick={() => navigate(`/productRegister`)}>
 						판매하기

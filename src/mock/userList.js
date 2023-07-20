@@ -3,6 +3,9 @@ import { productList } from "./productsList";
 
 export const userList = [
 	{
+		id: "admin",
+	},
+	{
 		id: 1,
 		email: "example@naver.com",
 		password: "1234",
