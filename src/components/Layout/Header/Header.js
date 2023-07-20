@@ -50,7 +50,13 @@ const Header = () => {
 						<S.NavPage onClick={() => navigate(`/free-transaction`)}>
 							무료나눔
 						</S.NavPage>
-						<div>실시간 시세</div>
+						<div
+							onClick={() => {
+								navigate("/MarketPrice");
+							}}
+						>
+							실시간 시세
+						</div>
 					</S.Category>
 					<S.Sellbutton onClick={() => navigate(`/productRegister`)}>
 						판매하기
