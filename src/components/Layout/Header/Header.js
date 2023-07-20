@@ -21,6 +21,7 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
+
 	return (
 		<>
 			<S.Container>

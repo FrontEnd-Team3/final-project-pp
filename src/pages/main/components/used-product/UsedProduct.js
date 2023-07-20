@@ -1,15 +1,17 @@
 import BasicButton from "components/Button";
+import SinginModal from "components/Modal/Signin";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
 
-const UsedProduct = ({ productList }) => {
+const UsedProduct = ({ productList, setIsOpen }) => {
 	const PRODUCTLIST = productList?.filter(
 		product => product.status !== "판매완료" && product.price,
 	);
-
 	const navigate = useNavigate();
+	const [isOpen, setOpen] = useState(false);
 	return (
 		<S.Container>
 			<div>
@@ -23,8 +25,12 @@ const UsedProduct = ({ productList }) => {
 						size={"xsmall"}
 						children={"변경"}
 						style={{ marginLeft: "15px" }}
+						onClick={() => {
+							setOpen(true);
+						}}
 					/>
 				</S.Location>
+				{isOpen && <SinginModal setOpen={setOpen} />}
 			</div>
 			<ProductListWithoutPagination productList={PRODUCTLIST} />
 			<S.ButtonContainer>
