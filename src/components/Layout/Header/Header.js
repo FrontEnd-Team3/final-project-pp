@@ -1,9 +1,27 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
+import Onecategory from "./onecategory";
+import { useState } from "react";
 
 const Header = () => {
 	const navigate = useNavigate();
+	const [state, setState] = useState(1);
+	const categoryArray = [
+		{
+			name: "중고거래",
+			navigate: `/used-transaction`,
+		},
+		{
+			name: "무료나눔",
+			navigate: `/free-transaction`,
+		},
+		{
+			name: "실시간 시세",
+			navigate: `/MarketPrice`,
+		},
+	];
+
 	return (
 		<>
 			<S.Container>
@@ -28,30 +46,38 @@ const Header = () => {
 						<S.NewChat>새로운 채팅 도착!</S.NewChat>
 						<S.InfoWrapper>
 							<div
+								style={{ cursor: "pointer" }}
 								onClick={() => {
-									navigate(`/Signup`);
+									navigate("/Signup");
 								}}
 							>
 								LOGIN
 							</div>
-							<div>MYPAGE</div>
-							<div>
-								CHAT<S.Chaticon src="img/chat.png"></S.Chaticon>
+							<div style={{ cursor: "pointer" }}>MYPAGE</div>
+							<div
+								style={{ cursor: "pointer" }}
+								onClick={() => navigate(`/Chat`)}
+							>
+								CHAT
+								<S.Chaticon src="img/chat.png"></S.Chaticon>
 							</div>
 						</S.InfoWrapper>
 					</div>
 				</S.LogoWrapper>
 				<S.CategoryWrapper>
 					<S.Category>
-						<S.NavPage onClick={() => navigate(`/used-transaction`)}>
-							중고거래
-						</S.NavPage>
-						<S.NavPage onClick={() => navigate(`/free-transaction`)}>
-							무료나눔
-						</S.NavPage>
-						<div>실시간 시세</div>
+						{categoryArray.map((category, i) => (
+							<Onecategory
+								category={category}
+								i={i}
+								state={state}
+								setState={setState}
+							/>
+						))}
 					</S.Category>
-					<S.Sellbutton>판매하기</S.Sellbutton>
+					<S.Sellbutton onClick={() => navigate(`/productRegister`)}>
+						판매하기
+					</S.Sellbutton>
 				</S.CategoryWrapper>
 			</S.Container>
 		</>
@@ -83,6 +109,12 @@ const Sellbutton = styled.button`
 	background-color: #3cb371;
 	position: relative;
 	bottom: 5px;
+	cursor: pointer;
+	transition: background 0.1s;
+
+	:hover {
+		background: rgba(60, 179, 113, 0.9);
+	}
 `;
 const Chaticon = styled.img`
 	width: 22px;

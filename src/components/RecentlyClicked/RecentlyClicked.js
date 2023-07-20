@@ -1,19 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import ONE from "./images/product1.png";
-import TWO from "./images/product2.png";
-import THREE from "./images/product3.png";
-import FOUR from "./images/product4.png";
 import { GoBookmark } from "react-icons/go";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import useRecentlyClicked from "hooks/useRecentlyClicked";
+import { productList } from "mock/productsList";
+import { useNavigate } from "react-router-dom";
 
 const RecentlyClicked = () => {
 	// 추후 API로 데이터 들어오면 수정
 	const [likes, setLikes] = useState(0);
 
 	// 이미지 배열
-	const ImageArr = [ONE, TWO, THREE, FOUR];
+	// localStorage에서 최근 본 상품 가져오기
+	const recentlyClicked = useRecentlyClicked();
+
+	// 최근 본 상품 배열에 들어있는 id 값과 일치하는 상품의 이미지 가져오기
+	// localstorage에는 id가 문자열로 들어가므로 빈 문자열 더해서 검사
+	const ImageArr = productList
+		.filter(product => recentlyClicked.includes(product.id + ""))
+		.map(product => product.image[0]);
+	// console.log("최근 본 상품", ImageArr);
+
+	// 각 이미지 클릭 시 해당 상품 상세 페이지로 이동
+	const navigate = useNavigate();
 
 	// 슬라이드 구현
 	const slideRef = useRef(null);
@@ -22,6 +32,7 @@ const RecentlyClicked = () => {
 	const SLIDE_RANGE = currentIndex * IMAGE_SIZE;
 
 	const handleDownSlideIndex = () => {
+		if (!recentlyClicked.length || recentlyClicked.length === 1) return;
 		if (currentIndex === InfiniteArr.length - 1) {
 			slideRef.current.style.transition = "";
 			setCurrentIndex(1);
@@ -37,6 +48,7 @@ const RecentlyClicked = () => {
 	};
 
 	const handleUpSlideIndex = () => {
+		if (!recentlyClicked.length || recentlyClicked.length === 1) return;
 		if (currentIndex === 0) {
 			slideRef.current.style.transition = "";
 			setCurrentIndex(InfiniteArr.length - 2);
@@ -64,20 +76,6 @@ const RecentlyClicked = () => {
 	const [scrollY, setScrollY] = useState(0);
 	// console.log("Y", scrollY);
 
-	const handleScroll = () => {
-		setScrollY(window.scrollY);
-	};
-
-	useEffect(() => {
-		const watchScroll = () => {
-			window.addEventListener("scroll", handleScroll);
-		};
-		watchScroll();
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	});
-
 	const handleScrollToTop = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 		setScrollY(0);
@@ -93,11 +91,23 @@ const RecentlyClicked = () => {
 				<IoIosArrowUp size="30" onClick={handleUpSlideIndex} />
 				<S.SlideWrapper>
 					<S.SlideContainer ref={slideRef} length={InfiniteArr.length}>
-						{InfiniteArr.length ? (
+						{recentlyClicked.length ? (
 							<>
 								<li>
 									{InfiniteArr.map((image, i) => (
-										<SlideImage src={image} key={i} />
+										<S.SlideImage
+											src={image}
+											key={i}
+											onClick={() =>
+												navigate(
+													`/product/${
+														productList.find(
+															product => product.image[0] === image,
+														).id
+													}`,
+												)
+											}
+										/>
 									))}
 								</li>
 							</>
@@ -177,13 +187,15 @@ const SlideContainer = styled.ul`
 const SlideImage = styled.img`
 	width: 110px;
 	height: 110px;
+	cursor: pointer;
 `;
 
-const Empty = styled.li`
-	width: 110px;
+const Empty = styled.div`
+	width: 100%;
 	height: 110px;
 	line-height: 110px;
 	color: ${({ theme }) => theme.PALETTE.gray};
+	margin-right: 0;
 `;
 
 const Bottom = styled.div`

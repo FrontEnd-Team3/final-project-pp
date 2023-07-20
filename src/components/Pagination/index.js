@@ -7,6 +7,13 @@ const Pagination = ({ totalData, dataLimit, page, setPage }) => {
 
 	return (
 		<S.Container>
+			<S.ControlBtn
+				onClick={() => setPage(page - (page - 1))}
+				disabled={page === 1}
+			>
+				<IoIosArrowBack color="white" size="15" />
+				<IoIosArrowBack color="white" size="15" />
+			</S.ControlBtn>
 			<S.ControlBtn onClick={() => setPage(page - 1)} disabled={page === 1}>
 				<IoIosArrowBack color="white" size="15" />
 			</S.ControlBtn>
@@ -27,6 +34,13 @@ const Pagination = ({ totalData, dataLimit, page, setPage }) => {
 				onClick={() => setPage(page + 1)}
 				disabled={page === pageCount}
 			>
+				<IoIosArrowForward color="white" size="15" />
+			</S.ControlBtn>
+			<S.ControlBtn
+				onClick={() => setPage(page + (pageCount - page))}
+				disabled={page === pageCount}
+			>
+				<IoIosArrowForward color="white" size="15" />
 				<IoIosArrowForward color="white" size="15" />
 			</S.ControlBtn>
 		</S.Container>

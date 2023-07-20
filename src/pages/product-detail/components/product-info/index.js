@@ -1,15 +1,14 @@
 import { flexColumn, primaryFont } from "styles/common";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { productList } from "mock/productsList";
 import ProductImages from "./product-images";
 import UserInfo from "./user-info";
 import ButtonContainer from "./buttons";
 
-const ProductInfo = () => {
-	const { id } = useParams();
+const ProductInfo = ({ id }) => {
 	const TARGET = productList.find(product => product.id === parseInt(id));
 	const localPrice = TARGET?.price.toLocaleString("ko-KR");
+
 	if (TARGET)
 		return (
 			<S.Container>

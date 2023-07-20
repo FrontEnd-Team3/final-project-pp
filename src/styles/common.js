@@ -35,3 +35,4 @@ export const registerInput = css`
 	position: relative;
 	width: 100%;
 `;
+
