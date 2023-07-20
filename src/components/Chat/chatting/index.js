@@ -26,12 +26,6 @@ const Chatting = () => {
 				<S.Chat>
 					<S.day>2023.07.06</S.day>
 					<S.hr />
-					<S.MyChats>
-						<S.SendedTime>10:53</S.SendedTime>
-						<S.SendedByMe>
-							일이삼사오육칠팔구십일이삼사오육칠팔구십
-						</S.SendedByMe>
-					</S.MyChats>
 					<S.OtherChat>
 						<S.SendedByOther>
 							일이삼사오육칠팔구십일이삼사오육칠팔구십
@@ -127,15 +121,18 @@ const hr = styled.hr`
 
 const MyChats = styled.div`
 	width: 280px;
+	display: flex;
 	float: right;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	word-wrap: break-word;
 	text-align: right;
 `;
 
 const OtherChat = styled.div`
 	display: flex;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	float: left;
 	width: 280px;
 	align-items: flex-end;
@@ -144,6 +141,7 @@ const OtherChat = styled.div`
 const SendedTime = styled.div`
 	font-size: 8px;
 	color: #242424;
+	margin-top: 45px;
 	margin-right: 8px;
 `;
 
