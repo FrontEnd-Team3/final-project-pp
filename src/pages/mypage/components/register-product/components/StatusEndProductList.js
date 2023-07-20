@@ -1,31 +1,18 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
-import StatusEndProductList from "./components/StatusEndProductList";
 
-/**
- *
- * 호버시 쉐도우 주는거 적용해야함
- *
- */
-
-const RegisterProduct = ({ productList, productListStatusEnd }) => {
-	console.log(productList);
-	if (productList && productList.length > 0) {
+const StatusEndProductList = ({ productListStatusEnd }) => {
+	if (productListStatusEnd && productListStatusEnd.length > 0) {
 		return (
 			<S.Container>
-				<S.RowBox>
-					<S.Title>등록 상품</S.Title>
-					<S.ToggleBox>토글메뉴 만들거잉</S.ToggleBox>
-				</S.RowBox>
-				<S.DivisionLine />
-				{productList.map(product => (
+				{productListStatusEnd.map(product => (
 					<S.ProductContainer key={product.id}>
-						<img src={product.image[2]} />
+						<img src={product.image[0]} />
 						<div>
 							<div>
 								<S.Wrapper>
-									<p>{product.name}</p>
+									<p>[판매완료] {product.name}</p>
 									<div>
 										<BasicButton
 											variant={"white"}
@@ -67,25 +54,17 @@ const RegisterProduct = ({ productList, productListStatusEnd }) => {
 						</div>
 					</S.ProductContainer>
 				))}
-				<StatusEndProductList productListStatusEnd={productListStatusEnd} />
+				<StatusEndProductList />
 			</S.Container>
 		);
-	} else {
-		return <div>등록된 상품이 없습니다.</div>;
 	}
 };
-export default RegisterProduct;
 
-const DivisionLine = styled.hr`
-	width: 962px;
-	height: 1px;
-	background-color: #cccccc;
-	margin-top: 30px;
-`;
+export default StatusEndProductList;
 
 const Container = styled.div`
 	display: flex;
-
+	margin-bottom: 100px;
 	${primaryFont}
 	${flexColumn}
     ${flexCenter}
@@ -150,7 +129,6 @@ const ToggleBox2 = styled.div`
 `;
 
 const S = {
-	DivisionLine,
 	Title,
 	Container,
 	ProductContainer,
