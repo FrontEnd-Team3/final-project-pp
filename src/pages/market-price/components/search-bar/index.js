@@ -1,27 +1,39 @@
-import BasicButton from "components/Button";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
+import { flexColumn, primaryFont } from "styles/common";
 
 const SearchBar = () => {
 	return (
 		<S.Container>
-			<S.Search
-				placeholder="원하는 물품을 검색해 보세요 :)"
-				autofocus
-			></S.Search>
-			<BasicButton size={"small"} variant={"primary"} shape={"primary"}>
-				Search
-			</BasicButton>
-			<S.MentWrapper>
-				<p>최근 1개월 간</p>
-				<p>검색하신 키워드의 실시간 시세 정보 입니다.</p>
-				<p>만약 검색한 물건이 없다면 거래 종료 목록을 확인해 주세요</p>
-			</S.MentWrapper>
+			<S.Title>시세조회</S.Title>
+			<S.Subtitle>원하시는 상품이 얼마에 거래되고 있는지 알아보세요</S.Subtitle>
+			<div>
+				<S.Search placeholder="나이키 조던" autofocus></S.Search>
+				<S.SearchBtn>Search</S.SearchBtn>
+			</div>
 		</S.Container>
 	);
 };
 export default SearchBar;
-
+const Subtitle = styled.div`
+	font-size: 18px;
+	color: #5a5a5a;
+	font-weight: 600;
+	position: relative;
+	top: 15px;
+`;
+const Title = styled.div`
+	font-size: 26px;
+	font-weight: 600;
+	color: ${({ theme }) => theme.PALETTE.black};
+`;
+const SearchBtn = styled.div`
+	z-index: 1;
+	position: relative;
+	left: 480px;
+	top: 15px;
+	color: ${({ theme }) => theme.PALETTE.primary};
+	font-weight: 600;
+`;
 const MentWrapper = styled.div`
 	font-size: 19px;
 	position: relative;
@@ -38,33 +50,21 @@ const MentWrapper = styled.div`
 `;
 
 const Container = styled.div`
-	width: 700px;
-	height: 340px;
-	border-bottom: 2px solid #8a8a8a;
+	width: 553px;
+	height: 200px;
 	${primaryFont}
-	button {
-		background-color: white;
-		position: relative;
-		border: none;
-		top: 6px;
-		width: 120px;
-		border-radius: 30px;
-		height: 38px;
-		left: 574px;
-		z-index: 10;
-		font-size: 14px;
-		color: #8490c8;
-	}
+	${flexColumn}
+	align-items: center;
+	position: relative;
+	top: 150px;
 `;
 const Search = styled.input`
 	position: relative;
 	top: 50px;
-	width: 700px;
+	width: 553px;
 	height: 50px;
-	border: 1.5px solid #404040;
+	border: 1.5px solid #e0e0e0;
 	border-radius: 60px;
-	background-color: #e2e2fe;
-	box-shadow: 1px 1px 1px 1px;
 	font-size: 20px;
 	padding-left: 20px;
 	:focus {
@@ -72,8 +72,7 @@ const Search = styled.input`
 	}
 	::placeholder {
 		font-size: 17px;
-		font-weight: 600;
-		color: #404040;
+		color: #858585;
 	}
 `;
 
@@ -81,4 +80,7 @@ const S = {
 	Search,
 	Container,
 	MentWrapper,
+	SearchBtn,
+	Title,
+	Subtitle,
 };

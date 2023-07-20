@@ -1,56 +1,123 @@
 import BasicButton from "components/Button";
 import BasicInput from "components/Input";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { color, flexColumn, primaryFont } from "styles/common";
+import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
 
 const Signup = () => {
+	const navigate = useNavigate();
 	return (
 		<S.Container>
-			<S.RealTitle>PPYONG PPYONG</S.RealTitle>
-			<S.Wrapper>
-				<S.Title>이메일 주소</S.Title>
-				<BasicInput
-					placeholder="EX) example@pyongpyong.com"
-					size={"medium"}
-					color={"primary"}
-					variant={"primary"}
-				></BasicInput>
-				<S.Subtitle>이메일 형식에 맞게 입력해 주세요.</S.Subtitle>
-			</S.Wrapper>
-			<S.Wrapper>
-				<S.Title>비밀번호</S.Title>
-				<BasicInput
-					placeholder="PW"
-					size={"medium"}
-					color={"primary"}
-					variant={"primary"}
-				></BasicInput>
-				<S.Subtitle>
-					영문, 숫자, 특수문자를 조합해서 입력해 주세요. (8-16자)
-				</S.Subtitle>
-			</S.Wrapper>
-			<ButtonWrapper>
-				<BasicButton size={"large"} variant={"primary"}>
-					로그인
-				</BasicButton>
-			</ButtonWrapper>
+			<S.LogoWrapper>
+				<S.LogoTitle
+					onClick={() => {
+						navigate(`/`);
+					}}
+				>
+					TRIMM
+				</S.LogoTitle>
+				<S.SideTitle>Trade, Reuse, Innovate and Make your Moment</S.SideTitle>
+				<S.LogoMent>지구를 위해 버리지 말고 중고 거래를 해보세요!</S.LogoMent>
+			</S.LogoWrapper>
+			<S.SignWrapper>
+				<S.Wrapper>
+					<S.Title>Email Address *</S.Title>
+					<BasicInput
+						placeholder="예) example@pyongpyong.com"
+						size={"medium"}
+						color={"primary"}
+						variant={"primary"}
+					></BasicInput>
+					<S.Subtitle>이메일 형식에 맞게 입력해 주세요.</S.Subtitle>
+				</S.Wrapper>
+				<S.Wrapper>
+					<S.Title>Password *</S.Title>
+					<BasicInput
+						placeholder="password"
+						size={"medium"}
+						color={"primary"}
+						variant={"primary"}
+					></BasicInput>
+					<S.Subtitle>
+						영문, 숫자, 특수문자를 조합해서 입력해 주세요. (8-16자)
+					</S.Subtitle>
+				</S.Wrapper>
+				<ButtonWrapper>
+					<BasicButton
+						size={"mediumfourth"}
+						variant={"primary"}
+						color={"darkBlack"}
+					>
+						로그인
+					</BasicButton>
+				</ButtonWrapper>
+				<S.Ment
+					onClick={() => {
+						navigate("/Signin");
+					}}
+				>
+					회원가입 하기
+				</S.Ment>
+			</S.SignWrapper>
 		</S.Container>
 	);
 };
 export default Signup;
-
-const ButtonWrapper = styled.div`
-	width: 500px;
+const LogoMent = styled.div`
 	position: relative;
-	top: 185px;
+	top: 30px;
+	${primaryFont}
+`;
+const LogoWrapper = styled.div`
+	margin-right: 80px;
+	height: 150px;
+	position: relative;
+	bottom: 110px;
+`;
+const SideTitle = styled.div`
+	${primaryFont}
+	font-style: italic;
+	font-weight: bold;
+	font-size: 16px;
+`;
+
+const LogoTitle = styled.div`
+	font-size: 55px;
+	font-weight: bold;
+	cursor: pointer;
+	font-style: italic;
+`;
+const Ment = styled.div`
+	${primaryFont};
+	font-size: 13px;
+	font-weight: bold;
+	position: relative;
+	top: 90px;
+	cursor: pointer;
+`;
+const SignWrapper = styled.div`
+	border: 1px solid #e8e8e8;
+	border-radius: 8px;
+	width: 450px;
+	height: 410px;
+	${flexColumn}
+	align-items: center;
+	position: relative;
+`;
+
+const Wrapper = styled.div`
+	width: 370px;
+	margin: 25px;
+	position: relative;
+	top: 35px;
+`;
+const ButtonWrapper = styled.div`
+	position: relative;
+	top: 50px;
 	button {
-		border: none;
-		${primaryFont}
 		font-size: 15px;
-		background-color: #e6e6e6;
-		color: white;
 		:hover {
-			background-color: #8490c8;
+			background-color: ${({ theme }) => theme.PALETTE.gray};
 		}
 		/* :disabled {
 			background-color: #e6e6e6;
@@ -67,37 +134,28 @@ const RealTitle = styled.div`
 	top: 50px;
 `;
 const Title = styled.p`
-	font-size: 14px;
-	color: #404040;
+	font-size: 13px;
+	color: ${({ theme }) => theme.PALETTE.black};
 	position: relative;
-	bottom: 10px;
+	bottom: 4px;
+	font-weight: bold;
 `;
 const Subtitle = styled.p`
 	position: relative;
 	top: 6px;
-	font-size: 12px;
-	color: #db5a48;
-`;
-const Wrapper = styled.div`
-	margin: 25px;
-	position: relative;
-	top: 120px;
+	font-size: 11px;
+	color: ${({ theme }) => theme.PALETTE.red};
 `;
 
 const Container = styled.div`
 	margin: 0 auto;
 	margin-bottom: 130px;
-	margin-top: 90px;
-	width: 640px;
-	height: 612px;
-	border: 2px solid #404040;
+	margin-top: 150px;
+	width: 1000px;
+	height: 510px;
 	border-radius: 12px;
-	${flexColumn}
 	${primaryFont}
-	align-items: center;
-	div:nth-child(3) {
-		margin-top: 50px;
-	}
+	${flexCenter}
 `;
 const S = {
 	Container,
@@ -105,4 +163,10 @@ const S = {
 	Title,
 	Subtitle,
 	Wrapper,
+	SignWrapper,
+	Ment,
+	LogoTitle,
+	SideTitle,
+	LogoWrapper,
+	LogoMent,
 };

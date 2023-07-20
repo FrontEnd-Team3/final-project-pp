@@ -17,9 +17,8 @@ const MarketPrice = () => {
 export default MarketPrice;
 const Container = styled.div`
 	margin: 0 auto;
-	width: 860px;
-	border: 1px solid black;
-	height: 1300px;
+	width: 1060px;
+	height: 1500px;
 	${flexColumn}
 	${primaryFont}
 	align-items: center;

@@ -7,7 +7,7 @@ import { flexCenter, primaryFont } from "styles/common";
 
 const UsedProduct = () => {
 	const PRODUCTLIST = productList.filter(
-		product => product.status !== "판매완료",
+		product => product.status !== "판매완료" && product.price,
 	);
 	const navigate = useNavigate();
 	return (

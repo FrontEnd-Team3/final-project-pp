@@ -1,24 +1,28 @@
 import styled from "styled-components";
 
 const OneProduct = ({ product }) => {
+	const url = product.image[0];
 	return (
 		<>
 			<S.Container>
-				<div>{product.id}</div>
+				<Img src={url}></Img>
+				<div>{product.name}</div>
+				<div>{product.location}</div>
 			</S.Container>
 		</>
 	);
 };
 export default OneProduct;
-
+const Img = styled.img`
+	width: 250px;
+	height: 250px;
+`;
 const Container = styled.div`
-	border: 1px solid black;
-	width: 165px;
-	height: 210px;
+	width: 250px;
+	height: 280px;
 	background-color: #e2e2fe;
-	border: 3px solid black;
-	border-radius: 7px;
 `;
 const S = {
 	Container,
+	Img,
 };

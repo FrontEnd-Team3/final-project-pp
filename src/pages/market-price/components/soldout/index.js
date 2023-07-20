@@ -1,21 +1,20 @@
 import styled from "styled-components";
 import OneProduct from "./one-soldoutproduct";
-import { productList } from "mock/__products";
+import { productList } from "mock/productsList";
 import { useState } from "react";
 import Pagenation from "../pagenation";
+import { flexColumn } from "styles/common";
 
 const Soldout = () => {
 	const [limit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * limit;
-
+	const SoldoutList = productList.filter(v => v.status == "판매완료");
 	return (
 		<S.Container>
-			<S.Button>
-				<S.Icon src="img/soldouticon.png"></S.Icon>최근 거래 종료 품목
-			</S.Button>
+			<S.Button>최근 거래 종료 품목</S.Button>
 			<S.Gridwrapper>
-				{productList.slice(offset, offset + limit).map(product => (
+				{SoldoutList.slice(offset, offset + limit).map(product => (
 					<OneProduct product={product} />
 				))}
 			</S.Gridwrapper>
@@ -31,39 +30,30 @@ const Soldout = () => {
 export default Soldout;
 const Gridwrapper = styled.div`
 	display: grid;
-	grid-template-columns: repeat(4, 165px);
+	grid-template-columns: repeat(4, 253px);
 	grid-gap: 10px;
 	position: relative;
 	top: 65px;
 `;
 const Button = styled.button`
-	width: 280px;
-	height: 46px;
-	font-size: 17px;
-	padding-bottom: 8px;
-	background-color: #c8c8ff;
-	border-radius: 12px;
-	color: #404040;
-	box-shadow: 1px 1px 1px 1px;
+	width: 260px;
+	height: 52px;
+	font-size: 19px;
+	background-color: ${({ theme }) => theme.PALETTE.darkBlack};
+	color: ${({ theme }) => theme.PALETTE.white};
 	position: relative;
-	left: 203px;
 `;
 
-const Icon = styled.img`
-	width: 20px;
-	position: relative;
-	right: 10px;
-	top: 5px;
-`;
 const Container = styled.div`
 	position: relative;
-	top: 100px;
+	width: 100%;
+	top: 600px;
 	height: 800px;
+	${flexColumn}
 	align-items: center;
 `;
 const S = {
 	Button,
-	Icon,
 	Container,
 	Gridwrapper,
 };
