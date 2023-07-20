@@ -11,7 +11,7 @@ const FreeProduct = () => {
 	);
 	const navigate = useNavigate();
 	return (
-		<S.Container>
+		<S.Container >
 			<div>
 				<S.Title>
 					우리 동네 <S.Free>무료</S.Free> 나눔

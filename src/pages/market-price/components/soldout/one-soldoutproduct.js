@@ -2,14 +2,20 @@ import styled from "styled-components";
 import { GoBookmark } from "react-icons/go";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import { flexColumn } from "styles/common";
+import { useNavigate } from "react-router-dom";
 
 const OneProduct = ({ product }) => {
 	const url = product.image[0];
 	const futureDate = new Date("2023-07-21");
 	const today = product.date;
+	const navigate = useNavigate();
+	const moveDetailPage = () => {
+		navigate(`/product/${product.id}`);
+	};
+
 	return (
 		<>
-			<S.Container>
+			<S.Container onClick={moveDetailPage}>
 				<S.SoldOut>
 					<S.Sold>SOLD</S.Sold>
 					<S.Out>OUT</S.Out>
