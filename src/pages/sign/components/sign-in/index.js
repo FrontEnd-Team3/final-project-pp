@@ -218,10 +218,10 @@ const Subtitle = styled.p`
 const Container = styled.div`
 	margin: 0 auto;
 	margin-bottom: 130px;
-	margin-top: 200px;
+	margin-top: 120px;
 	width: 100%;
 	width: 1000px;
-	height: 510px;
+	height: 670px;
 	${primaryFont}
 	${flexCenter}
 `;
