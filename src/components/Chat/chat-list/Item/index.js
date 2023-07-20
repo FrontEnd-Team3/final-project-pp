@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ChatItem = ({ chat }) => {
-	const { adminimg, List, productID, price, move } = chat || {};
+	const { userimg, List, productID, price, move } = chat || {};
 
 	const lastContent =
 		List && Array.isArray(List) && List.length > 0
@@ -12,7 +12,7 @@ const ChatItem = ({ chat }) => {
 		<>
 			<S.Item>
 				<S.IimgContainer>
-					<S.Iimg src={adminimg} />
+					<S.Iimg src={userimg} />
 				</S.IimgContainer>
 				<S.TextContainer>
 					<S.Span>

@@ -1,12 +1,13 @@
 import ADMINSELL from "./adminsell.jpg";
 import ADMINBUY from "./adminbuy.jpg";
+import BASICIMG from "./basicimg.png";
 
 export const chatList = [
 	{
 		roomID: 0,
 		productID: "TRIMM~",
 		seller: true, // 판매자 user id 1
-		adminimg: ADMINBUY,
+		userimg: ADMINBUY,
 		move: false,
 		List: [
 			{
@@ -21,7 +22,7 @@ export const chatList = [
 		roomID: 1,
 		productID: "TRIMM",
 		seller: false, // 판매자 user id 1
-		adminimg: ADMINSELL,
+		userimg: ADMINSELL,
 		move: false,
 		List: [
 			{
@@ -34,6 +35,7 @@ export const chatList = [
 	{
 		roomID: 2,
 		productID: 23,
+		userimg: BASICIMG,
 		seller: true, // 판매자 user id 1
 		price: "20000원",
 		move: true,
@@ -65,6 +67,7 @@ export const chatList = [
 	{
 		roomID: 3,
 		productID: 24,
+		userimg: BASICIMG,
 		seller: false, // 구매자 user id 0
 		price: "30000원",
 		move: true,
