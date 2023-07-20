@@ -14,7 +14,7 @@ export const chatList = [
 	},
 	{
 		roomID: 0,
-		prouductID: 23,
+		prouductID: "admin",
 		seller: true, // 판매자 user id 1
 		20230704: [
 			{

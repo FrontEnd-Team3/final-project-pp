@@ -95,7 +95,7 @@ const RecentlyClicked = () => {
 							<>
 								<li>
 									{InfiniteArr.map((image, i) => (
-										<SlideImage
+										<S.SlideImage
 											src={image}
 											key={i}
 											onClick={() =>
@@ -187,6 +187,7 @@ const SlideContainer = styled.ul`
 const SlideImage = styled.img`
 	width: 110px;
 	height: 110px;
+	cursor: pointer;
 `;
 
 const Empty = styled.div`
