@@ -37,14 +37,14 @@ const Mypage = () => {
 export default Mypage;
 
 const MypageContainer = styled.div`
-	width: 1060px;
+	width: 962px;
 	margin: 0 auto;
 	padding: 20px 0;
 	${primaryFont}
 `;
 
 const DivisionLine = styled.hr`
-	width: 1060px;
+	width: 962px;
 	height: 1px;
 	background-color: #cccccc;
 	margin: 0 auto;
