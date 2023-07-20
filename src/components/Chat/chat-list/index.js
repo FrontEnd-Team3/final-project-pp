@@ -1,60 +1,84 @@
 import styled from "styled-components";
+import { primaryFont } from "styles/common";
+import gkgk from "./gkgk.png";
 
 const ChatList = () => {
 	return (
-		<Container>
-			<Header>
-				<Hsale>판매 채팅 내역</Hsale>
-				<Hbuy>구매 채팅 내역</Hbuy>
-			</Header>
-			<Main>
-				<Item>
-					<Iimg>이미지</Iimg>
-					<Itext>상품명</Itext>
-					<Itext>마지막 채팅</Itext>
-					<Itext>가격</Itext>
-				</Item>
-				<Item></Item>
-				<Item></Item>
-				<Item></Item>
-				<Item></Item>
-				<Item></Item>
-			</Main>
-		</Container>
+		<S.Container>
+			<S.Header>
+				<S.Hsale>판매 채팅 내역</S.Hsale>
+				<S.Hbuy>구매 채팅 내역</S.Hbuy>
+			</S.Header>
+			<S.Main>
+				<S.Item>
+					<S.IimgContainer>
+						<S.Iimg src={gkgk} />
+					</S.IimgContainer>
+					<S.TextContainer>
+						<S.Itext>상품명</S.Itext>
+						<S.Itext>마지막 채팅</S.Itext>
+						<S.Itext>가격</S.Itext>
+					</S.TextContainer>
+				</S.Item>
+				<S.Item></S.Item>
+				<S.Item></S.Item>
+				<S.Item></S.Item>
+				<S.Item></S.Item>
+				<S.Item></S.Item>
+			</S.Main>
+		</S.Container>
 	);
 };
 export default ChatList;
 
 const Container = styled.div`
-	width: 1153px;
-	height: 1183px;
-	background-color: darkgreen;
+	border: 3px solid black;
+	width: 430px;
+	height: 1275px;
+	margin: 0 auto;
+	${primaryFont}
 `;
 
 const Header = styled.div`
-	width: 1153px;
+	width: 100%;
 	height: 71px;
-	text-align: center;
+	border-bottom: 3px solid black;
 	display: flex;
+	div {
+		width: 50%;
+		cursor: pointer;
+		:hover {
+			opacity: 0.7;
+		}
+	}
 `;
 
 const Hsale = styled.div`
 	background-color: #8490c8;
-	width: 50%;
+	width: 577px;
+	font-size: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Hbuy = styled.div`
 	background-color: #d5d5d5;
-	width: 50%;
+	border-left: 3px solid black;
+	width: 576px;
+	font-size: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
 const Main = styled.div`
-	margin: 0 auto;
-	height: 1183px;
+	height: 1100px;
+	padding-left: 4px;
+	align-items: center;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
-		width: 30px;
-		height: 100px;
+		width: 15px;
 	}
 	&::-webkit-scrollbar-thumb {
 		border-radius: 16px;
@@ -68,20 +92,49 @@ const Main = styled.div`
 `;
 
 const Item = styled.div`
-	width: 1045px;
+	display: flex;
+	padding-left: 5px;
+	padding-top: 5px;
+	border: 3px solid black;
+	border-radius: 16px;
+	width: 400px;
 	height: 249px;
 	background-color: white;
 	margin-top: 35px;
-	display: flex;
-	flex-direction: column;
 `;
 
-const Iimg = styled.div`
-	width: 210px;
-	height: 210px;
-	background-color: coral;
+const TextContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding-top: 10px;
+`;
+
+const IimgContainer = styled.div`
+	width: 150px;
+	height: 150px;
+	border-radius: 16px;
+	overflow: hidden;
+`;
+
+const Iimg = styled.img`
+	width: 100%;
+	height: 100%;
 `;
 
 const Itext = styled.div`
-	font-size: 38px;
+	font-size: 24px;
+	padding-top: 5px;
 `;
+
+const S = {
+	Container,
+	Header,
+	Hsale,
+	Hbuy,
+	Main,
+	Item,
+	Iimg,
+	Itext,
+	TextContainer,
+	IimgContainer,
+};

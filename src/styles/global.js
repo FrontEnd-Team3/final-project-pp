@@ -9,6 +9,10 @@ const GlobalStyles = createGlobalStyle`
   ul, li {
     list-style: none;
   }
+  textarea {
+    resize: none;
+    outline: none;
+  }
 `;
 
 export default GlobalStyles;

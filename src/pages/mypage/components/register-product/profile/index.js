@@ -6,24 +6,40 @@ const MyProfile = () => {
 			<S.ProfileWrapper>
 				<S.ProfileManagement>프로필 관리</S.ProfileManagement>
 				<S.Line />
-				<S.ProfileImg src={process.env.PUBLIC_URL + "./profile"} />
-				<S.ProfileNickName>。그ㅣ염 등 ② 째원。님 </S.ProfileNickName>
-				<S.Line />
-				<S.ImgChangeBtn>이미지 변경</S.ImgChangeBtn>
-				<S.ImgDeleteBtn>이미지 삭제</S.ImgDeleteBtn>
-				<S.ProfileIntroduction>
-					☆ *。 "*。ユcH에게 장 큰 `별′은 Lrol길 "*。 *。☆
-				</S.ProfileIntroduction>
+				<S.ProfileImgContainer>
+					<S.ProfileImg src="img/profile.png" />
+					<S.ProfileIntroductionContainer>
+						<S.ProfileNickName>Jaewon 님 </S.ProfileNickName>
+						<S.ProfileIntroduction>
+							자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
+						</S.ProfileIntroduction>
+						<S.ProfileImgBtnContainer>
+							<S.ImgChangeBtn>이미지 변경</S.ImgChangeBtn>
+							<S.ImgDeleteBtn>이미지 삭제</S.ImgDeleteBtn>
+						</S.ProfileImgBtnContainer>
+					</S.ProfileIntroductionContainer>
+				</S.ProfileImgContainer>
 				<S.Line />
 				<S.NickNameTitle>닉네임</S.NickNameTitle>
-				<S.NickName>。그ㅣ염 등 ② 째원。</S.NickName>
+				<S.NickNameContainer>
+					<S.NickName>Jaewon</S.NickName>
+					<ChangeBtn>변경</ChangeBtn>
+				</S.NickNameContainer>
+
+				<S.Line />
 				<S.NameTitle>이름</S.NameTitle>
-				<S.Name>심재원</S.Name>
+				<S.NameContainer>
+					<S.Name>심재원</S.Name>
+					<ChangeBtn>변경</ChangeBtn>
+				</S.NameContainer>
 				<S.Line />
 				<S.IntroducationTitle>소개</S.IntroducationTitle>
-				<S.Introducation>
-					☆ *。 "*。ユcH에게 장 큰 `별′은 Lrol길 "*。 *。☆
-				</S.Introducation>
+				<S.IntroducationContainer>
+					<S.Introducation>
+						자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
+					</S.Introducation>
+					<ChangeBtn>변경</ChangeBtn>
+				</S.IntroducationContainer>
 				<S.Line />
 			</S.ProfileWrapper>
 		</S.ProfileMasterWrapper>
@@ -40,28 +56,105 @@ const ProfileMasterWrapper = styled.div`
 `;
 const ProfileWrapper = styled.div`
 	width: 860px;
-	border: 2px solid #000;
 	padding: 60px;
-	margin: 100px 0;
+	margin: 80px 0px 200px 0;
 `;
-const ProfileManagement = styled.div``;
+const ProfileManagement = styled.div`
+	font-size: 22px;
+	font-weight: 1000;
+`;
 const Line = styled.div`
 	width: 740px;
-	background-color: #a9a9a9;
-	height: 1px;
+	background-color: #dddddd;
+	height: 2px;
 	margin: 14px 0;
 `;
-const ProfileImg = styled.img``;
-const ProfileNickName = styled.div``;
-const ImgChangeBtn = styled.button``;
-const ImgDeleteBtn = styled.button``;
-const ProfileIntroduction = styled.div``;
-const NickNameTitle = styled.div``;
-const NickName = styled.div``;
-const NameTitle = styled.div``;
-const Name = styled.div``;
-const IntroducationTitle = styled.div``;
-const Introducation = styled.div``;
+const ProfileImgContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+`;
+const ProfileIntroductionContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-top: 80px;
+`;
+
+const ProfileImg = styled.img`
+	width: 160px;
+	height: 160px;
+	border-radius: 100px;
+	margin: 60px 60px;
+`;
+const ProfileNickName = styled.div`
+	font-size: 22px;
+	font-weight: 1000;
+	margin-bottom: 14px;
+`;
+const ProfileImgBtnContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+`;
+const ImgChangeBtn = styled.div`
+	width: 140px;
+	height: 40px;
+	color: #fff;
+	background-color: #222;
+	padding-top: 8px;
+	margin-right: 16px;
+`;
+const ImgDeleteBtn = styled.div`
+	width: 140px;
+	height: 40px;
+	color: #fff;
+	background-color: #222;
+	padding-top: 8px;
+`;
+const ProfileIntroduction = styled.div`
+	margin-bottom: 30px;
+`;
+const NickNameTitle = styled.div`
+	margin-top: 40px;
+	color: #8a8a8a;
+`;
+const NickNameContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+const NickName = styled.div`
+	margin-top: 16px;
+`;
+const NameTitle = styled.div`
+	margin-top: 40px;
+	color: #8a8a8a;
+`;
+const NameContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+const Name = styled.div`
+	margin-top: 16px;
+`;
+const IntroducationTitle = styled.div`
+	margin-top: 40px;
+	color: #8a8a8a;
+`;
+const IntroducationContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+`;
+const Introducation = styled.div`
+	margin-top: 16px;
+`;
+const ChangeBtn = styled.div`
+	width: 70px;
+	height: 30px;
+	border: 2px solid #000;
+	text-align: center;
+	font-size: 16px;
+	color: white;
+	background-color: #222;
+`;
 
 const S = {
 	ProfileMasterWrapper,
@@ -79,4 +172,11 @@ const S = {
 	Name,
 	IntroducationTitle,
 	Introducation,
+	ProfileImgContainer,
+	ProfileIntroductionContainer,
+	ProfileImgBtnContainer,
+	ChangeBtn,
+	NameContainer,
+	NickNameContainer,
+	IntroducationContainer,
 };

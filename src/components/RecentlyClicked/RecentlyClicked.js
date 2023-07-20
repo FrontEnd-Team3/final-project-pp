@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import ARROW from "./images/arrow.png";
+import TOPARROW from "./images/TopArrow.png";
+import DOWNARROW from "./images/DownArrow.png";
 import ONE from "./images/product1.png";
 import TWO from "./images/product2.png";
 import THREE from "./images/product3.png";
@@ -20,22 +21,10 @@ const RecentlyClicked = () => {
 	const IMAGE_SIZE = 115;
 	const SLIDE_RANGE = currentIndex * IMAGE_SIZE;
 
-	const handleSlideIndex = () => {
+	const handleDownSlideIndex = () => {
 		if (currentIndex === InfiniteArr.length - 1) {
-			setCurrentIndex(0);
-		} else {
-			setCurrentIndex(prev => prev + 1);
-		}
-	};
-
-	// 무한 슬라이드
-	const lastElement = ImageArr[0];
-	const InfiniteArr = [...ImageArr, lastElement];
-
-	useEffect(() => {
-		// console.log("current", currentIndex);
-		if (currentIndex === 0) {
 			slideRef.current.style.transition = "";
+			setCurrentIndex(1);
 			setTimeout(() => {
 				if (slideRef.current) {
 					slideRef.current.style.transition = "all 0.5s ease-in-out";
@@ -43,13 +32,37 @@ const RecentlyClicked = () => {
 			}, 0);
 		} else {
 			slideRef.current.style.transition = "all 0.5s ease-in-out";
+			setCurrentIndex(prev => prev + 1);
 		}
+	};
+
+	const handleUpSlideIndex = () => {
+		if (currentIndex === 0) {
+			slideRef.current.style.transition = "";
+			setCurrentIndex(InfiniteArr.length - 2);
+			setTimeout(() => {
+				if (slideRef.current) {
+					slideRef.current.style.transition = "all 0.5s ease-in-out";
+				}
+			}, 0);
+		} else {
+			slideRef.current.style.transition = "all 0.5s ease-in-out";
+			setCurrentIndex(prev => prev - 1);
+		}
+	};
+
+	// 무한 슬라이드
+	const firstElement = ImageArr[ImageArr.length - 1];
+	const lastElement = ImageArr[0];
+	const InfiniteArr = [firstElement, ...ImageArr, lastElement];
+
+	useEffect(() => {
 		slideRef.current.style.transform = `translateY(-${SLIDE_RANGE}px)`;
 	}, [currentIndex]);
 
 	// Scroll to Top
 	const [scrollY, setScrollY] = useState(0);
-	console.log("Y", scrollY);
+	// console.log("Y", scrollY);
 
 	const handleScroll = () => {
 		setScrollY(window.scrollY);
@@ -78,7 +91,8 @@ const RecentlyClicked = () => {
 			</S.Top>
 			<S.Middle>
 				<div className="title">최근 본 상품</div>
-				<SlideWrapper>
+				<S.Arrow src={TOPARROW} onClick={handleUpSlideIndex} />
+				<S.SlideWrapper>
 					<S.SlideContainer ref={slideRef} length={InfiniteArr.length}>
 						{InfiniteArr.length ? (
 							<>
@@ -92,8 +106,8 @@ const RecentlyClicked = () => {
 							<S.Empty>...없어욤</S.Empty>
 						)}
 					</S.SlideContainer>
-				</SlideWrapper>
-				<S.Arrow src={ARROW} onClick={handleSlideIndex} />
+				</S.SlideWrapper>
+				<S.Arrow src={DOWNARROW} onClick={handleDownSlideIndex} />
 			</S.Middle>
 			<S.Bottom onClick={handleScrollToTop}>TOP</S.Bottom>
 		</S.Container>
@@ -109,10 +123,11 @@ const Container = styled.div`
 	border-color: ${({ theme }) => theme.PALETTE.black};
 	position: fixed;
 	top: 250px;
-	left: 1538px;
+	left: 75em;
 	${primaryFont}
 	text-align: center;
 	font-size: 18px;
+	background-color: ${({ theme }) => theme.PALETTE.white};
 `;
 
 const Top = styled.div`
@@ -132,9 +147,6 @@ const Top = styled.div`
 const Middle = styled.div`
 	height: 242px;
 	padding: 20px 0;
-	.title {
-		margin: 15px 0;
-	}
 	button {
 		border: none;
 		background-color: transparent;
@@ -160,7 +172,7 @@ const SlideImage = styled.img`
 
 const Arrow = styled.img`
 	width: 24px;
-	margin-top: 15px;
+	margin: 7px 0;
 `;
 
 const Empty = styled.li`
@@ -182,9 +194,10 @@ const S = {
 	Container,
 	Top,
 	Middle,
-	Bottom,
-	Arrow,
+	SlideWrapper,
 	SlideContainer,
 	SlideImage,
+	Arrow,
 	Empty,
+	Bottom,
 };

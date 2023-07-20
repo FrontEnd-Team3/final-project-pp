@@ -1,22 +1,44 @@
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { color, primaryFont } from "styles/common";
 
 const Header = () => {
+	const navigate = useNavigate();
 	return (
 		<>
 			<S.Container>
 				<S.Wrapper>
-					<S.Title>PPYONG PPYONG</S.Title>
+					<S.Title
+						onClick={() => {
+							navigate(`/`);
+						}}
+					>
+						PPYONG PPYONG
+					</S.Title>
 					<S.Subtitle>
-						<div>중고거래</div>
-						<div>무료나눔</div>
+						<S.NavPage onClick={() => navigate(`/used-transaction`)}>
+							중고거래
+						</S.NavPage>
+						<S.NavPage onClick={() => navigate(`/free-transaction`)}>
+							무료나눔
+						</S.NavPage>
 						<div>실시간 시세</div>
 					</S.Subtitle>
 					<S.SearchBar placeholder=" 물품명, 태그명을 검색해 보세요 "></S.SearchBar>
 					<S.SearchImage src="img/searchtest.jpg"></S.SearchImage>
 					<S.ImageWrapper>
-						<S.Image src="img/signup.jpg"></S.Image>
-						<S.Image src="img/login.jpg"></S.Image>
+						<S.Image
+							src="img/signup.jpg"
+							onClick={() => {
+								navigate(`/Signin`);
+							}}
+						></S.Image>
+						<S.Image
+							src="img/login.jpg"
+							onClick={() => {
+								navigate(`/Signup`);
+							}}
+						></S.Image>
 						<S.Image src="img/mypage.jpg"></S.Image>
 						<S.Image src="img/chat.jpg"></S.Image>
 					</S.ImageWrapper>
@@ -33,6 +55,14 @@ const Header = () => {
 };
 
 export default Header;
+
+const NavPage = styled.div`
+	cursor: pointer;
+	:hover {
+		color: ${({ theme }) => theme.PALETTE.pricePoint};
+	}
+`;
+
 const Subtitle = styled.div`
 	display: flex;
 	width: 300px;
@@ -71,6 +101,9 @@ const SearchBar = styled.input`
 	padding-bottom: 6px;
 	width: 230px;
 	border: none;
+	:focus {
+		outline: none;
+	}
 	border-bottom: 1.3px solid #404040;
 	::placeholder {
 		color: black;
@@ -93,12 +126,14 @@ const Image = styled.img`
 	position: relative;
 	width: 18px;
 	height: 18px;
+	cursor: pointer;
 `;
 
 const Title = styled.div`
 	font-size: 43px;
 	font-weight: 900;
 	word-spacing: -10px;
+	cursor: pointer;
 	${color}
 	-webkit-text-stroke: 0.1px black;
 `;
@@ -131,4 +166,5 @@ const S = {
 	Subtitle,
 	NameWrapper,
 	ImageName,
+	NavPage,
 };
