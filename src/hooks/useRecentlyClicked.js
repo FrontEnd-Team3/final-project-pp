@@ -16,9 +16,9 @@ const useRecentlyClicked = () => {
 		if (newRecentArr?.includes(id)) {
 			// 최근 본 상품 중복 방지
 			newRecentArr = newRecentArr.filter(el => el !== id);
-			newRecentArr.push(id);
+			newRecentArr.unshift(id);
 		} else {
-			newRecentArr.push(id);
+			newRecentArr.unshift(id);
 		}
 		localStorage.setItem("key", JSON.stringify(newRecentArr));
 	}, [id]);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "./components/banner/Banner";
 import Slogan from "./components/slogan/Slogan";
 import UsedProduct from "./components/used-product/UsedProduct";
@@ -15,9 +15,6 @@ const Main = () => {
 	// 			console.log(data);
 	// 		});
 	// }, []);
-	useEffect(() => {
-		axios.get("/products").then(res => console.log(res.data));
-	}, []);
 	// useEffect(() => {
 	// 	fetch("/chat")
 	// 		.then(res => res.json())
@@ -26,13 +23,18 @@ const Main = () => {
 	// 		});
 	// }, []);
 
+	const [productList, setProductList] = useState([]);
+	useEffect(() => {
+		axios.get("/products").then(res => setProductList(res.data));
+	}, []);
+
 	return (
 		<>
 			<Banner />
 			<Slogan />
-			<UsedProduct />
+			<UsedProduct productList={productList} />
 			<S.DivisionLine />
-			<FreeProduct />
+			<FreeProduct productList={productList} />
 			<RecentlyClicked />
 		</>
 	);

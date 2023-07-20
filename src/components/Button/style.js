@@ -32,6 +32,11 @@ const sizeCSS = {
 	primary: css`
 		padding: 6px 10px;
 	`,
+	xmedium: css`
+		width: 100px;
+		padding: 8px;
+		height: 40px;
+	`,
 	medium: css`
 		width: 140px;
 		height: 50px;

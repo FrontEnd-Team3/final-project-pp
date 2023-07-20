@@ -6,7 +6,7 @@ import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 
 const OneProduct = ({ product, grid }) => {
 	// console.log(product);
-	const localPrice = product.price.toLocaleString("ko-KR");
+	const localPrice = product.price?.toLocaleString("ko-KR");
 	const ImageURL = product.image[0];
 
 	// 하트 넣기
