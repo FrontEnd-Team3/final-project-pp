@@ -1,4 +1,4 @@
-import ChatList from "components/Chat/chat-list";
+import Chat from "components/Chat";
 import Layout from "components/Layout";
 import Main from "pages/main";
 import ProductDetailPage from "pages/product-detail";
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/Chat",
-				element: <ChatList />,
+				element: <Chat />,
 			},
 			{
 				path: "/search",
