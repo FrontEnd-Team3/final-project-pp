@@ -1,6 +1,7 @@
 import Layout from "components/Layout";
 import LayoutwithoutHeader from "components/Layoutwithoutheader";
 import Main from "pages/main";
+import Mypage from "pages/mypage";
 import RegisterProduct from "pages/mypage/components/register-product/account-privacy";
 import MyProfile from "pages/mypage/components/register-product/profile";
 import ProductDetailPage from "pages/product-detail";
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
 			{
 				path: "/search",
 				element: <SearchPage />,
+			},
+			{
+				path: "/mypage",
+				element: <Mypage />,
 			},
 		],
 	},
