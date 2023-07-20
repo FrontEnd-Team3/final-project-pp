@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import gkgk from "./gkgk.png";
+import { useState } from "react";
 
 const ChatItem = () => {
+	const [isOpen, setIsOpen] = useState(false);
+	const [isRead, setIsRead] = useState(false);
 	return (
 		<>
 			<S.Item>
@@ -9,12 +12,30 @@ const ChatItem = () => {
 					<S.Iimg src={gkgk} />
 				</S.IimgContainer>
 				<S.TextContainer>
-					<S.Delete>X</S.Delete>
-					<S.Iproduct>
-						파란 오리 판매합니다
-						<S.Span>New</S.Span>
-					</S.Iproduct>
-					<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
+					<S.More onClick={() => setIsOpen(prev => !prev)}>...</S.More>
+					<div style={{ display: "flex" }}>
+						<div>
+							<S.Iproduct>
+								파란 오리 판매합니다
+								<S.Span>{!isRead && "new"}</S.Span>
+							</S.Iproduct>
+							<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
+						</div>
+						{isOpen && (
+							<S.SettingContainer>
+								<div
+									className="read"
+									onClick={() => {
+										setIsRead(true);
+										setIsOpen(false);
+									}}
+								>
+									읽음
+								</div>
+								<div>나가기</div>
+							</S.SettingContainer>
+						)}
+					</div>
 					<S.Iprice>20,000 원</S.Iprice>
 					<S.Imove>상품이동 ▶</S.Imove>
 				</S.TextContainer>
@@ -52,11 +73,25 @@ const Iimg = styled.img`
 	height: 100%;
 `;
 
-const Delete = styled.div`
+const More = styled.div`
 	font-size: 16px;
 	margin-left: 290px;
 	font-weight: bold;
 	cursor: pointer;
+`;
+
+const SettingContainer = styled.div`
+	border: 1px solid #dddddd;
+	height: 65px;
+	text-align: center;
+	margin-left: 45px;
+	div {
+		padding: 5px;
+		cursor: pointer;
+	}
+	.read {
+		border-bottom: 1px solid #dddddd;
+	}
 `;
 
 const Span = styled.span`
@@ -98,10 +133,11 @@ const S = {
 	TextContainer,
 	IimgContainer,
 	Iimg,
-	Delete,
+	More,
 	Span,
 	Iproduct,
 	Ichat,
 	Iprice,
 	Imove,
+	SettingContainer,
 };
