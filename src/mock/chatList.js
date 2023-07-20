@@ -1,9 +1,14 @@
+import ADMINSELL from "./adminsell.jpg";
+import ADMINBUY from "./adminbuy.jpg";
+
 export const chatList = [
 	{
 		roomID: 0,
-		prouductID: "admin",
-		seller: false, // 판매자 user id 1
-		20230704: [
+		productID: "TRIMM~",
+		seller: true, // 판매자 user id 1
+		adminimg: ADMINBUY,
+		move: false,
+		List: [
 			{
 				user: "admin",
 				time: "20:36",
@@ -13,10 +18,12 @@ export const chatList = [
 		],
 	},
 	{
-		roomID: 0,
-		prouductID: "admin",
-		seller: true, // 판매자 user id 1
-		20230704: [
+		roomID: 1,
+		productID: "TRIMM",
+		seller: false, // 판매자 user id 1
+		adminimg: ADMINSELL,
+		move: false,
+		List: [
 			{
 				user: "admin",
 				time: "20:36",
@@ -25,10 +32,12 @@ export const chatList = [
 		],
 	},
 	{
-		roomID: 1,
-		prouductID: 23,
+		roomID: 2,
+		productID: 23,
 		seller: true, // 판매자 user id 1
-		20230706: [
+		price: "20000원",
+		move: true,
+		List: [
 			{ user: 0, time: "20:36", content: "안녕하세요 문의 드립니다." },
 			{
 				user: 1,
@@ -37,7 +46,7 @@ export const chatList = [
 			},
 			{ user: 0, time: "20:38", content: " 이거 혹시 네고 가능한가요? " },
 		],
-		20230707: [
+		List: [
 			{
 				user: 1,
 				time: "12:33",
@@ -54,10 +63,12 @@ export const chatList = [
 		],
 	},
 	{
-		roomID: 1,
-		prouductID: 24,
+		roomID: 3,
+		productID: 24,
 		seller: false, // 구매자 user id 0
-		20230706: [
+		price: "30000원",
+		move: true,
+		List: [
 			{ user: 0, time: "20:36", content: "안녕하세요 문의 드립니다." },
 			{
 				user: 1,
@@ -66,7 +77,7 @@ export const chatList = [
 			},
 			{ user: 0, time: "20:38", content: " 이거 혹시 네고 가능한가요? " },
 		],
-		20230707: [
+		List: [
 			{
 				user: 1,
 				time: "12:33",
@@ -79,7 +90,7 @@ export const chatList = [
 				content:
 					"생활기스가 이렇게 보이는데 뭐라고요 ? 한번 장난치시나 안사요~~",
 			},
-			{ user: 1, time: "12:44", content: "네~" },
+			{ user: 1, time: "12:44", content: "응 안팔아~" },
 		],
 	},
 ];

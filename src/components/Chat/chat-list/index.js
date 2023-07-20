@@ -1,16 +1,34 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import ChatItem from "./Item";
+import { chatList } from "mock/chatList";
 
 const ChatList = () => {
+	const [showSalesHistory, setShowSalesHistory] = useState(true);
+
+	const onSalesHeaderClick = () => {
+		setShowSalesHistory(true);
+	};
+
+	const onPurchaseHeaderClick = () => {
+		setShowSalesHistory(false);
+	};
+
+	const filteredChatList = chatList.filter(
+		chat => chat.seller === showSalesHistory,
+	);
+
 	return (
 		<S.Container>
 			<S.Header>
-				<S.Hsale>판매 내역</S.Hsale>
-				<S.Hbuy>구매 내역</S.Hbuy>
+				<S.Hsale onClick={onSalesHeaderClick}>판매 내역</S.Hsale>
+				<S.Hbuy onClick={onPurchaseHeaderClick}>구매 내역</S.Hbuy>
 			</S.Header>
 			<S.AllMain>
 				<S.Main>
-					<ChatItem />
+					{filteredChatList.map(chat => (
+						<ChatItem key={chat.roomID} chat={chat} />
+					))}
 				</S.Main>
 			</S.AllMain>
 		</S.Container>
