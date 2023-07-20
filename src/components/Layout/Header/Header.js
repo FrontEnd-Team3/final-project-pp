@@ -1,9 +1,26 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
+import Onecategory from "./onecategory";
+import { useState } from "react";
 
 const Header = () => {
 	const navigate = useNavigate();
+	const [state, setState] = useState(1);
+	const categoryArray = [
+		{
+			name: "중고거래",
+			navigate: `/used-transaction`,
+		},
+		{
+			name: "무료나눔",
+			navigate: `/free-transaction`,
+		},
+		{
+			name: "실시간 시세",
+			navigate: `/MarketPrice`,
+		},
+	];
 	return (
 		<>
 			<S.Container>
@@ -29,7 +46,7 @@ const Header = () => {
 						<S.InfoWrapper>
 							<div
 								onClick={() => {
-									navigate(`/Signup`);
+									navigate("/Signup");
 								}}
 							>
 								LOGIN
@@ -44,19 +61,14 @@ const Header = () => {
 				</S.LogoWrapper>
 				<S.CategoryWrapper>
 					<S.Category>
-						<S.NavPage onClick={() => navigate(`/used-transaction`)}>
-							중고거래
-						</S.NavPage>
-						<S.NavPage onClick={() => navigate(`/free-transaction`)}>
-							무료나눔
-						</S.NavPage>
-						<div
-							onClick={() => {
-								navigate("/MarketPrice");
-							}}
-						>
-							실시간 시세
-						</div>
+						{categoryArray.map((category, i) => (
+							<Onecategory
+								category={category}
+								i={i}
+								state={state}
+								setState={setState}
+							/>
+						))}
 					</S.Category>
 					<S.Sellbutton onClick={() => navigate(`/productRegister`)}>
 						판매하기
