@@ -1,28 +1,47 @@
 import BasicButton from "components/Button";
-import ProductList from "components/ProductList";
-import { productList } from "mock/products";
+import SinginModal from "components/Modal/Signin";
+import ProductListWithoutPagination from "components/ProductList/withoutPagination";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
+import { flexCenter, primaryFont } from "styles/common";
 
-const UsedProduct = () => {
+const UsedProduct = ({ productList, setIsOpen }) => {
+	const PRODUCTLIST = productList?.filter(
+		product => product.status !== "판매완료" && product.price,
+	);
+	const navigate = useNavigate();
+	const [isOpen, setOpen] = useState(false);
 	return (
 		<S.Container>
 			<div>
 				<S.Title>
 					우리 동네 <S.Used>중고</S.Used> 물품
 				</S.Title>
-				<div>
+				<S.Location>
 					서울시 성동구 성수동
 					<BasicButton
 						variant={"primary"}
-						shape={"primary"}
 						size={"xsmall"}
 						children={"변경"}
-						style={{ color: "white", fontSize: "14px", marginLeft: "15px" }}
+						style={{ marginLeft: "15px" }}
+						onClick={() => {
+							setOpen(true);
+						}}
 					/>
-				</div>
+				</S.Location>
+				{isOpen && <SinginModal setOpen={setOpen} />}
 			</div>
-			<ProductList productList={productList} />
+			<ProductListWithoutPagination productList={PRODUCTLIST} />
+			<S.ButtonContainer>
+				<BasicButton
+					variant={"black"}
+					size={"small"}
+					children={"MORE +"}
+					style={{ fontSize: "14px", height: "28px" }}
+					onClick={() => navigate("/used-transaction")}
+				/>
+			</S.ButtonContainer>
 		</S.Container>
 	);
 };
@@ -30,21 +49,30 @@ const UsedProduct = () => {
 export default UsedProduct;
 
 const Container = styled.div`
-	width: 860px;
-	margin: 30px auto;
-	margin-bottom: 40px;
+	width: 1060px;
+	margin: 40px auto 20px auto;
 	padding-bottom: 40px;
 	${primaryFont}
-	border-bottom: 2.5px solid black;
 `;
 
 const Title = styled.div`
 	font-size: 32px;
 	color: #6c6c6c;
-	margin-bottom: 10px;
-`;
-const Used = styled.span`
-	color: ${({ theme }) => theme.PALETTE.green};
+	text-align: center;
 `;
 
-const S = { Container, Used, Title };
+const Used = styled.span`
+	color: ${({ theme }) => theme.PALETTE.highlightTitle};
+`;
+
+const Location = styled.div`
+	margin: 20px 0;
+	${flexCenter}
+`;
+
+const ButtonContainer = styled.div`
+	${flexCenter}
+	margin: 20px 0;
+`;
+
+const S = { Container, Used, Title, Location, ButtonContainer };

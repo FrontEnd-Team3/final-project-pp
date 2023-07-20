@@ -1,12 +1,8 @@
 import { css } from "styled-components";
-import "@kfonts/neodgm";
+import "@fontsource/inter";
 
 export const primaryFont = css`
-	font-family: "Neo둥근모", "neodgm";
-`;
-
-export const gothicFont = css`
-	font-family: "Gothic A1", sans-serif;
+	font-family: "Inter";
 `;
 
 export const color = css`
@@ -22,15 +18,4 @@ export const flexCenter = css`
 export const flexColumn = css`
 	display: flex;
 	flex-direction: column;
-`;
-
-export const registerInput = css`
-	outline: none;
-	border-right: none;
-	border-left: none;
-	border-top: none;
-	border-bottom: 1px solid #404040;
-	padding: 30px 30px 30px 116px;
-	position: relative;
-	width: 100%;
 `;

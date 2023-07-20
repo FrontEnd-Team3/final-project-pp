@@ -3,11 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { worker } from "mocks/browser";
-import { handlers } from "mocks/handlers";
+// import { worker } from "mocks/browser";
+import { worker } from "mocks/handlers";
 
 if (process.env.NODE_ENV === "development") {
-	worker.start(...handlers);
+	worker.start();
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

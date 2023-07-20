@@ -1,34 +1,41 @@
 import styled, { css } from "styled-components";
 import { primaryFont } from "styles/common";
 
-const variantCSS = {
+const colorCSS = {
 	primary: css`
-		background-color: ${({ theme }) => theme.PALETTE.primary["dark"]};
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		border: none;
+		color: ${({ theme }) => theme.PALETTE.white};
 	`,
-	secondary: css`
-		background-color: ${({ theme }) => theme.PALETTE.secondary};
+	black: css`
+		background-color: ${({ theme }) => theme.PALETTE.black};
+		border: none;
+		color: ${({ theme }) => theme.PALETTE.white};
+	`,
+	darkBlack: css`
+		background-color: ${({ theme }) => theme.PALETTE.darkBlack};
+		border: none;
+		color: ${({ theme }) => theme.PALETTE.white};
+	`,
+	gray: css`
+		background-color: ${({ theme }) => theme.PALETTE.gray};
+		border: none;
 	`,
 	white: css`
 		background-color: ${({ theme }) => theme.PALETTE.white};
-	`,
-	light: css`
-		background-color: ${({ theme }) => theme.PALETTE.primary["light"]};
-	`,
-};
-
-const shapeCSS = {
-	primary: css`
-		border-radius: 12px;
-	`,
-	medium: css`
-		border-radius: 16px;
-		font-size: ${({ theme }) => theme.FONT_SIZE.xsmedium};
+		border: 1px solid;
+		border-color: ${({ theme }) => theme.PALETTE.primary};
 	`,
 };
 
 const sizeCSS = {
 	primary: css`
 		padding: 6px 10px;
+	`,
+	xmedium: css`
+		width: 100px;
+		padding: 8px;
+		height: 40px;
 	`,
 	medium: css`
 		width: 140px;
@@ -50,16 +57,29 @@ const sizeCSS = {
 		width: 160px;
 		height: 42px;
 	`,
+	mediumThird: css`
+		width: 349px;
+		height: 50px;
+	`,
+	mediumfourth: css`
+		width: 370px;
+		height: 45px;
+	`,
 	xsmall: css`
-		width: 62px;
-		height: 21px;
+		width: 59px;
+		height: 28px;
+		font-size: 14px;
+	`,
+	xxsmall: css`
+		width: 60px;
+		height: 50px;
 	`,
 };
 
 const Button = styled.button`
-	${({ variant }) => variantCSS[variant]}
-	${({ shape }) => shapeCSS[shape]}
-    ${({ size }) => sizeCSS[size]}
+	${({ variant }) => colorCSS[variant]}
+	${({ size }) => sizeCSS[size]}
+	${({ color }) => colorCSS[color]}
     cursor: pointer;
 	${primaryFont}
 `;

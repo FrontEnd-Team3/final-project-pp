@@ -1,49 +1,83 @@
 import BasicButton from "components/Button";
-import ProductList from "components/ProductList";
-import { productList } from "mock/products";
+import ProductListWithoutPagination from "components/ProductList/withoutPagination";
+import SearchAddress from "components/searchAddress";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
+import { flexCenter, primaryFont } from "styles/common";
 
-const FreeProduct = () => {
+const FreeProduct = ({ productList }) => {
+	const PRODUCTLIST = productList?.filter(
+		product => product.status !== "판매완료" && !product.price,
+	);
+	const navigate = useNavigate();
+
+	// 주소 변경
+	const [isOpen, setIsOpen] = useState(false);
+	const [address, setAddress] = useState("서울시 성동구 성수동");
+
 	return (
-		<S.Container>
-			<div>
-				<S.Title>
-					우리 동네 <S.Free>무료</S.Free> 나눔
-				</S.Title>
+		<>
+			{isOpen && (
+				<SearchAddress setAddress={setAddress} setIsOpen={setIsOpen} />
+			)}
+			<S.Container>
 				<div>
-					서울시 성동구 성수동
-					<BasicButton
-						variant={"primary"}
-						shape={"primary"}
-						size={"xsmall"}
-						children={"변경"}
-						style={{ color: "white", fontSize: "14px", marginLeft: "15px" }}
-					/>
+					<S.Title>
+						우리 동네 <S.Free>무료</S.Free> 나눔
+					</S.Title>
+					<S.Location>
+						{address}
+						<BasicButton
+							variant={"primary"}
+							size={"xsmall"}
+							children={"변경"}
+							style={{ marginLeft: "15px" }}
+							onClick={() => setIsOpen(true)}
+						/>
+					</S.Location>
 				</div>
-			</div>
-			<ProductList productList={productList} />
-		</S.Container>
+				<ProductListWithoutPagination productList={PRODUCTLIST} />
+				<S.ButtonContainer>
+					<BasicButton
+						variant={"black"}
+						size={"small"}
+						children={"MORE +"}
+						style={{ fontSize: "14px", height: "28px" }}
+						onClick={() => navigate("/free-transaction")}
+					/>
+				</S.ButtonContainer>
+			</S.Container>
+		</>
 	);
 };
 
 export default FreeProduct;
 
 const Container = styled.div`
-	width: 860px;
-	margin: 0 auto;
-	margin-bottom: 40px;
+	width: 1060px;
+	margin: 40px auto;
 	${primaryFont}
 `;
 
 const Title = styled.div`
 	font-size: 32px;
 	color: #6c6c6c;
-	margin-bottom: 10px;
+	text-align: center;
 `;
 
 const Free = styled.span`
-	color: ${({ theme }) => theme.PALETTE.pricePoint};
+	color: ${({ theme }) => theme.PALETTE.highlightTitle};
 `;
 
-const S = { Container, Free, Title };
+const Location = styled.div`
+	margin: 20px 0;
+	${flexCenter}
+`;
+
+const ButtonContainer = styled.div`
+	${flexCenter}
+	margin: 20px 0;
+`;
+
+const S = { Container, Free, Title, Location, ButtonContainer };

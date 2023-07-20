@@ -1,45 +1,39 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
+import { GoBookmark, GoBookmarkFill } from "react-icons/go";
+import { useState } from "react";
 
 const ButtonContainer = () => {
+	const [isBookmarked, setIsBookmarked] = useState(false);
+	const handleBookmark = () => {
+		setIsBookmarked(prev => !prev);
+	};
 	return (
 		<>
 			<S.ProductButtons>
 				<BasicButton
-					variant={"white"}
-					shape={"primary"}
-					size={"mediumSecond"}
-					children={"❤ Like"}
-					style={{
-						fontSize: "20px",
-						border: "3px solid #404040",
-					}}
+					variant={"gray"}
+					size={"xxsmall"}
+					children={
+						isBookmarked ? (
+							<GoBookmarkFill size="27" />
+						) : (
+							<GoBookmark size="27" />
+						)
+					}
+					onClick={handleBookmark}
 				/>
 				<BasicButton
-					variant={"secondary"}
-					shape={"primary"}
-					size={"mediumSecond"}
-					children={"Buy Now"}
+					variant={"black"}
+					size={"mediumThird"}
+					children={"채팅하기"}
 					style={{
-						fontSize: "20px",
-						border: "3px solid #404040",
+						fontSize: "22px",
+						letterSpacing: "5px",
+						height: "50px",
 					}}
 				/>
 			</S.ProductButtons>
-			<div>
-				<BasicButton
-					variant={"primary"}
-					shape={"primary"}
-					size={"mediumLarge"}
-					children={"채팅"}
-					style={{
-						color: "#ffffff",
-						fontSize: "20px",
-						border: "3px solid #404040",
-						letterSpacing: "5px",
-					}}
-				/>
-			</div>
 		</>
 	);
 };

@@ -137,6 +137,7 @@ const ChangeBtn = styled.div`
 	font-size: 16px;
 	color: white;
 	background-color: #222;
+	cursor: pointer;
 `;
 
 const S = {

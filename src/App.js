@@ -4,7 +4,6 @@ import router from "routes/Routing";
 import GlobalStyles from "styles/global";
 import { ThemeProvider } from "styled-components";
 import theme from "styles/theme";
-import "@kfonts/neodgm";
 
 function App() {
 	return (

@@ -114,7 +114,7 @@ const ProfileIntroduction = styled.div`
 	margin-bottom: 30px;
 `;
 const NickNameTitle = styled.div`
-	margin-top: 40px;
+	margin-top: 80px;
 	color: #8a8a8a;
 `;
 const NickNameContainer = styled.div`
@@ -125,7 +125,7 @@ const NickName = styled.div`
 	margin-top: 16px;
 `;
 const NameTitle = styled.div`
-	margin-top: 40px;
+	margin-top: 100px;
 	color: #8a8a8a;
 `;
 const NameContainer = styled.div`
@@ -136,7 +136,7 @@ const Name = styled.div`
 	margin-top: 16px;
 `;
 const IntroducationTitle = styled.div`
-	margin-top: 40px;
+	margin-top: 100px;
 	color: #8a8a8a;
 `;
 const IntroducationContainer = styled.div`
@@ -154,6 +154,7 @@ const ChangeBtn = styled.div`
 	font-size: 16px;
 	color: white;
 	background-color: #222;
+	cursor: pointer;
 `;
 
 const S = {

@@ -1,11 +1,41 @@
 import BasicButton from "components/Button";
 import ProductList from "components/ProductList";
 import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
-import { productList } from "mock/products";
+import BasicSelect from "components/Select";
+import { productList } from "mock/productsList";
+import { useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 
 const UsedTransaction = () => {
+	const PRODUCTLIST = productList.filter(
+		product => product.status !== "판매완료" && product.category,
+	);
+	const [filterdProducts, setFilterdProducts] = useState(PRODUCTLIST);
+
+	const onFiltering = value => {
+		let filteredList = [...PRODUCTLIST];
+
+		if (value === "등록순") {
+			filteredList.sort((a, b) => a.date - b.date);
+		} else if (value === "인기순") {
+			filteredList.sort((a, b) => b.bookmarkCount - a.bookmarkCount);
+		} else if (value === "저가순") {
+			filteredList.sort((a, b) => a.price - b.price);
+		} else if (value === "고가순") {
+			filteredList.sort((a, b) => b.price - a.price);
+		}
+
+		setFilterdProducts(filteredList);
+	};
+
+	const options = [
+		{ value: "등록순", label: "등록순" },
+		{ value: "인기순", label: "인기순" },
+		{ value: "저가순", label: "저가순" },
+		{ value: "고가순", label: "고가순" },
+	];
+
 	return (
 		<S.Container>
 			<S.Wrapper>
@@ -23,14 +53,14 @@ const UsedTransaction = () => {
 							style={{ fontSize: "14px", marginLeft: "15px" }}
 						/>
 					</div>
-					<S.Filtering>
-						<li>등록순</li>
-						<li>인기순</li>
-						<li>저가순</li>
-						<li>고가순</li>
-					</S.Filtering>
+					<BasicSelect
+						variant={"primary"}
+						options={options}
+						selectedValue={"등록순"}
+						onChange={onFiltering}
+					/>
 				</S.Address>
-				<ProductList productList={productList} /> {/* 임시 데이터 */}
+				<ProductList productList={filterdProducts} />
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>
@@ -40,7 +70,6 @@ export default UsedTransaction;
 
 const Container = styled.div`
 	width: 100%;
-	background: #eff6fe; // bg컬러 test
 	* {
 		${primaryFont}
 	}
@@ -48,7 +77,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
 	margin: 50px auto;
-	max-width: 860px;
+	max-width: 1060px;
 `;
 
 const Title = styled.p`
@@ -56,7 +85,7 @@ const Title = styled.p`
 	margin-bottom: 50px;
 	font-size: ${({ theme }) => theme.FONT_SIZE.mmlarge};
 	& span {
-		color: #6dbeb9;
+		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 	}
 `;
 
@@ -68,43 +97,6 @@ const Address = styled.div`
 	margin: 12px 0;
 	& button {
 		color: ${({ theme }) => theme.PALETTE.white};
-		background-color: #7fc0bc;
-		/* box-shadow: 2px 2px 0px 0px rgba(64, 64, 64, 1); */
-	}
-`;
-
-const Filtering = styled.ul`
-	display: flex;
-
-	li {
-		display: flex;
-		align-items: center;
-		font-size: ${({ theme }) => theme.FONT_SIZE.small};
-		padding-left: 12px;
-		cursor: pointer;
-	}
-
-	// active시 컬러 확인용
-	li:first-of-type {
-		color: #7fc0bc;
-	}
-
-	li:first-of-type::before {
-		content: "";
-		display: inline-block;
-		margin-right: 10px;
-		width: 1px;
-		height: 12px;
-		background-color: #000;
-	}
-
-	li::after {
-		content: "";
-		display: inline-block;
-		margin-left: 10px;
-		width: 2px;
-		height: 12px;
-		background-color: #000;
 	}
 `;
 
@@ -113,5 +105,4 @@ const S = {
 	Wrapper,
 	Title,
 	Address,
-	Filtering,
 };
