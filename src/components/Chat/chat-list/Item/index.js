@@ -1,4 +1,8 @@
+import { productList } from "mock/productsList";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { flexColumn } from "styles/common";
 
 const ChatItem = ({ chat }) => {
 	const { userimg, List, productID, price, move } = chat || {};
@@ -8,21 +12,54 @@ const ChatItem = ({ chat }) => {
 			? List[List.length - 1].content
 			: "";
 
+	// 상품 이름, 이미지 보여주기
+	const productName = productList?.find(
+		product => product.id === productID,
+	)?.name;
+	const profileImg = productList?.find(product => product.id === productID)
+		?.image[0];
+
+	// 상품 상세 페이지로 이동
+	const navigate = useNavigate();
+
+	// 읽음, 나가기
+	const [isOpen, setIsOpen] = useState(false);
+	// 데이터 연결되면 다른 방식으로 수정할 예정
+	const [isRead, setIsRead] = useState(false);
+
 	return (
 		<>
 			<S.Item>
 				<S.IimgContainer>
-					<S.Iimg src={userimg} />
+					{!isRead && <S.New>New</S.New>}
+					<S.Iimg src={profileImg ? profileImg : userimg} />
 				</S.IimgContainer>
 				<S.TextContainer>
-					<S.Span>
-						New
-						<S.Delete>X</S.Delete>
-					</S.Span>
-					<S.Iproduct>{productID}</S.Iproduct>
-					<S.Ichat>{lastContent || "No content for List"}</S.Ichat>
-					<S.Iprice>{price}</S.Iprice>
-					{move && <S.Imove>상품이동 ▶</S.Imove>}
+					<S.ChatContent>
+						<S.Iproduct>{productName ? productName : productID}</S.Iproduct>
+						<S.Ichat>{lastContent || "No content for List"}</S.Ichat>
+						<S.Iprice>{price}</S.Iprice>
+					</S.ChatContent>
+					<S.SettingContent>
+						<S.Span>
+							<S.Setting onClick={() => setIsOpen(prev => !prev)}>
+								...
+							</S.Setting>
+						</S.Span>
+						{isOpen && (
+							<S.SettingBox>
+								<div className="read" onClick={() => setIsRead(true)}>
+									읽음
+								</div>
+								<div className="out">나가기</div>
+							</S.SettingBox>
+						)}
+						{move && (
+							<S.Imove onClick={() => navigate(`/product/${productID}`)}>
+								상품이동 ▶
+							</S.Imove>
+						)}
+					</S.SettingContent>
 				</S.TextContainer>
 			</S.Item>
 		</>
@@ -36,13 +73,38 @@ const Item = styled.div`
 	border-bottom: 1px solid #ebebeb;
 	height: 150px;
 	background-color: white;
-	padding: 10px 20px;
+	padding: 10px;
+	position: relative;
+`;
+
+const New = styled.div`
+	position: absolute;
+	top: 10px;
+	left: 5px;
+	background-color: ${({ theme }) => theme.PALETTE.primary};
+	color: ${({ theme }) => theme.PALETTE.white};
+	width: 50px;
+	height: 25px;
+	line-height: 25px;
+	border-radius: 16px;
+	text-align: center;
+	font-size: 14px;
 `;
 
 const TextContainer = styled.div`
 	display: flex;
 	margin-left: 10px;
-	flex-direction: column;
+`;
+
+const ChatContent = styled.div`
+	${flexColumn}
+	width: 220px;
+	margin-top: 15px;
+	margin-right: 35px;
+`;
+
+const SettingContent = styled.div`
+	${flexColumn}
 `;
 
 const IimgContainer = styled.div`
@@ -58,32 +120,51 @@ const Iimg = styled.img`
 	height: 100%;
 `;
 
-const Delete = styled.div`
+const Setting = styled.div`
 	font-size: 16px;
 	color: black;
-	margin-left: 10px;
+	margin-left: 55px;
+	margin-bottom: 5px;
 	font-weight: bold;
 	cursor: pointer;
-	display: inline-block;
+`;
+
+const SettingBox = styled.div`
+	border: 1px solid ${({ theme }) => theme.PALETTE.gray};
+	text-align: center;
+	width: 70px;
+	cursor: pointer;
+	.read {
+		border-bottom: 1px solid ${({ theme }) => theme.PALETTE.gray};
+		padding: 5px;
+		:hover {
+			background-color: ${({ theme }) => theme.PALETTE.primary};
+			color: ${({ theme }) => theme.PALETTE.white};
+		}
+	}
+	.out {
+		padding: 5px;
+		:hover {
+			background-color: ${({ theme }) => theme.PALETTE.primary};
+			color: ${({ theme }) => theme.PALETTE.white};
+		}
+	}
 `;
 
 const Span = styled.span`
 	color: #3cb371;
 	font-size: 10px;
-	margin-left: 260px;
-	display: inline-block;
+	display: flex;
 `;
 
 const Iproduct = styled.div`
-	width: 220px;
 	font-size: 16px;
 	font-weight: bold;
 `;
 
 const Ichat = styled.div`
-	width: 200px;
 	padding-top: 5px;
-	font-size: 16px;
+	font-size: 12px;
 	color: #575757;
 `;
 
@@ -96,21 +177,26 @@ const Iprice = styled.div`
 const Imove = styled.div`
 	font-size: 12px;
 	color: #222222;
-	margin-left: 240px;
-	margin-bottom: 10px;
 	font-weight: bold;
 	cursor: pointer;
+	position: absolute;
+	left: 83%;
+	top: 80%;
 `;
 
 const S = {
 	Item,
+	New,
 	TextContainer,
 	IimgContainer,
 	Iimg,
-	Delete,
+	Setting,
 	Span,
 	Iproduct,
 	Ichat,
 	Iprice,
 	Imove,
+	ChatContent,
+	SettingContent,
+	SettingBox,
 };
