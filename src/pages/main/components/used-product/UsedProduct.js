@@ -1,4 +1,5 @@
 import BasicButton from "components/Button";
+import SinginModal from "components/Modal/Signin";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import SearchAddress from "components/searchAddress";
 import { useState } from "react";
@@ -16,11 +17,18 @@ const UsedProduct = ({ productList }) => {
 	// 주소 변경
 	const [isOpen, setIsOpen] = useState(false);
 	const [address, setAddress] = useState("서울시 성동구 성수동");
+
+	// 토큰 있을 때만 주소 변경 가능하게 하기
+	// 토큰 없으면 로그인 창으로 이동하는 모달 띄우기
+	const [hasToken, setHasToken] = useState(false);
+
 	return (
 		<>
-			{isOpen && (
-				<SearchAddress setAddress={setAddress} setIsOpen={setIsOpen} />
-			)}
+			{hasToken
+				? isOpen && (
+						<SearchAddress setAddress={setAddress} setIsOpen={setIsOpen} />
+				  )
+				: isOpen && <SinginModal setOpen={setIsOpen} />}
 			<S.Container>
 				<div>
 					<S.Title>

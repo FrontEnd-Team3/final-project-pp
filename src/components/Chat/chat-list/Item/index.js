@@ -1,43 +1,28 @@
 import styled from "styled-components";
-import gkgk from "./gkgk.png";
-import { useState } from "react";
 
-const ChatItem = () => {
-	const [isOpen, setIsOpen] = useState(false);
-	const [isRead, setIsRead] = useState(false);
+const ChatItem = ({ chat }) => {
+	const { userimg, List, productID, price, move } = chat || {};
+
+	const lastContent =
+		List && Array.isArray(List) && List.length > 0
+			? List[List.length - 1].content
+			: "";
+
 	return (
 		<>
 			<S.Item>
 				<S.IimgContainer>
-					<S.Iimg src={gkgk} />
+					<S.Iimg src={userimg} />
 				</S.IimgContainer>
 				<S.TextContainer>
-					<S.More onClick={() => setIsOpen(prev => !prev)}>...</S.More>
-					<div style={{ display: "flex" }}>
-						<div>
-							<S.Iproduct>
-								파란 오리 판매합니다
-								<S.Span>{!isRead && "new"}</S.Span>
-							</S.Iproduct>
-							<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
-						</div>
-						{isOpen && (
-							<S.SettingContainer>
-								<div
-									className="read"
-									onClick={() => {
-										setIsRead(true);
-										setIsOpen(false);
-									}}
-								>
-									읽음
-								</div>
-								<div>나가기</div>
-							</S.SettingContainer>
-						)}
-					</div>
-					<S.Iprice>20,000 원</S.Iprice>
-					<S.Imove>상품이동 ▶</S.Imove>
+					<S.Span>
+						New
+						<S.Delete>X</S.Delete>
+					</S.Span>
+					<S.Iproduct>{productID}</S.Iproduct>
+					<S.Ichat>{lastContent || "No content for List"}</S.Ichat>
+					<S.Iprice>{price}</S.Iprice>
+					{move && <S.Imove>상품이동 ▶</S.Imove>}
 				</S.TextContainer>
 			</S.Item>
 		</>
@@ -73,35 +58,24 @@ const Iimg = styled.img`
 	height: 100%;
 `;
 
-const More = styled.div`
+const Delete = styled.div`
 	font-size: 16px;
-	margin-left: 290px;
+	color: black;
+	margin-left: 10px;
 	font-weight: bold;
 	cursor: pointer;
-`;
-
-const SettingContainer = styled.div`
-	border: 1px solid #dddddd;
-	height: 65px;
-	text-align: center;
-	margin-left: 45px;
-	div {
-		padding: 5px;
-		cursor: pointer;
-	}
-	.read {
-		border-bottom: 1px solid #dddddd;
-	}
+	display: inline-block;
 `;
 
 const Span = styled.span`
 	color: #3cb371;
 	font-size: 10px;
-	margin-left: 10px;
-	box-shadow: inset 0 -1px #3cb371;
+	margin-left: 260px;
+	display: inline-block;
 `;
 
 const Iproduct = styled.div`
+	width: 220px;
 	font-size: 16px;
 	font-weight: bold;
 `;
@@ -133,11 +107,10 @@ const S = {
 	TextContainer,
 	IimgContainer,
 	Iimg,
-	More,
+	Delete,
 	Span,
 	Iproduct,
 	Ichat,
 	Iprice,
 	Imove,
-	SettingContainer,
 };

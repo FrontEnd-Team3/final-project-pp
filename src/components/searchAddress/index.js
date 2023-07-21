@@ -9,6 +9,7 @@ const SearchAddress = ({ setAddress, setIsOpen }) => {
 
 	const handleAddress = data => {
 		console.log(`주소: ${data.address}`);
+		// 서울시 + .. 구 + .. 동
 		setAddress(data.sido + " " + data.sigungu + " " + data.bname);
 		setIsOpen(false);
 	};
@@ -21,8 +22,8 @@ const SearchAddress = ({ setAddress, setIsOpen }) => {
 				</div>
 				<DaumPostcode
 					style={postCodeStyle}
-					onComplete={handleAddress} // 값을 선택할 경우 실행되는 이벤트
-					autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
+					onComplete={handleAddress}
+					autoClose={false}
 				/>
 			</S.Container>
 		</S.Wrapper>
