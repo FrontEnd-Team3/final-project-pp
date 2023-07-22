@@ -16,11 +16,14 @@ const Mypage = () => {
 	const ProductList = productList?.filter(
 		product => product.status === "판매중" && product.user === 9,
 	);
-	console.log(ProductList);
+
 	const ProductListStatusEnd = productList?.filter(
 		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
 	);
-	console.log(ProductListStatusEnd);
+
+	const ProductListStatusEndUser1 = productList?.filter(
+		productEnd => productEnd.status === "판매완료" && productEnd.user === 1,
+	);
 	/**
 	 * 데이터가 없을때 EmptyData 추가
 	 */
@@ -33,15 +36,27 @@ const Mypage = () => {
 			<S.DivisionLine />
 			{!ProductList && <EmptyData />}
 			{ProductList && (
-				<RegisterProduct
-					productList={ProductList}
-					productListStatusEnd={ProductListStatusEnd}
-				/>
+				<>
+					<RegisterProduct
+						productList={ProductList}
+						productListStatusEnd={ProductListStatusEnd}
+					/>
+					<HouseKeeping />
+					<TransactionHistory
+						productList={ProductList}
+						productListStatusEnd={ProductListStatusEnd}
+					/>
+
+					<InterestProduct
+						productList={ProductList}
+						productListStatusEnd={ProductListStatusEnd}
+					/>
+				</>
 			)}
-			<HouseKeeping />
+			{ProductListStatusEndUser1 && (
+				<PurchasedItem productList={ProductListStatusEndUser1} />
+			)}
 			<TransactionHistory />
-			<PurchasedItem />
-			<InterestProduct />
 			<Review />
 		</S.MypageContainer>
 	);

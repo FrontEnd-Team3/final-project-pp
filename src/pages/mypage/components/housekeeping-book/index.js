@@ -1,71 +1,29 @@
-import BasicButton from "components/Button";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import Buttons from "./components/Buttons";
 
 const HouseKeeping = () => {
 	return (
 		<S.Container>
 			<S.RowBox>
 				<S.Title>가계부</S.Title>
+				<S.ToggleBox>
+					<div>토글</div>
+				</S.ToggleBox>
 			</S.RowBox>
 			<S.DivisionLine />
 			<S.Title2>
-				<ParentDiv>
+				<S.ParentDiv>
 					<p>총 판매 금액</p>
 					<p>2,000,000 원</p>
-				</ParentDiv>
-				<ParentDiv>
+				</S.ParentDiv>
+				<S.ParentDiv>
 					<p>총 지불 금액</p>
 					<p>2,00,000 원</p>
-				</ParentDiv>
+				</S.ParentDiv>
 			</S.Title2>
 			<S.DivisionLine />
-			<S.ProductContainer>
-				<img src="#" />
-				<div>
-					<div>
-						<S.Wrapper>
-							<p></p>
-							<div>
-								<BasicButton
-									variant={"white"}
-									size={"xsmall"}
-									children={"수정"}
-									style={{
-										fontSize: "14px",
-										height: "28px",
-										borderRadius: "6px",
-										fontWeight: "600",
-									}}
-								/>
-								<BasicButton
-									variant={"primary"}
-									size={"xsmall"}
-									children={"삭제"}
-									style={{
-										fontSize: "14px",
-										height: "28px",
-										borderRadius: "6px",
-										fontWeight: "600",
-										marginLeft: "10px",
-									}}
-								/>
-							</div>
-						</S.Wrapper>
-						<S.Wrapper2>
-							<S.ToggleBox2>
-								<p>토글메뉴임</p>
-							</S.ToggleBox2>
-							<S.Wrapper2>
-								<p>350,000</p> <p>won</p>
-							</S.Wrapper2>
-						</S.Wrapper2>
-					</div>
-					<TextBox2>
-						<p>상품 보러가기 〉</p>
-					</TextBox2>
-				</div>
-			</S.ProductContainer>
+			<Buttons />
 		</S.Container>
 	);
 };
@@ -80,7 +38,6 @@ const DivisionLine = styled.hr`
 
 const Container = styled.div`
 	display: flex;
-	margin-bottom: 100px;
 	${primaryFont}
 	${flexColumn}
     ${flexCenter}
@@ -152,18 +109,11 @@ const RowBox = styled.div`
 	${flexRow}
 `;
 
-const TextBox2 = styled.div`
-	position: relative;
-	left: 585px;
-	top: 124px;
-`;
-
 const ToggleBox = styled.div`
-	margin-top: 50px;
-`;
-const ToggleBox2 = styled.div`
 	width: 105px;
 	height: 32px;
+	margin-top: 20px;
+	background: pink;
 `;
 
 const S = {
@@ -176,5 +126,5 @@ const S = {
 	Wrapper2,
 	RowBox,
 	ToggleBox,
-	ToggleBox2,
+	ParentDiv,
 };

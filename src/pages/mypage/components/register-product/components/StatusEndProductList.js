@@ -2,6 +2,12 @@ import BasicButton from "components/Button";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
 
+/**
+ *
+ * 완료 상품 css 적용해야함
+ * 호버시 쉐도우 주는거 적용해야함
+ *
+ */
 const StatusEndProductList = ({ productListStatusEnd }) => {
 	if (productListStatusEnd && productListStatusEnd.length > 0) {
 		return (

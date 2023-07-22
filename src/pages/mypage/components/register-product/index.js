@@ -1,6 +1,7 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import EmptyData from "../empty-data";
 import StatusEndProductList from "./components/StatusEndProductList";
 
 /**
@@ -16,9 +17,10 @@ const RegisterProduct = ({ productList, productListStatusEnd }) => {
 			<S.Container>
 				<S.RowBox>
 					<S.Title>등록 상품</S.Title>
-					<S.ToggleBox>토글메뉴 만들거잉</S.ToggleBox>
+					<S.ToggleBox>
+						<div>토글메뉴</div>
+					</S.ToggleBox>
 				</S.RowBox>
-				<S.DivisionLine />
 				{productList.map(product => (
 					<S.ProductContainer key={product.id}>
 						<img src={product.image[2]} />
@@ -54,7 +56,7 @@ const RegisterProduct = ({ productList, productListStatusEnd }) => {
 								</S.Wrapper>
 								<S.Wrapper2>
 									<S.ToggleBox2>
-										<p>토글메뉴임</p>
+										<p>토글메뉴</p>
 									</S.ToggleBox2>
 									<S.Wrapper2>
 										<p>350,000</p> <p>won</p>
@@ -71,7 +73,7 @@ const RegisterProduct = ({ productList, productListStatusEnd }) => {
 			</S.Container>
 		);
 	} else {
-		return <div>등록된 상품이 없습니다.</div>;
+		<EmptyData />;
 	}
 };
 export default RegisterProduct;
@@ -143,6 +145,9 @@ const TextBox2 = styled.div`
 
 const ToggleBox = styled.div`
 	margin-top: 50px;
+	width: 105px;
+	height: 32px;
+	background: pink;
 `;
 const ToggleBox2 = styled.div`
 	width: 105px;
