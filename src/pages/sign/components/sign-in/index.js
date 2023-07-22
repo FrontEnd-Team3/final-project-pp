@@ -1,116 +1,129 @@
 import BasicButton from "components/Button";
 import BasicInput from "components/Input";
+import SingupModal from "components/Modal/Signup";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
-
 const Signup = () => {
 	const navigate = useNavigate();
+	const [isOpen, setIsOpen] = useState(false);
+	const OpenwithClose = () => {
+		setIsOpen(true);
+		setTimeout(() => {
+			setIsOpen(false);
+			navigate("/");
+		}, 3000);
+	};
 	return (
-		<S.Container>
-			<S.LogoWrapper>
-				<S.LogoTitle
-					onClick={() => {
-						navigate(`/`);
-					}}
-				>
-					TRIMM
-				</S.LogoTitle>
-				<S.SideTitle>Trade, Reuse, Innovate and Make your Moment</S.SideTitle>
-				<S.LogoMent>지구를 위해 버리지 말고 중고 거래를 해보세요!</S.LogoMent>
-			</S.LogoWrapper>
-			<S.SignWrapper>
-				<S.Wrapper>
-					<S.Title>Email Address *</S.Title>
-					<BasicInput
-						placeholder="예) example@pyongpyong.com"
-						size={"medium"}
-						color={"primary"}
-						variant={"primary"}
-					></BasicInput>
-					<S.Subtitle>이메일 형식에 맞게 입력해 주세요.</S.Subtitle>
-				</S.Wrapper>
-				<S.Wrapper>
-					<S.Title>Password *</S.Title>
-					<BasicInput
-						placeholder="password"
-						size={"medium"}
-						color={"primary"}
-						variant={"primary"}
-					></BasicInput>
-					<S.Subtitle>
-						영문, 숫자, 특수문자를 조합해서 입력해 주세요. (8-16자)
-					</S.Subtitle>
-				</S.Wrapper>
-				<S.Wrapper>
-					<S.Title>Password Confirm*</S.Title>
-					<BasicInput
-						placeholder="PW CONFIRM"
-						size={"medium"}
-						color={"primary"}
-						variant={"primary"}
-					></BasicInput>
-					<S.Subtitle>비밀번호가 맞지 않습니다.</S.Subtitle>
-				</S.Wrapper>
-				<S.Wrapper>
-					<S.Title>Name</S.Title>
-					<BasicInput
-						placeholder="NAME"
-						size={"medium"}
-						color={"primary"}
-						variant={"primary"}
-					></BasicInput>
-					<S.Subtitle>이름을 입력해 주세요.</S.Subtitle>
-				</S.Wrapper>
-				<S.Wrapper>
-					<S.Title>Nick Name</S.Title>
-					<BasicInput
-						placeholder="NICK NAME"
-						size={"medium"}
-						color={"primary"}
-						variant={"primary"}
-					></BasicInput>
-					<S.Subtitle>
-						닉네임이 중복되었습니다. 입력 안했을 때 (영문, 한글, 숫자로 8자
-						이내로 입력해 주세요.)
-					</S.Subtitle>
-				</S.Wrapper>
-				<S.Wrapper>
-					<S.Title>Address</S.Title>
-					<S.Addresswrapper>
+		<>
+			<S.Container>
+				<S.LogoWrapper>
+					<S.LogoTitle
+						onClick={() => {
+							navigate(`/`);
+						}}
+					>
+						TRIMM
+					</S.LogoTitle>
+					<S.SideTitle>Trade, Reuse, Innovate and Make your Moment</S.SideTitle>
+					<S.LogoMent>지구를 위해 버리지 말고 중고 거래를 해보세요!</S.LogoMent>
+				</S.LogoWrapper>
+				<S.SignWrapper>
+					<S.Wrapper>
+						<S.Title>Email Address *</S.Title>
 						<BasicInput
-							placeholder="ADDRESS"
-							size={"small"}
+							placeholder="예) example@pyongpyong.com"
+							size={"medium"}
 							color={"primary"}
 							variant={"primary"}
 						></BasicInput>
-						<S.AddressSearchBtn>
-							<BasicButton size={"small"} variant={"primary"} color={"gray"}>
-								찾기
-							</BasicButton>
-						</S.AddressSearchBtn>
-					</S.Addresswrapper>
-				</S.Wrapper>
-				<S.Wrapper>
-					<S.Title>Phone</S.Title>
-					<BasicInput
-						placeholder="PHONE"
-						size={"medium"}
-						color={"primary"}
-						variant={"primary"}
-					></BasicInput>
-				</S.Wrapper>
-				<ButtonWrapper>
-					<BasicButton
-						size={"mediumfourth"}
-						variant={"primary"}
-						color={"darkBlack"}
-					>
-						회원가입
-					</BasicButton>
-				</ButtonWrapper>
-			</S.SignWrapper>
-		</S.Container>
+						<S.Subtitle>이메일 형식에 맞게 입력해 주세요.</S.Subtitle>
+					</S.Wrapper>
+					<S.Wrapper>
+						<S.Title>Password *</S.Title>
+						<BasicInput
+							placeholder="password"
+							size={"medium"}
+							color={"primary"}
+							variant={"primary"}
+						></BasicInput>
+						<S.Subtitle>
+							영문, 숫자, 특수문자를 조합해서 입력해 주세요. (8-16자)
+						</S.Subtitle>
+					</S.Wrapper>
+					<S.Wrapper>
+						<S.Title>Password Confirm*</S.Title>
+						<BasicInput
+							placeholder="PW CONFIRM"
+							size={"medium"}
+							color={"primary"}
+							variant={"primary"}
+						></BasicInput>
+						<S.Subtitle>비밀번호가 맞지 않습니다.</S.Subtitle>
+					</S.Wrapper>
+					<S.Wrapper>
+						<S.Title>Name</S.Title>
+						<BasicInput
+							placeholder="NAME"
+							size={"medium"}
+							color={"primary"}
+							variant={"primary"}
+						></BasicInput>
+						<S.Subtitle>이름을 입력해 주세요.</S.Subtitle>
+					</S.Wrapper>
+					<S.Wrapper>
+						<S.Title>Nick Name</S.Title>
+						<BasicInput
+							placeholder="NICK NAME"
+							size={"medium"}
+							color={"primary"}
+							variant={"primary"}
+						></BasicInput>
+						<S.Subtitle>
+							닉네임이 중복되었습니다. 입력 안했을 때 (영문, 한글, 숫자로 8자
+							이내로 입력해 주세요.)
+						</S.Subtitle>
+					</S.Wrapper>
+					<S.Wrapper>
+						<S.Title>Address</S.Title>
+						<S.Addresswrapper>
+							<BasicInput
+								placeholder="ADDRESS"
+								size={"small"}
+								color={"primary"}
+								variant={"primary"}
+							></BasicInput>
+							<S.AddressSearchBtn>
+								<BasicButton size={"small"} variant={"primary"} color={"gray"}>
+									찾기
+								</BasicButton>
+							</S.AddressSearchBtn>
+						</S.Addresswrapper>
+					</S.Wrapper>
+					<S.Wrapper>
+						<S.Title>Phone</S.Title>
+						<BasicInput
+							placeholder="PHONE"
+							size={"medium"}
+							color={"primary"}
+							variant={"primary"}
+						></BasicInput>
+					</S.Wrapper>
+					<ButtonWrapper>
+						<BasicButton
+							size={"mediumfourth"}
+							variant={"primary"}
+							color={"darkBlack"}
+							onClick={OpenwithClose}
+						>
+							회원가입
+						</BasicButton>
+					</ButtonWrapper>
+				</S.SignWrapper>
+			</S.Container>
+			{isOpen && <SingupModal />}
+		</>
 	);
 };
 export default Signup;
@@ -177,9 +190,6 @@ const ButtonWrapper = styled.div`
 		:hover {
 			background-color: ${({ theme }) => theme.PALETTE.gray};
 		}
-		/* :disabled {
-			background-color: #e6e6e6;
-		} */
 	}
 `;
 const RealTitle = styled.div`
@@ -208,10 +218,10 @@ const Subtitle = styled.p`
 const Container = styled.div`
 	margin: 0 auto;
 	margin-bottom: 130px;
-	margin-top: 200px;
+	margin-top: 120px;
+	width: 100%;
 	width: 1000px;
-	height: 510px;
-	border-radius: 12px;
+	height: 670px;
 	${primaryFont}
 	${flexCenter}
 `;
