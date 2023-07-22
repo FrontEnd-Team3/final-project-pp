@@ -48,7 +48,6 @@ const ProductContainer = styled.div`
 	margin-top: 30px;
 	width: 962px;
 	height: 270px;
-	background-color: pink;
 	border: 1px solid #b6b6b6;
 	border-radius: 6px;
 	${flexRow}
@@ -113,7 +112,6 @@ const ToggleBox = styled.div`
 	width: 105px;
 	height: 32px;
 	margin-top: 20px;
-	background: pink;
 `;
 
 const S = {

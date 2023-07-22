@@ -11,10 +11,10 @@ const PurchasedButtons = () => {
 				children={"상품 보러가기"}
 				style={{
 					width: "124px",
-
+					border: "1px solid #dddddd",
 					fontSize: "16px",
 					borderRadius: "6px",
-					fontWeight: "Medium",
+					fontWeight: "500",
 				}}
 			/>
 			<BasicButton
@@ -25,7 +25,8 @@ const PurchasedButtons = () => {
 					width: "124px",
 					fontSize: "16px",
 					borderRadius: "6px",
-					fontWeight: "Medium",
+					fontWeight: "600",
+					marginTop: "10px",
 				}}
 			/>
 		</ButtonsContainer>

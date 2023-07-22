@@ -59,6 +59,7 @@ export default MyProfile;
 const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
+	margin-top: 100px;
 	margin-bottom: 100px;
 	padding-top: 25px;
 	${primaryFont}

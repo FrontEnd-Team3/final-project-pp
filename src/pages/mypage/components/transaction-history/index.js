@@ -38,6 +38,7 @@ const TransactionHistory = ({ productList, productListStatusEnd }) => {
 												height: "28px",
 												borderRadius: "6px",
 												fontWeight: "600",
+												border: "1px solid #dddddd",
 											}}
 										/>
 										<BasicButton
@@ -97,7 +98,6 @@ const ProductContainer = styled.div`
 	margin-top: 30px;
 	width: 962px;
 	height: 270px;
-	background-color: pink;
 	border: 1px solid #b6b6b6;
 	border-radius: 6px;
 	${flexRow}
@@ -146,7 +146,6 @@ const ToggleBox = styled.div`
 	margin-top: 50px;
 	width: 105px;
 	height: 32px;
-	background: pink;
 `;
 const ToggleBox2 = styled.div`
 	width: 105px;

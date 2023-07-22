@@ -24,7 +24,7 @@ const Buttons = () => {
 					children={"구매내역"}
 					style={{
 						fontSize: "16px",
-
+						border: "1px solid #dddddd",
 						borderRadius: "6px",
 						fontWeight: "400",
 						marginRight: "24px",
@@ -36,7 +36,7 @@ const Buttons = () => {
 					children={"판매내역"}
 					style={{
 						fontSize: "16px",
-
+						border: "1px solid #dddddd",
 						borderRadius: "6px",
 						fontWeight: "400",
 					}}
@@ -61,6 +61,7 @@ const Buttons = () => {
 					style={{
 						fontSize: "16px",
 						borderRadius: "6px",
+						border: "1px solid #dddddd",
 						fontWeight: "400",
 						marginRight: "16px",
 					}}
@@ -72,6 +73,7 @@ const Buttons = () => {
 					style={{
 						fontSize: "16px",
 						borderRadius: "6px",
+						border: "1px solid #dddddd",
 						fontWeight: "400",
 						marginRight: "16px",
 					}}
@@ -84,6 +86,7 @@ const Buttons = () => {
 						fontSize: "16px",
 						borderRadius: "6px",
 						fontWeight: "400",
+						border: "1px solid #dddddd",
 					}}
 				/>
 			</div>

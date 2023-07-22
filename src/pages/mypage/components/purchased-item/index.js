@@ -23,7 +23,7 @@ const PurchasedItem = ({ productList }) => {
 				<Wrapper>
 					{productList.map(product => (
 						<S.ProductContainer key={product.id}>
-							<div>{product.name}</div>
+							<p>{product.name}</p>
 							<S.RowBox>
 								<p>{product.location}</p>
 								<p>{product.price}원</p>
@@ -63,6 +63,7 @@ const Container = styled.div`
 	display: flex;
 	${primaryFont}
 	${flexColumn}
+	margin-bottom: 100px
 `;
 const Wrapper = styled.div`
 	${flexRow}
@@ -76,7 +77,6 @@ const ProductContainer = styled.div`
 	margin-top: 30px;
 	width: 460px;
 	height: 270px;
-	background-color: pink;
 	border: 1px solid #b6b6b6;
 	border-radius: 12px;
 	${flexColumn}
@@ -85,6 +85,7 @@ const ProductContainer = styled.div`
 		height: 95px;
 		border-radius: 50%;
 		overflow: hidden;
+		border: 0.5px solid #b6b6b6;
 	}
 `;
 
@@ -106,7 +107,6 @@ const ToggleBox = styled.div`
 	margin-top: 50px;
 	width: 105px;
 	height: 32px;
-	background: pink;
 `;
 
 const S = {
