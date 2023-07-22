@@ -14,6 +14,7 @@ import UsedTransaction from "pages/transaction/used-transaction";
 import { createBrowserRouter } from "react-router-dom";
 import MarketPrice from "pages/market-price";
 import Chat from "components/Chat";
+import SignIn from "pages/sign/components/sign-in";
 
 const router = createBrowserRouter([
 	{
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/Signin",
-				element: <Signin />,
+				element: <SignIn />,
 			},
 			{
 				path: "/Signup",
