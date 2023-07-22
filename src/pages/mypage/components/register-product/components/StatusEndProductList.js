@@ -2,48 +2,29 @@ import BasicButton from "components/Button";
 import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
-import EmptyData from "../empty-data";
-import StatusEndProductList from "../register-product/components/StatusEndProductList";
 
 /**
  *
+ * 완료 상품 css 적용해야함
  * 호버시 쉐도우 주는거 적용해야함
  *
  */
-
-const InterestProduct = ({ productList, productListStatusEnd }) => {
-	const options = [
-		{ value: "중고거래", label: "중고거래" },
-		{ value: "무료나눔", label: "무료나눔" },
-	];
+const StatusEndProductList = ({ productListStatusEnd }) => {
 	const sideOptions = [
 		{ value: "판매중", label: "판매중" },
 		{ value: "거래중", label: "거래중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
-	console.log(productList);
-	if (productList && productList.length > 0) {
+	if (productListStatusEnd && productListStatusEnd.length > 0) {
 		return (
 			<S.Container>
-				<S.RowBox>
-					<S.Title>관심 상품</S.Title>
-					<S.ToggleBox>
-						<BasicSelect
-							variant={"primary"}
-							options={options}
-							selectedValue={"중고거래"}
-							style={{ border: "1px solid #dddddd" }}
-						/>
-					</S.ToggleBox>
-				</S.RowBox>
-				<S.DivisionLine />
-				{productList.map(product => (
+				{productListStatusEnd.map(product => (
 					<S.ProductContainer key={product.id}>
-						<img src={product.image[2]} />
+						<img src={product.image[0]} />
 						<div>
 							<div>
 								<S.Wrapper>
-									<p>{product.name}</p>
+									<p>[판매완료] {product.name}</p>
 									<div>
 										<BasicButton
 											variant={"white"}
@@ -91,24 +72,17 @@ const InterestProduct = ({ productList, productListStatusEnd }) => {
 						</div>
 					</S.ProductContainer>
 				))}
-				<StatusEndProductList productListStatusEnd={productListStatusEnd} />
+				<StatusEndProductList />
 			</S.Container>
 		);
-	} else {
-		<EmptyData />;
 	}
 };
-export default InterestProduct;
 
-const DivisionLine = styled.hr`
-	width: 962px;
-	height: 1px;
-	background-color: #cccccc;
-	margin-top: 30px;
-`;
+export default StatusEndProductList;
 
 const Container = styled.div`
 	display: flex;
+	margin-bottom: 100px;
 	${primaryFont}
 	${flexColumn}
     ${flexCenter}
@@ -165,9 +139,6 @@ const TextBox2 = styled.div`
 
 const ToggleBox = styled.div`
 	margin-top: 50px;
-	margin-right: 16px;
-	width: 105px;
-	height: 32px;
 `;
 const ToggleBox2 = styled.div`
 	width: 105px;
@@ -175,7 +146,6 @@ const ToggleBox2 = styled.div`
 `;
 
 const S = {
-	DivisionLine,
 	Title,
 	Container,
 	ProductContainer,
