@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Header = () => {
 	const navigate = useNavigate();
-	const [state, setState] = useState(1);
+	const [state, setState] = useState(null);
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -25,7 +25,11 @@ const Header = () => {
 	return (
 		<>
 			<S.Container>
-				<S.LogoWrapper>
+				<S.LogoWrapper
+					onClick={() => {
+						setState(0);
+					}}
+				>
 					<div>
 						<S.Title
 							onClick={() => {
@@ -56,7 +60,9 @@ const Header = () => {
 							<div style={{ cursor: "pointer" }}>MYPAGE</div>
 							<div
 								style={{ cursor: "pointer" }}
-								onClick={() => navigate(`/Chat`)}
+								onClick={() => {
+									navigate(`/Chat`);
+								}}
 							>
 								CHAT
 								<S.Chaticon src="img/chat.png"></S.Chaticon>
@@ -75,7 +81,12 @@ const Header = () => {
 							/>
 						))}
 					</S.Category>
-					<S.Sellbutton onClick={() => navigate(`/productRegister`)}>
+					<S.Sellbutton
+						onClick={() => {
+							navigate(`/productRegister`);
+							setState(0);
+						}}
+					>
 						판매하기
 					</S.Sellbutton>
 				</S.CategoryWrapper>
