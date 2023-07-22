@@ -1,6 +1,6 @@
 import BasicButton from "components/Button";
 import ProductList from "components/ProductList";
-import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
+import RecentlyClicked from "components/RecentlyClicked";
 import BasicSelect from "components/Select";
 import { productList } from "mock/productsList";
 import { useState } from "react";

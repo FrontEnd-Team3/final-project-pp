@@ -1,4 +1,4 @@
-import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
+import RecentlyClicked from "components/RecentlyClicked";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 import ProductInfo from "./components/product-info";
