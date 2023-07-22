@@ -1,5 +1,5 @@
 import BasicButton from "components/Button";
-import SingupModal from "components/Modal/Signup";
+import SingupModal from "components/Modal/withoutbuttonmodal/index";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -13,10 +13,10 @@ const Signup = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const OpenwithClose = () => {
 		setIsOpen(true);
-		setTimeout(() => {
-			setIsOpen(false);
-			navigate("/");
-		}, 3000);
+		// setTimeout(() => {
+		// 	setIsOpen(false);
+		// 	navigate("/");
+		// }, 3000);
 	};
 
 	const {
@@ -111,7 +111,16 @@ const Signup = () => {
 					</ButtonWrapper>
 				</S.SignWrapper>
 			</S.Container>
-			{isOpen && <SingupModal />}
+			{isOpen && (
+				<SingupModal
+					background={"primary"}
+					subtitle={"primary"}
+					title={"primary"}
+					container={"primary"}
+					ment1={"Welcome to TRIMM"}
+					ment2={"회원가입이 완료되었습니다"}
+				/>
+			)}
 		</>
 	);
 };
