@@ -44,7 +44,12 @@ const Header = () => {
 					</div>
 					<S.SearchWrapper>
 						<S.SearchBar></S.SearchBar>
-						<S.Searchicon src="img/search.png"></S.Searchicon>
+						<S.Searchicon
+							src="img/search.png"
+							onClick={() => {
+								navigate("/search");
+							}}
+						></S.Searchicon>
 					</S.SearchWrapper>
 					<div>
 						<S.NewChat>새로운 채팅 도착!</S.NewChat>
