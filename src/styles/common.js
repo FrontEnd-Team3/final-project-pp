@@ -19,3 +19,19 @@ export const flexColumn = css`
 	display: flex;
 	flex-direction: column;
 `;
+
+export const flexRow = css`
+	display: flex;
+	flex-direction: row;
+`;
+
+export const registerInput = css`
+	outline: none;
+	border-right: none;
+	border-left: none;
+	border-top: none;
+	border-bottom: 1px solid #404040;
+	padding: 30px 30px 30px 116px;
+	position: relative;
+	width: 100%;
+`;

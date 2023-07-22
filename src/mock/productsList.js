@@ -358,7 +358,7 @@ export const productList = [
 		category: true,
 		price: 150000,
 		introduction: "23FW 주니어 발망 티셔츠 BT8Q71 Z0116100NE",
-		user: 1,
+		user: 9,
 		bookmarkCount: 0,
 		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
@@ -374,7 +374,7 @@ export const productList = [
 		price: 58000,
 		introduction:
 			"키치한 무드가 느껴지는 레이브만의 오리지널 아트웍 티셔츠입니다. 모달과 스판이 섞인 코튼 원단으로 부드러운 촉감이 편안한 착용감을 줍니다.",
-		user: 1,
+		user: 9,
 		bookmarkCount: 0,
 		status: "판매완료",
 		chat: [0], // length > 받은 채팅 개수

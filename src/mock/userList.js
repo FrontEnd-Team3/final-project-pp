@@ -32,7 +32,7 @@ export const userList = [
 		id: 0,
 		email: "test@naver.com",
 		password: "1234",
-		nickname: "bbb",
+		nickname: "응애!나아가재원",
 		name: "테스트",
 		phoneNum: "010-1234-1234",
 		address: "서울시 성동구 성수동",

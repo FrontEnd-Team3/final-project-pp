@@ -37,7 +37,7 @@ const OneProduct = ({ product }) => {
 				</S.FirstLine>
 				<S.SecondLine>
 					<S.Price>{product.price.toLocaleString()}원</S.Price>
-					<S.AgoDate>{futureDate.getDate() - today.getDate()}일전</S.AgoDate>
+					<S.AgoDate>{today.getDate() - futureDate.getDate()}일전</S.AgoDate>
 				</S.SecondLine>
 			</S.Container>
 		</>
