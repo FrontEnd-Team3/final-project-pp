@@ -19,17 +19,17 @@ export const signUpValidation = yup.object({
 	nickName: yup
 		.string()
 		.required("닉네임을 입력해 주세요.")
-		.matches("한글 검사", "닉네임이 중복되었습니다."),
+		.matches("^[ㄱ-ㅎ가-힣0-9a-zA-Z]+$", "닉네임이 중복되었습니다."),
 	// .matches2(null, "영문, 한글, 숫자로 8자 이내로 입력해주세요."),
 	/**중복검사 필요 */
 	name: yup
 		.string()
 		.required("이름을 입력해 주세요.")
-		.matches("한글 검사", "영문 또는 한글로 작성해주세요."),
+		.matches("^[가-힣a-zA-Z]+$", "영문 또는 한글로 작성해주세요."),
 	address: yup
 		.string()
 		.required("정확인 주소를 입력해주세요.")
-		.matches(null, "정확인 주소를 입력해주세요."),
+		.matches("^[가-힣0-9]+$", "정확인 주소를 입력해주세요."),
 	phone: yup
 		.string()
 		.required("핸드폰 번호를 입력해주세요.")

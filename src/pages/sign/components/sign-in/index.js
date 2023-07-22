@@ -46,7 +46,7 @@ const SignIn = () => {
 					label={"Password"}
 					placeholder={"password"}
 					errors={errors}
-					type={"text"}
+					type={"password"}
 				/>
 				<ButtonWrapper>
 					<BasicButton
