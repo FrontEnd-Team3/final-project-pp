@@ -39,9 +39,13 @@ export default ChatList;
 
 const Container = styled.div`
 	width: 450px;
-	border: 1px solid #ebebeb;
+	/* border: 1px solid #ebebeb; */
+	border-left: 1px solid #ebebeb;
+	border-bottom: 1px solid #ebebeb;
+	border-top: 1px solid #ebebeb;
 	margin: 100px auto;
 `;
+
 const Header = styled.div`
 	width: 450px;
 	height: 60px;
@@ -83,7 +87,7 @@ const AllMain = styled.div`
 const Main = styled.div`
 	width: 450px;
 	height: 500px;
-	border-right: 1px solid #ebebeb;
+	/* border-right: 1px solid #ebebeb; */
 	align-items: center;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Banner from "./components/banner/Banner";
 import Slogan from "./components/slogan/Slogan";
 import UsedProduct from "./components/used-product/UsedProduct";
 import FreeProduct from "./components/free-product/FreeProduct";
 import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked/RecentlyClicked";
-import axios from "axios";
 
 const Main = () => {
 	// useEffect(() => {
@@ -23,18 +22,18 @@ const Main = () => {
 	// 		});
 	// }, []);
 
-	const [productList, setProductList] = useState([]);
-	useEffect(() => {
-		axios.get("/products").then(res => setProductList(res.data));
-	}, []);
+	// const [productList, setProductList] = useState([]);
+	// useEffect(() => {
+	// 	axios.get("/products").then(res => setProductList(res.data));
+	// }, []);
 
 	return (
 		<>
 			<Banner />
 			<Slogan />
-			<UsedProduct productList={productList} />
+			<UsedProduct />
 			<S.DivisionLine />
-			<FreeProduct productList={productList} />
+			<FreeProduct />
 			<RecentlyClicked />
 		</>
 	);

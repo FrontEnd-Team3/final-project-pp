@@ -127,6 +127,7 @@ const MyChats = styled.div`
 	margin-bottom: 10px;
 	word-wrap: break-word;
 	text-align: right;
+	flex-direction: column;
 `;
 
 const OtherChat = styled.div`
@@ -141,7 +142,7 @@ const OtherChat = styled.div`
 const SendedTime = styled.div`
 	font-size: 8px;
 	color: #242424;
-	margin-top: 45px;
+	margin-top: 25px;
 	margin-right: 8px;
 `;
 
@@ -154,18 +155,19 @@ const ReceivedTime = styled.div`
 const SendedByMe = styled.div`
 	font-size: 16px;
 	padding: 10px;
-	align-items: start;
-	float: right;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 	background-color: #e6e6e6;
 	word-wrap: break-word;
 	border-radius: 6px;
-	text-align: right;
 `;
 
 const SendedByOther = styled.div`
 	font-size: 16px;
-	float: left;
-	align-items: start;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 	padding: 10px;
 	background-color: #ffffff;
 	border: 1px solid #dddddd;
@@ -174,20 +176,23 @@ const SendedByOther = styled.div`
 `;
 
 const SendWrapper = styled.form`
+	background-color: #ffffff;
+	width: 448px;
 	display: flex;
 	height: 50px;
 	justify-content: space-evenly;
 	align-items: center;
 	padding: 10px;
 	position: sticky;
-	bottom: 0;
+	margin-bottom: 7px;
 `;
 
 const OneChat = styled.div`
-	width: 280px;
 	display: flex;
+	width: 280px;
 	justify-content: flex-end;
 	margin-bottom: 20px;
+	align-items: flex-end;
 `;
 
 const S = {

@@ -2,12 +2,13 @@ import BasicButton from "components/Button";
 import SinginModal from "components/Modal/Signin";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import SearchAddress from "components/searchAddress";
+import { productList } from "mock/productsList";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
 
-const FreeProduct = ({ productList }) => {
+const FreeProduct = () => {
 	const PRODUCTLIST = productList?.filter(
 		product => product.status !== "판매완료" && !product.price,
 	);
@@ -19,7 +20,7 @@ const FreeProduct = ({ productList }) => {
 
 	// 토큰 있을 때만 주소 변경 가능하게 하기
 	// 토큰 없으면 로그인 창으로 이동하는 모달 띄우기
-	const [hasToken, setHasToken] = useState(false);
+	const [hasToken, setHasToken] = useState(true);
 
 	return (
 		<>

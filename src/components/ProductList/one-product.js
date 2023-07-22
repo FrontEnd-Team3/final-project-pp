@@ -9,8 +9,9 @@ const OneProduct = ({ product, grid }) => {
 	const localPrice = product.price?.toLocaleString("ko-KR");
 	const ImageURL = product.image[0];
 
-	// 하트 넣기
-	// const [isBookmarked, setIsBookmarked] = useState(false);
+	// 날짜 구하는 로직
+	const Today = new Date("2023-07-22");
+	console.log("today", Today.getDate());
 
 	// 상품 상세 페이지로 이동
 	const navigate = useNavigate();
@@ -53,6 +54,7 @@ const OneProduct = ({ product, grid }) => {
 export default OneProduct;
 
 const Container = styled.div`
+	cursor: pointer;
 	margin-bottom: 20px;
 	${primaryFont}
 	position: relative;
@@ -92,7 +94,7 @@ const ProductInfo = styled.div`
 	width: 250px;
 	.infoTop {
 		.name {
-			font-size: 14px;
+			font-size: 16px;
 			font-weight: 700;
 			width: 250px;
 			height: 40px;
@@ -104,7 +106,7 @@ const ProductInfo = styled.div`
 					if (status === "거래중") return theme.PALETTE.turquoise;
 					return theme.PALETTE.primary;
 				}};
-				font-size: 10px;
+				font-size: 12px;
 				font-weight: 700;
 				color: ${({ theme }) => theme.PALETTE.white};
 				padding: 5px 10px;
@@ -115,7 +117,7 @@ const ProductInfo = styled.div`
 		margin-top: 10px;
 		display: flex;
 		justify-content: space-between;
-		font-size: 10px;
+		font-size: 12px;
 		.location {
 			margin-right: 5px;
 		}
@@ -131,13 +133,13 @@ const ProductInfo = styled.div`
 		margin-top: 10px;
 		display: flex;
 		justify-content: space-between;
-		font-size: 10px;
+		font-size: 12px;
 		.price {
 			font-size: 16px;
 			font-weight: 600;
 		}
 		.date {
-			font-size: 10px;
+			font-size: 12px;
 		}
 	}
 `;

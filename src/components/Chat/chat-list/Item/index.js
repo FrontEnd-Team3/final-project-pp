@@ -69,18 +69,20 @@ const ChatItem = ({ chat }) => {
 export default ChatItem;
 
 const Item = styled.div`
+	width: 449px;
 	display: flex;
 	border-bottom: 1px solid #ebebeb;
 	height: 150px;
 	background-color: white;
-	padding: 10px;
+	padding: 20px;
+	padding-top: 20px;
 	position: relative;
 `;
 
 const New = styled.div`
 	position: absolute;
-	top: 10px;
-	left: 5px;
+	top: 20px;
+	left: 15px;
 	background-color: ${({ theme }) => theme.PALETTE.primary};
 	color: ${({ theme }) => theme.PALETTE.white};
 	width: 50px;
@@ -98,7 +100,7 @@ const TextContainer = styled.div`
 
 const ChatContent = styled.div`
 	${flexColumn}
-	width: 220px;
+	width: 200px;
 	margin-top: 15px;
 	margin-right: 35px;
 `;
@@ -123,7 +125,7 @@ const Iimg = styled.img`
 const Setting = styled.div`
 	font-size: 16px;
 	color: black;
-	margin-left: 55px;
+	margin-left: 45px;
 	margin-bottom: 5px;
 	font-weight: bold;
 	cursor: pointer;
