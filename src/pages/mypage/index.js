@@ -12,21 +12,16 @@ import TransactionHistory from "./components/transaction-history";
 
 const Mypage = () => {
 	const UserList = userList.filter(user => user.id === 0);
-
 	const ProductList = productList?.filter(
 		product => product.status === "판매중" && product.user === 9,
 	);
-
 	const ProductListStatusEnd = productList?.filter(
 		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
 	);
-
 	const ProductListStatusEndUser1 = productList?.filter(
 		productEnd => productEnd.status === "판매완료" && productEnd.user === 1,
 	);
-	/**
-	 * 데이터가 없을때 EmptyData 추가
-	 */
+
 	if (!UserList) {
 		return <EmptyData />;
 	}

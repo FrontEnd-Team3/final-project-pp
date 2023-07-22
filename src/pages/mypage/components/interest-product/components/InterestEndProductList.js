@@ -1,45 +1,24 @@
 import BasicButton from "components/Button";
-import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
-import EmptyData from "../empty-data";
-import InterestEndProductList from "./components/InterestEndProductList";
 
 /**
  *
+ * 완료 상품 css 적용해야함
  * 호버시 쉐도우 주는거 적용해야함
  *
  */
-
-const InterestProduct = ({ productList, productListStatusEnd }) => {
-	const options = [
-		{ value: "중고거래", label: "중고거래" },
-		{ value: "무료나눔", label: "무료나눔" },
-	];
-
-	console.log(productList);
-	if (productList && productList.length > 0) {
+const InterestEndProductList = ({ productListStatusEnd }) => {
+	if (productListStatusEnd && productListStatusEnd.length > 0) {
 		return (
 			<S.Container>
-				<S.RowBox>
-					<S.Title>관심 상품</S.Title>
-					<S.ToggleBox>
-						<BasicSelect
-							variant={"primary"}
-							options={options}
-							selectedValue={"중고거래"}
-							style={{ border: "1px solid #dddddd" }}
-						/>
-					</S.ToggleBox>
-				</S.RowBox>
-				<S.DivisionLine />
-				{productList.map(product => (
+				{productListStatusEnd.map(product => (
 					<S.ProductContainer key={product.id}>
-						<img src={product.image[2]} />
+						<img src={product.image[0]} />
 						<div>
 							<div>
 								<S.Wrapper>
-									<p>{product.name}</p>
+									<S.TextP1>{product.name}</S.TextP1>
 									<div>
 										<BasicButton
 											variant={"white"}
@@ -69,7 +48,7 @@ const InterestProduct = ({ productList, productListStatusEnd }) => {
 								</S.Wrapper>
 								<S.Wrapper2>
 									<div>
-										<p>350,000</p> <p>won</p>
+										<S.TextP1>{product.price}won</S.TextP1>
 									</div>
 								</S.Wrapper2>
 							</div>
@@ -79,24 +58,16 @@ const InterestProduct = ({ productList, productListStatusEnd }) => {
 						</div>
 					</S.ProductContainer>
 				))}
-				<InterestEndProductList productListStatusEnd={productListStatusEnd} />
 			</S.Container>
 		);
-	} else {
-		<EmptyData />;
 	}
 };
-export default InterestProduct;
 
-const DivisionLine = styled.hr`
-	width: 962px;
-	height: 1px;
-	background-color: #cccccc;
-	margin-top: 30px;
-`;
+export default InterestEndProductList;
 
 const Container = styled.div`
 	display: flex;
+	margin-bottom: 100px;
 	${primaryFont}
 	${flexColumn}
     ${flexCenter}
@@ -115,6 +86,7 @@ const ProductContainer = styled.div`
 		height: 200px;
 		border-radius: 6px;
 		overflow: hidden;
+		filter: brightness(40%);
 	}
 `;
 
@@ -123,6 +95,10 @@ const Title = styled.div`
 	font-size: 24px;
 	font-weight: bold;
 	color: black;
+`;
+
+const TextP1 = styled.p`
+	text-decoration: line-through;
 `;
 
 const Wrapper = styled.div`
@@ -156,9 +132,6 @@ const TextBox2 = styled.div`
 
 const ToggleBox = styled.div`
 	margin-top: 50px;
-	margin-right: 16px;
-	width: 105px;
-	height: 32px;
 `;
 const ToggleBox2 = styled.div`
 	width: 105px;
@@ -166,8 +139,8 @@ const ToggleBox2 = styled.div`
 `;
 
 const S = {
-	DivisionLine,
 	Title,
+	TextP1,
 	Container,
 	ProductContainer,
 	Wrapper,

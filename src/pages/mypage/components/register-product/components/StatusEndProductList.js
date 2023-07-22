@@ -24,7 +24,7 @@ const StatusEndProductList = ({ productListStatusEnd }) => {
 						<div>
 							<div>
 								<S.Wrapper>
-									<p>[판매완료] {product.name}</p>
+									<S.TextP1>{product.name}</S.TextP1>
 									<div>
 										<BasicButton
 											variant={"white"}
@@ -57,12 +57,12 @@ const StatusEndProductList = ({ productListStatusEnd }) => {
 										<BasicSelect
 											variant={"primary"}
 											options={sideOptions}
-											selectedValue={"판매중"}
+											selectedValue={"판매완료"}
 											style={{ border: "1px solid #dddddd" }}
 										/>
 									</S.ToggleBox2>
 									<S.Wrapper2>
-										<p>350,000</p> <p>won</p>
+										<S.TextP1>{product.price}won</S.TextP1>
 									</S.Wrapper2>
 								</S.Wrapper2>
 							</div>
@@ -101,7 +101,12 @@ const ProductContainer = styled.div`
 		height: 200px;
 		border-radius: 6px;
 		overflow: hidden;
+		filter: brightness(40%);
 	}
+`;
+
+const TextP1 = styled.p`
+	text-decoration: line-through;
 `;
 
 const Title = styled.div`
@@ -147,6 +152,7 @@ const ToggleBox2 = styled.div`
 
 const S = {
 	Title,
+	TextP1,
 	Container,
 	ProductContainer,
 	Wrapper,
