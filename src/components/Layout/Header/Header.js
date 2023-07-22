@@ -57,7 +57,7 @@ const Header = () => {
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => {
-									navigate("/Signup");
+									navigate("/Signin");
 								}}
 							>
 								LOGIN
