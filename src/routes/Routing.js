@@ -1,11 +1,9 @@
 import Layout from "components/Layout";
-import LayoutwithoutHeader from "components/Layoutwithoutheader";
 import Main from "pages/main";
 import Mypage from "pages/mypage";
 import RegisterProduct from "pages/mypage/components/register-product/account-privacy";
 import MyProfile from "pages/mypage/components/register-product/profile";
 import ProductDetailPage from "pages/product-detail";
-import Signin from "pages/sign/components/sign-in";
 import Signup from "pages/sign/components/sign-up";
 import ProductRegister from "pages/product-register";
 import SearchPage from "pages/search-page";
@@ -68,19 +66,6 @@ const router = createBrowserRouter([
 			{
 				path: "/mypage",
 				element: <Mypage />,
-			},
-		],
-	},
-	{
-		element: <LayoutwithoutHeader />,
-		children: [
-			{
-				path: "/Signin",
-				element: <Signin />,
-			},
-			{
-				path: "/Signup",
-				element: <Signup />,
 			},
 		],
 	},
