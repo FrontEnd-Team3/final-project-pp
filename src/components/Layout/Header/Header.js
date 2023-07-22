@@ -62,7 +62,14 @@ const Header = () => {
 							>
 								LOGIN
 							</div>
-							<div style={{ cursor: "pointer" }}>MYPAGE</div>
+							<div
+								style={{ cursor: "pointer" }}
+								onClick={() => {
+									navigate("/mypage");
+								}}
+							>
+								MYPAGE
+							</div>
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => {
