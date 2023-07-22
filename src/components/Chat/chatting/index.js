@@ -51,7 +51,7 @@ const Chatting = () => {
 					/>
 					<BasicButton
 						type="submit"
-						variant={"primary"}
+						color={"primary"}
 						size={"xmedium"}
 						children="전송"
 						style={{ borderRadius: "4px" }}

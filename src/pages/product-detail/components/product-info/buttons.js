@@ -2,17 +2,20 @@ import BasicButton from "components/Button";
 import styled from "styled-components";
 import { GoBookmark, GoBookmarkFill } from "react-icons/go";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ButtonContainer = () => {
 	const [isBookmarked, setIsBookmarked] = useState(false);
 	const handleBookmark = () => {
 		setIsBookmarked(prev => !prev);
 	};
+
+	const navigate = useNavigate();
 	return (
 		<>
 			<S.ProductButtons>
 				<BasicButton
-					variant={"gray"}
+					color={"gray"}
 					size={"xxsmall"}
 					children={
 						isBookmarked ? (
@@ -24,7 +27,7 @@ const ButtonContainer = () => {
 					onClick={handleBookmark}
 				/>
 				<BasicButton
-					variant={"black"}
+					color={"black"}
 					size={"mediumThird"}
 					children={"채팅하기"}
 					style={{
@@ -32,6 +35,7 @@ const ButtonContainer = () => {
 						letterSpacing: "5px",
 						height: "50px",
 					}}
+					onClick={() => navigate("/Chat")}
 				/>
 			</S.ProductButtons>
 		</>
