@@ -2,17 +2,12 @@ import BasicButton from "components/Button";
 import SinginModal from "components/Modal/Signin";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import SearchAddress from "components/searchAddress";
-import { productList } from "mock/productsList";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
 
-const UsedProduct = () => {
-	const PRODUCTLIST = productList?.filter(
-		product => product.status !== "판매완료" && product.price,
-	);
-
+const MainProducts = ({ title, list, url }) => {
 	const navigate = useNavigate();
 
 	// 주소 변경
@@ -21,7 +16,7 @@ const UsedProduct = () => {
 
 	// 토큰 있을 때만 주소 변경 가능하게 하기
 	// 토큰 없으면 로그인 창으로 이동하는 모달 띄우기
-	const [hasToken, setHasToken] = useState(false);
+	const [hasToken, setHasToken] = useState(true);
 
 	return (
 		<>
@@ -33,7 +28,7 @@ const UsedProduct = () => {
 			<S.Container>
 				<div>
 					<S.Title>
-						우리 동네 <S.Used>중고</S.Used> 물품
+						우리 동네 <S.Highlight>{title}</S.Highlight> 물품
 					</S.Title>
 					<S.Location>
 						{address}
@@ -46,14 +41,14 @@ const UsedProduct = () => {
 						/>
 					</S.Location>
 				</div>
-				<ProductListWithoutPagination productList={PRODUCTLIST} />
+				<ProductListWithoutPagination productList={list} />
 				<S.ButtonContainer>
 					<BasicButton
 						color={"black"}
 						size={"small"}
 						children={"MORE +"}
 						style={{ fontSize: "14px", height: "28px" }}
-						onClick={() => navigate("/used-transaction")}
+						onClick={() => navigate(url)}
 					/>
 				</S.ButtonContainer>
 			</S.Container>
@@ -61,7 +56,7 @@ const UsedProduct = () => {
 	);
 };
 
-export default UsedProduct;
+export default MainProducts;
 
 const Container = styled.div`
 	width: 1060px;
@@ -76,7 +71,7 @@ const Title = styled.div`
 	text-align: center;
 `;
 
-const Used = styled.span`
+const Highlight = styled.span`
 	color: ${({ theme }) => theme.PALETTE.highlightTitle};
 `;
 
@@ -90,4 +85,4 @@ const ButtonContainer = styled.div`
 	margin: 20px 0;
 `;
 
-const S = { Container, Used, Title, Location, ButtonContainer };
+const S = { Container, Highlight, Title, Location, ButtonContainer };

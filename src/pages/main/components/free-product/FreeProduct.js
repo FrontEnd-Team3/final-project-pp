@@ -37,7 +37,7 @@ const FreeProduct = () => {
 					<S.Location>
 						{address}
 						<BasicButton
-							variant={"primary"}
+							color={"primary"}
 							size={"xsmall"}
 							children={"변경"}
 							style={{ marginLeft: "15px" }}
@@ -48,7 +48,7 @@ const FreeProduct = () => {
 				<ProductListWithoutPagination productList={PRODUCTLIST} />
 				<S.ButtonContainer>
 					<BasicButton
-						variant={"black"}
+						color={"black"}
 						size={"small"}
 						children={"MORE +"}
 						style={{ fontSize: "14px", height: "28px" }}
