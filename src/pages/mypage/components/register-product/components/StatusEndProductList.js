@@ -1,4 +1,5 @@
 import BasicButton from "components/Button";
+import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
 
@@ -9,6 +10,11 @@ import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
  *
  */
 const StatusEndProductList = ({ productListStatusEnd }) => {
+	const sideOptions = [
+		{ value: "판매중", label: "판매중" },
+		{ value: "거래중", label: "거래중" },
+		{ value: "판매완료", label: "판매완료" },
+	];
 	if (productListStatusEnd && productListStatusEnd.length > 0) {
 		return (
 			<S.Container>
@@ -48,7 +54,12 @@ const StatusEndProductList = ({ productListStatusEnd }) => {
 								</S.Wrapper>
 								<S.Wrapper2>
 									<S.ToggleBox2>
-										<p>토글메뉴임</p>
+										<BasicSelect
+											variant={"primary"}
+											options={sideOptions}
+											selectedValue={"판매중"}
+											style={{ border: "1px solid #dddddd" }}
+										/>
 									</S.ToggleBox2>
 									<S.Wrapper2>
 										<p>350,000</p> <p>won</p>

@@ -7,9 +7,6 @@ const HouseKeeping = () => {
 		<S.Container>
 			<S.RowBox>
 				<S.Title>가계부</S.Title>
-				<S.ToggleBox>
-					<div>토글</div>
-				</S.ToggleBox>
 			</S.RowBox>
 			<S.DivisionLine />
 			<S.Title2>
@@ -45,7 +42,6 @@ const Container = styled.div`
 
 const ProductContainer = styled.div`
 	padding: 35px;
-	margin-top: 30px;
 	width: 962px;
 	height: 270px;
 	border: 1px solid #b6b6b6;
@@ -111,6 +107,7 @@ const RowBox = styled.div`
 const ToggleBox = styled.div`
 	width: 105px;
 	height: 32px;
+	margin-right: 16px;
 	margin-top: 20px;
 `;
 

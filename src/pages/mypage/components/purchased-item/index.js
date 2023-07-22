@@ -1,3 +1,4 @@
+import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { flexColumn, flexRow, primaryFont } from "styles/common";
 import EmptyData from "../empty-data";
@@ -10,6 +11,10 @@ import PurchasedButtons from "./components/PurchasedButtons";
  */
 
 const PurchasedItem = ({ productList }) => {
+	const options = [
+		{ value: "중고거래", label: "중고거래" },
+		{ value: "무료나눔", label: "무료나눔" },
+	];
 	console.log(productList);
 	if (productList && productList.length > 0) {
 		return (
@@ -17,7 +22,12 @@ const PurchasedItem = ({ productList }) => {
 				<S.RowBox>
 					<S.Title>구매 물품</S.Title>
 					<S.ToggleBox>
-						<div>토글메뉴</div>
+						<BasicSelect
+							variant={"primary"}
+							options={options}
+							selectedValue={"중고거래"}
+							style={{ border: "1px solid #dddddd" }}
+						/>
 					</S.ToggleBox>
 				</S.RowBox>
 				<Wrapper>
@@ -105,6 +115,7 @@ const RowBox = styled.div`
 
 const ToggleBox = styled.div`
 	margin-top: 50px;
+	margin-right: 16px;
 	width: 105px;
 	height: 32px;
 `;

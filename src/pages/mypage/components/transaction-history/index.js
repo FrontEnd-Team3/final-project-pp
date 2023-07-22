@@ -1,4 +1,5 @@
 import BasicButton from "components/Button";
+import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
 import EmptyData from "../empty-data";
@@ -11,14 +12,28 @@ import StatusEndProductList from "../register-product/components/StatusEndProduc
  */
 
 const TransactionHistory = ({ productList, productListStatusEnd }) => {
-	console.log(productList);
+	const options = [
+		{ value: "중고거래", label: "중고거래" },
+		{ value: "무료나눔", label: "무료나눔" },
+	];
+	const sideOptions = [
+		{ value: "판매중", label: "판매중" },
+		{ value: "거래중", label: "거래중" },
+		{ value: "판매완료", label: "판매완료" },
+	];
+
 	if (productList && productList.length > 0) {
 		return (
 			<S.Container>
 				<S.RowBox>
 					<S.Title>거래 내역</S.Title>
 					<S.ToggleBox>
-						<div>토글메뉴</div>
+						<BasicSelect
+							variant={"primary"}
+							options={options}
+							selectedValue={"중고거래"}
+							style={{ border: "1px solid #dddddd" }}
+						/>
 					</S.ToggleBox>
 				</S.RowBox>
 				{productList.map(product => (
@@ -57,7 +72,12 @@ const TransactionHistory = ({ productList, productListStatusEnd }) => {
 								</S.Wrapper>
 								<S.Wrapper2>
 									<S.ToggleBox2>
-										<p>토글메뉴</p>
+										<BasicSelect
+											variant={"primary"}
+											options={sideOptions}
+											selectedValue={"판매중"}
+											style={{ border: "1px solid #dddddd" }}
+										/>
 									</S.ToggleBox2>
 									<S.Wrapper2>
 										<p>350,000</p> <p>won</p>
@@ -146,6 +166,7 @@ const ToggleBox = styled.div`
 	margin-top: 50px;
 	width: 105px;
 	height: 32px;
+	margin-right: 16px;
 `;
 const ToggleBox2 = styled.div`
 	width: 105px;
