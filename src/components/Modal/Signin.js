@@ -72,14 +72,12 @@ const Container = styled.div`
 	height: 168px;
 	position: fixed;
 	top: 29%;
-	left: 34%;
+	left: 35.5%;
 	padding-top: 5px;
 	z-index: 1;
 	${flexColumn}
 	align-items: center;
 	background-color: white;
-	/* top: 98%;
-	left: 36%; */
 `;
 const S = {
 	Container,
