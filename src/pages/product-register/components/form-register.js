@@ -55,7 +55,7 @@ const FormRegister = () => {
 				</S.InputTop>
 				<S.TagsBox>
 					{mockTags.map(tag => (
-						<BasicButton variant={"white"}>
+						<BasicButton color={"white"}>
 							#{tag}
 							<GrFormClose size={20} onClick={() => console.log("삭제")} />
 						</BasicButton>
@@ -107,23 +107,6 @@ const FormRegister = () => {
 				</S.Title>
 				<span>원</span>
 			</S.InputBox>
-			<S.MapBox>
-				<S.TitleAnother>
-					위치 설정 <S.Essential>*</S.Essential>
-				</S.TitleAnother>
-				<S.MapAddress>
-					서울시 성동구 성수동{" "}
-					<BasicButton
-						variant={"primary"}
-						size={"primary"}
-						shape={"primary"}
-						style={{ lineHeight: "12px" }}
-					>
-						변경
-					</BasicButton>
-				</S.MapAddress>
-				<S.MapApi>지도 api 들어가는 부분</S.MapApi>
-			</S.MapBox>
 		</div>
 	);
 };
@@ -178,11 +161,6 @@ const ArrowDownIcon = styled.div`
 	padding: 20px 16px 10px;
 	svg {
 	}
-`;
-
-const TitleAnother = styled.p`
-	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
-	font-weight: bold;
 `;
 
 const Title = styled.p`
@@ -240,28 +218,10 @@ const Checkbox = styled.input`
 	accent-color: ${({ theme }) => theme.PALETTE.darkPrimary};
 `;
 
-const MapBox = styled.div`
-	margin: 30px 0;
-	padding: 0 20px;
-`;
-
-const MapAddress = styled.p`
-	font-size: 12px;
-	color: gray;
-	margin: 12px 0 20px 0;
-`;
-
-const MapApi = styled.div`
-	width: 100%;
-	height: 400px;
-	background-color: ${({ theme }) => theme.PALETTE.gray};
-`;
-
 const S = {
 	InputBox,
 	InputBoxAnother,
 	InputTop,
-	TitleAnother,
 	Title,
 	Essential,
 	DescBox,
@@ -269,9 +229,6 @@ const S = {
 	CheckContainer,
 	Checking,
 	Checkbox,
-	MapBox,
-	MapAddress,
-	MapApi,
 	TagsBox,
 	ArrowDownIcon,
 };
