@@ -11,14 +11,6 @@ import ValidateInput from "../one-validate/OneValidate";
 
 const SignIn = () => {
 	const navigate = useNavigate();
-	// const {
-	// 	handleSubmit,
-	// 	control,
-	// 	formState: { errors },
-	// } = useForm({ resolver: yupResolver(signInValidation), mode: "onChange" });
-	// const onSubmitSignin = handleSubmit(data => {
-	// 	console.log(data);
-	// });
 
 	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
 	const schema = yup
