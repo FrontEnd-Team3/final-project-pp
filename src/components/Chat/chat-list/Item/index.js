@@ -1,6 +1,5 @@
 import { productList } from "mock/productsList";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 
@@ -20,7 +19,9 @@ const ChatItem = ({ chat }) => {
 		?.image[0];
 
 	// 상품 상세 페이지로 이동
-	const navigate = useNavigate();
+	// 현재 mock data 구조 문제로 에러 발생, 추후 데이터 받아와서 다시 구현 예정
+	// const navigate = useNavigate();
+	// onClick={() => navigate(`/product/${productID}`)}
 
 	// 읽음, 나가기
 	const [isOpen, setIsOpen] = useState(false);
@@ -54,11 +55,7 @@ const ChatItem = ({ chat }) => {
 								<div className="out">나가기</div>
 							</S.SettingBox>
 						)}
-						{move && (
-							<S.Imove onClick={() => navigate(`/product/${productID}`)}>
-								상품이동 ▶
-							</S.Imove>
-						)}
+						{move && <S.Imove>상품이동 ▶</S.Imove>}
 					</S.SettingContent>
 				</S.TextContainer>
 			</S.Item>
