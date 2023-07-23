@@ -1,8 +1,12 @@
 import styled from "styled-components";
+import Nav from "../../nav";
 
 const RegisterProduct = () => {
 	return (
 		<S.MasterWrapper>
+			<S.NavWrapper>
+				<Nav />
+			</S.NavWrapper>
 			<S.PrivacyWrapper>
 				<S.PrivacyCorrectionWrapper>
 					<S.PrivacyCorrection>개인 정보 수정</S.PrivacyCorrection>
@@ -44,14 +48,16 @@ export default RegisterProduct;
 
 const MasterWrapper = styled.div`
 	display: flex;
-	align-items: center;
-	width: 100%;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content: center;
+`;
+const NavWrapper = styled.div`
+	padding-top: 124px;
 `;
 const PrivacyWrapper = styled.div`
-	width: 860px;
+	width: 1060px;
 	padding: 60px;
-	margin: 100px 0;
+	margin: 100px 50px;
 `;
 const PrivacyCorrectionWrapper = styled.div`
 	display: flex;
@@ -63,7 +69,7 @@ const PrivacyCorrection = styled.div`
 	margin-bottom: 16px;
 `;
 const Line = styled.div`
-	width: 740px;
+	width: 950px;
 	background-color: #dddddd;
 	height: 1px;
 	margin: 14px 0;
@@ -142,6 +148,7 @@ const ChangeBtn = styled.div`
 
 const S = {
 	PrivacyWrapper,
+	NavWrapper,
 	MasterWrapper,
 	PrivacyCorrectionWrapper,
 	PrivacyCorrection,
