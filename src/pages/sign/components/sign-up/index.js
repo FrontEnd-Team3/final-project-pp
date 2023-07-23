@@ -14,10 +14,10 @@ const Signup = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const OpenwithClose = () => {
 		setIsOpen(true);
-		// setTimeout(() => {
-		// 	setIsOpen(false);
-		// 	navigate("/");
-		// }, 3000);
+		setTimeout(() => {
+			setIsOpen(false);
+			navigate("/");
+		}, 3000);
 	};
 
 	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
@@ -127,14 +127,16 @@ const Signup = () => {
 					subtitle={"primary"}
 					title={"primary"}
 					container={"primary"}
-					ment1={"Welcome to TRIMM"}
-					ment2={"회원가입이 완료되었습니다"}
+					position={"primary"}
+					titlement={"Welcome to TRIMM"}
+					subtitlement={"회원가입이 완료되었습니다"}
 				/>
 			)}
 		</>
 	);
 };
 export default Signup;
+
 const AddressSearchBtn = styled.div`
 	margin-left: 15px;
 	font-weight: bold;
