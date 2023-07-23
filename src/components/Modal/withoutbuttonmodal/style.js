@@ -9,7 +9,7 @@ const backgroudCSS = {
 		background-color: rgba(255, 255, 255, 0);
 	`,
 	gray: css`
-		background-color: rgba(255, 255, 255, 0);
+		background-color: rgba(80, 80, 80, 0.2);
 	`,
 };
 
@@ -66,40 +66,41 @@ const containerCSS = {
 
 const positionCSS = {
 	primary: css`
-		left: 33%;
-		top: 10%;
+		left: 36%;
+		top: 25%;
 	`,
 	alignsmall: css`
 		left: 36%;
-		top: 15%;
+		top: 30%;
 	`,
 	alignxsmall: css`
 		left: 38%;
-		top: 18%;
+		top: 28%;
 	`,
 	lefttop: css`
-		left: 20%;
-		top: 10%;
+		left: 18%;
+		top: 22%;
 	`,
 	righttop: css`
-		left: 60%;
-		top: 10%;
+		left: 61%;
+		top: 22%;
 	`,
 	leftbottom: css`
-		left: 20%;
+		left: 18%;
 		top: 50%;
 	`,
 	rightbottom: css`
-		left: 60%;
+		left: 61%;
 		top: 50%;
 	`,
 };
 export const BackGround = styled.div`
 	${({ background }) => backgroudCSS[background]}
-	position: absolute;
+	position: fixed;
 	width: 100%;
-	top: 30%;
-	height: 100%;
+	top: 0%;
+	height: 100vh;
+	background-size: cover;
 	z-index: 1;
 `;
 

@@ -14,10 +14,10 @@ const Signup = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const OpenwithClose = () => {
 		setIsOpen(true);
-		setTimeout(() => {
-			setIsOpen(false);
-			navigate("/");
-		}, 3000);
+		// setTimeout(() => {
+		// 	setIsOpen(false);
+		// 	navigate("/");
+		// }, 3000);
 	};
 
 	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
@@ -123,11 +123,11 @@ const Signup = () => {
 			</S.Container>
 			{isOpen && (
 				<SingupModal
-					background={"primary"}
-					subtitle={"primary"}
-					title={"primary"}
-					container={"primary"}
-					position={"primary"}
+					background={"gray"}
+					subtitle={"xsmall"}
+					title={"xsmall"}
+					container={"xsmall"}
+					position={"leftbottom"}
 					titlement={"Welcome to TRIMM"}
 					subtitlement={"회원가입이 완료되었습니다"}
 				/>
@@ -230,6 +230,7 @@ const Container = styled.div`
 	margin-top: 120px;
 	width: 100%;
 	width: 1000px;
+
 	${primaryFont}
 	${flexCenter}
 `;
