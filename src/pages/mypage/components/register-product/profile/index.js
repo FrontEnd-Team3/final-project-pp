@@ -1,8 +1,12 @@
 import styled from "styled-components";
+import Nav from "../../nav";
 
 const MyProfile = () => {
 	return (
-		<S.ProfileMasterWrapper>
+		<S.ContentWrapper>
+			<S.NavWrapper>
+				<Nav />
+			</S.NavWrapper>
 			<S.ProfileWrapper>
 				<S.ProfileManagement>프로필 관리</S.ProfileManagement>
 				<S.Line />
@@ -42,29 +46,32 @@ const MyProfile = () => {
 				</S.IntroducationContainer>
 				<S.Line />
 			</S.ProfileWrapper>
-		</S.ProfileMasterWrapper>
+		</S.ContentWrapper>
 	);
 };
 
 export default MyProfile;
 
-const ProfileMasterWrapper = styled.div`
+const ContentWrapper = styled.div`
 	display: flex;
-	align-items: center;
-	width: 100%;
-	flex-direction: column;
+	flex-direction: row;
+	justify-content: center;
 `;
+const NavWrapper = styled.div`
+	padding-top: 124px;
+`;
+
 const ProfileWrapper = styled.div`
-	width: 860px;
+	width: 1060px;
 	padding: 60px;
-	margin: 80px 0px 200px 0;
+	margin: 80px 50px 200px 50px;
 `;
 const ProfileManagement = styled.div`
 	font-size: 22px;
 	font-weight: 1000;
 `;
 const Line = styled.div`
-	width: 740px;
+	width: 950px;
 	background-color: #dddddd;
 	height: 2px;
 	margin: 14px 0;
@@ -125,7 +132,7 @@ const NickName = styled.div`
 	margin-top: 16px;
 `;
 const NameTitle = styled.div`
-	margin-top: 100px;
+	margin-top: 80px;
 	color: #8a8a8a;
 `;
 const NameContainer = styled.div`
@@ -136,7 +143,7 @@ const Name = styled.div`
 	margin-top: 16px;
 `;
 const IntroducationTitle = styled.div`
-	margin-top: 100px;
+	margin-top: 80px;
 	color: #8a8a8a;
 `;
 const IntroducationContainer = styled.div`
@@ -156,9 +163,8 @@ const ChangeBtn = styled.div`
 	background-color: #222;
 	cursor: pointer;
 `;
-
 const S = {
-	ProfileMasterWrapper,
+	ContentWrapper,
 	ProfileWrapper,
 	ProfileManagement,
 	Line,
@@ -180,4 +186,5 @@ const S = {
 	NameContainer,
 	NickNameContainer,
 	IntroducationContainer,
+	NavWrapper,
 };

@@ -46,7 +46,7 @@ const UsedTransaction = () => {
 					<div>
 						서울시 성동구 성수동{" "}
 						<BasicButton
-							variant={"primary"}
+							color={"primary"}
 							shape={"primary"}
 							size={"xsmall"}
 							children={"변경"}

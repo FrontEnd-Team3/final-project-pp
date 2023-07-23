@@ -40,7 +40,7 @@ const FreeTransaction = () => {
 					<div>
 						서울시 성동구 성수동{" "}
 						<BasicButton
-							variant={"primary"}
+							color={"primary"}
 							size={"xsmall"}
 							children={"변경"}
 							style={{ fontSize: "14px", marginLeft: "15px" }}

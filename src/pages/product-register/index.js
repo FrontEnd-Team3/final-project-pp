@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
 import OneImg from "./components/one-img";
 import { registerImg } from "mock/registerImg";
-import FormRegister from "./components/form-register";
 import BasicButton from "components/Button";
 import { AiFillCamera } from "react-icons/ai";
+import Inputs from "./components/Inputs";
 
 const ProductRegister = () => {
 	const handleRegisterProduct = e => {
@@ -22,7 +22,7 @@ const ProductRegister = () => {
 						</S.Title>
 						<S.MainImg>
 							<AiFillCamera size={80} />
-							<S.RegisterForm>
+							<S.ImageBox>
 								<S.RegisterLabel htmlFor="registerImg">
 									이미지 등록
 								</S.RegisterLabel>
@@ -33,7 +33,7 @@ const ProductRegister = () => {
 									id="registerImg"
 									required
 								/>
-							</S.RegisterForm>
+							</S.ImageBox>
 						</S.MainImg>
 					</S.ImgRegister>
 					<S.Images>
@@ -41,12 +41,29 @@ const ProductRegister = () => {
 							<OneImg key={i} img={img} />
 						))}
 					</S.Images>
-					<FormRegister />
+					<Inputs />
+					<S.MapBox>
+						<S.TitleAnother>
+							위치 설정 <S.Essential>*</S.Essential>
+						</S.TitleAnother>
+						<S.MapAddress>
+							서울시 성동구 성수동{" "}
+							<BasicButton
+								color={"primary"}
+								size={"primary"}
+								shape={"primary"}
+								style={{ lineHeight: "12px" }}
+							>
+								변경
+							</BasicButton>
+						</S.MapAddress>
+						<S.MapApi>지도 api 들어가는 부분</S.MapApi>
+					</S.MapBox>
 					<S.SubmitBtns>
-						<BasicButton size={"medium"} variant={"primary"}>
+						<BasicButton size={"medium"} color={"primary"}>
 							등록하기
 						</BasicButton>
-						<BasicButton size={"medium"} variant={"white"}>
+						<BasicButton size={"medium"} color={"white"}>
 							취소
 						</BasicButton>
 					</S.SubmitBtns>
@@ -78,6 +95,11 @@ const Title = styled.p`
 	margin-bottom: 40px;
 `;
 
+const TitleAnother = styled.p`
+	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
+	font-weight: bold;
+`;
+
 const Essential = styled.span`
 	color: ${({ theme }) => theme.PALETTE.primary};
 `;
@@ -95,7 +117,7 @@ const MainImg = styled.div`
 	}
 `;
 
-const RegisterForm = styled.form``;
+const ImageBox = styled.div``;
 
 const RegisterLabel = styled.label`
 	cursor: pointer;
@@ -137,6 +159,23 @@ const SubmitBtns = styled.div`
 	}
 `;
 
+const MapBox = styled.div`
+	margin: 30px 0;
+	padding: 0 20px;
+`;
+
+const MapAddress = styled.p`
+	font-size: 12px;
+	color: gray;
+	margin: 12px 0 20px 0;
+`;
+
+const MapApi = styled.div`
+	width: 100%;
+	height: 400px;
+	background-color: ${({ theme }) => theme.PALETTE.gray};
+`;
+
 const S = {
 	Container,
 	Wrapper,
@@ -144,9 +183,13 @@ const S = {
 	Title,
 	Essential,
 	MainImg,
-	RegisterForm,
+	ImageBox,
 	RegisterLabel,
 	RegisterInput,
 	Images,
 	SubmitBtns,
+	MapBox,
+	TitleAnother,
+	MapAddress,
+	MapApi,
 };

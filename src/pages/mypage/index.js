@@ -9,6 +9,7 @@ import PurchasedItem from "./components/purchased-item";
 import RegisterProduct from "./components/register-product";
 import Review from "./components/review";
 import TransactionHistory from "./components/transaction-history";
+import Nav from "./components/nav";
 
 const Mypage = () => {
 	const UserList = userList.filter(user => user.id === 0);
@@ -26,34 +27,39 @@ const Mypage = () => {
 		return <EmptyData />;
 	}
 	return (
-		<S.MypageContainer>
-			<MyProfile userList={UserList} />
-			<S.DivisionLine />
-			{!ProductList && <EmptyData />}
-			{ProductList && (
-				<>
-					<RegisterProduct
-						productList={ProductList}
-						productListStatusEnd={ProductListStatusEnd}
-					/>
-					<HouseKeeping />
-					<TransactionHistory
-						productList={ProductList}
-						productListStatusEnd={ProductListStatusEnd}
-					/>
+		<S.ContentWrapper>
+			<S.NavWarrper>
+				<Nav />
+			</S.NavWarrper>
+			<S.MypageContainer>
+				<MyProfile userList={UserList} />
+				<S.DivisionLine />
+				{!ProductList && <EmptyData />}
+				{ProductList && (
+					<>
+						<RegisterProduct
+							productList={ProductList}
+							productListStatusEnd={ProductListStatusEnd}
+						/>
+						<HouseKeeping />
+						<TransactionHistory
+							productList={ProductList}
+							productListStatusEnd={ProductListStatusEnd}
+						/>
 
-					<InterestProduct
-						productList={ProductList}
-						productListStatusEnd={ProductListStatusEnd}
-					/>
-				</>
-			)}
-			{ProductListStatusEndUser1 && (
-				<PurchasedItem productList={ProductListStatusEndUser1} />
-			)}
-			<TransactionHistory />
-			<Review />
-		</S.MypageContainer>
+						<InterestProduct
+							productList={ProductList}
+							productListStatusEnd={ProductListStatusEnd}
+						/>
+					</>
+				)}
+				{ProductListStatusEndUser1 && (
+					<PurchasedItem productList={ProductListStatusEndUser1} />
+				)}
+				<TransactionHistory />
+				<Review />
+			</S.MypageContainer>
+		</S.ContentWrapper>
 	);
 };
 
@@ -61,9 +67,19 @@ export default Mypage;
 
 const MypageContainer = styled.div`
 	width: 962px;
-	margin: 0 auto;
+	margin: 0 100px;
 	padding: 20px 0;
 	${primaryFont}
+`;
+
+const ContentWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+`;
+
+const NavWarrper = styled.div`
+	padding-top: 124px;
 `;
 
 const DivisionLine = styled.hr`
@@ -76,4 +92,6 @@ const DivisionLine = styled.hr`
 const S = {
 	MypageContainer,
 	DivisionLine,
+	NavWarrper,
+	ContentWrapper,
 };
