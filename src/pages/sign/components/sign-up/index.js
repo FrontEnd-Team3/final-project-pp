@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import * as SCHEMA from "../consts/schema";
 import styled from "styled-components";
 import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
 import ValidateInput from "../one-validate/OneValidate";
-import { signUpValidation } from "pages/sign/SignValidation";
 const Signup = () => {
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
@@ -19,11 +20,20 @@ const Signup = () => {
 		}, 3000);
 	};
 
+	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
+	const schema = yup
+		.object()
+		.shape({ email, pw, pwCheck, nickName, name, phone });
+
 	const {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm({ resolver: yupResolver(signUpValidation), mode: "onChange" });
+	} = useForm({
+		resolver: yupResolver(schema),
+		mode: "onChange",
+	});
+
 	const onSubmitSignUp = handleSubmit(data => {
 		console.log(data);
 	});
