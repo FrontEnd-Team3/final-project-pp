@@ -1,5 +1,4 @@
 import BasicButton from "components/Button";
-import SingupModal from "components/Modal/Signup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -9,15 +8,16 @@ import * as SCHEMA from "../consts/schema";
 import styled from "styled-components";
 import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
 import ValidateInput from "../one-validate/OneValidate";
+import BasicModal from "components/Modal/withoutbuttonmodal/index";
 const Signup = () => {
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
 	const OpenwithClose = () => {
 		setIsOpen(true);
-		setTimeout(() => {
-			setIsOpen(false);
-			navigate("/");
-		}, 3000);
+		// setTimeout(() => {
+		// 	setIsOpen(false);
+		// 	navigate("/");
+		// }, 3000);
 	};
 
 	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
@@ -121,11 +121,22 @@ const Signup = () => {
 					</ButtonWrapper>
 				</S.SignWrapper>
 			</S.Container>
-			{isOpen && <SingupModal />}
+			{isOpen && (
+				<BasicModal
+					background={"gray"}
+					subtitle={"primary"}
+					title={"primary"}
+					container={"primary"}
+					position={"leftbottom"}
+					titlement={"Welcome to TRIMM!"}
+					subtitlement={"회원가입이 완료되었습니다"}
+				/>
+			)}
 		</>
 	);
 };
 export default Signup;
+
 const AddressSearchBtn = styled.div`
 	margin-left: 15px;
 	font-weight: bold;
@@ -219,6 +230,7 @@ const Container = styled.div`
 	margin-top: 120px;
 	width: 100%;
 	width: 1000px;
+
 	${primaryFont}
 	${flexCenter}
 `;

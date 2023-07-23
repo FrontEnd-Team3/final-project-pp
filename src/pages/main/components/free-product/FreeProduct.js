@@ -1,5 +1,5 @@
 import BasicButton from "components/Button";
-import SinginModal from "components/Modal/Signin";
+import SinginModal from "components/Modal/modal/index";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import SearchAddress from "components/searchAddress";
 import { productList } from "mock/productsList";

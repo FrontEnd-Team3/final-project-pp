@@ -1,5 +1,5 @@
 import BasicButton from "components/Button";
-import SinginModal from "components/Modal/Signin";
+import BasicNavigateModal from "components/Modal/modal";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import SearchAddress from "components/searchAddress";
 import { productList } from "mock/productsList";
@@ -29,7 +29,21 @@ const UsedProduct = () => {
 				? isOpen && (
 						<SearchAddress setAddress={setAddress} setIsOpen={setIsOpen} />
 				  )
-				: isOpen && <SinginModal setOpen={setIsOpen} />}
+				: isOpen && (
+						<BasicNavigateModal
+							setOpen={setIsOpen}
+							background={"primary"}
+							container={"primary"}
+							closebtn={"primary"}
+							title={"primary"}
+							subtitle={"primary"}
+							button={"primary"}
+							titlement={"Please Join Us!"}
+							subtitlement={"로그인이 필요합니다."}
+							buttonment={"로그인 하러 가기 "}
+							moveadress={"Signin"}
+						/>
+				  )}
 			<S.Container>
 				<div>
 					<S.Title>
