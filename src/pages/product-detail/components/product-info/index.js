@@ -3,11 +3,16 @@ import styled from "styled-components";
 import { productList } from "mock/productsList";
 import ProductImages from "./product-images";
 import UserInfo from "./user-info";
-import ButtonContainer from "./buttons";
+import ButtonContainer from "./Buttons/index";
+import { useState } from "react";
 
 const ProductInfo = ({ id }) => {
 	const TARGET = productList.find(product => product.id === parseInt(id));
 	const localPrice = TARGET?.price.toLocaleString("ko-KR");
+
+	// 판매자인지 여부 파악해서 버튼 다르게 보이게 하기
+	// 실제 API에서는 상세 데이터를 받아올 때 사용자의 토큰을 검사하여 판매자인지 미리 검사 후 isSeller 값 반환해주므로 state로 관리하지 않고 해당 값으로 수정할 예정
+	const [isSeller, SetIsSeller] = useState(true);
 
 	if (TARGET)
 		return (
@@ -24,7 +29,10 @@ const ProductInfo = ({ id }) => {
 						))}
 					</div>
 					<S.ProductPrice>{localPrice} 원</S.ProductPrice>
-					<ButtonContainer />
+					<ButtonContainer
+						isSeller={isSeller}
+						bookmark={TARGET.bookmarkCount}
+					/>
 				</S.InfoContainer>
 			</S.Container>
 		);

@@ -1,16 +1,20 @@
-import BasicButton from "components/Button";
 import styled from "styled-components";
+import BasicButton from "components/Button";
 import { GoBookmark, GoBookmarkFill } from "react-icons/go";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ButtonContainer = () => {
+const ButtonsForBuyer = ({ bookmark }) => {
+	// 실제 좋아요 값 반영되도록 수정 필요
 	const [isBookmarked, setIsBookmarked] = useState(false);
 	const handleBookmark = () => {
 		setIsBookmarked(prev => !prev);
 	};
 
 	const navigate = useNavigate();
+
+	console.log(bookmark);
+
 	return (
 		<>
 			<S.ProductButtons>
@@ -18,13 +22,21 @@ const ButtonContainer = () => {
 					color={"gray"}
 					size={"xxsmall"}
 					children={
-						isBookmarked ? (
-							<GoBookmarkFill size="27" />
-						) : (
-							<GoBookmark size="27" />
-						)
+						<>
+							{isBookmarked ? (
+								<GoBookmarkFill size="27" />
+							) : (
+								<GoBookmark size="27" />
+							)}
+							{
+								<span style={{ fontSize: "27px", marginLeft: "5px" }}>
+									{bookmark}
+								</span>
+							}
+						</>
 					}
 					onClick={handleBookmark}
+					style={{ display: "flex", alignItems: "center", padding: "0 22px" }}
 				/>
 				<BasicButton
 					color={"black"}
@@ -42,7 +54,7 @@ const ButtonContainer = () => {
 	);
 };
 
-export default ButtonContainer;
+export default ButtonsForBuyer;
 
 const ProductButtons = styled.div`
 	display: flex;
