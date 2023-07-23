@@ -13,10 +13,16 @@ import { createBrowserRouter } from "react-router-dom";
 import MarketPrice from "pages/market-price";
 import Chat from "components/Chat";
 import SignIn from "pages/sign/components/sign-in";
+import MakeScrollToTop from "components/MakeScrollToTop";
 
 const router = createBrowserRouter([
 	{
-		element: <Layout />,
+		element: (
+			<>
+				<Layout />
+				<MakeScrollToTop />
+			</>
+		),
 		children: [
 			{
 				path: "/",
