@@ -1,5 +1,4 @@
 import BasicButton from "components/Button";
-import SingupModal from "components/Modal/withoutbuttonmodal/index";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import * as SCHEMA from "../consts/schema";
 import styled from "styled-components";
 import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
 import ValidateInput from "../one-validate/OneValidate";
+import BasicModal from "components/Modal/withoutbuttonmodal/index";
 const Signup = () => {
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
@@ -122,13 +122,13 @@ const Signup = () => {
 				</S.SignWrapper>
 			</S.Container>
 			{isOpen && (
-				<SingupModal
+				<BasicModal
 					background={"gray"}
-					subtitle={"xsmall"}
-					title={"xsmall"}
-					container={"xsmall"}
+					subtitle={"primary"}
+					title={"primary"}
+					container={"primary"}
 					position={"leftbottom"}
-					titlement={"Welcome to TRIMM"}
+					titlement={"Welcome to TRIMM!"}
 					subtitlement={"회원가입이 완료되었습니다"}
 				/>
 			)}
