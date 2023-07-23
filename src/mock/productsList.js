@@ -29,7 +29,7 @@ export const productList = [
 			"귀여운 색감의 컬러 배색이 들어간 링거티입니다. 크롭 기장감으로 트렌디한 연출을 할 수 있고 총 5가지 컬러로 출시되어 스타일에 포인트를 줄 수 있습니다. ",
 		user: 1,
 		bookmarkCount: 3,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -77,7 +77,7 @@ export const productList = [
 			"Triple buckle strap design gives uniqueness of this sandal heel.",
 		user: 1,
 		bookmarkCount: 100,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -125,7 +125,7 @@ export const productList = [
 			"유럽 감성의 미니멀한 디자인과 아이들에게 즐거움을 주는 다양한 컬러가 특징이며, 부드러운 PVC 재질로 제작되어 어른, 아이 할 것 없이 편안한 착화감을 제공합니다.",
 		user: 1,
 		bookmarkCount: 40,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -173,7 +173,7 @@ export const productList = [
 			"나일론 재질의 라운드 호보 모양. 스트랩에 6개의 넉넉한 홀로 길이 조절 가능하여 크로스와 숄더로 착용 가능",
 		user: 1,
 		bookmarkCount: 0,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -205,7 +205,7 @@ export const productList = [
 			"롱한 기장의 참 목걸이. 도형적인 팬던트의 조화가 캐주얼하면서도 감각적인 제품",
 		user: 1,
 		bookmarkCount: 0,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -252,7 +252,7 @@ export const productList = [
 		introduction: "선물 받았는데 사용하지 않아 판매합니다.",
 		user: 1,
 		bookmarkCount: 0,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -298,7 +298,7 @@ export const productList = [
 		introduction: "진정한 '나'의 모습을 SQ40으로 담아보세요.",
 		user: 1,
 		bookmarkCount: 0,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -345,7 +345,7 @@ export const productList = [
 			"3D 불가사리 포인트의 써니라이프 비치볼. 가득 들어있는 홀로그램 글리터로 물 위에서 더욱 반짝반짝 빛이 나요. 써니라이프만의 무드와 함께 여름을 특별하게 보내보세요",
 		user: 1,
 		bookmarkCount: 0,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -392,7 +392,7 @@ export const productList = [
 			"브로더리 소재가 레이어드 된 코튼 원피스입니다. 뷔스티에 라인에 코튼 레이스가 매칭되어 있으며, 허리 밴딩과 옆 지퍼로 처리되어 있어 편하게 착용 가능합니다.",
 		user: 1,
 		bookmarkCount: 0,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -440,7 +440,7 @@ export const productList = [
 			"스탠다드 핏, 논 스트레치 데님, 5 포켓 스타일링, 올 브러쉬 워싱",
 		user: 1,
 		bookmarkCount: 0,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},
@@ -504,7 +504,7 @@ export const productList = [
 			"조이그라이슨의 새로운 락 하드웨어가 포인트인 세렌디피티 라인 둥근 새들 형태의 쉐입에 'J' 모티브의 푸쉬락 하드웨어, 장식과 백의 라인을 따라 연결된 가죽 트림으로 클래식하면서도 고급스러움을 강조",
 		user: 1,
 		bookmarkCount: 0,
-		status: "거래중",
+		status: "판매중",
 		chat: [0], // length > 받은 채팅 개수
 		tags: ["크록스", "신발", "화이트신발", "화이트크록스"],
 	},

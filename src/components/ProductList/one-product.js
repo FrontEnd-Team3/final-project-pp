@@ -103,7 +103,6 @@ const ProductInfo = styled.div`
 				border-radius: 2px;
 				background-color: ${({ theme, status }) => {
 					if (status === "판매완료") return theme.PALETTE.gray;
-					if (status === "거래중") return theme.PALETTE.turquoise;
 					return theme.PALETTE.primary;
 				}};
 				font-size: 12px;
