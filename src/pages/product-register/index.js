@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
 import OneImg from "./components/one-img";
 import { registerImg } from "mock/registerImg";
-import FormRegister from "./components/form-register";
 import BasicButton from "components/Button";
 import { AiFillCamera } from "react-icons/ai";
+import Inputs from "./components/Inputs";
 
 const ProductRegister = () => {
 	const handleRegisterProduct = e => {
@@ -22,7 +22,7 @@ const ProductRegister = () => {
 						</S.Title>
 						<S.MainImg>
 							<AiFillCamera size={80} />
-							<S.RegisterForm>
+							<S.ImageBox>
 								<S.RegisterLabel htmlFor="registerImg">
 									이미지 등록
 								</S.RegisterLabel>
@@ -33,7 +33,7 @@ const ProductRegister = () => {
 									id="registerImg"
 									required
 								/>
-							</S.RegisterForm>
+							</S.ImageBox>
 						</S.MainImg>
 					</S.ImgRegister>
 					<S.Images>
@@ -41,7 +41,7 @@ const ProductRegister = () => {
 							<OneImg key={i} img={img} />
 						))}
 					</S.Images>
-					<FormRegister />
+					<Inputs />
 					<S.MapBox>
 						<S.TitleAnother>
 							위치 설정 <S.Essential>*</S.Essential>
@@ -117,7 +117,7 @@ const MainImg = styled.div`
 	}
 `;
 
-const RegisterForm = styled.form``;
+const ImageBox = styled.div``;
 
 const RegisterLabel = styled.label`
 	cursor: pointer;
@@ -183,7 +183,7 @@ const S = {
 	Title,
 	Essential,
 	MainImg,
-	RegisterForm,
+	ImageBox,
 	RegisterLabel,
 	RegisterInput,
 	Images,

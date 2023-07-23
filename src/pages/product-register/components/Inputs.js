@@ -5,7 +5,7 @@ import BasicInput from "components/Input";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 
-const FormRegister = () => {
+const Inputs = () => {
 	const [content, setContent] = useState("");
 	const [check, setCheck] = useState(true);
 
@@ -111,7 +111,7 @@ const FormRegister = () => {
 	);
 };
 
-export default FormRegister;
+export default Inputs;
 
 const TagsBox = styled.div`
 	display: flex;
