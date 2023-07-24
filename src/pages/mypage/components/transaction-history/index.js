@@ -96,6 +96,7 @@ const Container = styled.div`
 	${primaryFont}
 	${flexColumn}
     ${flexCenter}
+	margin-bottom: 150px
 `;
 
 const ProductContainer = styled.div`

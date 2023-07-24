@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const RegisterProduct = () => {
+const AccountPrivacy = () => {
 	return (
 		<S.MasterWrapper>
 			<S.PrivacyWrapper>
@@ -40,7 +40,7 @@ const RegisterProduct = () => {
 	);
 };
 
-export default RegisterProduct;
+export default AccountPrivacy;
 
 const MasterWrapper = styled.div`
 	display: flex;

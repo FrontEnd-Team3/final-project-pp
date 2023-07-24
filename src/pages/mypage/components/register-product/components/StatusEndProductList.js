@@ -82,7 +82,7 @@ export default StatusEndProductList;
 
 const Container = styled.div`
 	display: flex;
-	margin-bottom: 100px;
+	margin-bottom: 150px;
 	${primaryFont}
 	${flexColumn}
     ${flexCenter}

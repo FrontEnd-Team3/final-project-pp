@@ -2,13 +2,7 @@ import { productList } from "mock/productsList";
 import { userList } from "mock/userList";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import HouseKeeping from "./components/housekeeping-book";
-import InterestProduct from "./components/interest-product";
 import MyProfile from "./components/my-profile";
-import PurchasedItem from "./components/purchased-item";
-import RegisterProduct from "./components/register-product";
-import Review from "./components/review";
-import TransactionHistory from "./components/transaction-history";
 
 const Mypage = () => {
 	const UserList = userList.filter(user => user.id === 0);
@@ -29,8 +23,8 @@ const Mypage = () => {
 		<S.MypageContainer>
 			<MyProfile userList={UserList} />
 			<S.DivisionLine />
-			{!ProductList && <EmptyData />}
-			{ProductList && (
+
+			{/* {ProductList && (
 				<>
 					<RegisterProduct
 						productList={ProductList}
@@ -52,7 +46,7 @@ const Mypage = () => {
 				<PurchasedItem productList={ProductListStatusEndUser1} />
 			)}
 			<TransactionHistory />
-			<Review />
+			<Review /> */}
 		</S.MypageContainer>
 	);
 };
