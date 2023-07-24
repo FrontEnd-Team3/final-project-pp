@@ -1,8 +1,8 @@
 import { userList } from "mocks/data/userList";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import MyProfile from "./components/my-profile";
-import Nav from "./components/nav";
+import MyProfile from "./components/MyProfile";
+import Nav from "./components/Nav";
 
 const Mypage = () => {
 	const UserList = userList.filter(user => user.id === 0);

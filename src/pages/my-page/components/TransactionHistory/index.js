@@ -1,40 +1,25 @@
 import BasicButton from "components/Button";
 import BasicSelect from "components/Select";
-import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
-import { flexCenter, flexColumn, flexRow } from "styles/common";
-import EmptyData from "../empty-data";
-import StatusEndProductList from "./components/StatusEndProductList";
-
+import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import EmptyData from "../EmptyData";
 /**
  *
  * 호버시 쉐도우 주는거 적용해야함
  *
  */
 
-const RegisterProduct = () => {
-	const ProductList = productList?.filter(
-		product => product.status === "판매중" && product.user === 9,
-	);
-	console.log(ProductList);
-	const ProductListStatusEnd = productList?.filter(
-		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
-	);
+const TransactionHistory = ({ productListStatusEnd }) => {
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
 	];
-	const sideOptions = [
-		{ value: "판매중", label: "판매중" },
-		{ value: "거래중", label: "거래중" },
-		{ value: "판매완료", label: "판매완료" },
-	];
-	console.log(ProductList);
-	if (ProductList && ProductList.length > 0) {
+
+	if (productListStatusEnd && productListStatusEnd.length > 0) {
 		return (
 			<S.Container>
 				<S.RowBox>
-					<S.Title>등록 상품</S.Title>
+					<S.Title>거래 내역</S.Title>
 					<S.ToggleBox>
 						<BasicSelect
 							variant={"primary"}
@@ -44,9 +29,9 @@ const RegisterProduct = () => {
 						/>
 					</S.ToggleBox>
 				</S.RowBox>
-				{ProductList.map(product => (
+				{productListStatusEnd.map(product => (
 					<S.ProductContainer key={product.id}>
-						<img src={product.image[2]} />
+						<img src={product.image[0]} />
 						<div>
 							<div>
 								<S.Wrapper>
@@ -79,17 +64,9 @@ const RegisterProduct = () => {
 									</div>
 								</S.Wrapper>
 								<S.Wrapper2>
-									<S.ToggleBox2>
-										<BasicSelect
-											variant={"primary"}
-											options={sideOptions}
-											selectedValue={"판매중"}
-											style={{ border: "1px solid #dddddd" }}
-										/>
-									</S.ToggleBox2>
-									<S.Wrapper2>
+									<div>
 										<p>350,000</p> <p>won</p>
-									</S.Wrapper2>
+									</div>
 								</S.Wrapper2>
 							</div>
 							<TextBox2>
@@ -98,14 +75,13 @@ const RegisterProduct = () => {
 						</div>
 					</S.ProductContainer>
 				))}
-				<StatusEndProductList productListStatusEnd={ProductListStatusEnd} />
 			</S.Container>
 		);
 	} else {
 		<EmptyData />;
 	}
 };
-export default RegisterProduct;
+export default TransactionHistory;
 
 const DivisionLine = styled.hr`
 	width: 962px;
@@ -115,12 +91,11 @@ const DivisionLine = styled.hr`
 `;
 
 const Container = styled.div`
-	width: 962px;
-	margin: 0 auto;
-	padding: 20px 0;
 	display: flex;
+	${primaryFont}
 	${flexColumn}
-	${flexCenter}
+    ${flexCenter}
+	margin-bottom: 150px
 `;
 
 const ProductContainer = styled.div`
@@ -157,6 +132,9 @@ const Wrapper2 = styled.div`
 	margin-left: 30px;
 	${flexRow}
 	width: 660px;
+	div {
+		${flexRow}
+	}
 `;
 
 const RowBox = styled.div`
@@ -174,9 +152,9 @@ const TextBox2 = styled.div`
 
 const ToggleBox = styled.div`
 	margin-top: 50px;
-	margin-right: 16px;
 	width: 105px;
 	height: 32px;
+	margin-right: 16px;
 `;
 const ToggleBox2 = styled.div`
 	width: 105px;

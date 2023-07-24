@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Nav from "../../nav";
+import Nav from "pages/my-page/components/Nav";
 
 const MyProfile = () => {
 	return (

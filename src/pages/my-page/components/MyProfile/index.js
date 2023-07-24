@@ -2,7 +2,7 @@ import BasicButton from "components/Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexRow, primaryFont } from "styles/common";
-import ProgressBar from "./components/ProgressBar";
+import ProgressBar from "./ProgressBar";
 
 const MyProfile = ({ userList }) => {
 	const navigate = useNavigate();

@@ -3,8 +3,8 @@ import BasicSelect from "components/Select";
 import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
-import EmptyData from "../empty-data";
-import InterestEndProductList from "./components/InterestEndProductList";
+import EmptyData from "../EmptyData";
+import InterestEndProductList from "./InterestEndProductList";
 
 /**
  *

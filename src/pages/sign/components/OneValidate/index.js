@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 import styled from "styled-components";
 import { flexColumn, flexRow } from "styles/common";
-import ControlledInput from "../controlled-input/ControlledInput";
+import ControlledInput from "../ControlledInput";
 
 const ValidateInput = ({ label, control, placeholder, name, type }) => {
 	return (

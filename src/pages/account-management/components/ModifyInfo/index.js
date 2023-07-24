@@ -1,5 +1,5 @@
+import Nav from "pages/my-page/components/Nav";
 import styled from "styled-components";
-import Nav from "../../nav";
 
 const AccountPrivacy = () => {
 	return (

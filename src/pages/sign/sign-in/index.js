@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
 import * as yup from "yup";
-import * as SCHEMA from "../../../../consts/schema";
-
+import * as SCHEMA from "../../../consts/schema";
 import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
-import ValidateInput from "../one-validate/OneValidate";
+import ValidateInput from "../components/OneValidate";
 
 const SignIn = () => {
 	const navigate = useNavigate();

@@ -1,8 +1,8 @@
 import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
-import TransactionHistory from "../transaction-history";
-import Buttons from "./components/Buttons";
+import TransactionHistory from "../TransactionHistory";
+import Buttons from "./Buttons";
 
 const HouseKeeping = () => {
 	const ProductListStatusEnd = productList?.filter(

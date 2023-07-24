@@ -2,8 +2,8 @@ import BasicSelect from "components/Select";
 import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
 import { flexColumn, flexRow, primaryFont } from "styles/common";
-import EmptyData from "../empty-data";
-import PurchasedButtons from "./components/PurchasedButtons";
+import EmptyData from "../EmptyData";
+import PurchasedButtons from "./PurchasedButtons";
 
 /**
  *
