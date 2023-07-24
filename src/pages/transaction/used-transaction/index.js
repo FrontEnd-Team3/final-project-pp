@@ -46,7 +46,7 @@ const UsedTransaction = () => {
 					<div>
 						서울시 성동구 성수동{" "}
 						<BasicButton
-							variant={"primary"}
+							color={"primary"}
 							shape={"primary"}
 							size={"xsmall"}
 							children={"변경"}
@@ -93,7 +93,7 @@ const Address = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	font-size: 12px;
+	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
 	margin: 12px 0;
 	& button {
 		color: ${({ theme }) => theme.PALETTE.white};

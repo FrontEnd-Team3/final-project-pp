@@ -3,6 +3,11 @@ import { userList } from "mock/userList";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 import MyProfile from "./components/my-profile";
+import PurchasedItem from "./components/purchased-item";
+import RegisterProduct from "./components/register-product";
+import Review from "./components/review";
+import TransactionHistory from "./components/transaction-history";
+import Nav from "./components/nav";
 
 const Mypage = () => {
 	const UserList = userList.filter(user => user.id === 0);
@@ -55,9 +60,19 @@ export default Mypage;
 
 const MypageContainer = styled.div`
 	width: 962px;
-	margin: 0 auto;
+	margin: 0 100px;
 	padding: 20px 0;
 	${primaryFont}
+`;
+
+const ContentWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+`;
+
+const NavWarrper = styled.div`
+	padding-top: 124px;
 `;
 
 const DivisionLine = styled.hr`
@@ -70,4 +85,6 @@ const DivisionLine = styled.hr`
 const S = {
 	MypageContainer,
 	DivisionLine,
+	NavWarrper,
+	ContentWrapper,
 };

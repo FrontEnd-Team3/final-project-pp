@@ -1,43 +1,65 @@
-import styled from "styled-components";
-import gkgk from "./gkgk.png";
+import { productList } from "mock/productsList";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { flexColumn } from "styles/common";
 
-const ChatItem = () => {
+const ChatItem = ({ chat }) => {
+	const { userimg, List, productID, price, move } = chat || {};
+
+	const lastContent =
+		List && Array.isArray(List) && List.length > 0
+			? List[List.length - 1].content
+			: "";
+
+	// 상품 이름, 이미지 보여주기
+	const productName = productList?.find(
+		product => product.id === productID,
+	)?.name;
+	const profileImg = productList?.find(product => product.id === productID)
+		?.image[0];
+
+	// 상품 상세 페이지로 이동
+	const navigate = useNavigate();
+
+	// 읽음, 나가기
 	const [isOpen, setIsOpen] = useState(false);
+	// 데이터 연결되면 다른 방식으로 수정할 예정
 	const [isRead, setIsRead] = useState(false);
+
 	return (
 		<>
 			<S.Item>
 				<S.IimgContainer>
-					<S.Iimg src={gkgk} />
+					{!isRead && <S.New>New</S.New>}
+					<S.Iimg src={profileImg ? profileImg : userimg} />
 				</S.IimgContainer>
 				<S.TextContainer>
-					<S.More onClick={() => setIsOpen(prev => !prev)}>...</S.More>
-					<div style={{ display: "flex" }}>
-						<div>
-							<S.Iproduct>
-								파란 오리 판매합니다
-								<S.Span>{!isRead && "new"}</S.Span>
-							</S.Iproduct>
-							<S.Ichat>안녕하세요. 이거 혹시 네고 가능한가요? </S.Ichat>
-						</div>
+					<S.ChatContent>
+						<S.Iproduct>{productName ? productName : productID}</S.Iproduct>
+						<S.Ichat>{lastContent || "No content for List"}</S.Ichat>
+						<S.Iprice>{price}</S.Iprice>
+					</S.ChatContent>
+					<S.SettingContent>
+						<S.Span>
+							<S.Setting onClick={() => setIsOpen(prev => !prev)}>
+								...
+							</S.Setting>
+						</S.Span>
 						{isOpen && (
-							<S.SettingContainer>
-								<div
-									className="read"
-									onClick={() => {
-										setIsRead(true);
-										setIsOpen(false);
-									}}
-								>
+							<S.SettingBox>
+								<div className="read" onClick={() => setIsRead(true)}>
 									읽음
 								</div>
-								<div>나가기</div>
-							</S.SettingContainer>
+								<div className="out">나가기</div>
+							</S.SettingBox>
 						)}
-					</div>
-					<S.Iprice>20,000 원</S.Iprice>
-					<S.Imove>상품이동 ▶</S.Imove>
+						{move && (
+							<S.Imove onClick={() => navigate(`/product/${productID}`)}>
+								상품이동 ▶
+							</S.Imove>
+						)}
+					</S.SettingContent>
 				</S.TextContainer>
 			</S.Item>
 		</>
@@ -51,13 +73,38 @@ const Item = styled.div`
 	border-bottom: 1px solid #ebebeb;
 	height: 150px;
 	background-color: white;
-	padding: 10px 20px;
+	padding: 10px;
+	position: relative;
+`;
+
+const New = styled.div`
+	position: absolute;
+	top: 10px;
+	left: 5px;
+	background-color: ${({ theme }) => theme.PALETTE.primary};
+	color: ${({ theme }) => theme.PALETTE.white};
+	width: 50px;
+	height: 25px;
+	line-height: 25px;
+	border-radius: 16px;
+	text-align: center;
+	font-size: 14px;
 `;
 
 const TextContainer = styled.div`
 	display: flex;
 	margin-left: 10px;
-	flex-direction: column;
+`;
+
+const ChatContent = styled.div`
+	${flexColumn}
+	width: 220px;
+	margin-top: 15px;
+	margin-right: 35px;
+`;
+
+const SettingContent = styled.div`
+	${flexColumn}
 `;
 
 const IimgContainer = styled.div`
@@ -73,32 +120,41 @@ const Iimg = styled.img`
 	height: 100%;
 `;
 
-const More = styled.div`
+const Setting = styled.div`
 	font-size: 16px;
-	margin-left: 290px;
+	color: black;
+	margin-left: 55px;
+	margin-bottom: 5px;
 	font-weight: bold;
 	cursor: pointer;
 `;
 
-const SettingContainer = styled.div`
-	border: 1px solid #dddddd;
-	height: 65px;
+const SettingBox = styled.div`
+	border: 1px solid ${({ theme }) => theme.PALETTE.gray};
 	text-align: center;
-	margin-left: 45px;
-	div {
-		padding: 5px;
-		cursor: pointer;
-	}
+	width: 70px;
+	cursor: pointer;
 	.read {
-		border-bottom: 1px solid #dddddd;
+		border-bottom: 1px solid ${({ theme }) => theme.PALETTE.gray};
+		padding: 5px;
+		:hover {
+			background-color: ${({ theme }) => theme.PALETTE.primary};
+			color: ${({ theme }) => theme.PALETTE.white};
+		}
+	}
+	.out {
+		padding: 5px;
+		:hover {
+			background-color: ${({ theme }) => theme.PALETTE.primary};
+			color: ${({ theme }) => theme.PALETTE.white};
+		}
 	}
 `;
 
 const Span = styled.span`
 	color: #3cb371;
 	font-size: 10px;
-	margin-left: 10px;
-	box-shadow: inset 0 -1px #3cb371;
+	display: flex;
 `;
 
 const Iproduct = styled.div`
@@ -107,9 +163,8 @@ const Iproduct = styled.div`
 `;
 
 const Ichat = styled.div`
-	width: 200px;
 	padding-top: 5px;
-	font-size: 16px;
+	font-size: 12px;
 	color: #575757;
 `;
 
@@ -122,22 +177,26 @@ const Iprice = styled.div`
 const Imove = styled.div`
 	font-size: 12px;
 	color: #222222;
-	margin-left: 240px;
-	margin-bottom: 10px;
 	font-weight: bold;
 	cursor: pointer;
+	position: absolute;
+	left: 83%;
+	top: 80%;
 `;
 
 const S = {
 	Item,
+	New,
 	TextContainer,
 	IimgContainer,
 	Iimg,
-	More,
+	Setting,
 	Span,
 	Iproduct,
 	Ichat,
 	Iprice,
 	Imove,
-	SettingContainer,
+	ChatContent,
+	SettingContent,
+	SettingBox,
 };
