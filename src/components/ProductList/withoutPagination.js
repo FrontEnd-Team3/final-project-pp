@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import OneProduct from "./one-product";
+import OneProduct from "./oneProduct";
 
 const ProductListWithoutPagination = ({ productList }) => {
 	if (productList)

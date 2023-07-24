@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 import { GoBookmark } from "react-icons/go";
-import ImageSlide from "./image-slide";
-import ScrollToTop from "./scroll-to-top";
+import ImageSlide from "./imageSlide";
+import ScrollToTop from "./scrollToTop";
 
 const RecentlyClicked = () => {
 	// 추후 API로 데이터 들어오면 수정

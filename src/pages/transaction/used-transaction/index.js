@@ -1,8 +1,8 @@
 import BasicButton from "components/Button";
-import ProductList from "components/ProductList";
+import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
 import BasicSelect from "components/Select";
-import { productList } from "mock/productsList";
+import { productList } from "mocks/data/productsList";
 import { useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";

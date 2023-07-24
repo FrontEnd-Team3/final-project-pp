@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import * as SCHEMA from "../consts/schema";
+import * as SCHEMA from "../../../../consts/schema";
 import styled from "styled-components";
 import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
 import ValidateInput from "../one-validate/OneValidate";
-import BasicModal from "components/Modal/withoutbuttonmodal/index";
+import BasicModal from "components/Modal/WithoutButton";
 const Signup = () => {
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);

@@ -1,4 +1,4 @@
-import { userList } from "mock/userList";
+import { userList } from "mocks/data/userList";
 import styled from "styled-components";
 
 const UserInfo = ({ targetUser }) => {

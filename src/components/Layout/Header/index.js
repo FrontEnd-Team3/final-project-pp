@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import Onecategory from "./onecategory";
+import Onecategory from "./oneCategory";
 import { useState } from "react";
 
 const Header = () => {

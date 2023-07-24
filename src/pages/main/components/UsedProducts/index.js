@@ -1,17 +1,18 @@
 import BasicButton from "components/Button";
-import SinginModal from "components/Modal/modal/index";
+import BasicNavigateModal from "components/Modal/WithButton";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
-import SearchAddress from "components/searchAddress";
-import { productList } from "mock/productsList";
+import SearchAddress from "components/SearchAddress";
+import { productList } from "mocks/data/productsList";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
 
-const FreeProduct = () => {
+const UsedProduct = () => {
 	const PRODUCTLIST = productList?.filter(
-		product => product.status !== "판매완료" && !product.price,
+		product => product.status !== "판매완료" && product.price,
 	);
+
 	const navigate = useNavigate();
 
 	// 주소 변경
@@ -20,7 +21,7 @@ const FreeProduct = () => {
 
 	// 토큰 있을 때만 주소 변경 가능하게 하기
 	// 토큰 없으면 로그인 창으로 이동하는 모달 띄우기
-	const [hasToken, setHasToken] = useState(true);
+	const [hasToken, setHasToken] = useState(false);
 
 	return (
 		<>
@@ -28,11 +29,25 @@ const FreeProduct = () => {
 				? isOpen && (
 						<SearchAddress setAddress={setAddress} setIsOpen={setIsOpen} />
 				  )
-				: isOpen && <SinginModal setOpen={setIsOpen} />}
+				: isOpen && (
+						<BasicNavigateModal
+							setOpen={setIsOpen}
+							background={"primary"}
+							container={"primary"}
+							closebtn={"primary"}
+							title={"primary"}
+							subtitle={"primary"}
+							button={"primary"}
+							titlement={"Please Join Us!"}
+							subtitlement={"로그인이 필요합니다."}
+							buttonment={"로그인 하러 가기 "}
+							moveaddress={"Signin"}
+						/>
+				  )}
 			<S.Container>
 				<div>
 					<S.Title>
-						우리 동네 <S.Free>무료</S.Free> 나눔
+						우리 동네 <S.Used>중고</S.Used> 물품
 					</S.Title>
 					<S.Location>
 						{address}
@@ -52,7 +67,7 @@ const FreeProduct = () => {
 						size={"small"}
 						children={"MORE +"}
 						style={{ fontSize: "14px", height: "28px" }}
-						onClick={() => navigate("/free-transaction")}
+						onClick={() => navigate("/used-transaction")}
 					/>
 				</S.ButtonContainer>
 			</S.Container>
@@ -60,11 +75,12 @@ const FreeProduct = () => {
 	);
 };
 
-export default FreeProduct;
+export default UsedProduct;
 
 const Container = styled.div`
 	width: 1060px;
-	margin: 40px auto;
+	margin: 40px auto 20px auto;
+	padding-bottom: 40px;
 	${primaryFont}
 `;
 
@@ -74,7 +90,7 @@ const Title = styled.div`
 	text-align: center;
 `;
 
-const Free = styled.span`
+const Used = styled.span`
 	color: ${({ theme }) => theme.PALETTE.highlightTitle};
 `;
 
@@ -88,4 +104,4 @@ const ButtonContainer = styled.div`
 	margin: 20px 0;
 `;
 
-const S = { Container, Free, Title, Location, ButtonContainer };
+const S = { Container, Used, Title, Location, ButtonContainer };

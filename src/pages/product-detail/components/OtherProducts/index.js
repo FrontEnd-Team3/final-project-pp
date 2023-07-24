@@ -1,5 +1,5 @@
-import ProductList from "components/ProductList";
-import { productList } from "mock/productsList";
+import ProductList from "components/ProductList/withPagination";
+import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 

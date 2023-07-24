@@ -1,8 +1,8 @@
 import RecentlyClicked from "components/RecentlyClicked";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import ProductInfo from "./components/product-info";
-import OtherProducts from "./components/other-products/OtherProducts";
+import ProductInfo from "./components/ProductInfo";
+import OtherProducts from "./components/OtherProducts";
 import { useParams } from "react-router-dom";
 
 const ProductDetailPage = () => {

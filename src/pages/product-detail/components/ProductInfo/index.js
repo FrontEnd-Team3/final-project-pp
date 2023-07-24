@@ -1,8 +1,8 @@
 import { flexColumn, primaryFont } from "styles/common";
 import styled from "styled-components";
-import { productList } from "mock/productsList";
-import ProductImages from "./product-images";
-import UserInfo from "./user-info";
+import { productList } from "mocks/data/productsList";
+import ProductImages from "./productImages";
+import UserInfo from "./userInfo";
 import ButtonContainer from "./Buttons/index";
 import { useState } from "react";
 

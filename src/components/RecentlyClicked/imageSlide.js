@@ -1,6 +1,6 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import useRecentlyClicked from "hooks/useRecentlyClicked";
-import { productList } from "mock/productsList";
+import { productList } from "mocks/data/productsList";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";

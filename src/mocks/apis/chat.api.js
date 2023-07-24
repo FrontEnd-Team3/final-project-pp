@@ -1,4 +1,4 @@
-import { chatList } from "mock/chatList";
+import { chatList } from "../data/chatList";
 import { rest } from "msw";
 
 export const getChatList = rest.get("/chat", async (req, res, ctx) => {

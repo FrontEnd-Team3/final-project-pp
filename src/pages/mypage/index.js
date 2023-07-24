@@ -1,5 +1,5 @@
-import { productList } from "mock/productsList";
-import { userList } from "mock/userList";
+import { productList } from "mocks/data/productsList";
+import { userList } from "mocks/data/userList";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 import HouseKeeping from "./components/housekeeping-book";

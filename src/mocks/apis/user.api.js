@@ -1,4 +1,4 @@
-import { userList } from "mock/userList";
+import { userList } from "../data/userList";
 import { rest } from "msw";
 
 export const getUsers = rest.get("/users", async (req, res, ctx) => {

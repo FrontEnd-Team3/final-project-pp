@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { flexCenter, primaryFont } from "styles/common";
-import OneImg from "./components/one-img";
-import { registerImg } from "mock/registerImg";
+import OneImg from "./components/oneImg";
+import { registerImg } from "mocks/data/registerImg";
 import BasicButton from "components/Button";
 import { AiFillCamera } from "react-icons/ai";
-import Inputs from "./components/Inputs";
+import Inputs from "./components/inputs";
 
 const ProductRegister = () => {
 	const handleRegisterProduct = e => {

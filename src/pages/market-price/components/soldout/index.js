@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import OneProduct from "./one-soldoutproduct";
-import { productList } from "mock/productsList";
+import { productList } from "mocks/data/productsList";
 import { useState } from "react";
 import Pagination from "components/Pagination";
 import { flexColumn } from "styles/common";
+import OneProduct from "./oneSoldOutProduct";
 
 const Soldout = () => {
 	const [dataLimit, setDataLimit] = useState(8);
