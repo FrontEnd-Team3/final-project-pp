@@ -13,7 +13,7 @@ const BasicNavigateModal = ({
 	button,
 	setOpen,
 	buttonment,
-	moveadress,
+	moveaddress,
 	...rest
 }) => {
 	const navigate = useNavigate();
@@ -33,7 +33,7 @@ const BasicNavigateModal = ({
 				<Button
 					button={button}
 					onClick={() => {
-						navigate(`${moveadress}`);
+						navigate(`${moveaddress}`);
 					}}
 				>
 					{buttonment}
