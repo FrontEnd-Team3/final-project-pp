@@ -1,8 +1,13 @@
+import { productList } from "mock/productsList";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import TransactionHistory from "../transaction-history";
 import Buttons from "./components/Buttons";
 
 const HouseKeeping = () => {
+	const ProductListStatusEnd = productList?.filter(
+		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
+	);
 	return (
 		<S.Container>
 			<S.RowBox>
@@ -21,6 +26,7 @@ const HouseKeeping = () => {
 			</S.Title2>
 			<S.DivisionLine />
 			<Buttons />
+			<TransactionHistory productListStatusEnd={ProductListStatusEnd} />
 		</S.Container>
 	);
 };
@@ -34,6 +40,9 @@ const DivisionLine = styled.hr`
 `;
 
 const Container = styled.div`
+	width: 962px;
+	margin: 0 auto;
+	padding: 20px 0;
 	display: flex;
 	${primaryFont}
 	${flexColumn}

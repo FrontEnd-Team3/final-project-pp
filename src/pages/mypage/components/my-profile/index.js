@@ -1,9 +1,11 @@
 import BasicButton from "components/Button";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexRow, primaryFont } from "styles/common";
 import ProgressBar from "./components/ProgressBar";
 
 const MyProfile = ({ userList }) => {
+	const navigate = useNavigate();
 	if (userList) {
 		return (
 			<>
@@ -44,6 +46,7 @@ const MyProfile = ({ userList }) => {
 									borderRadius: "6px",
 									fontWeight: "600",
 								}}
+								onClick={() => navigate("/Chat")}
 							/>
 						</div>
 					</S.Container>

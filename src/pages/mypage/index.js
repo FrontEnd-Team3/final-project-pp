@@ -2,8 +2,6 @@ import { productList } from "mock/productsList";
 import { userList } from "mock/userList";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
-import HouseKeeping from "./components/housekeeping-book";
-import InterestProduct from "./components/interest-product";
 import MyProfile from "./components/my-profile";
 import PurchasedItem from "./components/purchased-item";
 import RegisterProduct from "./components/register-product";
@@ -27,39 +25,34 @@ const Mypage = () => {
 		return <EmptyData />;
 	}
 	return (
-		<S.ContentWrapper>
-			<S.NavWarrper>
-				<Nav />
-			</S.NavWarrper>
-			<S.MypageContainer>
-				<MyProfile userList={UserList} />
-				<S.DivisionLine />
-				{!ProductList && <EmptyData />}
-				{ProductList && (
-					<>
-						<RegisterProduct
-							productList={ProductList}
-							productListStatusEnd={ProductListStatusEnd}
-						/>
-						<HouseKeeping />
-						<TransactionHistory
-							productList={ProductList}
-							productListStatusEnd={ProductListStatusEnd}
-						/>
+		<S.MypageContainer>
+			<MyProfile userList={UserList} />
+			<S.DivisionLine />
 
-						<InterestProduct
-							productList={ProductList}
-							productListStatusEnd={ProductListStatusEnd}
-						/>
-					</>
-				)}
-				{ProductListStatusEndUser1 && (
-					<PurchasedItem productList={ProductListStatusEndUser1} />
-				)}
-				<TransactionHistory />
-				<Review />
-			</S.MypageContainer>
-		</S.ContentWrapper>
+			{/* {ProductList && (
+				<>
+					<RegisterProduct
+						productList={ProductList}
+						productListStatusEnd={ProductListStatusEnd}
+					/>
+					<HouseKeeping />
+					<TransactionHistory
+						productList={ProductList}
+						productListStatusEnd={ProductListStatusEnd}
+					/>
+
+					<InterestProduct
+						productList={ProductList}
+						productListStatusEnd={ProductListStatusEnd}
+					/>
+				</>
+			)}
+			{ProductListStatusEndUser1 && (
+				<PurchasedItem productList={ProductListStatusEndUser1} />
+			)}
+			<TransactionHistory />
+			<Review /> */}
+		</S.MypageContainer>
 	);
 };
 
