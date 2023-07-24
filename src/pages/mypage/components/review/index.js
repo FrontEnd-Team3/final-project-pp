@@ -76,6 +76,9 @@ const DivisionLine2 = styled.hr`
 `;
 
 const Container = styled.div`
+	width: 962px;
+	margin: 0 auto;
+	padding: 20px 0;
 	display: flex;
 	${primaryFont}
 	${flexColumn}

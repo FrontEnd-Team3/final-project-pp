@@ -1,31 +1,20 @@
-import { productList } from "mock/productsList";
 import { userList } from "mock/userList";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";
 import MyProfile from "./components/my-profile";
-import PurchasedItem from "./components/purchased-item";
-import RegisterProduct from "./components/register-product";
-import Review from "./components/review";
-import TransactionHistory from "./components/transaction-history";
 import Nav from "./components/nav";
 
 const Mypage = () => {
 	const UserList = userList.filter(user => user.id === 0);
-	const ProductList = productList?.filter(
-		product => product.status === "판매중" && product.user === 9,
-	);
-	const ProductListStatusEnd = productList?.filter(
-		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
-	);
-	const ProductListStatusEndUser1 = productList?.filter(
-		productEnd => productEnd.status === "판매완료" && productEnd.user === 1,
-	);
 
 	if (!UserList) {
 		return <EmptyData />;
 	}
 	return (
 		<S.MypageContainer>
+			<S.NavWrapper>
+				<Nav />
+			</S.NavWrapper>
 			<MyProfile userList={UserList} />
 			<S.DivisionLine />
 
@@ -58,6 +47,10 @@ const Mypage = () => {
 
 export default Mypage;
 
+const NavWrapper = styled.div`
+	padding-top: 124px;
+`;
+
 const MypageContainer = styled.div`
 	width: 962px;
 	margin: 0 100px;
@@ -83,6 +76,7 @@ const DivisionLine = styled.hr`
 `;
 
 const S = {
+	NavWrapper,
 	MypageContainer,
 	DivisionLine,
 	NavWarrper,
