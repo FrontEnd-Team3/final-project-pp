@@ -33,7 +33,7 @@ const MyProfile = ({ userList }) => {
 								</div>
 							</S.TextBox>
 						</S.RowBox>
-						<div>
+						<S.countBox>
 							<p>등록물품 {user.registerProducts.length}개</p>
 							<p>관심상품 {user.likeProducts.length}개</p>
 							<BasicButton
@@ -48,7 +48,7 @@ const MyProfile = ({ userList }) => {
 								}}
 								onClick={() => navigate("/Chat")}
 							/>
-						</div>
+						</S.countBox>
 					</S.Container>
 				))}
 			</>
@@ -69,7 +69,16 @@ const Container = styled.div`
 `;
 
 const RowBox = styled.div`
+	margin-bottom: 10px;
+	p {
+		margin-bottom: 10px;
+	}
 	${flexRow}
+`;
+const countBox = styled.div`
+	p {
+		margin-bottom: 16px;
+	}
 `;
 
 const MyImage = styled.div`
@@ -100,4 +109,5 @@ const S = {
 	TextBox,
 	TextP1,
 	TextP2,
+	countBox,
 };
