@@ -66,8 +66,8 @@ const containerCSS = {
 
 const positionCSS = {
 	primary: css`
-		left: 36%;
-		top: 25%;
+		left: 35%;
+		top: 30%;
 	`,
 	alignsmall: css`
 		left: 36%;
