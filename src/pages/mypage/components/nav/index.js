@@ -45,11 +45,6 @@ const Nav = () => {
 };
 
 export default Nav;
-const MasterWrapper = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-`;
 
 const MyPageNavWrapper = styled.div`
 	div {
@@ -68,4 +63,4 @@ const NavAccountTitle = styled.div`
 	margin-top: 20px;
 `;
 
-const S = { MasterWrapper, MyPageNavWrapper, NavMyPageTitle, NavAccountTitle };
+const S = { MyPageNavWrapper, NavMyPageTitle, NavAccountTitle };

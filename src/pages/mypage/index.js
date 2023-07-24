@@ -15,8 +15,10 @@ const Mypage = () => {
 			<S.NavWrapper>
 				<Nav />
 			</S.NavWrapper>
-			<MyProfile userList={UserList} />
-			<S.DivisionLine />
+			<S.MyProfileWrapper>
+				<MyProfile userList={UserList} />
+				<S.DivisionLine />
+			</S.MyProfileWrapper>
 
 			{/* {ProductList && (
 				<>
@@ -49,15 +51,21 @@ export default Mypage;
 
 const NavWrapper = styled.div`
 	padding-top: 124px;
+	margin-left: 180px;
 `;
 
 const MypageContainer = styled.div`
-	width: 962px;
-	margin: 0 100px;
+	display: flex;
+	justify-content: start;
+	flex-direction: row;
+	margin-left: 0px;
 	padding: 20px 0;
 	${primaryFont}
 `;
 
+const MyProfileWrapper = styled.div`
+	margin: 0 100px;
+`;
 const ContentWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -81,4 +89,5 @@ const S = {
 	DivisionLine,
 	NavWarrper,
 	ContentWrapper,
+	MyProfileWrapper,
 };
