@@ -43,7 +43,7 @@ const Review = () => {
 			<S.DivisionLine2 />
 			<S.RowBox>
 				<BasicButton
-					variant={"black"}
+					color={"black"}
 					size={"xmedium"}
 					children={"저장하기"}
 					style={{

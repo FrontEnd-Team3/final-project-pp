@@ -7,19 +7,18 @@ const Buttons = () => {
 		<Container>
 			<div>
 				<BasicButton
-					variant={"primary"}
+					color={"primary"}
 					size={"xmedium"}
 					children={"총 내역"}
 					style={{
 						fontSize: "16px",
-
 						borderRadius: "6px",
 						fontWeight: "700",
 						marginRight: "24px",
 					}}
 				/>
 				<BasicButton
-					variant={"white"}
+					color={"white"}
 					size={"xmedium"}
 					children={"구매내역"}
 					style={{
@@ -31,7 +30,7 @@ const Buttons = () => {
 					}}
 				/>
 				<BasicButton
-					variant={"white"}
+					color={"white"}
 					size={"xmedium"}
 					children={"판매내역"}
 					style={{
@@ -44,7 +43,7 @@ const Buttons = () => {
 			</div>
 			<div>
 				<BasicButton
-					variant={"primary"}
+					color={"primary"}
 					size={"small"}
 					children={"3개월"}
 					style={{
@@ -55,7 +54,7 @@ const Buttons = () => {
 					}}
 				/>
 				<BasicButton
-					variant={"white"}
+					color={"white"}
 					size={"small"}
 					children={"6개월"}
 					style={{
@@ -67,7 +66,7 @@ const Buttons = () => {
 					}}
 				/>
 				<BasicButton
-					variant={"white"}
+					color={"white"}
 					size={"small"}
 					children={"9개월"}
 					style={{
@@ -79,7 +78,7 @@ const Buttons = () => {
 					}}
 				/>
 				<BasicButton
-					variant={"white"}
+					color={"white"}
 					size={"small"}
 					children={"1년"}
 					style={{

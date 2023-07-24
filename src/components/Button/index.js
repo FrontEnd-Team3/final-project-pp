@@ -1,8 +1,8 @@
 import Button from "./style";
 
-const BasicButton = ({ size, shape, variant, children, ...rest }) => {
+const BasicButton = ({ size, shape, children, ...rest }) => {
 	return (
-		<Button size={size} shape={shape} variant={variant} {...rest}>
+		<Button size={size} shape={shape} {...rest}>
 			{children}
 		</Button>
 	);

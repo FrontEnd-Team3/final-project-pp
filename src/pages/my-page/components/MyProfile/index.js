@@ -37,7 +37,7 @@ const MyProfile = ({ userList }) => {
 							<p>등록물품 {user.registerProducts.length}개</p>
 							<p>관심상품 {user.likeProducts.length}개</p>
 							<BasicButton
-								variant={"primary"}
+								color={"primary"}
 								size={"small"}
 								children={"채팅하기"}
 								style={{

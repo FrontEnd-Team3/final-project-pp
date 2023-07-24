@@ -53,7 +53,7 @@ const RegisterProduct = () => {
 									<p>{product.name}</p>
 									<div>
 										<BasicButton
-											variant={"white"}
+											color={"white"}
 											size={"xsmall"}
 											children={"수정"}
 											style={{
@@ -65,7 +65,7 @@ const RegisterProduct = () => {
 											}}
 										/>
 										<BasicButton
-											variant={"primary"}
+											color={"primary"}
 											size={"xsmall"}
 											children={"삭제"}
 											style={{

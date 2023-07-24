@@ -6,7 +6,7 @@ const PurchasedButtons = () => {
 	return (
 		<ButtonsContainer>
 			<BasicButton
-				variant={"white"}
+				color={"white"}
 				size={"xmedium"}
 				children={"상품 보러가기"}
 				style={{
@@ -18,7 +18,7 @@ const PurchasedButtons = () => {
 				}}
 			/>
 			<BasicButton
-				variant={"black"}
+				color={"black"}
 				size={"xmedium"}
 				children={"후기 남기기"}
 				style={{

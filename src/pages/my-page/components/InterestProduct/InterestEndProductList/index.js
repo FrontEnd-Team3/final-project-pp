@@ -21,7 +21,7 @@ const InterestEndProductList = ({ productListStatusEnd }) => {
 									<S.TextP1>{product.name}</S.TextP1>
 									<div>
 										<BasicButton
-											variant={"white"}
+											color={"white"}
 											size={"xsmall"}
 											children={"수정"}
 											style={{
@@ -33,7 +33,7 @@ const InterestEndProductList = ({ productListStatusEnd }) => {
 											}}
 										/>
 										<BasicButton
-											variant={"primary"}
+											color={"primary"}
 											size={"xsmall"}
 											children={"삭제"}
 											style={{
