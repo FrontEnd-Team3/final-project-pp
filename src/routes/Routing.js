@@ -1,7 +1,6 @@
 import Layout from "components/Layout";
 import Main from "pages/main";
-import Mypage from "pages/mypage";
-import RegisterProduct from "pages/mypage/components/register-product/account-privacy";
+import RegisterProduct from "../pages/mypage/components/register-product/index";
 import MyProfile from "pages/mypage/components/register-product/profile";
 import ProductDetailPage from "pages/product-detail";
 import Signup from "pages/sign/components/sign-up";
@@ -14,6 +13,12 @@ import MarketPrice from "pages/market-price";
 import Chat from "components/Chat";
 import SignIn from "pages/sign/components/sign-in";
 import MakeScrollToTop from "components/MakeScrollToTop";
+import HouseKeeping from "pages/mypage/components/housekeeping-book";
+import PurchasedItem from "../pages/mypage/components/purchased-item/index";
+import InterestProduct from "../pages/mypage/components/interest-product/index";
+import MypageLayout from "pages/mypage/Layout/mypage-layout";
+import AccountPrivacy from "pages/mypage/components/register-product/account-privacy";
+import Review from "pages/mypage/components/review";
 
 const router = createBrowserRouter([
 	{
@@ -30,7 +35,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/privacy",
-				element: <RegisterProduct />,
+				element: <AccountPrivacy />,
 			},
 			{
 				path: "/profile",
@@ -71,7 +76,29 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/mypage",
-				element: <Mypage />,
+				element: <MypageLayout />,
+				children: [
+					{
+						path: "",
+						element: <RegisterProduct />,
+					},
+					{
+						path: "house-keeping",
+						element: <HouseKeeping />,
+					},
+					{
+						path: "purchased-item",
+						element: <PurchasedItem />,
+					},
+					{
+						path: "interest-product",
+						element: <InterestProduct />,
+					},
+					{
+						path: "review",
+						element: <Review />,
+					},
+				],
 			},
 		],
 	},

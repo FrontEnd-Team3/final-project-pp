@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Nav from "../../nav";
 
-const RegisterProduct = () => {
+const AccountPrivacy = () => {
 	return (
 		<S.MasterWrapper>
 			<S.NavWrapper>
@@ -44,7 +44,7 @@ const RegisterProduct = () => {
 	);
 };
 
-export default RegisterProduct;
+export default AccountPrivacy;
 
 const MasterWrapper = styled.div`
 	display: flex;

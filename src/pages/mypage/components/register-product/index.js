@@ -1,7 +1,8 @@
 import BasicButton from "components/Button";
 import BasicSelect from "components/Select";
+import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
-import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import { flexCenter, flexColumn, flexRow } from "styles/common";
 import EmptyData from "../empty-data";
 import StatusEndProductList from "./components/StatusEndProductList";
 
@@ -11,7 +12,14 @@ import StatusEndProductList from "./components/StatusEndProductList";
  *
  */
 
-const RegisterProduct = ({ productList, productListStatusEnd }) => {
+const RegisterProduct = () => {
+	const ProductList = productList?.filter(
+		product => product.status === "판매중" && product.user === 9,
+	);
+	console.log(ProductList);
+	const ProductListStatusEnd = productList?.filter(
+		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
+	);
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
@@ -21,8 +29,8 @@ const RegisterProduct = ({ productList, productListStatusEnd }) => {
 		{ value: "거래중", label: "거래중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
-	console.log(productList);
-	if (productList && productList.length > 0) {
+	console.log(ProductList);
+	if (ProductList && ProductList.length > 0) {
 		return (
 			<S.Container>
 				<S.RowBox>
@@ -36,7 +44,7 @@ const RegisterProduct = ({ productList, productListStatusEnd }) => {
 						/>
 					</S.ToggleBox>
 				</S.RowBox>
-				{productList.map(product => (
+				{ProductList.map(product => (
 					<S.ProductContainer key={product.id}>
 						<img src={product.image[2]} />
 						<div>
@@ -90,7 +98,7 @@ const RegisterProduct = ({ productList, productListStatusEnd }) => {
 						</div>
 					</S.ProductContainer>
 				))}
-				<StatusEndProductList productListStatusEnd={productListStatusEnd} />
+				<StatusEndProductList productListStatusEnd={ProductListStatusEnd} />
 			</S.Container>
 		);
 	} else {
@@ -107,11 +115,12 @@ const DivisionLine = styled.hr`
 `;
 
 const Container = styled.div`
+	width: 962px;
+	margin: 0 auto;
+	padding: 20px 0;
 	display: flex;
-
-	${primaryFont}
 	${flexColumn}
-    ${flexCenter}
+	${flexCenter}
 `;
 
 const ProductContainer = styled.div`

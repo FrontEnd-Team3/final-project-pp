@@ -1,5 +1,6 @@
 import BasicButton from "components/Button";
 import BasicSelect from "components/Select";
+import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
 import EmptyData from "../empty-data";
@@ -11,14 +12,20 @@ import InterestEndProductList from "./components/InterestEndProductList";
  *
  */
 
-const InterestProduct = ({ productList, productListStatusEnd }) => {
+const InterestProduct = () => {
+	const ProductList = productList?.filter(
+		product => product.status === "판매중" && product.user === 9,
+	);
+	const ProductListStatusEnd = productList?.filter(
+		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
+	);
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
 	];
 
-	console.log(productList);
-	if (productList && productList.length > 0) {
+	console.log(ProductList);
+	if (ProductList && ProductList.length > 0) {
 		return (
 			<S.Container>
 				<S.RowBox>
@@ -33,7 +40,7 @@ const InterestProduct = ({ productList, productListStatusEnd }) => {
 					</S.ToggleBox>
 				</S.RowBox>
 				<S.DivisionLine />
-				{productList.map(product => (
+				{ProductList.map(product => (
 					<S.ProductContainer key={product.id}>
 						<img src={product.image[2]} />
 						<div>
@@ -79,7 +86,7 @@ const InterestProduct = ({ productList, productListStatusEnd }) => {
 						</div>
 					</S.ProductContainer>
 				))}
-				<InterestEndProductList productListStatusEnd={productListStatusEnd} />
+				<InterestEndProductList productListStatusEnd={ProductListStatusEnd} />
 			</S.Container>
 		);
 	} else {
@@ -96,6 +103,9 @@ const DivisionLine = styled.hr`
 `;
 
 const Container = styled.div`
+	width: 962px;
+	margin: 0 auto;
+	padding: 20px 0;
 	display: flex;
 	${primaryFont}
 	${flexColumn}

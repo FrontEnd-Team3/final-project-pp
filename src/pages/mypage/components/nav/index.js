@@ -13,17 +13,30 @@ const Nav = () => {
 	const handleNavMyPage = () => {
 		navigate("/mypage");
 	};
-	const handleNavTransaction = () => {
-		navigate("/transaction-history");
+	const handleNavPurchasedItem = () => {
+		navigate("/mypage/purchased-item");
+	};
+
+	const handleNavInterestProduct = () => {
+		navigate("/mypage/interest-product");
+	};
+
+	const handleNavHouseKeeping = () => {
+		navigate("/mypage/house-keeping");
+	};
+
+	const handleNavReview = () => {
+		navigate("/mypage/review");
 	};
 
 	return (
 		<S.MyPageNavWrapper>
 			<S.NavMyPageTitle onClick={handleNavMyPage}>마이페이지</S.NavMyPageTitle>
-			<div onClick={handleNavTransaction}>등록 물품</div>
-			<div>관심 상품</div>
-			<div>가계부</div>
-			<div>후기</div>
+			<div onClick={handleNavMyPage}>등록 물품</div>
+			<div onClick={handleNavPurchasedItem}>구매 물품</div>
+			<div onClick={handleNavInterestProduct}>관심 상품</div>
+			<div onClick={handleNavHouseKeeping}>가계부</div>
+			<div onClick={handleNavReview}>후기</div>
 			<S.NavAccountTitle>계정관리</S.NavAccountTitle>
 			<div onClick={handleNavAccountCorrection}>개인정보 수정</div>
 			<div onClick={handleNavProfile}>프로필 관리</div>
@@ -32,6 +45,11 @@ const Nav = () => {
 };
 
 export default Nav;
+const MasterWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+`;
 
 const MyPageNavWrapper = styled.div`
 	div {
@@ -50,4 +68,4 @@ const NavAccountTitle = styled.div`
 	margin-top: 20px;
 `;
 
-const S = { MyPageNavWrapper, NavMyPageTitle, NavAccountTitle };
+const S = { MasterWrapper, MyPageNavWrapper, NavMyPageTitle, NavAccountTitle };

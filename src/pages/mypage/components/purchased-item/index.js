@@ -1,4 +1,5 @@
 import BasicSelect from "components/Select";
+import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
 import { flexColumn, flexRow, primaryFont } from "styles/common";
 import EmptyData from "../empty-data";
@@ -10,7 +11,10 @@ import PurchasedButtons from "./components/PurchasedButtons";
  *
  */
 
-const PurchasedItem = ({ productList }) => {
+const PurchasedItem = () => {
+	const ProductListStatusEndUser1 = productList?.filter(
+		productEnd => productEnd.status === "판매완료" && productEnd.user === 1,
+	);
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
@@ -31,7 +35,7 @@ const PurchasedItem = ({ productList }) => {
 					</S.ToggleBox>
 				</S.RowBox>
 				<Wrapper>
-					{productList.map(product => (
+					{ProductListStatusEndUser1.map(product => (
 						<S.ProductContainer key={product.id}>
 							<p>{product.name}</p>
 							<S.RowBox>
@@ -70,10 +74,13 @@ const DivisionLine2 = styled.hr`
 `;
 
 const Container = styled.div`
+	width: 962px;
+	margin: 0 auto;
+	padding: 20px 0;
 	display: flex;
 	${primaryFont}
 	${flexColumn}
-	margin-bottom: 100px
+	margin-bottom: 150px
 `;
 const Wrapper = styled.div`
 	${flexRow}
