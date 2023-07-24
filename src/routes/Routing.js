@@ -17,6 +17,7 @@ import PurchasedItem from "../pages/mypage/components/purchased-item/index";
 import InterestProduct from "../pages/mypage/components/interest-product/index";
 import MypageLayout from "pages/mypage/Layout/mypage-layout";
 import AccountPrivacy from "pages/mypage/components/register-product/account-privacy";
+import Review from "pages/mypage/components/review";
 
 const router = createBrowserRouter([
 	{
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
 					{
 						path: "interest-product",
 						element: <InterestProduct />,
+					},
+					{
+						path: "review",
+						element: <Review />,
 					},
 				],
 			},
