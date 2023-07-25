@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Nav from "pages/my-page/components/Nav";
+import BasicButton from "components/Button";
 
 const MyProfile = () => {
 	return (
@@ -18,8 +19,16 @@ const MyProfile = () => {
 							자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
 						</S.ProfileIntroduction>
 						<S.ProfileImgBtnContainer>
-							<S.ImgChangeBtn>이미지 변경</S.ImgChangeBtn>
-							<S.ImgDeleteBtn>이미지 삭제</S.ImgDeleteBtn>
+							<BasicButton
+								size={"medium"}
+								color={"darkBlack"}
+								children={"이미지 변경"}
+							/>
+							<BasicButton
+								size={"medium"}
+								color={"darkBlack"}
+								children={"이미지 삭제"}
+							/>
 						</S.ProfileImgBtnContainer>
 					</S.ProfileIntroductionContainer>
 				</S.ProfileImgContainer>
@@ -27,14 +36,14 @@ const MyProfile = () => {
 				<S.NickNameTitle>닉네임</S.NickNameTitle>
 				<S.NickNameContainer>
 					<S.NickName>Jaewon</S.NickName>
-					<ChangeBtn>변경</ChangeBtn>
+					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
 				</S.NickNameContainer>
 
 				<S.Line />
 				<S.NameTitle>이름</S.NameTitle>
 				<S.NameContainer>
 					<S.Name>심재원</S.Name>
-					<ChangeBtn>변경</ChangeBtn>
+					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
 				</S.NameContainer>
 				<S.Line />
 				<S.IntroducationTitle>소개</S.IntroducationTitle>
@@ -42,7 +51,7 @@ const MyProfile = () => {
 					<S.Introducation>
 						자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
 					</S.Introducation>
-					<ChangeBtn>변경</ChangeBtn>
+					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
 				</S.IntroducationContainer>
 				<S.Line />
 			</S.ProfileWrapper>
@@ -65,10 +74,13 @@ const ProfileWrapper = styled.div`
 	width: 1060px;
 	padding: 60px;
 	margin: 80px 50px 200px 50px;
+	button {
+		font-size: 16px;
+	}
 `;
 const ProfileManagement = styled.div`
 	font-size: 22px;
-	font-weight: 1000;
+	font-weight: bold;
 `;
 const Line = styled.div`
 	width: 950px;
@@ -94,29 +106,19 @@ const ProfileImg = styled.img`
 `;
 const ProfileNickName = styled.div`
 	font-size: 22px;
-	font-weight: 1000;
+	font-weight: 900;
 	margin-bottom: 14px;
 `;
 const ProfileImgBtnContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	text-align: center;
+	button {
+		margin-right: 16px;
+		height: 40px;
+	}
 `;
-const ImgChangeBtn = styled.div`
-	width: 140px;
-	height: 40px;
-	color: #fff;
-	background-color: #222;
-	padding-top: 8px;
-	margin-right: 16px;
-`;
-const ImgDeleteBtn = styled.div`
-	width: 140px;
-	height: 40px;
-	color: #fff;
-	background-color: #222;
-	padding-top: 8px;
-`;
+
 const ProfileIntroduction = styled.div`
 	margin-bottom: 30px;
 `;
@@ -153,16 +155,7 @@ const IntroducationContainer = styled.div`
 const Introducation = styled.div`
 	margin-top: 16px;
 `;
-const ChangeBtn = styled.div`
-	width: 70px;
-	height: 30px;
-	border: 2px solid #000;
-	text-align: center;
-	font-size: 16px;
-	color: white;
-	background-color: #222;
-	cursor: pointer;
-`;
+
 const S = {
 	ContentWrapper,
 	ProfileWrapper,
@@ -170,8 +163,6 @@ const S = {
 	Line,
 	ProfileImg,
 	ProfileNickName,
-	ImgChangeBtn,
-	ImgDeleteBtn,
 	ProfileIntroduction,
 	NickNameTitle,
 	NickName,
@@ -182,7 +173,6 @@ const S = {
 	ProfileImgContainer,
 	ProfileIntroductionContainer,
 	ProfileImgBtnContainer,
-	ChangeBtn,
 	NameContainer,
 	NickNameContainer,
 	IntroducationContainer,

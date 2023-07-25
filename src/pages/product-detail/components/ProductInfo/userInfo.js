@@ -28,6 +28,7 @@ export default UserInfo;
 const Container = styled.div`
 	margin-top: 10px;
 	display: flex;
+	align-items: center;
 `;
 
 const ProfileImg = styled.img`

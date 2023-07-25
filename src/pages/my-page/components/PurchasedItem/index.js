@@ -1,7 +1,7 @@
 import BasicSelect from "components/Select";
 import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
-import { flexColumn, flexRow, primaryFont } from "styles/common";
+import { flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
 import PurchasedButtons from "./PurchasedButtons";
 
@@ -78,7 +78,6 @@ const Container = styled.div`
 	margin: 0 auto;
 	padding: 20px 0;
 	display: flex;
-	${primaryFont}
 	${flexColumn}
 	margin-bottom: 150px
 `;

@@ -1,7 +1,7 @@
 import BasicButton from "components/Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { flexRow, primaryFont } from "styles/common";
+import { flexRow } from "styles/common";
 import ProgressBar from "./ProgressBar";
 
 const MyProfile = ({ userList }) => {
@@ -65,7 +65,6 @@ const Container = styled.div`
 	margin-top: 100px;
 	margin-bottom: 100px;
 	padding-top: 25px;
-	${primaryFont}
 `;
 
 const RowBox = styled.div`

@@ -1,7 +1,7 @@
 import BasicButton from "components/Button";
 import BasicSelect from "components/Select";
 import styled from "styled-components";
-import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import { flexCenter, flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
 /**
  *
@@ -92,9 +92,8 @@ const DivisionLine = styled.hr`
 
 const Container = styled.div`
 	display: flex;
-	${primaryFont}
 	${flexColumn}
-    ${flexCenter}
+	${flexCenter}
 	margin-bottom: 150px
 `;
 

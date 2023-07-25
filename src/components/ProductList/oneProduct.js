@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 import { useNavigate } from "react-router-dom";
 import { GoBookmark } from "react-icons/go";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
@@ -56,7 +55,6 @@ export default OneProduct;
 const Container = styled.div`
 	cursor: pointer;
 	margin-bottom: 20px;
-	${primaryFont}
 	position: relative;
 	.box1 {
 		grid-area: 1 / 1 / 2 / 2;
@@ -98,6 +96,7 @@ const ProductInfo = styled.div`
 			font-weight: 700;
 			width: 250px;
 			height: 40px;
+			margin-top: 4px;
 			span {
 				display: inline-block;
 				border-radius: 2px;
@@ -106,19 +105,20 @@ const ProductInfo = styled.div`
 					return theme.PALETTE.primary;
 				}};
 				font-size: 12px;
-				font-weight: 700;
+				font-weight: 500;
 				color: ${({ theme }) => theme.PALETTE.white};
 				padding: 5px 10px;
 			}
 		}
 	}
 	.infoMiddle {
-		margin-top: 20px;
+		margin-top: 28px;
 		display: flex;
 		justify-content: space-between;
-		font-size: 12px;
+		font-size: 13px;
 		.location {
 			margin-right: 5px;
+			color: #788394;
 		}
 		.icons {
 			display: inline-block;

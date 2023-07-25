@@ -6,7 +6,7 @@ import { productList } from "mocks/data/productsList";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { flexCenter, primaryFont } from "styles/common";
+import { flexCenter } from "styles/common";
 
 const UsedProduct = () => {
 	const PRODUCTLIST = productList?.filter(
@@ -81,12 +81,11 @@ const Container = styled.div`
 	width: 1060px;
 	margin: 40px auto 20px auto;
 	padding-bottom: 40px;
-	${primaryFont}
 `;
 
 const Title = styled.div`
-	font-size: 32px;
-	color: #6c6c6c;
+	font-size: 28px;
+	color: #${({ theme }) => theme.PALETTE.darkPrimary};
 	text-align: center;
 `;
 
@@ -95,13 +94,14 @@ const Used = styled.span`
 `;
 
 const Location = styled.div`
-	margin: 20px 0;
+	margin: 10px 0 40px 0;
+	font-size: 15px;
+	color: #788394;
 	${flexCenter}
 `;
 
 const ButtonContainer = styled.div`
 	${flexCenter}
-	margin: 20px 0;
 `;
 
 const S = { Container, Used, Title, Location, ButtonContainer };

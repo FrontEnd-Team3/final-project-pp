@@ -68,6 +68,8 @@ export default ChatItem;
 const Item = styled.div`
 	width: 449px;
 	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	border-bottom: 1px solid #ebebeb;
 	height: 150px;
 	background-color: white;
@@ -78,32 +80,33 @@ const Item = styled.div`
 
 const New = styled.div`
 	position: absolute;
-	top: 20px;
+	top: 24px;
 	left: 15px;
 	background-color: ${({ theme }) => theme.PALETTE.primary};
 	color: ${({ theme }) => theme.PALETTE.white};
-	width: 50px;
-	height: 25px;
-	line-height: 25px;
-	border-radius: 16px;
+	width: 42px;
+	height: 22px;
+	line-height: 22px;
+	border-radius: 12px;
 	text-align: center;
-	font-size: 14px;
+	font-size: 12px;
+	font-weight: 500;
 `;
 
 const TextContainer = styled.div`
 	display: flex;
-	margin-left: 10px;
 `;
 
 const ChatContent = styled.div`
 	${flexColumn}
 	width: 200px;
-	margin-top: 15px;
 	margin-right: 35px;
 `;
 
 const SettingContent = styled.div`
+	position: relative;
 	${flexColumn}
+	justify-content: space-between;
 `;
 
 const IimgContainer = styled.div`
@@ -123,16 +126,19 @@ const Setting = styled.div`
 	font-size: 16px;
 	color: black;
 	margin-left: 45px;
-	margin-bottom: 5px;
 	font-weight: bold;
 	cursor: pointer;
 `;
 
 const SettingBox = styled.div`
+	font-size: 12px;
+	position: absolute;
+	top: 22px;
 	border: 1px solid ${({ theme }) => theme.PALETTE.gray};
 	text-align: center;
-	width: 70px;
+	width: 60px;
 	cursor: pointer;
+	background-color: white;
 	.read {
 		border-bottom: 1px solid ${({ theme }) => theme.PALETTE.gray};
 		padding: 5px;
@@ -158,7 +164,7 @@ const Span = styled.span`
 
 const Iproduct = styled.div`
 	font-size: 16px;
-	font-weight: bold;
+	font-weight: 600;
 `;
 
 const Ichat = styled.div`
@@ -170,17 +176,17 @@ const Ichat = styled.div`
 const Iprice = styled.div`
 	font-size: 14px;
 	padding-top: 5px;
-	font-weight: bold;
+	font-weight: 500;
 `;
 
 const Imove = styled.div`
 	font-size: 12px;
-	color: #222222;
-	font-weight: bold;
+	color: ${({ theme }) => theme.PALETTE.darkBlack};
+	font-weight: 500;
 	cursor: pointer;
-	position: absolute;
-	left: 83%;
-	top: 80%;
+	/* position: absolute; */
+	/* left: 83%;
+	top: 80%; */
 `;
 
 const S = {

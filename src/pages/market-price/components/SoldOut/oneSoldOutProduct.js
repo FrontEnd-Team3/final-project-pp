@@ -37,7 +37,7 @@ const OneProduct = ({ product }) => {
 				</S.FirstLine>
 				<S.SecondLine>
 					<S.Price>{product.price.toLocaleString()}원</S.Price>
-					<S.AgoDate>{today.getDate() - futureDate.getDate()}일전</S.AgoDate>
+					<S.AgoDate>{today.getDate() - futureDate.getDate()}일 전</S.AgoDate>
 				</S.SecondLine>
 			</S.Container>
 		</>
@@ -113,6 +113,7 @@ const Img = styled.img`
 	width: 250px;
 	height: 250px;
 	filter: brightness(40%);
+	border-radius: 4px;
 `;
 const Container = styled.div`
 	width: 252px;

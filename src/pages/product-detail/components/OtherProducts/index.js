@@ -1,7 +1,6 @@
 import ProductList from "components/ProductList/withPagination";
 import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 
 const OtherProducts = ({ id }) => {
 	const PRODUCTLIST = productList?.filter(
@@ -20,11 +19,9 @@ export default OtherProducts;
 
 const OtherProductTitle = styled.div`
 	width: 260px;
-	height: 52px;
-	padding: 10px;
+	padding: 12px 10px;
 	background-color: ${({ theme }) => theme.PALETTE.black};
 	color: ${({ theme }) => theme.PALETTE.white};
-	${primaryFont}
 	font-size: 20px;
 	margin: 25px auto;
 	text-align: center;

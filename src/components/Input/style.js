@@ -1,12 +1,10 @@
 import styled, { css } from "styled-components";
-import { primaryFont } from "styles/common";
 
 const variantCSS = {
 	primary: css`
 		border: none;
 		border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 		padding: 8px 1px;
-		${primaryFont}
 	`,
 	bgBox: css`
 		border: none;

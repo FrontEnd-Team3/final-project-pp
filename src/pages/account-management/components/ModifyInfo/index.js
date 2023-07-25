@@ -1,3 +1,4 @@
+import BasicButton from "components/Button";
 import Nav from "pages/my-page/components/Nav";
 import styled from "styled-components";
 
@@ -16,26 +17,26 @@ const AccountPrivacy = () => {
 				<S.EmailTitle>이메일 주소</S.EmailTitle>
 				<S.EmailContainer>
 					<S.Email>s******1@naver.com</S.Email>
-					<ChangeBtn>변경</ChangeBtn>
+					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
 				</S.EmailContainer>
 				<S.Line />
 				<S.PasswordTitle>비밀번호</S.PasswordTitle>
 				<S.PasswordContainer>
 					<S.Password>●●●●●●●●●●</S.Password>
-					<ChangeBtn>변경</ChangeBtn>
+					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
 				</S.PasswordContainer>
 				<S.Line />
 				<S.Privacy>개인정보</S.Privacy>
 				<S.PhoneNumberTitle>휴대폰 번호</S.PhoneNumberTitle>
 				<S.PhoneNumberContainer>
 					<S.PhoneNumber>010-3038-0098</S.PhoneNumber>
-					<ChangeBtn>변경</ChangeBtn>
+					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
 				</S.PhoneNumberContainer>
 				<S.Line />
 				<S.TrandingAreaTitle>주 거래 지역</S.TrandingAreaTitle>
 				<S.TrandingAreaContainer>
 					<S.TrandingArea>서울 성수동</S.TrandingArea>
-					<ChangeBtn>변경</ChangeBtn>
+					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
 				</S.TrandingAreaContainer>
 				<S.Line />
 				<S.Withdrawal>회원탈퇴</S.Withdrawal>
@@ -58,6 +59,9 @@ const PrivacyWrapper = styled.div`
 	width: 1060px;
 	padding: 60px;
 	margin: 100px 50px;
+	button {
+		font-size: 16px;
+	}
 `;
 const PrivacyCorrectionWrapper = styled.div`
 	display: flex;
@@ -65,7 +69,7 @@ const PrivacyCorrectionWrapper = styled.div`
 `;
 const PrivacyCorrection = styled.div`
 	font-size: 24px;
-	font-weight: 1000;
+	font-weight: bold;
 	margin-bottom: 16px;
 `;
 const Line = styled.div`
@@ -77,7 +81,7 @@ const Line = styled.div`
 const Account = styled.div`
 	margin-top: 100px;
 	font-size: 20px;
-	font-weight: 1000;
+	font-weight: bold;
 `;
 const EmailContainer = styled.div`
 	display: flex;
@@ -104,7 +108,7 @@ const Password = styled.div`
 const Privacy = styled.div`
 	margin-top: 80px;
 	font-size: 20px;
-	font-weight: 1000;
+	font-weight: bold;
 `;
 const PhoneNumberTitle = styled.div`
 	margin-top: 40px;
@@ -131,19 +135,9 @@ const TrandingArea = styled.div`
 const Withdrawal = styled.div`
 	margin-top: 100px;
 	border-bottom: 1px solid #a9a9a9;
-	width: 64px;
+	width: 50px;
 	color: #a9a9a9;
 	font-size: 14px;
-`;
-const ChangeBtn = styled.div`
-	width: 70px;
-	height: 30px;
-	border: 2px solid #000;
-	text-align: center;
-	font-size: 16px;
-	color: white;
-	background-color: #222;
-	cursor: pointer;
 `;
 
 const S = {
@@ -160,7 +154,6 @@ const S = {
 	PhoneNumber,
 	TrandingArea,
 	Withdrawal,
-	ChangeBtn,
 	EmailTitle,
 	PasswordTitle,
 	PhoneNumberTitle,

@@ -1,6 +1,6 @@
 import { productList } from "mocks/data/productsList";
 import styled from "styled-components";
-import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import { flexCenter, flexColumn, flexRow } from "styles/common";
 import TransactionHistory from "../TransactionHistory";
 import Buttons from "./Buttons";
 
@@ -44,9 +44,8 @@ const Container = styled.div`
 	margin: 0 auto;
 	padding: 20px 0;
 	display: flex;
-	${primaryFont}
 	${flexColumn}
-    ${flexCenter}
+	${flexCenter}
 `;
 
 const ProductContainer = styled.div`

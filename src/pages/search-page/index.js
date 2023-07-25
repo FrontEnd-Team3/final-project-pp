@@ -3,7 +3,6 @@ import BasicSelect from "components/Select";
 import { productList } from "mocks/data/productsList";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 
 const SearchPage = () => {
 	const PRODUCTLIST = productList.filter(
@@ -68,9 +67,6 @@ export default SearchPage;
 
 const Container = styled.div`
 	width: 100%;
-	* {
-		${primaryFont}
-	}
 `;
 
 const Wrapper = styled.div`

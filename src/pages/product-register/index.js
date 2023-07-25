@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexCenter, primaryFont } from "styles/common";
+import { flexCenter } from "styles/common";
 import OneImg from "./components/oneImg";
 import { registerImg } from "mocks/data/registerImg";
 import BasicButton from "components/Button";
@@ -82,9 +82,6 @@ const Wrapper = styled.div`
 const Container = styled.div`
 	margin: 50px auto;
 	max-width: 1060px;
-	* {
-		${primaryFont}
-	}
 `;
 
 const ImgRegister = styled.div``;

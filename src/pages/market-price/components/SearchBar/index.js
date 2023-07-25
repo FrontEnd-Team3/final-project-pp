@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexColumn, primaryFont } from "styles/common";
+import { flexColumn } from "styles/common";
 
 const SearchBar = () => {
 	return (
@@ -17,7 +17,7 @@ export default SearchBar;
 const Subtitle = styled.div`
 	font-size: 18px;
 	color: #5a5a5a;
-	font-weight: 600;
+	font-weight: 500;
 	position: relative;
 	top: 15px;
 `;
@@ -33,6 +33,7 @@ const SearchBtn = styled.div`
 	top: 15px;
 	color: ${({ theme }) => theme.PALETTE.primary};
 	font-weight: 600;
+	cursor: pointer;
 `;
 const MentWrapper = styled.div`
 	font-size: 19px;
@@ -52,7 +53,6 @@ const MentWrapper = styled.div`
 const Container = styled.div`
 	width: 553px;
 	height: 200px;
-	${primaryFont}
 	${flexColumn}
 	align-items: center;
 	position: relative;

@@ -23,7 +23,7 @@ const Container = styled.div`
 	justify-content: space-between;
 	flex-wrap: wrap;
 	gap: 20px 0; */
-	height: 763px;
+	margin-bottom: 70px;
 	width: 1060px;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
