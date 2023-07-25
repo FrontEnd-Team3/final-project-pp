@@ -1,27 +1,33 @@
+import { createBrowserRouter } from "react-router-dom";
 import Layout from "components/Layout";
 import Main from "pages/main";
-import RegisterProduct from "../pages/mypage/components/register-product/index";
-import MyProfile from "pages/mypage/components/register-product/profile";
+import MakeScrollToTop from "components/MakeScrollToTop";
+import AccountPrivacy from "pages/account-management/components/ModifyInfo";
+import MyProfile from "pages/account-management/components/ManageProfile";
+import SignIn from "pages/sign/sign-in";
+import Signup from "pages/sign/sign-up";
 import ProductDetailPage from "pages/product-detail";
-import Signup from "pages/sign/components/sign-up";
-import ProductRegister from "pages/product-register";
-import SearchPage from "pages/search-page";
-import FreeTransaction from "pages/transaction/free-transaction";
-import UsedTransaction from "pages/transaction/used-transaction";
-import { createBrowserRouter } from "react-router-dom";
 import MarketPrice from "pages/market-price";
+import ProductRegister from "pages/product-register";
+import UsedTransaction from "pages/transaction/used-transaction";
+import FreeTransaction from "pages/transaction/free-transaction";
 import Chat from "components/Chat";
-import SignIn from "pages/sign/components/sign-in";
-import HouseKeeping from "pages/mypage/components/housekeeping-book";
-import PurchasedItem from "../pages/mypage/components/purchased-item/index";
-import InterestProduct from "../pages/mypage/components/interest-product/index";
-import MypageLayout from "pages/mypage/Layout/mypage-layout";
-import AccountPrivacy from "pages/mypage/components/register-product/account-privacy";
-import Review from "pages/mypage/components/review";
+import SearchPage from "pages/search-page";
+import MypageLayout from "pages/my-page/layout/mypage-layout";
+import RegisterProduct from "pages/my-page/components/RegisterProducts";
+import HouseKeeping from "pages/my-page/components/HousekeepingBook";
+import PurchasedItem from "pages/my-page/components/PurchasedItem";
+import InterestProduct from "pages/my-page/components/InterestProduct";
+import Review from "pages/my-page/components/Review";
 
 const router = createBrowserRouter([
 	{
-		element: <Layout />,
+		element: (
+			<>
+				<Layout />
+				<MakeScrollToTop />
+			</>
+		),
 		children: [
 			{
 				path: "/",

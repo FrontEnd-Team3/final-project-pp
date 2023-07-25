@@ -1,0 +1,186 @@
+import BasicButton from "components/Button";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import styled from "styled-components";
+import * as yup from "yup";
+import * as SCHEMA from "../../../consts/schema";
+import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
+import ValidateInput from "../components/OneValidate";
+
+const SignIn = () => {
+	const navigate = useNavigate();
+
+	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
+	const schema = yup
+		.object()
+		.shape({ email, pw, pwCheck, nickName, name, phone });
+
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(schema),
+		mode: "onChange",
+	});
+
+	const onSubmitSignin = handleSubmit(data => {
+		console.log(data);
+	});
+
+	return (
+		<S.Container>
+			<S.LogoWrapper>
+				<S.LogoTitle
+					onClick={() => {
+						navigate(`/`);
+					}}
+				>
+					TRIMM
+				</S.LogoTitle>
+				<S.SideTitle>Trade, Reuse, Innovate and Make your Moment</S.SideTitle>
+				<S.LogoMent>지구를 위해 버리지 말고 중고 거래를 해보세요!</S.LogoMent>
+			</S.LogoWrapper>
+			<S.SignWrapper onSubmit={onSubmitSignin}>
+				<ValidateInput
+					control={control}
+					name={"email"}
+					label={"Email"}
+					placeholder={"예) example@trimm.com"}
+					errors={errors}
+					type={"text"}
+				/>
+				<ValidateInput
+					control={control}
+					name={"pw"}
+					label={"Password"}
+					placeholder={"password"}
+					errors={errors}
+					type={"password"}
+				/>
+				<ButtonWrapper>
+					<BasicButton
+						size={"mediumfourth"}
+						variant={"primary"}
+						color={"darkBlack"}
+					>
+						로그인
+					</BasicButton>
+				</ButtonWrapper>
+				<S.Ment
+					onClick={() => {
+						navigate("/Signup");
+					}}
+				>
+					회원가입 하기
+				</S.Ment>
+			</S.SignWrapper>
+		</S.Container>
+	);
+};
+export default SignIn;
+const LogoMent = styled.div`
+	position: relative;
+	top: 30px;
+	${primaryFont}
+`;
+const LogoWrapper = styled.div`
+	margin-right: 80px;
+	height: 150px;
+	position: relative;
+`;
+const SideTitle = styled.div`
+	${primaryFont}
+	font-style: italic;
+	font-weight: bold;
+	font-size: 16px;
+`;
+
+const LogoTitle = styled.div`
+	font-size: 55px;
+	font-weight: bold;
+	cursor: pointer;
+	font-style: italic;
+`;
+const Ment = styled.div`
+	${primaryFont};
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+`;
+const SignWrapper = styled.form`
+	border: 1px solid #e8e8e8;
+	border-radius: 8px;
+	width: 450px;
+	${flexColumn}
+	align-items: center;
+	position: relative;
+	padding: 40px;
+`;
+
+const Wrapper = styled.div`
+	width: 370px;
+	margin: 25px;
+	position: relative;
+	top: 35px;
+`;
+const ButtonWrapper = styled.div`
+	margin-bottom: 30px;
+	button {
+		font-size: 15px;
+		font-weight: 600;
+		:hover {
+			background-color: ${({ theme }) => theme.PALETTE.gray};
+		}
+		/* :disabled {
+			background-color: #e6e6e6;
+		} */
+	}
+`;
+const RealTitle = styled.div`
+	font-size: 38px;
+	font-weight: 900;
+	word-spacing: -10px;
+	${color}
+	-webkit-text-stroke: 0.1px black;
+	position: relative;
+	top: 50px;
+`;
+const Title = styled.p`
+	font-size: 13px;
+	color: ${({ theme }) => theme.PALETTE.black};
+	position: relative;
+	bottom: 4px;
+	font-weight: bold;
+`;
+const Subtitle = styled.p`
+	position: relative;
+	top: 6px;
+	font-size: 11px;
+	color: ${({ theme }) => theme.PALETTE.red};
+`;
+
+const Container = styled.div`
+	margin: 0 auto;
+	margin-bottom: 130px;
+	margin-top: 150px;
+	width: 1000px;
+	height: 510px;
+	border-radius: 12px;
+	${primaryFont}
+	${flexCenter}
+`;
+const S = {
+	Container,
+	RealTitle,
+	Title,
+	Subtitle,
+	Wrapper,
+	SignWrapper,
+	Ment,
+	LogoTitle,
+	SideTitle,
+	LogoWrapper,
+	LogoMent,
+};

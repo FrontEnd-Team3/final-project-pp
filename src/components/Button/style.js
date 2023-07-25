@@ -58,7 +58,7 @@ const sizeCSS = {
 		height: 42px;
 	`,
 	mediumThird: css`
-		width: 349px;
+		width: 310px;
 		height: 50px;
 	`,
 	mediumfourth: css`
@@ -71,13 +71,16 @@ const sizeCSS = {
 		font-size: 14px;
 	`,
 	xxsmall: css`
-		width: 60px;
+		width: 100px;
+		height: 50px;
+	`,
+	xxmedium: css`
+		width: 120px;
 		height: 50px;
 	`,
 };
 
 const Button = styled.button`
-	${({ variant }) => colorCSS[variant]}
 	${({ size }) => sizeCSS[size]}
 	${({ color }) => colorCSS[color]}
     cursor: pointer;

@@ -1,6 +1,6 @@
-import ProductList from "components/ProductList";
+import ProductList from "components/ProductList/withPagination";
 import BasicSelect from "components/Select";
-import { productList } from "mock/productsList";
+import { productList } from "mocks/data/productsList";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { primaryFont } from "styles/common";

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import ChatList from "./chat-list";
-import Chatting from "./chatting";
+import ChatList from "./ChatList";
+import Chatting from "./Chatting";
 
 const Chat = () => {
 	return (

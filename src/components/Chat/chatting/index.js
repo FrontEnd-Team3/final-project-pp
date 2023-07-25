@@ -2,6 +2,7 @@ import BasicButton from "components/Button";
 import BasicInput from "components/Input";
 import { useState } from "react";
 import styled from "styled-components";
+import fakeProfile from "./fakeProfile.png";
 
 const Chatting = () => {
 	// 전송 시 input 값 전송
@@ -27,16 +28,33 @@ const Chatting = () => {
 					<S.day>2023.07.06</S.day>
 					<S.hr />
 					<S.OtherChat>
-						<S.SendedByOther>
-							일이삼사오육칠팔구십일이삼사오육칠팔구십
-						</S.SendedByOther>
+						<S.OtherWrapper>
+							<S.OtherImg>
+								<S.Oimg src={fakeProfile} />
+							</S.OtherImg>
+							<S.Other>
+								<S.OtherNickname>룰루랄라</S.OtherNickname>
+								<S.SendedByOther>
+									일이삼사오육칠팔구십일이삼사오육칠팔구십
+									일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십
+								</S.SendedByOther>
+							</S.Other>
+						</S.OtherWrapper>
 						<S.ReceivedTime>10:55</S.ReceivedTime>
 					</S.OtherChat>
 					<S.MyChats>
 						{sendedContents.map(content => (
 							<S.OneChat>
 								<S.SendedTime>15:49</S.SendedTime>
-								<S.SendedByMe>{content}</S.SendedByMe>
+								<S.MyWrapper>
+									<S.My>
+										<S.SendedByMe>{content}</S.SendedByMe>
+										<S.MyNickname>룰루랄라</S.MyNickname>
+									</S.My>
+									<S.MyImg>
+										<S.Mimg src={fakeProfile} />
+									</S.MyImg>
+								</S.MyWrapper>
 							</S.OneChat>
 						))}
 					</S.MyChats>
@@ -120,13 +138,11 @@ const hr = styled.hr`
 `;
 
 const MyChats = styled.div`
-	width: 280px;
+	width: 100%;
 	display: flex;
-	float: right;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	word-wrap: break-word;
-	text-align: right;
+	justify-content: flex-end;
+	flex-direction: column;
+	align-items: flex-end;
 `;
 
 const OtherChat = styled.div`
@@ -134,7 +150,6 @@ const OtherChat = styled.div`
 	margin-top: 10px;
 	margin-bottom: 10px;
 	float: left;
-	width: 280px;
 	align-items: flex-end;
 `;
 
@@ -152,10 +167,9 @@ const ReceivedTime = styled.div`
 `;
 
 const SendedByMe = styled.div`
+	max-width: 200px;
 	font-size: 16px;
 	padding: 10px;
-	align-items: start;
-	float: right;
 	background-color: #e6e6e6;
 	word-wrap: break-word;
 	border-radius: 6px;
@@ -163,31 +177,92 @@ const SendedByMe = styled.div`
 `;
 
 const SendedByOther = styled.div`
+	width: auto;
+	max-width: 200px;
 	font-size: 16px;
-	float: left;
-	align-items: start;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 	padding: 10px;
 	background-color: #ffffff;
 	border: 1px solid #dddddd;
 	word-wrap: break-word;
 	border-radius: 6px;
+	margin-left: 5px;
 `;
 
 const SendWrapper = styled.form`
+	background-color: #ffffff;
+	width: 100%;
 	display: flex;
-	height: 50px;
 	justify-content: space-evenly;
 	align-items: center;
 	padding: 10px;
 	position: sticky;
 	bottom: 0;
+	margin-bottom: 7px;
 `;
 
 const OneChat = styled.div`
-	width: 280px;
 	display: flex;
-	justify-content: flex-end;
-	margin-bottom: 20px;
+	align-items: flex-end;
+`;
+
+const OtherImg = styled.div`
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	overflow: hidden;
+`;
+
+const Oimg = styled.img`
+	width: 100%;
+	height: 100%;
+`;
+
+const OtherNickname = styled.div`
+	font-size: 11px;
+	width: 45px;
+	margin-left: 10px;
+	margin-bottom: 3px;
+`;
+
+const Other = styled.div`
+	display: block;
+`;
+
+const MyImg = styled.div`
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-left: 5px;
+`;
+
+const Mimg = styled.img`
+	width: 100%;
+	height: 100%;
+`;
+const MyNickname = styled.div`
+	font-size: 11px;
+	width: 45px;
+	display: flex;
+	margin-bottom: 3px;
+`;
+
+const My = styled.div`
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: flex-end;
+`;
+
+const MyWrapper = styled.div`
+	display: flex;
+	margin: 10px 0;
+`;
+
+const OtherWrapper = styled.div`
+	display: flex;
 `;
 
 const S = {
@@ -206,4 +281,14 @@ const S = {
 	SendedByOther,
 	SendWrapper,
 	OneChat,
+	OtherImg,
+	Oimg,
+	OtherNickname,
+	Other,
+	MyImg,
+	Mimg,
+	MyNickname,
+	My,
+	MyWrapper,
+	OtherWrapper,
 };

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import SearchBar from "./components/search-bar";
+import SearchBar from "./components/SearchBar";
 import { flexColumn, primaryFont } from "styles/common";
-import Soldout from "./components/soldout";
-import PriceGraph from "./components/graph";
+import Soldout from "./components/SoldOut";
+import PriceGraph from "./components/Graph";
 
 const MarketPrice = () => {
 	return (
