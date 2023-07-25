@@ -135,7 +135,7 @@ const TrandingArea = styled.div`
 const Withdrawal = styled.div`
 	margin-top: 100px;
 	border-bottom: 1px solid #a9a9a9;
-	width: 64px;
+	width: 50px;
 	color: #a9a9a9;
 	font-size: 14px;
 `;
