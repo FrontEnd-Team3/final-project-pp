@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
+import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
 import { useState } from "react";
 
@@ -109,11 +109,11 @@ const Header = () => {
 
 export default Header;
 const NewChat = styled.div`
-	border: 1.8px solid #2e8b57;
-	width: 105px;
+	border: 1.8px solid ${({ theme }) => theme.PALETTE.darkPrimary};
+	text-align: center;
+	width: 104px;
 	font-size: 12px;
 	font-weight: bold;
-	padding-left: 4px;
 	padding-top: 6px;
 	height: 30px;
 	position: relative;
@@ -125,11 +125,10 @@ const Sellbutton = styled.button`
 	height: 45px;
 	border-radius: 0;
 	border: none;
-	${primaryFont}
 	font-size: 16px;
 	color: white;
-	font-weight: 900;
-	background-color: #3cb371;
+	font-weight: bold;
+	background-color: ${({ theme }) => theme.PALETTE.primary};
 	position: relative;
 	bottom: 5px;
 	cursor: pointer;
@@ -166,7 +165,7 @@ const Container = styled.div`
 	padding-bottom: 20px;
 `;
 const SideTitle = styled.div`
-	${primaryFont}
+	${LogoFont}
 	font-style: italic;
 	font-weight: bold;
 	font-size: 11px;
@@ -184,7 +183,6 @@ const Category = styled.div`
 	font-weight: bold;
 	width: 270px;
 	justify-content: space-between;
-	${primaryFont}
 `;
 const Searchicon = styled.img`
 	width: 18px;
@@ -207,7 +205,7 @@ const SearchBar = styled.input`
 	:focus {
 		outline: none;
 	}
-	border-bottom: 1.5px solid #404040;
+	border-bottom: 1.5px solid ${({ theme }) => theme.PALETTE.black};
 	::placeholder {
 		color: black;
 		font-size: 13px;
@@ -216,9 +214,10 @@ const SearchBar = styled.input`
 
 const Title = styled.div`
 	font-size: 48px;
-	font-weight: bold;
+	font-weight: 800;
 	cursor: pointer;
 	font-style: italic;
+	${LogoFont}
 `;
 
 const LogoWrapper = styled.div`
@@ -226,7 +225,6 @@ const LogoWrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 auto;
-	${primaryFont}
 	width: 1060px;
 	position: relative;
 	top: 20px;
@@ -237,7 +235,6 @@ const CategoryWrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 auto;
-	${primaryFont}
 	width: 1060px;
 	height: 30px;
 	position: relative;

@@ -1,7 +1,6 @@
 import { css } from "styled-components";
-import "@fontsource/inter";
 
-export const primaryFont = css`
+export const LogoFont = css`
 	font-family: "Inter";
 `;
 

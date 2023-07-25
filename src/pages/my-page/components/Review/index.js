@@ -2,7 +2,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BasicButton from "components/Button";
 import styled from "styled-components";
-import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import { flexCenter, flexColumn, flexRow } from "styles/common";
 
 const Review = () => {
 	return (
@@ -80,9 +80,8 @@ const Container = styled.div`
 	margin: 0 auto;
 	padding: 20px 0;
 	display: flex;
-	${primaryFont}
 	${flexColumn}
-    ${flexCenter}
+	${flexCenter}
 	margin-bottom: 100px
 `;
 
@@ -130,7 +129,6 @@ const TextArea = styled.textarea`
 	font-size: 18px;
 	font-weight: 600;
 	border: none;
-	${primaryFont}
 	resize: none; /* 사용자가 크기를 조절하지 못하게 함 */
 	&::placeholder {
 		color: #9f9797;

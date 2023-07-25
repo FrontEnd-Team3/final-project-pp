@@ -21,7 +21,7 @@ export default Slogan;
 
 const Container = styled.div`
 	margin: 90px 0;
-	font-weight: 500;
+	font-weight: 600;
 	font-style: italic;
 	font-size: 36px;
 `;

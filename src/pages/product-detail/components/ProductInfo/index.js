@@ -1,4 +1,4 @@
-import { flexColumn, primaryFont } from "styles/common";
+import { flexColumn } from "styles/common";
 import styled from "styled-components";
 import { productList } from "mocks/data/productsList";
 import ProductImages from "./productImages";
@@ -45,7 +45,6 @@ const Container = styled.div`
 	justify-content: space-between;
 	margin-bottom: 100px;
 	padding-top: 25px;
-	${primaryFont}
 `;
 
 const InfoContainer = styled.div`
@@ -87,8 +86,7 @@ const ProductPrice = styled.div`
 
 const Tag = styled.span`
 	display: inline-block;
-	padding: 10px;
-	height: 33px;
+	padding: 8px 12px;
 	border-radius: 20px;
 	border: 1px solid;
 	background: ${({ theme }) => theme.PALETTE.white};

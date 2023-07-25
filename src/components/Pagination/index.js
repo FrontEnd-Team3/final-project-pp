@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Pagination = ({ totalData, dataLimit, page, setPage }) => {
@@ -62,7 +61,6 @@ const ControlBtn = styled.button`
 	width: 34px;
 	height: 34px;
 	background-color: ${({ theme }) => theme.PALETTE.darkPrimary};
-	${primaryFont}
 	font-size: 24px;
 	&[disabled] {
 		background-color: ${({ theme }) => theme.PALETTE.gray};
@@ -80,7 +78,6 @@ const PageBtn = styled.button`
 	background-color: white;
 	line-height: 33px;
 	padding-left: 1px;
-	${primaryFont}
 	&[aria-current] {
 		background-color: ${({ theme }) => theme.PALETTE.primary};
 		transition-duration: 0.1s;

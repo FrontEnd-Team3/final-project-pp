@@ -1,6 +1,6 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
-import { flexCenter, flexColumn, flexRow, primaryFont } from "styles/common";
+import { flexCenter, flexColumn, flexRow } from "styles/common";
 
 /**
  *
@@ -68,9 +68,8 @@ export default InterestEndProductList;
 const Container = styled.div`
 	display: flex;
 	margin-bottom: 100px;
-	${primaryFont}
 	${flexColumn}
-    ${flexCenter}
+	${flexCenter}
 `;
 
 const ProductContainer = styled.div`

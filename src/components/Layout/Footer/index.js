@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
+import { LogoFont } from "styles/common";
+import iconFace from "assets/images/ico.fackbook.png";
+import iconInsta from "assets/images/ico.instagram.png";
+import iconGit from "assets/images/ico.github.png";
 
 const Footer = () => {
 	return (
@@ -30,13 +33,13 @@ const Footer = () => {
 				<S.FooterRight>
 					<S.Icons>
 						<S.Icon>
-							<img src={process.env.PUBLIC_URL + "/ico.fackbook.png"} />
+							<img src={iconFace} />
 						</S.Icon>
 						<S.Icon>
-							<img src={process.env.PUBLIC_URL + "/ico.instagram.png"} />
+							<img src={iconInsta} />
 						</S.Icon>
 						<S.Icon>
-							<img src={process.env.PUBLIC_URL + "/ico.github.png"} />
+							<img src={iconGit} />
 						</S.Icon>
 					</S.Icons>
 					<S.CSBox>
@@ -57,25 +60,26 @@ const Footer = () => {
 export default Footer;
 
 const Wrapper = styled.div`
-	width: 100%;
+	display: flex;
+	align-items: center;
 	height: 200px;
-	border-top: 1px solid #222; // #222 theme에 추가하기
-	border-bottom: 1px solid #222; // #222 theme에 추가하기
-	* {
-		${primaryFont};
-	}
+	border-top: 1px solid ${({ theme }) => theme.PALETTE.darkBlack};
+	border-bottom: 1px solid ${({ theme }) => theme.PALETTE.darkBlack};
 `;
 
 const Container = styled.div`
 	margin: 0 auto;
-	max-width: 1060px;
-	height: 100%;
+	width: 1060px;
+	height: 126px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 `;
 const FooterLeft = styled.div`
-	height: 137px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 `;
 
 const LogoBox = styled.div`
@@ -89,6 +93,7 @@ const Logo = styled.p`
 	font-size: ${({ theme }) => theme.FONT_SIZE.mlarge};
 	font-style: italic;
 	margin-right: 6px;
+	${LogoFont}
 `;
 
 const Registered = styled.p`
@@ -104,32 +109,14 @@ const InfoLink = styled.ul`
 	li {
 		display: flex;
 		align-items: center;
-		padding-left: 12px;
+		margin-right: 20px;
 		cursor: pointer;
-		color: #7e7e7e;
-		font-weight: 500;
-	}
-
-	li:first-of-type {
-		padding-left: 0;
+		color: ${({ theme }) => theme.PALETTE.darkBlack};
+		font-weight: 400;
 	}
 
 	li:last-of-type {
 		font-weight: bold;
-		padding-right: 0;
-	}
-
-	li::after {
-		content: "";
-		display: inline-block;
-		margin-left: 10px;
-		width: 2px;
-		height: 12px;
-		background-color: #7e7e7e;
-	}
-
-	li:last-of-type::after {
-		display: none;
 	}
 `;
 
@@ -143,48 +130,28 @@ const Li = styled.li`
 
 const CompanyInfo = styled.ul`
 	display: flex;
-	font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	font-size: 13px;
 	margin-bottom: 10px;
 	li {
 		display: flex;
 		align-items: center;
-		padding-left: 12px;
-		color: #222;
-	}
-
-	li:first-of-type {
-		padding-left: 0;
-	}
-
-	li:last-of-type {
-		padding-right: 0;
-	}
-
-	li::after {
-		content: "";
-		display: inline-block;
-		margin-left: 10px;
-		width: 2px;
-		height: 12px;
-		background-color: #222;
-	}
-
-	li:last-of-type::after {
-		display: none;
+		margin-right: 16px;
+		color: #909090;
 	}
 `;
 
 const CompanyInfo2 = styled.div`
 	display: flex;
-	font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	color: #909090;
+	font-size: 13px;
 
-	li:first-of-type {
-		margin-right: 20px;
+	li {
+		margin-right: 16px;
 	}
 `;
 
 const FooterRight = styled.div`
-	height: 137px;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
@@ -212,16 +179,19 @@ const CSBox = styled.div`
 `;
 
 const CsCenter = styled.p`
-	font-size: ${({ theme }) => theme.FONT_SIZE.xsmedium};
+	font-weight: bold;
+	font-size: ${({ theme }) => theme.FONT_SIZE.small};
 	color: ${({ theme }) => theme.PALETTE.black};
 `;
 
 const CsCenterInfo = styled.p`
-	color: #666;
+	color: #909090;
+	font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
 `;
 
 const Copyright = styled.p`
 	color: #8a8a8a;
+	font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
 `;
 
 const S = {

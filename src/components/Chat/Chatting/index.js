@@ -69,7 +69,7 @@ const Chatting = () => {
 					/>
 					<BasicButton
 						type="submit"
-						variant={"primary"}
+						color={"primary"}
 						size={"xmedium"}
 						children="전송"
 						style={{ borderRadius: "4px" }}
@@ -83,13 +83,12 @@ const Chatting = () => {
 export default Chatting;
 
 const Container = styled.div`
-	width: 450px;
 	border: 1px solid #ebebeb;
 	margin: 100px auto;
 `;
 
 const Header = styled.div`
-	width: 450px;
+	width: 100%;
 	height: 60px;
 	display: flex;
 	div {
@@ -101,7 +100,7 @@ const Header = styled.div`
 `;
 
 const HChat = styled.div`
-	width: 448px;
+	width: 100%;
 	background-color: #fcf9f3;
 	font-size: 18px;
 	display: flex;
@@ -111,10 +110,11 @@ const HChat = styled.div`
 `;
 
 const ChatMain = styled.div`
-	width: 450px;
+	width: 100%;
 `;
 
 const Chat = styled.div`
+	width: 100%;
 	padding: 20px;
 	height: 450px;
 	overflow-x: hidden;
@@ -133,7 +133,7 @@ const day = styled.div`
 `;
 
 const hr = styled.hr`
-	width: 400px;
+	width: 100%;
 	color: #d9d9d9;
 `;
 

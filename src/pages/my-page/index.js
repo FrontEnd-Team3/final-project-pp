@@ -1,6 +1,5 @@
 import { userList } from "mocks/data/userList";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 import MyProfile from "./components/MyProfile";
 import Nav from "./components/Nav";
 
@@ -60,7 +59,6 @@ const MypageContainer = styled.div`
 	flex-direction: row;
 	margin-left: 0px;
 	padding: 20px 0;
-	${primaryFont}
 `;
 
 const MyProfileWrapper = styled.div`

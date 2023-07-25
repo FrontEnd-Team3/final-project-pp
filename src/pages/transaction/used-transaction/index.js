@@ -5,7 +5,6 @@ import BasicSelect from "components/Select";
 import { productList } from "mocks/data/productsList";
 import { useState } from "react";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 
 const UsedTransaction = () => {
 	const PRODUCTLIST = productList.filter(
@@ -50,7 +49,6 @@ const UsedTransaction = () => {
 							shape={"primary"}
 							size={"xsmall"}
 							children={"변경"}
-							style={{ fontSize: "14px", marginLeft: "15px" }}
 						/>
 					</div>
 					<BasicSelect
@@ -70,9 +68,6 @@ export default UsedTransaction;
 
 const Container = styled.div`
 	width: 100%;
-	* {
-		${primaryFont}
-	}
 `;
 
 const Wrapper = styled.div`
@@ -83,6 +78,7 @@ const Wrapper = styled.div`
 const Title = styled.p`
 	text-align: center;
 	margin-bottom: 50px;
+	font-weight: 500;
 	font-size: ${({ theme }) => theme.FONT_SIZE.mmlarge};
 	& span {
 		color: ${({ theme }) => theme.PALETTE.darkPrimary};
@@ -94,9 +90,13 @@ const Address = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
+	font-size: 13px;
+	color: #788394;
 	margin: 12px 0;
 	& button {
 		color: ${({ theme }) => theme.PALETTE.white};
+		font-size: 14px;
+		margin-left: 15px;
 	}
 `;
 

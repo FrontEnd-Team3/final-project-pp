@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 import { GoBookmark } from "react-icons/go";
 import ImageSlide from "./imageSlide";
 import ScrollToTop from "./scrollToTop";
@@ -27,20 +26,20 @@ export default RecentlyClicked;
 
 const Container = styled.div`
 	z-index: 100;
-	width: 152.5px;
+	width: 136px;
 	height: 345px;
 	border: 1px solid;
 	border-color: ${({ theme }) => theme.PALETTE.primary};
 	position: fixed;
 	top: 250px;
 	left: 90%;
-	${primaryFont}
 	text-align: center;
-	font-size: 18px;
+	font-size: 16px;
 	background-color: ${({ theme }) => theme.PALETTE.white};
 `;
 
 const Top = styled.div`
+	width: 100%;
 	display: inline-block;
 	vertical-align: middle;
 	padding: 0 15px;
@@ -65,6 +64,7 @@ const Middle = styled.div`
 	padding: 20px 0;
 	.title {
 		margin-bottom: 10px;
+		font-weight: 500;
 	}
 	button {
 		border: none;

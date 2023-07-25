@@ -20,7 +20,7 @@ const ScrollToTop = () => {
 export default ScrollToTop;
 
 const ScollBtn = styled.div`
-	height: 45px;
+	font-weight: 500;
 	border-top: 1px solid;
 	border-color: ${({ theme }) => theme.PALETTE.primary};
 	line-height: 45px;

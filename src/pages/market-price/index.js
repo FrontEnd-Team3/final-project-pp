@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import SearchBar from "./components/SearchBar";
-import { flexColumn, primaryFont } from "styles/common";
+import { flexColumn } from "styles/common";
 import Soldout from "./components/SoldOut";
 import PriceGraph from "./components/Graph";
 
@@ -22,7 +22,6 @@ const Container = styled.div`
 	width: 1060px;
 	height: 2200px;
 	${flexColumn}
-	${primaryFont}
 	align-items: center;
 `;
 

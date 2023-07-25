@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { primaryFont } from "styles/common";
 
 const ControlledInput = ({ onChange, value = "", placeholder, type }) => {
 	return (
@@ -18,7 +17,6 @@ const Input = styled.input`
 	border: none;
 	border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 	padding: 8px 1px;
-	${primaryFont}
 	width: 370px;
 	font-size: 11px;
 	color: ${({ theme }) => theme.PALETTE.black};

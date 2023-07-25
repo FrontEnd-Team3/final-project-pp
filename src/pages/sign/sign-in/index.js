@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import styled from "styled-components";
 import * as yup from "yup";
 import * as SCHEMA from "../../../consts/schema";
-import { color, flexCenter, flexColumn, primaryFont } from "styles/common";
+import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import ValidateInput from "../components/OneValidate";
 
 const SignIn = () => {
@@ -83,7 +83,6 @@ export default SignIn;
 const LogoMent = styled.div`
 	position: relative;
 	top: 30px;
-	${primaryFont}
 `;
 const LogoWrapper = styled.div`
 	margin-right: 80px;
@@ -91,10 +90,10 @@ const LogoWrapper = styled.div`
 	position: relative;
 `;
 const SideTitle = styled.div`
-	${primaryFont}
 	font-style: italic;
 	font-weight: bold;
 	font-size: 16px;
+	${LogoFont}
 `;
 
 const LogoTitle = styled.div`
@@ -102,9 +101,9 @@ const LogoTitle = styled.div`
 	font-weight: bold;
 	cursor: pointer;
 	font-style: italic;
+	${LogoFont}
 `;
 const Ment = styled.div`
-	${primaryFont};
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
@@ -168,7 +167,6 @@ const Container = styled.div`
 	width: 1000px;
 	height: 510px;
 	border-radius: 12px;
-	${primaryFont}
 	${flexCenter}
 `;
 const S = {

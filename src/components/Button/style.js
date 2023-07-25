@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { primaryFont } from "styles/common";
 
 const colorCSS = {
 	primary: css`
@@ -78,12 +77,15 @@ const sizeCSS = {
 		width: 120px;
 		height: 50px;
 	`,
+	account: css`
+		width: 70px;
+		height: 30px;
+	`,
 };
 
 const Button = styled.button`
 	${({ size }) => sizeCSS[size]}
 	${({ color }) => colorCSS[color]}
     cursor: pointer;
-	${primaryFont}
 `;
 export default Button;
