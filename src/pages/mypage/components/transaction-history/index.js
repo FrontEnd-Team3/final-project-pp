@@ -104,6 +104,7 @@ const ProductContainer = styled.div`
 	margin-top: 30px;
 	width: 962px;
 	height: 270px;
+	position: relative;
 	border: 1px solid #b6b6b6;
 	border-radius: 6px;
 	${flexRow}
@@ -146,9 +147,9 @@ const RowBox = styled.div`
 `;
 
 const TextBox2 = styled.div`
-	position: relative;
-	left: 585px;
-	top: 124px;
+	position: absolute;
+	left: 825px;
+	top: 214px;
 `;
 
 const ToggleBox = styled.div`

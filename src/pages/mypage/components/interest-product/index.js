@@ -23,8 +23,6 @@ const InterestProduct = () => {
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
 	];
-
-	console.log(ProductList);
 	if (ProductList && ProductList.length > 0) {
 		return (
 			<S.Container>
@@ -117,6 +115,7 @@ const ProductContainer = styled.div`
 	margin-top: 30px;
 	width: 962px;
 	height: 270px;
+	position: relative;
 	border: 1px solid #b6b6b6;
 	border-radius: 6px;
 	${flexRow}
@@ -142,6 +141,7 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	width: 660px;
 `;
+
 const Wrapper2 = styled.div`
 	margin-left: 30px;
 	${flexRow}
@@ -159,9 +159,9 @@ const RowBox = styled.div`
 `;
 
 const TextBox2 = styled.div`
-	position: relative;
-	left: 585px;
-	top: 124px;
+	position: absolute;
+	left: 825px;
+	top: 214px;
 `;
 
 const ToggleBox = styled.div`
@@ -170,6 +170,7 @@ const ToggleBox = styled.div`
 	width: 105px;
 	height: 32px;
 `;
+
 const ToggleBox2 = styled.div`
 	width: 105px;
 	height: 32px;
