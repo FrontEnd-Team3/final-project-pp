@@ -13,7 +13,7 @@ const ImageSlide = () => {
 	// 최근 본 상품 배열에 들어있는 id 값과 일치하는 상품의 이미지 가져오기
 	// localstorage에는 id가 문자열로 들어가므로 빈 문자열 더해서 검사
 	const ImageArr = productList
-		.filter(product => recentlyClicked.includes(product.id + ""))
+		.filter(product => recentlyClicked.includes(product.idx + ""))
 		.map(product => product.img_url);
 	// console.log("최근 본 상품", ImageArr);
 
