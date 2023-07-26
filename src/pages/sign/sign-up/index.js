@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import BasicModal from "components/Modal/WithoutButton";
 import ValidateInput from "../components/OneValidate";
+import AuthApi from "apis/auth.api";
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -21,10 +22,10 @@ const Signup = () => {
 		}, 3000);
 	};
 
-	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
+	const { email, pw, pwCheck, nickName, region, phone } = SCHEMA;
 	const schema = yup
 		.object()
-		.shape({ email, pw, pwCheck, nickName, name, phone });
+		.shape({ email, pw, pwCheck, nickName, region, phone });
 
 	const {
 		handleSubmit,
@@ -35,8 +36,13 @@ const Signup = () => {
 		mode: "onChange",
 	});
 
-	const onSubmitSignUp = handleSubmit(data => {
-		console.log(data);
+	const onSubmitSignUp = handleSubmit(async e => {
+		try {
+			await AuthApi.signup(e.email, e.pw, e.nickName, e.phone, e.region);
+			console.log(data);
+		} catch (error) {
+			console.error(error);
+		}
 	});
 	return (
 		<>
@@ -85,18 +91,11 @@ const Signup = () => {
 						errors={errors}
 						type={"text"}
 					/>
-					<ValidateInput
-						control={control}
-						name={"name"}
-						label={"Name"}
-						placeholder={"Name"}
-						errors={errors}
-						type={"text"}
-					/>
+
 					{/* 주소창 수정예정 */}
 					<ValidateInput
 						control={control}
-						name={"address"}
+						name={"region"}
 						label={"Address"}
 						placeholder={"Address"}
 						errors={errors}
