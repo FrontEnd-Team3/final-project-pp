@@ -1,4 +1,4 @@
-import { userList } from "../data/userList";
+import { userList } from "../data/user/userList";
 import { rest } from "msw";
 
 export const getUsers = rest.get("/users", async (req, res, ctx) => {

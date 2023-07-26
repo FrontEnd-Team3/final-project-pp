@@ -1,5 +1,5 @@
 import Images from "../products/images";
-import FAKEPROFILE from "./fakeProfile.png";
+import FAKEPROFILE from "../fakeProfile.png";
 
 export const userList = [
 	{

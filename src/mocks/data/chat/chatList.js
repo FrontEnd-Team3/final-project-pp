@@ -1,7 +1,7 @@
-import ADMINSELL from "./adminsell.jpg";
-import ADMINBUY from "./adminbuy.jpg";
-import BASICIMG from "./basicimg.png";
-import Images from "./images";
+import ADMINSELL from "../adminsell.jpg";
+import ADMINBUY from "../adminbuy.jpg";
+import BASICIMG from "../basicimg.png";
+import Images from "../products/images";
 
 export const chatList = [
 	{
