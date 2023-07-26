@@ -16,9 +16,9 @@ const UsedTransaction = () => {
 		let filteredList = [...PRODUCTLIST];
 
 		if (value === "등록순") {
-			filteredList.sort((a, b) => a.date - b.date);
+			filteredList.sort((a, b) => a.created_at.localeCompare(b.created_at));
 		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.bookmarkCount - a.bookmarkCount);
+			filteredList.sort((a, b) => b.Liked - a.Liked);
 		} else if (value === "저가순") {
 			filteredList.sort((a, b) => a.price - b.price);
 		} else if (value === "고가순") {

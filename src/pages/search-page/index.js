@@ -11,26 +11,25 @@ const SearchPage = () => {
 	const [filteredProducts, setfilteredProducts] = useState(PRODUCTLIST);
 
 	useEffect(() => {
-		const filteredList = PRODUCTLIST.filter(item => item.name.includes("T"));
+		const filteredList = PRODUCTLIST.filter(item => item.title.includes("T"));
 
 		setfilteredProducts(filteredList);
 	}, []);
 
 	const onFiltering = value => {
-		console.log("옵션밸류값", value, typeof value);
 		let filteredList = [...PRODUCTLIST];
 
 		if (value === "등록순") {
-			filteredList.sort((a, b) => a.date - b.date);
+			filteredList.sort((a, b) => a.created_at.localeCompare(b.created_at));
 		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.bookmarkCount - a.bookmarkCount);
+			filteredList.sort((a, b) => b.Liked - a.Liked);
 		} else if (value === "저가순") {
 			filteredList.sort((a, b) => a.price - b.price);
 		} else if (value === "고가순") {
 			filteredList.sort((a, b) => b.price - a.price);
 		}
 
-		filteredList = filteredList.filter(item => item.name.includes("T"));
+		filteredList = filteredList.filter(item => item.title.includes("T"));
 
 		console.log("필터링", filteredList);
 		setfilteredProducts(filteredList);
