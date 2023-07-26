@@ -48,7 +48,7 @@ ondo: 0
 
 ## 🌟 마이페이지 내 등록 물품 조회 (/api/user/my-page/product-list&page={page}?category={category})
 
-```json
+```
 Product: [{
     idx: 0,
     title: "",
@@ -84,7 +84,7 @@ count: 1 // 총 물품 수
 
 ## 🌟 마이페이지 내 가계부 조회 (/api/user/my-page/account-book?page={page}&category={category}&start={start}&end={end})
 
-```json
+```
 amount: [
     totalSaleAmount: "",
     totalPurchaseAmount: "",
