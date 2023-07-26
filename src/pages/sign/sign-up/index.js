@@ -1,5 +1,5 @@
 import BasicButton from "components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +10,7 @@ import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import BasicModal from "components/Modal/WithoutButton";
 import ValidateInput from "../components/OneValidate";
 import AuthApi from "apis/auth.api";
+import { replacePhone } from "utils/phone-num";
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -31,18 +32,34 @@ const Signup = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
+		setValue, // useForm에서 setValue 메서드를 가져옵니다.
+		watch,
 	} = useForm({
 		resolver: yupResolver(schema),
 		mode: "onChange",
 	});
 
-	const onSubmitSignUp = handleSubmit(async e => {
+	const phoneNumber = watch("phone");
+
+	useEffect(() => {
+		const newPhoneNumber = replacePhone(phoneNumber);
+		setValue("phone", newPhoneNumber);
+	}, [phoneNumber, setValue]);
+
+	const onSubmitSignUp = handleSubmit(async data => {
 		try {
-			await AuthApi.signup(e.email, e.pw, e.nickName, e.phone, e.region);
+			await AuthApi.signup(
+				data.email,
+				data.pw,
+				data.nickName,
+				data.phone,
+				data.region,
+			);
 			console.log(data);
 		} catch (error) {
 			console.error(error);
 		}
+		console.log(data);
 	});
 	return (
 		<>
