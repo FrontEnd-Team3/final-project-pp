@@ -7,7 +7,8 @@ import ButtonContainer from "./Buttons/index";
 import { useState } from "react";
 
 const ProductInfo = ({ id }) => {
-	const TARGET = productList.find(product => product.id === parseInt(id));
+	const TARGET = productList.find(product => product.idx === parseInt(id));
+	console.log(TARGET);
 	const localPrice = TARGET?.price.toLocaleString("ko-KR");
 
 	// 판매자인지 여부 파악해서 버튼 다르게 보이게 하기

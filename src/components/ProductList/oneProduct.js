@@ -14,7 +14,7 @@ const OneProduct = ({ product, grid }) => {
 	// 상품 상세 페이지로 이동
 	const navigate = useNavigate();
 	const HandlePageMove = () => {
-		navigate(`/product/${product.id}`);
+		navigate(`/product/${product.idx}`);
 	};
 	return (
 		<S.Container onClick={HandlePageMove} className={grid}>
