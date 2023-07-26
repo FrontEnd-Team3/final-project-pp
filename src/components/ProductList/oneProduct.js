@@ -6,11 +6,10 @@ import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 const OneProduct = ({ product, grid }) => {
 	// console.log(product);
 	const localPrice = product.price?.toLocaleString("ko-KR");
-	const ImageURL = product.image[0];
+	const ImageURL = product?.img_url;
 
 	// 날짜 구하는 로직
-	const Today = new Date("2023-07-22");
-	console.log("today", Today.getDate());
+	// const Today = new Date("2023-07-22");
 
 	// 상품 상세 페이지로 이동
 	const navigate = useNavigate();
@@ -25,15 +24,15 @@ const OneProduct = ({ product, grid }) => {
 			<S.ProductInfo status={product.status}>
 				<div className="infoTop">
 					<p className="name">
-						{product.name}&nbsp;&nbsp;
+						{product.title}&nbsp;&nbsp;
 						<span className="status">{product.status}</span>
 					</p>
 				</div>
 				<div className="infoMiddle">
-					<p className="location">{product.location}</p>
+					<p className="location">{product.region}</p>
 					<p className="icons">
 						<GoBookmark size="16" />
-						{product.bookmarkCount}
+						{product.Liked}
 						<HiOutlineChatBubbleLeftRight
 							size="16"
 							style={{ marginLeft: "10px" }}

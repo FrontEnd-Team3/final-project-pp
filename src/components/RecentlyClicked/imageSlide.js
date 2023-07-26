@@ -14,7 +14,7 @@ const ImageSlide = () => {
 	// localstorage에는 id가 문자열로 들어가므로 빈 문자열 더해서 검사
 	const ImageArr = productList
 		.filter(product => recentlyClicked.includes(product.id + ""))
-		.map(product => product.image[0]);
+		.map(product => product.img_url);
 	// console.log("최근 본 상품", ImageArr);
 
 	// 각 이미지 클릭 시 해당 상품 상세 페이지로 이동
