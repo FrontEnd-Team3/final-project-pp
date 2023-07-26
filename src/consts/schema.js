@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { REGEX } from "./regex";
+import { replacePhone } from "utils/phone-num";
 
 export const email = yup
 	.string()
@@ -52,4 +53,20 @@ export const phone = yup
 	.required("핸드폰 번호를 입력해주세요.")
 	.matches(REGEX.phone, {
 		message: "010-0000-0000 형식의 핸드폰 번호를 입력해주세요.",
-	});
+	})
+	.transform((value, originalValue) => {
+		if (!originalValue) {
+			return value; // value가 없으면(즉, 입력이 없으면) 기본값 사용
+		}
+		const newPhoneNumber = replacePhone(originalValue);
+		return newPhoneNumber;
+	})
+	.test(
+		"is-correct-length",
+		"010-0000-0000 형식의 핸드폰 번호를 입력해주세요.",
+		value => {
+			if (!value) return true; // 입력이 없으면 검사를 통과시킵니다.
+			return value.length === 13; // 전화번호의 길이가 13자리인지 확인합니다.
+		},
+	)
+	.default(""); // 입력이 없을 때 사용할 기본값

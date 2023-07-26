@@ -1,5 +1,5 @@
 import BasicButton from "components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import BasicModal from "components/Modal/WithoutButton";
 import ValidateInput from "../components/OneValidate";
+import AuthApi from "apis/auth.api";
+import { replacePhone } from "utils/phone-num";
 
 const Signup = () => {
 	const navigate = useNavigate();
@@ -21,21 +23,42 @@ const Signup = () => {
 		}, 3000);
 	};
 
-	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
+	const { email, pw, pwCheck, nickName, region, phone } = SCHEMA;
 	const schema = yup
 		.object()
-		.shape({ email, pw, pwCheck, nickName, name, phone });
+		.shape({ email, pw, pwCheck, nickName, region, phone });
 
 	const {
 		handleSubmit,
 		control,
 		formState: { errors },
+		setValue, // useForm에서 setValue 메서드를 가져옵니다.
+		watch,
 	} = useForm({
 		resolver: yupResolver(schema),
 		mode: "onChange",
 	});
 
-	const onSubmitSignUp = handleSubmit(data => {
+	const phoneNumber = watch("phone");
+
+	useEffect(() => {
+		const newPhoneNumber = replacePhone(phoneNumber);
+		setValue("phone", newPhoneNumber);
+	}, [phoneNumber, setValue]);
+
+	const onSubmitSignUp = handleSubmit(async data => {
+		try {
+			await AuthApi.signup(
+				data.email,
+				data.pw,
+				data.nickName,
+				data.phone,
+				data.region,
+			);
+			console.log(data);
+		} catch (error) {
+			console.error(error);
+		}
 		console.log(data);
 	});
 	return (
@@ -85,18 +108,11 @@ const Signup = () => {
 						errors={errors}
 						type={"text"}
 					/>
-					<ValidateInput
-						control={control}
-						name={"name"}
-						label={"Name"}
-						placeholder={"Name"}
-						errors={errors}
-						type={"text"}
-					/>
+
 					{/* 주소창 수정예정 */}
 					<ValidateInput
 						control={control}
-						name={"address"}
+						name={"region"}
 						label={"Address"}
 						placeholder={"Address"}
 						errors={errors}
