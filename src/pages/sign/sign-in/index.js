@@ -7,6 +7,7 @@ import * as yup from "yup";
 import * as SCHEMA from "../../../consts/schema";
 import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import ValidateInput from "../components/OneValidate";
+import AuthApi from "apis/auth.api";
 
 const SignIn = () => {
 	const navigate = useNavigate();
@@ -25,10 +26,13 @@ const SignIn = () => {
 		mode: "onChange",
 	});
 
-	const onSubmitSignin = handleSubmit(data => {
-		console.log(data);
+	const onSubmitSignin = handleSubmit(async data => {
+		try {
+			await AuthApi.login(data.email, data.pw);
+		} catch (error) {
+			console.error(error);
+		}
 	});
-
 	return (
 		<S.Container>
 			<S.LogoWrapper>
