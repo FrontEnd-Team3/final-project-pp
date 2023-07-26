@@ -2,7 +2,7 @@ import BasicButton from "components/Button";
 import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
 import BasicSelect from "components/Select";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import { useState } from "react";
 import styled from "styled-components";
 

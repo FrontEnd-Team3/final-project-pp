@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import { useState } from "react";
 import Pagination from "components/Pagination";
 import { flexColumn } from "styles/common";

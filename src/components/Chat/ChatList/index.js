@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ChatItem from "./Item";
-import { chatList } from "mocks/data/chatList";
+import { chatList } from "mocks/data/chat/chatList";
 
 const ChatList = () => {
 	const [showSalesHistory, setShowSalesHistory] = useState(true);

@@ -1,6 +1,6 @@
 import BasicButton from "components/Button";
 import BasicSelect from "components/Select";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";

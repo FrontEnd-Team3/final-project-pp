@@ -1,4 +1,4 @@
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import { useState } from "react";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";

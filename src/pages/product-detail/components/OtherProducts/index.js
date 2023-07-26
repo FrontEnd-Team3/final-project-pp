@@ -1,5 +1,5 @@
 import ProductList from "components/ProductList/withPagination";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import styled from "styled-components";
 
 const OtherProducts = ({ id }) => {

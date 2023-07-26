@@ -1,6 +1,6 @@
 import { flexColumn } from "styles/common";
 import styled from "styled-components";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import ProductImages from "./productImages";
 import UserInfo from "./userInfo";
 import ButtonContainer from "./Buttons/index";
