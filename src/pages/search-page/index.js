@@ -29,7 +29,7 @@ const SearchPage = () => {
 			filteredList.sort((a, b) => b.price - a.price);
 		}
 
-		filteredList = filteredList.filter(item => item.name.includes("T"));
+		filteredList = filteredList.filter(item => item.title.includes("T"));
 
 		console.log("필터링", filteredList);
 		setfilteredProducts(filteredList);
