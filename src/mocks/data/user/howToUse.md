@@ -1,14 +1,16 @@
 ## 🌟 로그인 (/api/user/login)
 
 ```
-user: {
-    socket: "",
-    nickName: "",
-    profileUrl: "",
-    email: "",
-    region: "",
-},
-tokenForHeader: ""
+{
+    user: {
+        socket: "",
+        nickName: "",
+        profileUrl: "",
+        email: "",
+        region: "",
+    },
+    tokenForHeader: ""
+}
 ```
 
 - user 안에 로그인한 유저의 socket, nickName, profileUrl, email, region 정보 보내줌
@@ -34,14 +36,16 @@ tokenForHeader: ""
 ## 🌟 마이페이지 메인 (/api/user/my-page)
 
 ```
-User: {
-    nickName: "",
-    profileUrl: ""
+{
+    User: {
+        nickName: "",
+        profileUrl: ""
+    }
+    productsCount: 0,
+    likeCount: 0,
+    chatCount: 0,
+    ondo: 0
 }
-productsCount: 0,
-likeCount: 0,
-chatCount: 0,
-ondo: 0
 ```
 
 - 등록상품/관심상품/채팅 개수/온도는 User 객체 안에 담겨있지 않음
@@ -49,35 +53,39 @@ ondo: 0
 ## 🌟 마이페이지 내 등록 물품 조회 (/api/user/my-page/product-list&page={page}?category={category})
 
 ```
-Product: [{
-    idx: 0,
-    title: "",
-    price: 0,
-    img_url: "",
-    createdAt: "",
-    region: "",
-    status: "",
-},]
-count: 1 // 총 물품 수
+{
+    Product: [{
+        idx: 0,
+        title: "",
+        price: 0,
+        img_url: "",
+        createdAt: "",
+        region: "",
+        status: "",
+    },]
+    count: 1 // 총 물품 수
+}
 ```
 
 - 상품 id, 상품명, 가격, 상품 이미지, 등록 일자, 지역, 판매중/판매완료
 
 ## 🌟 마이페이지 내 관심 물품 조회 (/api/user/my-page/product-list&page={page})
 
-```json
-Product: [{
-    idx: 0,
-    title: "",
-    price: 0,
-    img_url: "",
-    createdAt: "",
-    region: "",
-    status: "",
-    category: true,
-    liked: 0
-},]
-count: 1 // 총 물품 수
+```
+{
+    Product: [{
+        idx: 0,
+        title: "",
+        price: 0,
+        img_url: "",
+        createdAt: "",
+        region: "",
+        status: "",
+        category: true,
+        liked: 0
+    },]
+    count: 1 // 총 물품 수
+}
 ```
 
 - 상품 id, 상품명, 가격, 상품 이미지, 등록 일자, 지역, 판매중/판매완료, 카테고리(중고/무료), 좋아요 개수
@@ -85,38 +93,41 @@ count: 1 // 총 물품 수
 ## 🌟 마이페이지 내 가계부 조회 (/api/user/my-page/account-book?page={page}&category={category}&start={start}&end={end})
 
 ```
-amount: [
-    totalSaleAmount: "",
-    totalPurchaseAmount: "",
-    thisMonthSaleAmount: "",
-    thisMonthPurchaseAmount: ""
-],
-PayList: [
-    {
-        idx: 0,
-        createdAt: "",
-        Product: {
+{
+    amount: [
+        totalSaleAmount: "",
+        totalPurchaseAmount: "",
+        thisMonthSaleAmount: "",
+        thisMonthPurchaseAmount: ""
+    ],
+    PayList: [
+        {
             idx: 0,
             createdAt: "",
-            price: 0,
-            img_url: "",
-        }
-    },
-    {
-        idx: 1,
-        createdAt: "",
-        Product: {
-            idx: 13,
+            Product: {
+                idx: 0,
+                createdAt: "",
+                price: 0,
+                img_url: "",
+            }
+        },
+        {
+            idx: 1,
             createdAt: "",
-            price: 0,
-            img_url: "",
+            Product: {
+                idx: 13,
+                createdAt: "",
+                price: 0,
+             img_url: "",
+            }
         }
-    }
-],
-count: 2
+    ],
+    count: 2
+}
 ```
 
 - 구매 상품 목록은 오는데 판매 상품 목록은 없는 것으로 보아 등록 상품에서 status로 가져오는 것으로 보임
+- 가계부의 판매/구매 총액(amount)은 string..!
 
 ## 🤔 고민 사항
 
