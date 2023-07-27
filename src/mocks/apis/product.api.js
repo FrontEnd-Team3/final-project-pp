@@ -1,8 +1,48 @@
-import { productList } from "../data/products/productsList";
+import { productList } from "mocks/data/products/productsList";
 import { rest } from "msw";
 
-export const getProducts = rest.get("/products", async (req, res, ctx) => {
-	return res(ctx.status(200), ctx.json(productList));
+// 메인 상품 목록 조회
+export const getProducts = rest.get("/product", async (req, res, ctx) => {
+	// usedProduct
+	const USED = productList.filter(product => !product.category);
+	const usedProduct = USED.map(product => {
+		return {
+			idx: product.idx,
+			title: product.title,
+			price: product.price,
+			img_url: product.img_url,
+			created_at: product.created_at,
+			Liked: product.liked,
+			status: product.status,
+			ProductImages: product.ProductImages,
+			ProductsTags: product.ProductsTags,
+		};
+	});
+
+	// freeProduct
+	const FREE = productList.filter(product => product.category);
+	const freeProduct = FREE.map(product => {
+		return {
+			idx: product.idx,
+			title: product.title,
+			price: product.price,
+			img_url: product.img_url,
+			created_at: product.created_at,
+			Liked: product.liked,
+			status: product.status,
+			ProductImages: product.ProductImages,
+			ProductsTags: product.ProductsTags,
+		};
+	});
+
+	return res(
+		ctx.status(200),
+		ctx.json({
+			region: "서울시 성동구 성수동",
+			usedProduct,
+			freeProduct,
+		}),
+	);
 });
 
 export const addProduct = rest.post("/products", async (req, res, ctx) => {
@@ -48,6 +88,7 @@ export const addProduct = rest.post("/products", async (req, res, ctx) => {
 	);
 });
 
+// 물품 수정
 export const updateProducts = rest.put(
 	"/products/:id",
 	async (req, res, ctx) => {
@@ -101,6 +142,7 @@ export const updateProducts = rest.put(
 	},
 );
 
+// 물품 판매 완료
 export const updateProductStatus = rest.patch(
 	"/products/:id",
 	async (req, res, ctx) => {
@@ -115,6 +157,7 @@ export const updateProductStatus = rest.patch(
 	},
 );
 
+// 물품 삭제
 export const deleteProducts = rest.delete(
 	"/products/:id",
 	async (req, res, ctx) => {
@@ -127,3 +170,11 @@ export const deleteProducts = rest.delete(
 		);
 	},
 );
+
+// 상품 상세
+// 관심 상품 등록
+// 관심 상품 해제
+
+// 최근 본 상품 목록 조회
+// 최근 본 상품 추가
+// 최근 본 상품 삭제
