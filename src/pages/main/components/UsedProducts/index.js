@@ -2,7 +2,7 @@ import BasicButton from "components/Button";
 import BasicNavigateModal from "components/Modal/WithButton";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import SearchAddress from "components/SearchAddress";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";

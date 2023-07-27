@@ -1,25 +1,29 @@
 import BasicButton from "components/Button";
+import Pagination from "components/Pagination";
 import BasicSelect from "components/Select";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
+import { useState } from "react";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
 import StatusEndProductList from "./StatusEndProductList";
 
-/**
- *
- * 호버시 쉐도우 주는거 적용해야함
- *
- */
-
 const RegisterProduct = () => {
-	const ProductList = productList?.filter(
-		product => product.status === "판매중" && product.user === 9,
+	const sellingProducts = productList?.filter(
+		product =>
+			product.User &&
+			product.User.nick_name === "aaa123" &&
+			product.status === "판매중",
 	);
-	console.log(ProductList);
-	const ProductListStatusEnd = productList?.filter(
-		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
+	const soldProducts = productList?.filter(
+		product =>
+			product.User &&
+			product.User.nick_name === "aaa123" &&
+			product.status === "판매완료",
 	);
+
+	const combinedProductList = [...sellingProducts, <StatusEndProductList />];
+
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
@@ -29,84 +33,98 @@ const RegisterProduct = () => {
 		{ value: "거래중", label: "거래중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
-	console.log(ProductList);
-	if (ProductList && ProductList.length > 0) {
+
+	const [dataLimit, setDataLimit] = useState(4);
+	const [page, setPage] = useState(1);
+	const offset = (page - 1) * dataLimit;
+
+	if (combinedProductList && combinedProductList.length > 0) {
 		return (
-			<S.Container>
-				<S.RowBox>
-					<S.Title>등록 상품</S.Title>
-					<S.ToggleBox>
-						<BasicSelect
-							variant={"primary"}
-							options={options}
-							selectedValue={"중고거래"}
-							style={{ border: "1px solid #dddddd" }}
-						/>
-					</S.ToggleBox>
-				</S.RowBox>
-				{ProductList.map(product => (
-					<S.ProductContainer key={product.id}>
-						<img src={product.image[2]} />
-						<div>
-							<div>
-								<S.Wrapper>
-									<p>{product.name}</p>
+			<>
+				<S.Container>
+					<S.RowBox>
+						<S.Title>등록 상품</S.Title>
+						<S.ToggleBox>
+							<BasicSelect
+								variant={"primary"}
+								options={options}
+								selectedValue={"중고거래"}
+								style={{ border: "1px solid #dddddd" }}
+							/>
+						</S.ToggleBox>
+					</S.RowBox>
+					{combinedProductList
+						.slice(offset, offset + dataLimit)
+						.map((product, i) => (
+							<S.ProductContainer key={product.idx}>
+								<img src={product.img_url} />
+								<div>
 									<div>
-										<BasicButton
-											color={"white"}
-											size={"xsmall"}
-											children={"수정"}
-											style={{
-												fontSize: "14px",
-												height: "28px",
-												borderRadius: "6px",
-												fontWeight: "600",
-												border: "1px solid #dddddd",
-											}}
-										/>
-										<BasicButton
-											color={"primary"}
-											size={"xsmall"}
-											children={"삭제"}
-											style={{
-												fontSize: "14px",
-												height: "28px",
-												borderRadius: "6px",
-												fontWeight: "600",
-												marginLeft: "10px",
-											}}
-										/>
+										<S.Wrapper>
+											<p>{product.title}</p>
+											<div>
+												<BasicButton
+													color={"white"}
+													size={"xsmall"}
+													children={"수정"}
+													style={{
+														fontSize: "14px",
+														height: "28px",
+														borderRadius: "6px",
+														fontWeight: "600",
+														border: "1px solid #dddddd",
+													}}
+												/>
+												<BasicButton
+													color={"primary"}
+													size={"xsmall"}
+													children={"삭제"}
+													style={{
+														fontSize: "14px",
+														height: "28px",
+														borderRadius: "6px",
+														fontWeight: "600",
+														marginLeft: "10px",
+													}}
+												/>
+											</div>
+										</S.Wrapper>
+										<S.Wrapper2>
+											<S.ToggleBox2>
+												<BasicSelect
+													variant={"primary"}
+													options={sideOptions}
+													selectedValue={product.status}
+													style={{ border: "1px solid #dddddd" }}
+												/>
+											</S.ToggleBox2>
+											<S.Wrapper2>
+												<p>{product.price}</p> <p>won</p>
+											</S.Wrapper2>
+										</S.Wrapper2>
 									</div>
-								</S.Wrapper>
-								<S.Wrapper2>
-									<S.ToggleBox2>
-										<BasicSelect
-											variant={"primary"}
-											options={sideOptions}
-											selectedValue={"판매중"}
-											style={{ border: "1px solid #dddddd" }}
-										/>
-									</S.ToggleBox2>
-									<S.Wrapper2>
-										<p>350,000</p> <p>won</p>
-									</S.Wrapper2>
-								</S.Wrapper2>
-							</div>
-							<TextBox2>
-								<p>상품 보러가기 〉</p>
-							</TextBox2>
-						</div>
-					</S.ProductContainer>
-				))}
-				<StatusEndProductList productListStatusEnd={ProductListStatusEnd} />
-			</S.Container>
+									<TextBox2>
+										<p>상품 보러가기 〉</p>
+									</TextBox2>
+								</div>
+							</S.ProductContainer>
+						))}
+				</S.Container>
+				<Pagination
+					totalData={combinedProductList.length}
+					dataLimit={dataLimit}
+					page={page}
+					setPage={setPage}
+				/>
+			</>
 		);
 	} else {
-		<EmptyData />;
+		return <EmptyData />;
 	}
 };
 export default RegisterProduct;
 
+// Styles
 const DivisionLine = styled.hr`
 	width: 962px;
 	height: 1px;
@@ -154,6 +172,7 @@ const Wrapper = styled.div`
 	justify-content: space-between;
 	width: 660px;
 `;
+
 const Wrapper2 = styled.div`
 	margin-left: 30px;
 	${flexRow}
@@ -179,6 +198,7 @@ const ToggleBox = styled.div`
 	width: 105px;
 	height: 32px;
 `;
+
 const ToggleBox2 = styled.div`
 	width: 105px;
 	height: 32px;

@@ -5,12 +5,12 @@ import { flexColumn } from "styles/common";
 import { useNavigate } from "react-router-dom";
 
 const OneProduct = ({ product }) => {
-	const url = product.image[0];
+	const url = product.img_url;
 	const futureDate = new Date("2023-07-21");
-	const today = product.date;
+	const today = product.created_at;
 	const navigate = useNavigate();
 	const moveDetailPage = () => {
-		navigate(`/product/${product.id}`);
+		navigate(`/product/${product.idx}`);
 	};
 
 	return (
@@ -21,13 +21,13 @@ const OneProduct = ({ product }) => {
 					<S.Out>OUT</S.Out>
 				</S.SoldOut>
 				<S.Img src={url}></S.Img>
-				<S.Name>{product.name}</S.Name>
+				<S.Name>{product.title}</S.Name>
 
 				<S.FirstLine>
-					<S.Location>{product.location}</S.Location>
+					<S.Location>{product.region}</S.Location>
 					<S.Iconwrapper>
 						<GoBookmark size="16" />
-						<div>{product.bookmarkCount}</div>
+						<div>{product.Liked}</div>
 						<HiOutlineChatBubbleLeftRight
 							size="16"
 							style={{ marginLeft: "10px" }}
@@ -37,7 +37,7 @@ const OneProduct = ({ product }) => {
 				</S.FirstLine>
 				<S.SecondLine>
 					<S.Price>{product.price.toLocaleString()}원</S.Price>
-					<S.AgoDate>{today.getDate() - futureDate.getDate()}일 전</S.AgoDate>
+					<S.AgoDate>{today - futureDate.getDate()}일 전</S.AgoDate>
 				</S.SecondLine>
 			</S.Container>
 		</>

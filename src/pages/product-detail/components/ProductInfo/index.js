@@ -1,13 +1,14 @@
 import { flexColumn } from "styles/common";
 import styled from "styled-components";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import ProductImages from "./productImages";
 import UserInfo from "./userInfo";
 import ButtonContainer from "./Buttons/index";
 import { useState } from "react";
 
 const ProductInfo = ({ id }) => {
-	const TARGET = productList.find(product => product.id === parseInt(id));
+	const TARGET = productList.find(product => product.idx === parseInt(id));
+	console.log(TARGET);
 	const localPrice = TARGET?.price.toLocaleString("ko-KR");
 
 	// 판매자인지 여부 파악해서 버튼 다르게 보이게 하기
@@ -17,22 +18,19 @@ const ProductInfo = ({ id }) => {
 	if (TARGET)
 		return (
 			<S.Container>
-				<ProductImages image={TARGET.image} />
+				<ProductImages image={TARGET.ProductImages} />
 				<S.InfoContainer>
-					<S.ProductName>{TARGET.name}</S.ProductName>
-					<S.ProductLocation>{TARGET.location}(위도, 경도)</S.ProductLocation>
-					<UserInfo targetUser={TARGET.user} />
-					<S.Introduction>{TARGET.introduction}</S.Introduction>
+					<S.ProductName>{TARGET.title}</S.ProductName>
+					<S.ProductLocation>{TARGET.region}(위도, 경도)</S.ProductLocation>
+					<UserInfo targetUser={TARGET.User} />
+					<S.Introduction>{TARGET.description}</S.Introduction>
 					<div>
-						{TARGET.tags.map(tag => (
-							<S.Tag># {tag}</S.Tag>
+						{TARGET.ProductsTags.map(tag => (
+							<S.Tag># {tag.Tag["tag"]}</S.Tag>
 						))}
 					</div>
 					<S.ProductPrice>{localPrice} 원</S.ProductPrice>
-					<ButtonContainer
-						isSeller={isSeller}
-						bookmark={TARGET.bookmarkCount}
-					/>
+					<ButtonContainer isSeller={isSeller} bookmark={TARGET.Liked} />
 				</S.InfoContainer>
 			</S.Container>
 		);

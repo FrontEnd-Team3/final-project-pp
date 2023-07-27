@@ -1,22 +1,16 @@
-import { productList } from "mocks/data/productsList";
 import { useState } from "react";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 
-const ChatItem = ({ chat }) => {
-	const { userimg, List, productID, price, move } = chat || {};
-
-	const lastContent =
-		List && Array.isArray(List) && List.length > 0
-			? List[List.length - 1].content
-			: "";
+const ChatItem = ({ chat, lastMessage, price, product }) => {
+	const { userimg, move } = chat || {};
 
 	// 상품 이름, 이미지 보여주기
-	const productName = productList?.find(
-		product => product.id === productID,
-	)?.name;
-	const profileImg = productList?.find(product => product.id === productID)
-		?.image[0];
+	// const product = productList.find(product => product.idx === chat.product.idx);
+	// const productName = product
+	// 	? product.title
+	// 	: `Product ID: ${chat.product.idx}`;
+	// const productImgUrl = product ? product.img_url : userimg;
 
 	// 상품 상세 페이지로 이동
 	// 현재 mock data 구조 문제로 에러 발생, 추후 데이터 받아와서 다시 구현 예정
@@ -33,13 +27,13 @@ const ChatItem = ({ chat }) => {
 			<S.Item>
 				<S.IimgContainer>
 					{!isRead && <S.New>New</S.New>}
-					<S.Iimg src={profileImg ? profileImg : userimg} />
+					<S.Iimg src={product.img_url} />
 				</S.IimgContainer>
 				<S.TextContainer>
 					<S.ChatContent>
-						<S.Iproduct>{productName ? productName : productID}</S.Iproduct>
-						<S.Ichat>{lastContent || "No content for List"}</S.Ichat>
-						<S.Iprice>{price}</S.Iprice>
+						<S.Iproduct>{product.title}</S.Iproduct>
+						<S.Ichat>{lastMessage || "No content for List"}</S.Ichat>
+						<S.Iprice>{product.price}</S.Iprice>
 					</S.ChatContent>
 					<S.SettingContent>
 						<S.Span>

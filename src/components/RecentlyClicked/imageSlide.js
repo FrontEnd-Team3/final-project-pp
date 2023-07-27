@@ -1,6 +1,6 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import useRecentlyClicked from "hooks/useRecentlyClicked";
-import { productList } from "mocks/data/productsList";
+import { productList } from "mocks/data/products/productsList";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -13,8 +13,8 @@ const ImageSlide = () => {
 	// 최근 본 상품 배열에 들어있는 id 값과 일치하는 상품의 이미지 가져오기
 	// localstorage에는 id가 문자열로 들어가므로 빈 문자열 더해서 검사
 	const ImageArr = productList
-		.filter(product => recentlyClicked.includes(product.id + ""))
-		.map(product => product.image[0]);
+		.filter(product => recentlyClicked.includes(product.idx + ""))
+		.map(product => product.img_url);
 	// console.log("최근 본 상품", ImageArr);
 
 	// 각 이미지 클릭 시 해당 상품 상세 페이지로 이동
