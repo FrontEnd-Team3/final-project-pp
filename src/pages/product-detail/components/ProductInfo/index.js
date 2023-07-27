@@ -1,36 +1,35 @@
 import { flexColumn } from "styles/common";
 import styled from "styled-components";
-import { productList } from "mocks/data/products/productsList";
-import ProductImages from "./productImages";
 import UserInfo from "./userInfo";
 import ButtonContainer from "./Buttons/index";
-import { useState } from "react";
+import ProductImages from "./productImages";
 
-const ProductInfo = ({ id }) => {
-	const TARGET = productList.find(product => product.idx === parseInt(id));
-	console.log(TARGET);
-	const localPrice = TARGET?.price.toLocaleString("ko-KR");
+const ProductInfo = ({ product }) => {
+	const { searchProducts, isSeller, chat } = product;
+	const localPrice = searchProducts?.price.toLocaleString("ko-KR");
 
-	// 판매자인지 여부 파악해서 버튼 다르게 보이게 하기
-	// 실제 API에서는 상세 데이터를 받아올 때 사용자의 토큰을 검사하여 판매자인지 미리 검사 후 isSeller 값 반환해주므로 state로 관리하지 않고 해당 값으로 수정할 예정
-	const [isSeller, SetIsSeller] = useState(true);
-
-	if (TARGET)
+	if (product)
 		return (
 			<S.Container>
-				<ProductImages image={TARGET.ProductImages} />
+				<ProductImages image={searchProducts?.ProductImages} />
 				<S.InfoContainer>
-					<S.ProductName>{TARGET.title}</S.ProductName>
-					<S.ProductLocation>{TARGET.region}(위도, 경도)</S.ProductLocation>
-					<UserInfo targetUser={TARGET.User} />
-					<S.Introduction>{TARGET.description}</S.Introduction>
+					<S.ProductName>{searchProducts?.title}</S.ProductName>
+					<S.ProductLocation>
+						{searchProducts?.region}(위도, 경도)
+					</S.ProductLocation>
+					<UserInfo targetUser={searchProducts?.User} />
+					<S.Introduction>{searchProducts?.description}</S.Introduction>
 					<div>
-						{TARGET.ProductsTags.map(tag => (
+						{searchProducts?.ProductsTags.map(tag => (
 							<S.Tag># {tag.Tag["tag"]}</S.Tag>
 						))}
 					</div>
 					<S.ProductPrice>{localPrice} 원</S.ProductPrice>
-					<ButtonContainer isSeller={isSeller} bookmark={TARGET.Liked} />
+					<ButtonContainer
+						isSeller={isSeller}
+						bookmark={searchProducts?.liked}
+						chat={chat}
+					/>
 				</S.InfoContainer>
 			</S.Container>
 		);
