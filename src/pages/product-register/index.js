@@ -5,6 +5,7 @@ import { registerImg } from "mocks/data/registerImg";
 import BasicButton from "components/Button";
 import { AiFillCamera } from "react-icons/ai";
 import Inputs from "./components/inputs";
+import Map from "./components/map";
 
 const ProductRegister = () => {
 	const handleRegisterProduct = e => {
@@ -57,7 +58,9 @@ const ProductRegister = () => {
 								변경
 							</BasicButton>
 						</S.MapAddress>
-						<S.MapApi>지도 api 들어가는 부분</S.MapApi>
+						<S.MapApi>
+							<Map />
+						</S.MapApi>
 					</S.MapBox>
 					<S.SubmitBtns>
 						<BasicButton size={"medium"} color={"primary"}>
