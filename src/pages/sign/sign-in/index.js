@@ -12,10 +12,8 @@ import AuthApi from "apis/auth.api";
 const SignIn = () => {
 	const navigate = useNavigate();
 
-	const { email, pw, pwCheck, nickName, name, phone } = SCHEMA;
-	const schema = yup
-		.object()
-		.shape({ email, pw, pwCheck, nickName, name, phone });
+	const { email, pw, pwCheck, nickName, phone } = SCHEMA;
+	const schema = yup.object().shape({ email, pw, pwCheck, nickName, phone });
 
 	const {
 		handleSubmit,
