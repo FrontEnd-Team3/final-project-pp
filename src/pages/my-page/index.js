@@ -1,10 +1,10 @@
-import { userList } from "mocks/data/user/userList";
 import styled from "styled-components";
 import MyProfile from "./components/MyProfile";
 import Nav from "./components/Nav";
+import { userList } from "mocks/data/user/userList";
 
 const Mypage = () => {
-	const UserList = userList.filter(user => user.id === 0);
+	const UserList = userList.filter(user => user.name === "test");
 
 	if (!UserList) {
 		return <EmptyData />;
@@ -15,7 +15,7 @@ const Mypage = () => {
 				<Nav />
 			</S.NavWrapper>
 			<S.MyProfileWrapper>
-				<MyProfile userList={UserList} />
+				<MyProfile userList={userList} />
 				<S.DivisionLine />
 			</S.MyProfileWrapper>
 

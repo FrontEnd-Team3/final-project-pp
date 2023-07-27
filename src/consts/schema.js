@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { REGEX } from "./regex";
-import { replacePhone } from "utils/phone-num";
+import { replacePhone } from "utils/phoneNum";
 
 export const email = yup
 	.string()

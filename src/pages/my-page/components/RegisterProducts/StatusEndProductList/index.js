@@ -9,22 +9,23 @@ import { flexCenter, flexColumn, flexRow } from "styles/common";
  * 호버시 쉐도우 주는거 적용해야함
  *
  */
-const StatusEndProductList = ({ productListStatusEnd }) => {
+const StatusEndProductList = ({ soldProducts, dataLimit, page, offset }) => {
 	const sideOptions = [
 		{ value: "판매중", label: "판매중" },
 		{ value: "거래중", label: "거래중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
-	if (productListStatusEnd && productListStatusEnd.length > 0) {
+
+	if (soldProducts && soldProducts.length > 0) {
 		return (
 			<S.Container>
-				{productListStatusEnd.map(product => (
-					<S.ProductContainer key={product.id}>
-						<img src={product.image[0]} />
+				{soldProducts.slice(offset, offset + dataLimit).map((product, i) => (
+					<S.ProductContainer key={product.idx}>
+						<img src={product.img_url} />
 						<div>
 							<div>
 								<S.Wrapper>
-									<S.TextP1>{product.name}</S.TextP1>
+									<S.TextP1>{product.title}</S.TextP1>
 									<div>
 										<BasicButton
 											color={"white"}

@@ -6,51 +6,48 @@ import ProgressBar from "./ProgressBar";
 
 const MyProfile = ({ userList }) => {
 	const navigate = useNavigate();
-	if (userList) {
+	const MyuserList = userList?.filter(user => user.id === 1)[0];
+	if (MyuserList) {
 		return (
 			<>
-				{userList.map(user => (
-					<S.Container key={user.id}>
-						<S.RowBox>
-							<S.MyImage>
-								<img src={user.profileImg} />
-							</S.MyImage>
-							<S.TextBox>
+				<S.Container key={MyuserList.idx}>
+					<S.RowBox>
+						<S.MyImage>
+							<img src={MyuserList.profile_url} />
+						</S.MyImage>
+						<S.TextBox>
+							<S.RowBox>
+								<p>닉네임 </p>
+								<TextP1>{MyuserList.nickName} </TextP1>
+							</S.RowBox>
+							<S.RowBox>
+								<p>활동 지역</p>
+								<TextP2>{MyuserList.region}</TextP2>
+							</S.RowBox>
+							<div>
+								<p>나의 온도</p>
 								<S.RowBox>
-									<p>닉네임 </p>
-									<TextP1>{user.nickname} </TextP1>
+									<p>{MyuserList.ondo}℃</p>
+									<ProgressBar percentage={MyuserList.ondo} />
 								</S.RowBox>
-								<S.RowBox>
-									<p>활동 지역</p>
-									<TextP2>{user.address}</TextP2>
-								</S.RowBox>
-								<div>
-									<p>나의 온도</p>
-									<S.RowBox>
-										<p>{user.degree}℃</p>
-										<ProgressBar percentage={user.degree} />
-									</S.RowBox>
-								</div>
-							</S.TextBox>
-						</S.RowBox>
-						<S.countBox>
-							<p>등록물품 {user.registerProducts.length}개</p>
-							<p>관심상품 {user.likeProducts.length}개</p>
-							<BasicButton
-								color={"primary"}
-								size={"small"}
-								children={"채팅하기"}
-								style={{
-									fontSize: "14px",
-									height: "28px",
-									borderRadius: "6px",
-									fontWeight: "600",
-								}}
-								onClick={() => navigate("/Chat")}
-							/>
-						</S.countBox>
-					</S.Container>
-				))}
+							</div>
+						</S.TextBox>
+					</S.RowBox>
+					<S.countBox>
+						<BasicButton
+							color={"primary"}
+							size={"small"}
+							children={"채팅하기"}
+							style={{
+								fontSize: "14px",
+								height: "28px",
+								borderRadius: "6px",
+								fontWeight: "600",
+							}}
+							onClick={() => navigate("/Chat")}
+						/>
+					</S.countBox>
+				</S.Container>
 			</>
 		);
 	} else {

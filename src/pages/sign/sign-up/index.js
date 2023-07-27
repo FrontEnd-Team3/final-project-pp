@@ -10,7 +10,7 @@ import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import BasicModal from "components/Modal/WithoutButton";
 import ValidateInput from "../components/OneValidate";
 import AuthApi from "apis/auth.api";
-import { replacePhone } from "utils/phone-num";
+import { replacePhone } from "utils/phoneNum";
 
 const Signup = () => {
 	const navigate = useNavigate();
