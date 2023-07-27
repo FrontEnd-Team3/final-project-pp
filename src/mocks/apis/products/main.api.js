@@ -4,7 +4,9 @@ import { rest } from "msw";
 // 메인 상품 목록 조회
 export const getProducts = rest.get("/api/product", async (req, res, ctx) => {
 	// usedProduct
-	const USED = productList.filter(product => !product.category);
+	const USED = productList.filter(
+		product => !product.category && product.status === "판매중",
+	);
 	const usedProduct = USED.map(product => {
 		return {
 			idx: product.idx,
@@ -12,7 +14,7 @@ export const getProducts = rest.get("/api/product", async (req, res, ctx) => {
 			price: product.price,
 			img_url: product.img_url,
 			created_at: product.created_at,
-			Liked: product.liked,
+			Liked: product.Liked,
 			status: product.status,
 			ProductImages: product.ProductImages,
 			ProductsTags: product.ProductsTags,
@@ -20,7 +22,9 @@ export const getProducts = rest.get("/api/product", async (req, res, ctx) => {
 	});
 
 	// freeProduct
-	const FREE = productList.filter(product => product.category);
+	const FREE = productList.filter(
+		product => product.category && product.status === "판매중",
+	);
 	const freeProduct = FREE.map(product => {
 		return {
 			idx: product.idx,
@@ -28,7 +32,7 @@ export const getProducts = rest.get("/api/product", async (req, res, ctx) => {
 			price: product.price,
 			img_url: product.img_url,
 			created_at: product.created_at,
-			Liked: product.liked,
+			Liked: product.Liked,
 			status: product.status,
 			ProductImages: product.ProductImages,
 			ProductsTags: product.ProductsTags,

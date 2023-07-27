@@ -2,21 +2,17 @@ import BasicButton from "components/Button";
 import SinginModal from "components/Modal/WithButton";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import SearchAddress from "components/SearchAddress";
-import { productList } from "mocks/data/products/productsList";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter } from "styles/common";
 
-const FreeProduct = () => {
-	const PRODUCTLIST = productList?.filter(
-		product => product.status !== "판매완료" && !product.price,
-	);
+const FreeProduct = ({ region, list }) => {
 	const navigate = useNavigate();
 
 	// 주소 변경
 	const [isOpen, setIsOpen] = useState(false);
-	const [address, setAddress] = useState("서울시 성동구 성수동");
+	const [address, setAddress] = useState(region);
 
 	// 토큰 있을 때만 주소 변경 가능하게 하기
 	// 토큰 없으면 로그인 창으로 이동하는 모달 띄우기
@@ -45,7 +41,7 @@ const FreeProduct = () => {
 						/>
 					</S.Location>
 				</div>
-				<ProductListWithoutPagination productList={PRODUCTLIST} />
+				<ProductListWithoutPagination productList={list} />
 				<S.ButtonContainer>
 					<BasicButton
 						color={"black"}
