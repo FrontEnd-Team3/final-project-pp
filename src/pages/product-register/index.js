@@ -47,20 +47,7 @@ const ProductRegister = () => {
 						<S.TitleAnother>
 							위치 설정 <S.Essential>*</S.Essential>
 						</S.TitleAnother>
-						<S.MapAddress>
-							서울시 성동구 성수동{" "}
-							<BasicButton
-								color={"primary"}
-								size={"primary"}
-								shape={"primary"}
-								style={{ lineHeight: "12px" }}
-							>
-								변경
-							</BasicButton>
-						</S.MapAddress>
-						<S.MapApi>
-							<Map />
-						</S.MapApi>
+						<Map />
 					</S.MapBox>
 					<S.SubmitBtns>
 						<BasicButton size={"medium"} color={"primary"}>
@@ -170,12 +157,6 @@ const MapAddress = styled.p`
 	margin: 12px 0 20px 0;
 `;
 
-const MapApi = styled.div`
-	width: 100%;
-	height: 400px;
-	background-color: ${({ theme }) => theme.PALETTE.gray};
-`;
-
 const S = {
 	Container,
 	Wrapper,
@@ -191,5 +172,4 @@ const S = {
 	MapBox,
 	TitleAnother,
 	MapAddress,
-	MapApi,
 };
