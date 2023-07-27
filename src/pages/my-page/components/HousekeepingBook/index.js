@@ -1,13 +1,13 @@
-import { productList } from "mocks/data/products/productsList";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import TransactionHistory from "../TransactionHistory";
 import Buttons from "./Buttons";
+import { userList } from "mocks/data/user/userList";
 
 const HouseKeeping = () => {
-	const ProductListStatusEnd = productList?.filter(
-		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
-	);
+	const sellerUserList = userList?.filter(user => user.category.enum("seller"));
+	const buyerUserList = userList?.filter(user => user.category.enum("buyer"));
+
 	return (
 		<S.Container>
 			<S.RowBox>
@@ -26,7 +26,10 @@ const HouseKeeping = () => {
 			</S.Title2>
 			<S.DivisionLine />
 			<Buttons />
-			<TransactionHistory productListStatusEnd={ProductListStatusEnd} />
+			<TransactionHistory
+				sellerUserList={sellerUserList}
+				buyerUserList={buyerUserList}
+			/>
 		</S.Container>
 	);
 };

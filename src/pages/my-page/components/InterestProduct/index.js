@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
 import InterestEndProductList from "./InterestEndProductList";
+import { userList } from "mocks/data/user/userList";
 
 /**
  *
@@ -13,8 +14,8 @@ import InterestEndProductList from "./InterestEndProductList";
  */
 
 const InterestProduct = () => {
-	const ProductList = productList?.filter(
-		product => product.status === "판매중" && product.user === 9,
+	const ProductList = userList?.filter(
+		data => data.LikeList === "판매중" && data.user === 9,
 	);
 	const ProductListStatusEnd = productList?.filter(
 		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
