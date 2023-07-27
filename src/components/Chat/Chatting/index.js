@@ -85,18 +85,13 @@ export default Chatting;
 const Container = styled.div`
 	border: 1px solid #ebebeb;
 	margin: 100px auto;
+	height: 581px;
 `;
 
 const Header = styled.div`
 	width: 100%;
 	height: 60px;
 	display: flex;
-	div {
-		cursor: pointer;
-		:hover {
-			opacity: 0.7;
-		}
-	}
 `;
 
 const HChat = styled.div`

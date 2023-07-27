@@ -14,10 +14,6 @@ const ChatList = () => {
 		setShowSalesHistory(false);
 	};
 
-	const filteredChatList = chatList.filter(
-		chat => chat.seller === showSalesHistory,
-	);
-
 	return (
 		<S.Container>
 			<S.Header>
@@ -26,9 +22,18 @@ const ChatList = () => {
 			</S.Header>
 			<S.AllMain>
 				<S.Main>
-					{filteredChatList.map(chat => (
-						<ChatItem key={chat.roomID} chat={chat} />
-					))}
+					{chatList.length > 0 ? (
+						chatList.map(chat => (
+							<ChatItem
+								key={chat.idx}
+								chat={chat}
+								product={chat.product}
+								lastMessage={chat.lastMessage}
+							/>
+						))
+					) : (
+						<div>왜 채팅이 안나오지..</div>
+					)}
 				</S.Main>
 			</S.AllMain>
 		</S.Container>
@@ -39,7 +44,7 @@ export default ChatList;
 
 const Container = styled.div`
 	width: 450px;
-	/* border: 1px solid #ebebeb; */
+	height: 580px;
 	border-left: 1px solid #ebebeb;
 	border-bottom: 1px solid #ebebeb;
 	border-top: 1px solid #ebebeb;
@@ -86,7 +91,7 @@ const AllMain = styled.div`
 
 const Main = styled.div`
 	width: 450px;
-	height: 500px;
+	height: 520px;
 	/* border-right: 1px solid #ebebeb; */
 	align-items: center;
 	overflow-y: scroll;
