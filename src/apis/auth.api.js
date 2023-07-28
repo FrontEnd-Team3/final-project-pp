@@ -1,10 +1,11 @@
-import axios from "axios";
 import TokenRepository from "repositories/TokenRepository";
+import { axiosInstance } from "./core";
+const PATH = "/api/user";
 
 const AuthApi = {
 	signup: async (email, pw, nickName, phone, region) => {
 		try {
-			const response = await axios.post("https://topdragon.co.kr/api/user", {
+			const response = await axiosInstance.post(PATH, {
 				email,
 				pw,
 				nickName,
@@ -18,7 +19,6 @@ const AuthApi = {
 				//백엔드로 부터 받은 토큰을 로컬스토리지에 저장
 				const token = response.data.token;
 				TokenRepository.setToken(token);
-				console.log("토큰?", res);
 			} else {
 				console.log(" 회원가입 실패 ");
 			}
@@ -28,13 +28,10 @@ const AuthApi = {
 	},
 	login: async (email, pw) => {
 		try {
-			const response = await axios.post(
-				"https://topdragon.co.kr/api/user/login",
-				{
-					email,
-					pw,
-				},
-			);
+			const response = await axiosInstance.post(PATH + "/login", {
+				email,
+				pw,
+			});
 			console.log("로그인", response);
 
 			if (response.status === 200) {
