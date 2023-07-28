@@ -9,14 +9,6 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 const Main = () => {
-	// const [data, setData] = useState(false);
-	// useEffect(() => {
-	// 	axios.get(`/api/product`).then(res => {
-	// 		console.log("data", res.data);
-	// 		setData(res.data);
-	// 	});
-	// }, []);
-
 	const { data } = useQuery({
 		queryKey: ["productData"],
 		queryFn: () => axios.get(`/api/product`).then(res => res.data),

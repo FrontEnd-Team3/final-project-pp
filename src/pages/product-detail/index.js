@@ -6,6 +6,8 @@ import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked";
 import ProductInfo from "./components/ProductInfo";
 import OtherProducts from "./components/OtherProducts";
+import ErrorPage from "pages/error-page";
+import Loading from "components/Loading";
 
 const ProductDetailPage = () => {
 	const { id } = useParams();
@@ -23,11 +25,11 @@ const ProductDetailPage = () => {
 	});
 
 	if (isLoading) {
-		return <div>🖐잠시만요~~~🖐</div>;
+		return <Loading />;
 	}
 
 	if (isError) {
-		return <div>에러다~~ 에러다~~ 정신건강에 해로운 에러다~~</div>;
+		return <ErrorPage />;
 	}
 
 	return (
