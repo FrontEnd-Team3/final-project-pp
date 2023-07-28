@@ -26,20 +26,20 @@ const AuthApi = {
 			console.error(error);
 		}
 	},
-	login: async (email, password) => {
+	login: async (email, pw) => {
 		try {
 			const response = await axios.post(
 				"https://topdragon.co.kr/api/user/login",
 				{
 					email,
-					password,
+					pw,
 				},
 			);
 			console.log("로그인", response);
 
 			if (response.status === 200) {
-				console.log("로그인 성공 ");
-				const token = response.data.token;
+				console.log("로그인 성공 ㅎ");
+				const token = response.data.tokenForHeader;
 				TokenRepository.setToken(token);
 			} else {
 				console.log("로그인 실패");
