@@ -5,12 +5,7 @@ import TransactionHistory from "../TransactionHistory";
 import Buttons from "./Buttons";
 
 const HouseKeeping = () => {
-	const ProductListStatusEndUser1 = productList?.filter(
-		product =>
-			product.User &&
-			product.User.nick_name === "aaa123" &&
-			product.status === "판매완료",
-	);
+	const MyuserList = userList?.filter(user => user.id === 1)[1];
 
 	return (
 		<S.Container>
@@ -30,9 +25,7 @@ const HouseKeeping = () => {
 			</S.Title2>
 			<S.DivisionLine />
 			<Buttons />
-			<TransactionHistory
-				ProductListStatusEndUser1={ProductListStatusEndUser1}
-			/>
+			<TransactionHistory MyuserList={MyuserList} />
 		</S.Container>
 	);
 };

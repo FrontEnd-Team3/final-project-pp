@@ -8,59 +8,55 @@ import { flexCenter, flexColumn, flexRow } from "styles/common";
  * 호버시 쉐도우 주는거 적용해야함
  *
  */
-const InterestEndProductList = ({ productListStatusEnd }) => {
-	if (productListStatusEnd && productListStatusEnd.length > 0) {
-		return (
-			<S.Container>
-				{productListStatusEnd.map(product => (
-					<S.ProductContainer key={product.idx}>
-						<img src={product.img_url} />
-						<div>
+const InterestEndProductList = ({ product }) => {
+	return (
+		<S.Container>
+			<S.ProductContainer key={product.idx}>
+				<img src={product.img_url} />
+				<div>
+					<div>
+						<S.Wrapper>
+							<S.TextP1>{product.title}</S.TextP1>
 							<div>
-								<S.Wrapper>
-									<S.TextP1>{product.title}</S.TextP1>
-									<div>
-										<BasicButton
-											color={"white"}
-											size={"xsmall"}
-											children={"수정"}
-											style={{
-												fontSize: "14px",
-												height: "28px",
-												borderRadius: "6px",
-												fontWeight: "600",
-												border: "1px solid #dddddd",
-											}}
-										/>
-										<BasicButton
-											color={"primary"}
-											size={"xsmall"}
-											children={"삭제"}
-											style={{
-												fontSize: "14px",
-												height: "28px",
-												borderRadius: "6px",
-												fontWeight: "600",
-												marginLeft: "10px",
-											}}
-										/>
-									</div>
-								</S.Wrapper>
-								<S.Wrapper2>
-									<div>
-										<S.TextP1>{product.price}won</S.TextP1>
-									</div>
-								</S.Wrapper2>
+								<BasicButton
+									color={"white"}
+									size={"xsmall"}
+									children={"수정"}
+									style={{
+										fontSize: "14px",
+										height: "28px",
+										borderRadius: "6px",
+										fontWeight: "600",
+										border: "1px solid #dddddd",
+									}}
+								/>
+								<BasicButton
+									color={"primary"}
+									size={"xsmall"}
+									children={"삭제"}
+									style={{
+										fontSize: "14px",
+										height: "28px",
+										borderRadius: "6px",
+										fontWeight: "600",
+										marginLeft: "10px",
+									}}
+								/>
 							</div>
-							<TextBox2>
-								<p>상품 보러가기 〉</p>
-							</TextBox2>
-						</div>
-					</S.ProductContainer>
-				))}
-			</S.Container>
-		);
-	}
+						</S.Wrapper>
+						<S.Wrapper2>
+							<div>
+								<S.TextP1>{product.price}won</S.TextP1>
+							</div>
+						</S.Wrapper2>
+					</div>
+					<TextBox2>
+						<p>상품 보러가기 〉</p>
+					</TextBox2>
+				</div>
+			</S.ProductContainer>
+		</S.Container>
+	);
 };
 
 export default InterestEndProductList;

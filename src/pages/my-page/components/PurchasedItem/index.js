@@ -12,18 +12,17 @@ import PurchasedButtons from "./PurchasedButtons";
  */
 
 const PurchasedItem = () => {
-	const ProductListStatusEndUser1 = productList?.filter(
-		productEnd =>
-			productEnd.User &&
-			productEnd.User.nick_name === "aaa123" &&
-			productEnd.status === "판매완료",
+	const soldProducts = productList?.filter(
+		product =>
+			product.User &&
+			product.User.nick_name === "aaa123" &&
+			product.status === "판매완료",
 	);
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
 	];
-	console.log(productList);
-	if (productList && productList.length > 0) {
+	if (soldProducts && soldProducts.length > 0) {
 		return (
 			<S.Container>
 				<S.RowBox>
@@ -38,7 +37,7 @@ const PurchasedItem = () => {
 					</S.ToggleBox>
 				</S.RowBox>
 				<Wrapper>
-					{ProductListStatusEndUser1.map(product => (
+					{soldProducts.map(product => (
 						<S.ProductContainer key={product.idx}>
 							<p>{product.title}</p>
 							<S.RowBox>
