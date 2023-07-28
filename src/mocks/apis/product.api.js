@@ -1,9 +1,4 @@
-import { productList } from "../data/products/productsList";
 import { rest } from "msw";
-
-export const getProducts = rest.get("/products", async (req, res, ctx) => {
-	return res(ctx.status(200), ctx.json(productList));
-});
 
 export const addProduct = rest.post("/products", async (req, res, ctx) => {
 	let name;
@@ -96,33 +91,6 @@ export const updateProducts = rest.put(
 				status,
 				chat,
 				tags,
-			}),
-		);
-	},
-);
-
-export const updateProductStatus = rest.patch(
-	"/products/:id",
-	async (req, res, ctx) => {
-		const { id } = req.params;
-		let status;
-
-		await req.json().then(data => {
-			status = data.status;
-		});
-
-		return res(ctx.status(200), ctx.json({ id: parseInt(id), status }));
-	},
-);
-
-export const deleteProducts = rest.delete(
-	"/products/:id",
-	async (req, res, ctx) => {
-		const { id } = req.params;
-		return res(
-			ctx.status(200),
-			ctx.json({
-				id: parseInt(id),
 			}),
 		);
 	},

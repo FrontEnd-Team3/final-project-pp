@@ -5,15 +5,22 @@ import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked";
 import UsedProduct from "./components/UsedProducts";
 import FreeProduct from "./components/FreeProducts";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 const Main = () => {
+	const { data } = useQuery({
+		queryKey: ["productData"],
+		queryFn: () => axios.get(`/api/product`).then(res => res.data),
+	});
+
 	return (
 		<>
 			<Banner />
 			<Slogan />
-			<UsedProduct />
+			<UsedProduct region={data?.region} list={data?.usedProduct} />
 			<S.DivisionLine />
-			<FreeProduct />
+			<FreeProduct region={data?.region} list={data?.freeProduct} />
 			<RecentlyClicked />
 		</>
 	);
