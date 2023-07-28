@@ -39,7 +39,7 @@ const AuthApi = {
 
 			if (response.status === 200) {
 				console.log("로그인 성공 ");
-				const token = response.data.token;
+				const token = response.data.tokenForHeader;
 				TokenRepository.setToken(token);
 			} else {
 				console.log("로그인 실패");
