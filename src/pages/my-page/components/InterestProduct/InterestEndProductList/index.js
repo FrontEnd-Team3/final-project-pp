@@ -13,12 +13,12 @@ const InterestEndProductList = ({ productListStatusEnd }) => {
 		return (
 			<S.Container>
 				{productListStatusEnd.map(product => (
-					<S.ProductContainer key={product.id}>
-						<img src={product.image[0]} />
+					<S.ProductContainer key={product.idx}>
+						<img src={product.img_url} />
 						<div>
 							<div>
 								<S.Wrapper>
-									<S.TextP1>{product.name}</S.TextP1>
+									<S.TextP1>{product.title}</S.TextP1>
 									<div>
 										<BasicButton
 											color={"white"}

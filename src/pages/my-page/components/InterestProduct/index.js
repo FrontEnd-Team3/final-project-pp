@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
 import InterestEndProductList from "./InterestEndProductList";
-import { userList } from "mocks/data/user/userList";
 
 /**
  *
@@ -14,11 +13,18 @@ import { userList } from "mocks/data/user/userList";
  */
 
 const InterestProduct = () => {
-	const ProductList = userList?.filter(
-		data => data.LikeList === "판매중" && data.user === 9,
+	const ProductList = productList?.filter(
+		product =>
+			product.User &&
+			product.User.nick_name === "aaa123" &&
+			product.status === "판매중",
 	);
+	console.log(ProductList);
 	const ProductListStatusEnd = productList?.filter(
-		productEnd => productEnd.status === "판매완료" && productEnd.user === 9,
+		productEnd =>
+			productEnd.User &&
+			productEnd.User.nick_name === "aaa123" &&
+			productEnd.status === "판매완료",
 	);
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
@@ -42,12 +48,12 @@ const InterestProduct = () => {
 				</S.RowBox>
 				<S.DivisionLine />
 				{ProductList.map(product => (
-					<S.ProductContainer key={product.id}>
-						<img src={product.image[2]} />
+					<S.ProductContainer key={product.idx}>
+						<img src={product.img_url} />
 						<div>
 							<div>
 								<S.Wrapper>
-									<p>{product.name}</p>
+									<p>{product.title}</p>
 									<div>
 										<BasicButton
 											color={"white"}
@@ -77,7 +83,7 @@ const InterestProduct = () => {
 								</S.Wrapper>
 								<S.Wrapper2>
 									<div>
-										<p>350,000</p> <p>won</p>
+										<p>{product.price}</p> <p>won</p>
 									</div>
 								</S.Wrapper2>
 							</div>

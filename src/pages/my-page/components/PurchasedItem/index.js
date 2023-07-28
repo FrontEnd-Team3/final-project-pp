@@ -13,7 +13,10 @@ import PurchasedButtons from "./PurchasedButtons";
 
 const PurchasedItem = () => {
 	const ProductListStatusEndUser1 = productList?.filter(
-		productEnd => productEnd.status === "판매완료" && productEnd.user === 1,
+		productEnd =>
+			productEnd.User &&
+			productEnd.User.nick_name === "aaa123" &&
+			productEnd.status === "판매완료",
 	);
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
@@ -36,15 +39,15 @@ const PurchasedItem = () => {
 				</S.RowBox>
 				<Wrapper>
 					{ProductListStatusEndUser1.map(product => (
-						<S.ProductContainer key={product.id}>
-							<p>{product.name}</p>
+						<S.ProductContainer key={product.idx}>
+							<p>{product.title}</p>
 							<S.RowBox>
-								<p>{product.location}</p>
+								<p>{product.region}</p>
 								<p>{product.price}원</p>
 							</S.RowBox>
 							<DivisionLine2 />
 							<S.RowBox>
-								<img src={product.image[2]} />
+								<img src={product.img_url} />
 								<PurchasedButtons />
 							</S.RowBox>
 						</S.ProductContainer>

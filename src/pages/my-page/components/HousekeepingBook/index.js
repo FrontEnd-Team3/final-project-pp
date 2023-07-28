@@ -1,12 +1,16 @@
+import { productList } from "mocks/data/products/productsList";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import TransactionHistory from "../TransactionHistory";
 import Buttons from "./Buttons";
-import { userList } from "mocks/data/user/userList";
 
 const HouseKeeping = () => {
-	const sellerUserList = userList?.filter(user => user.category.enum("seller"));
-	const buyerUserList = userList?.filter(user => user.category.enum("buyer"));
+	const ProductListStatusEndUser1 = productList?.filter(
+		product =>
+			product.User &&
+			product.User.nick_name === "aaa123" &&
+			product.status === "판매완료",
+	);
 
 	return (
 		<S.Container>
@@ -27,8 +31,7 @@ const HouseKeeping = () => {
 			<S.DivisionLine />
 			<Buttons />
 			<TransactionHistory
-				sellerUserList={sellerUserList}
-				buyerUserList={buyerUserList}
+				ProductListStatusEndUser1={ProductListStatusEndUser1}
 			/>
 		</S.Container>
 	);
