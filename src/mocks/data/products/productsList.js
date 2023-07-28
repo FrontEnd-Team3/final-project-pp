@@ -124,13 +124,13 @@ export const productList = [
 		relatedProduct: [
 			{
 				idx: 0,
-				title: "EMIS RINGER TEE",
-				price: 48000,
-				img_url: Images.product1[0],
+				title: "BRUNELLO CUCINELLI",
+				price: 0,
+				img_url: Images.product0[0],
 				created_at: "2023-07-26T14:32:15.000Z",
 				liked: 3,
 				status: "판매중",
-				ProductImages: Images.product1,
+				ProductImages: Images.product0,
 				ProductsTags: [
 					{ idx: 1, Tag: { tag: "크록스" } },
 					{ idx: 2, Tag: { tag: "신발" } },
