@@ -12,8 +12,8 @@ import AuthApi from "apis/auth.api";
 const SignIn = () => {
 	const navigate = useNavigate();
 
-	const { email, pw, pwCheck, nickName, phone } = SCHEMA;
-	const schema = yup.object().shape({ email, pw, pwCheck, nickName, phone });
+	const { email, pw } = SCHEMA;
+	const schema = yup.object().shape({ email, pw });
 
 	const {
 		handleSubmit,
@@ -66,6 +66,7 @@ const SignIn = () => {
 						size={"mediumfourth"}
 						variant={"primary"}
 						color={"darkBlack"}
+						type={"submit"}
 					>
 						로그인
 					</BasicButton>

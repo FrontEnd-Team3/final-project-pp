@@ -1,4 +1,3 @@
-import { productList } from "mocks/data/products/productsList";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import TransactionHistory from "../TransactionHistory";
