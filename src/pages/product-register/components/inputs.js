@@ -4,6 +4,9 @@ import { useState } from "react";
 import BasicInput from "components/Input";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { RegisterSchema } from "consts/registerschema";
 
 const Inputs = () => {
 	const [content, setContent] = useState("");
@@ -14,6 +17,18 @@ const Inputs = () => {
 		console.log(check);
 	};
 
+	const {
+		handleSubmit,
+		register,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(RegisterSchema),
+		mode: onchange,
+	});
+
+	const onSubmit = data => {
+		alert(JSON.stringify(data));
+	};
 	const mockTags = [
 		"중고",
 		"가전제품",
@@ -21,92 +36,114 @@ const Inputs = () => {
 		"제습기팔아요",
 		"여섯글자제한",
 	];
+
+	// 태그 추가되게 하는 로직
+	// const [list, setList] = useState();
+	// const [taglist, setTagelist] = useState([]);
+	// const handleKeyPress = e => {
+	// 	if (e.key === "Enter") {
+	// 		setList(e.target.value);
+	// 		taglist.push(list);
+	// 	}
+	// };
+
 	return (
 		<div>
-			<S.InputBox>
-				<BasicInput
-					variant={"primary"}
-					color={"primary"}
-					size={"full"}
-					style={{ padding: "60px 30px 40px 136px" }}
-					placeholder="물품 제목을 입력해주세요."
-					required
-				/>
-				<S.Title>
-					물품명 <S.Essential>*</S.Essential>
-				</S.Title>
-			</S.InputBox>
-			<S.InputBoxAnother>
-				<S.InputTop>
-					<S.Title style={{ position: "initial", margin: "0" }}>
-						태그 <S.Essential>*</S.Essential>
-					</S.Title>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<S.InputBox>
 					<BasicInput
-						variant={"bgBox"}
+						variant={"primary"}
 						color={"primary"}
-						size={"primary"}
-						style={{ padding: "18px", width: "908px" }}
-						placeholder="태그를 선택하거나 입력할 수 있습니다.(태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요) / 추후에 form으로 감싸거나 enter 이벤트 줘야함!"
-						required
+						size={"full"}
+						style={{ padding: "60px 30px 40px 136px" }}
+						placeholder="물품 제목을 입력해주세요."
+						name="title"
+						{...register("title")}
 					/>
-					<S.ArrowDownIcon>
-						<AiFillCaretDown />
-					</S.ArrowDownIcon>
-				</S.InputTop>
-				<S.TagsBox>
-					{mockTags.map(tag => (
-						<BasicButton color={"white"}>
-							#{tag}
-							<GrFormClose size={20} onClick={() => console.log("삭제")} />
-						</BasicButton>
-					))}
-				</S.TagsBox>
-			</S.InputBoxAnother>
-			<S.DescBox>
-				<S.Title style={{ position: "inherit", margin: "0" }}>상품설명</S.Title>
-				<S.Textarea
-					value={content}
-					onChange={e => setContent(e.target.value)}
-					placeholder="신뢰할 수 있는 거래를 위해 상품 설명을 상세히 적어주세요"
-				/>
-				<span>{content.length}/1000</span>
-			</S.DescBox>
-			<S.InputBox>
-				<S.Title style={{ top: "-4px" }}>
-					구분 <S.Essential>*</S.Essential>
-				</S.Title>
-				<S.CheckContainer>
-					<S.Checking>
-						<S.Checkbox
-							type="radio"
-							id="freeCheckbox"
-							name="radio"
-							checked={check}
-							onChange={handleCheckedStatus}
+					<p>{errors.title && "틀렸어!"}</p>
+					<S.Title>
+						물품명 <S.Essential>*</S.Essential>
+					</S.Title>
+				</S.InputBox>
+				<S.InputBoxAnother>
+					<S.InputTop>
+						<S.Title style={{ position: "initial", margin: "0" }}>
+							태그 <S.Essential>*</S.Essential>
+						</S.Title>
+						<BasicInput
+							variant={"bgBox"}
+							color={"primary"}
+							size={"primary"}
+							style={{ padding: "18px", width: "908px" }}
+							placeholder="태그를 선택하거나 입력할 수 있습니다.(태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요) / 추후에 form으로 감싸거나 enter 이벤트 줘야함!"
+
+							// 잠깐 주석
+							// required
+
+							// 추가 코드
+							// onKeyPress={handleKeyPress}
 						/>
-						<label htmlFor="freeCheckbox">무료나눔</label>
-					</S.Checking>
-					<S.Checking>
-						<S.Checkbox type="radio" id="usedCheckbox" name="radio" />
-						<label htmlFor="usedCheckbox">중고거래</label>
-					</S.Checking>
-				</S.CheckContainer>
-			</S.InputBox>
-			<S.InputBox style={{ borderBottom: "1.3px solid #d9d9d9" }}>
-				<BasicInput
-					placeholder="숫자만 입력해주세요"
-					variant={"line"}
-					style={{
-						padding: "16px",
-						height: "3rem",
-						margin: "60px 10px 60px 130px",
-					}}
-				/>
-				<S.Title style={{ top: "68px" }}>
-					가격 <S.Essential>*</S.Essential>
-				</S.Title>
-				<span>원</span>
-			</S.InputBox>
+						<S.ArrowDownIcon>
+							<AiFillCaretDown />
+						</S.ArrowDownIcon>
+					</S.InputTop>
+					<S.TagsBox>
+						{mockTags.map(tag => (
+							<BasicButton color={"white"}>
+								#{tag}
+								<GrFormClose size={20} onClick={() => console.log("삭제")} />
+							</BasicButton>
+						))}
+					</S.TagsBox>
+				</S.InputBoxAnother>
+				<S.DescBox>
+					<S.Title style={{ position: "inherit", margin: "0" }}>
+						상품설명이에요
+					</S.Title>
+					<S.Textarea
+						value={content}
+						onChange={e => setContent(e.target.value)}
+						placeholder="신뢰할 수 있는 거래를 위해 상품 설명을 상세히 적어주세요"
+					/>
+					<span>{content.length}/1000</span>
+				</S.DescBox>
+				<S.InputBox>
+					<S.Title style={{ top: "-4px" }}>
+						구분 <S.Essential>*</S.Essential>
+					</S.Title>
+					<S.CheckContainer>
+						<S.Checking>
+							<S.Checkbox
+								type="radio"
+								id="freeCheckbox"
+								name="radio"
+								checked={check}
+								onChange={handleCheckedStatus}
+							/>
+							<label htmlFor="freeCheckbox">무료나눔</label>
+						</S.Checking>
+						<S.Checking>
+							<S.Checkbox type="radio" id="usedCheckbox" name="radio" />
+							<label htmlFor="usedCheckbox">중고거래</label>
+						</S.Checking>
+					</S.CheckContainer>
+				</S.InputBox>
+				<S.InputBox style={{ borderBottom: "1.3px solid #d9d9d9" }}>
+					<BasicInput
+						placeholder="숫자만 입력해주세요"
+						variant={"line"}
+						style={{
+							padding: "16px",
+							height: "3rem",
+							margin: "60px 10px 60px 130px",
+						}}
+					/>
+					<S.Title style={{ top: "68px" }}>
+						가격 <S.Essential>*</S.Essential>
+					</S.Title>
+					<span>원</span>
+				</S.InputBox>
+			</form>
 		</div>
 	);
 };

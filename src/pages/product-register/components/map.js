@@ -20,36 +20,22 @@ const Map = () => {
 		// 지도 생성 .
 		const map = new kakao.maps.Map(container, options);
 		setMap(map);
-		// 주소-좌표 변환 객체를 생성.
-		const geocoder = new kakao.maps.services.Geocoder();
-		// 주소로 좌표를 검색
-		console.log(geocoder);
-		geocoder.addressSearch(
-			"서울특별시 성동구 서울숲4길 26-10 2층",
-			function (result, status) {
-				// 정상적으로 검색이 완료됐으면
+		kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+
+			var latlng = mouseEvent.latLng;
+			const geocoder = new kakao.maps.services.Geocoder();
+			var coords = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
+			var marker = new kakao.maps.Marker({
+				map: map,
+				position: coords,
+			});
+			setMarker(marker);
+			geocoder.addressSearch(coords, function (result, status) {
 				if (status === kakao.maps.services.Status.OK) {
 					var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-					// 결과값으로 받은 위치를 마커로 표시
-					var marker = new kakao.maps.Marker({
-						map: map,
-						position: coords,
-					});
-					setMarker(marker);
-
-					// 인포윈도우로 장소에 대한 설명
-					var infowindow = new kakao.maps.InfoWindow({
-						content:
-							'<div style="width:150px;color:blue;text-align:center;padding:6px 0;">성수</div>',
-					});
-					infowindow.open(map, marker);
-
-					// 지도의 중심을 결과값으로 받은 위치로 이동
-					map.setCenter(coords);
 				}
-			},
-		);
+			});
+		});
 	}, []);
 
 	const handleAddressChange = newAddress => {

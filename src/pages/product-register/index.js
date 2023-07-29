@@ -6,6 +6,7 @@ import BasicButton from "components/Button";
 import { AiFillCamera } from "react-icons/ai";
 import Inputs from "./components/inputs";
 import Map from "./components/map";
+import React from "react";
 
 const ProductRegister = () => {
 	const handleRegisterProduct = e => {
