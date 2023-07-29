@@ -21,7 +21,6 @@ const Map = () => {
 		const map = new kakao.maps.Map(container, options);
 		setMap(map);
 		kakao.maps.event.addListener(map, "click", function (mouseEvent) {
-
 			var latlng = mouseEvent.latLng;
 			const geocoder = new kakao.maps.services.Geocoder();
 			var coords = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());

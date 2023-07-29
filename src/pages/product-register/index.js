@@ -1,27 +1,35 @@
 import styled from "styled-components";
 import { flexCenter } from "styles/common";
-import OneImg from "./components/oneImg";
-import { registerImg } from "mocks/data/registerImg";
 import BasicButton from "components/Button";
+import Map from "./components/map";
 import { AiFillCamera } from "react-icons/ai";
 import Inputs from "./components/inputs";
-import Map from "./components/map";
-import React from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { RegisterSchema } from "consts/registerschema";
 
 const ProductRegister = () => {
-	const handleRegisterProduct = e => {
-		e.preventDefault();
-		console.log("물품 등록하기");
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(RegisterSchema),
+		mode: "onChange",
+	});
+
+	const onSubmit = data => {
+		console.log("물품 등록하기", data);
 	};
 
 	return (
 		<S.Wrapper>
 			<S.Container>
-				<form onSubmit={handleRegisterProduct}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<S.ImgRegister>
-						<S.Title>
+						<S.TitleAnother style={{ marginBottom: "20px" }}>
 							상품 이미지 (0/5) <S.Essential>*</S.Essential>
-						</S.Title>
+						</S.TitleAnother>
 						<S.MainImg>
 							<AiFillCamera size={80} />
 							<S.ImageBox>
@@ -33,17 +41,18 @@ const ProductRegister = () => {
 									multiple
 									accept="image/*"
 									id="registerImg"
-									required
+									// required
 								/>
 							</S.ImageBox>
 						</S.MainImg>
 					</S.ImgRegister>
 					<S.Images>
-						{registerImg.map((img, i) => (
+						{/* {registerImg.map((img, i) => (
 							<OneImg key={i} img={img} />
-						))}
+						))} */}
+						이미지 들어오는 곳
 					</S.Images>
-					<Inputs />
+					<Inputs control={control} errors={errors} />
 					<S.MapBox>
 						<S.TitleAnother>
 							위치 설정 <S.Essential>*</S.Essential>
@@ -66,30 +75,33 @@ const ProductRegister = () => {
 
 export default ProductRegister;
 
+const Title = styled.p`
+	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
+	font-weight: bold;
+	position: absolute;
+	top: 50px;
+	z-index: 1;
+	margin-left: 20px;
+`;
+
+const Essential = styled.span`
+	color: ${({ theme }) => theme.PALETTE.primary};
+`;
+
 const Wrapper = styled.div`
 	width: 100%;
 `;
 
 const Container = styled.div`
 	margin: 50px auto;
-	max-width: 1060px;
+	max-width: 900px;
 `;
 
 const ImgRegister = styled.div``;
 
-const Title = styled.p`
-	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
-	font-weight: bold;
-	margin-bottom: 40px;
-`;
-
 const TitleAnother = styled.p`
 	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
 	font-weight: bold;
-`;
-
-const Essential = styled.span`
-	color: ${({ theme }) => theme.PALETTE.primary};
 `;
 
 const MainImg = styled.div`
@@ -127,7 +139,6 @@ const Images = styled.div`
 const SubmitBtns = styled.div`
 	display: flex;
 	justify-content: flex-end;
-	padding: 0 20px;
 	button {
 		margin-left: 20px;
 		font-weight: bold;
@@ -149,7 +160,6 @@ const SubmitBtns = styled.div`
 
 const MapBox = styled.div`
 	margin: 30px 0;
-	padding: 0 20px;
 `;
 
 const MapAddress = styled.p`
@@ -173,4 +183,14 @@ const S = {
 	MapBox,
 	TitleAnother,
 	MapAddress,
+	// InputBox,
+	// InputBoxAnother,
+	// InputTop,
+	// DescBox,
+	// Textarea,
+	// CheckContainer,
+	// Checking,
+	// Checkbox,
+	// TagsBox,
+	// ArrowDownIcon,
 };
