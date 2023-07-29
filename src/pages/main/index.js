@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Banner from "./components/Banner";
 import Slogan from "./components/Slogan";
 import styled from "styled-components";
@@ -7,12 +7,18 @@ import UsedProduct from "./components/UsedProducts";
 import FreeProduct from "./components/FreeProducts";
 import axios from "axios";
 import { useQuery } from "react-query";
+import TokenRepository from "repositories/TokenRepository";
 
 const Main = () => {
 	const { data } = useQuery({
 		queryKey: ["productData"],
 		queryFn: () => axios.get(`/api/product`).then(res => res.data),
 	});
+
+	useEffect(() => {
+		const token = TokenRepository.getToken();
+		console.log(token ? token : "null");
+	}, []);
 
 	return (
 		<>
