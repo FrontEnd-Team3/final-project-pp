@@ -5,15 +5,11 @@ import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked";
 import UsedProduct from "./components/UsedProducts";
 import FreeProduct from "./components/FreeProducts";
-import axios from "axios";
-import { useQuery } from "react-query";
 import TokenRepository from "repositories/TokenRepository";
+import ProductQueryApi from "apis/product.query.api";
 
 const Main = () => {
-	const { data } = useQuery({
-		queryKey: ["productData"],
-		queryFn: () => axios.get(`/api/product`).then(res => res.data),
-	});
+	const { data } = ProductQueryApi.getProductList();
 
 	useEffect(() => {
 		const token = TokenRepository.getToken();

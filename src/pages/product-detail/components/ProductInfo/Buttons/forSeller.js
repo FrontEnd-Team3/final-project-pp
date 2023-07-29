@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import BasicButton from "components/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { useState } from "react";
 import NoListModal from "../Modals/noList";
 import SelectListModal from "../Modals/selectList";
+import ProductApi from "apis/product.api";
 
 const ButtonsForSeller = ({ chat }) => {
 	const navigate = useNavigate();
@@ -13,9 +13,8 @@ const ButtonsForSeller = ({ chat }) => {
 	console.log("buttonid", id);
 
 	const deleteProduct = () => {
-		axios
-			.delete(`/api/product?prod_idx=${id}`)
-			.then(res => console.log("삭제", res?.data));
+		ProductApi.deleteProduct().then(res => console.log("삭제", res?.data));
+		navigate("/");
 	};
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
