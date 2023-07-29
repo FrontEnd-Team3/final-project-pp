@@ -3,7 +3,7 @@ import BasicInput from "components/Input";
 import { Controller } from "react-hook-form";
 import styled from "styled-components";
 
-const OneController = ({ name, control, errors, ...rest }) => {
+const OneController = ({ name, control, errors, field, ...rest }) => {
 	return (
 		<>
 			<Controller
@@ -13,7 +13,6 @@ const OneController = ({ name, control, errors, ...rest }) => {
 					<BasicInput {...field} {...rest} />
 				)}
 			/>
-
 			{errors && (
 				<S.ErrorBox>
 					<ErrorMessage

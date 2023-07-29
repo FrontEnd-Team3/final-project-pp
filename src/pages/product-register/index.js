@@ -52,7 +52,7 @@ const ProductRegister = () => {
 						))} */}
 						이미지 들어오는 곳
 					</S.Images>
-					<Inputs control={control} errors={errors} />
+					<Inputs errors={errors} control={control} />
 					<S.MapBox>
 						<S.TitleAnother>
 							위치 설정 <S.Essential>*</S.Essential>
@@ -183,14 +183,4 @@ const S = {
 	MapBox,
 	TitleAnother,
 	MapAddress,
-	// InputBox,
-	// InputBoxAnother,
-	// InputTop,
-	// DescBox,
-	// Textarea,
-	// CheckContainer,
-	// Checking,
-	// Checkbox,
-	// TagsBox,
-	// ArrowDownIcon,
 };
