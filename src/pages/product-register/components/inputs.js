@@ -1,11 +1,11 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
-import { useState } from "react";
-import BasicInput from "components/Input";
+import { useEffect, useRef, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
+import OneController from "./OneController";
 
-const Inputs = () => {
+const Inputs = ({ control, errors }) => {
 	const [content, setContent] = useState("");
 	const [check, setCheck] = useState(true);
 
@@ -21,40 +21,111 @@ const Inputs = () => {
 		"제습기팔아요",
 		"여섯글자제한",
 	];
+
+	// 태그 추가되게 하는 로직
+	const [list, setList] = useState("");
+	const [taglist, setTagelist] = useState([]);
+	const inputRef = useRef(null);
+
+	const handleKeyPress = e => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			if (list.trim() !== "" && taglist.length < 5) {
+				setTagelist(prev => [...prev, list]);
+				setList("");
+			}
+		}
+	};
+
+	useEffect(() => {
+		console.log(taglist);
+	}, [taglist]);
+
+	const handleInput = e => {
+		const inputValue = e.target.value.replace(/\s/g, ""); // 공백 제거
+		if (inputValue.length <= 6) setList(inputValue); // 6자 넘지 못하게
+	};
+
+	// ProductsTags: [
+	// 	{
+	// 		idx: number,
+	// 		Tag: {
+	// 			tag: string,
+	// 		},
+	// 	},
+	// 	{
+	// 		idx: number,
+	// 		Tag: {
+	// 			tag: string,
+	// 		},
+	// 	},
+	// 	{
+	// 		idx: number,
+	// 		Tag: {
+	// 			tag: string,
+	// 		},
+	// 	},
+	// ];
+
+	// useEffect(() => {
+	// 	handleKeyPress();
+	// }, []);
+
 	return (
 		<div>
 			<S.InputBox>
-				<BasicInput
+				<OneController
+					name="title"
+					control={control}
+					errors={errors}
+					variant={"primary"}
+					color={"primary"}
+					size={"full"}
+					style={{ padding: "60px 30px 40px 136px" }}
+					placeholder="물품 제목을 입력해주세요."
+				/>
+				{/* <BasicInput
 					variant={"primary"}
 					color={"primary"}
 					size={"full"}
 					style={{ padding: "60px 30px 40px 136px" }}
 					placeholder="물품 제목을 입력해주세요."
 					required
-				/>
+				/> */}
 				<S.Title>
 					물품명 <S.Essential>*</S.Essential>
 				</S.Title>
 			</S.InputBox>
 			<S.InputBoxAnother>
+				<S.Title style={{ position: "initial", margin: "0" }}>태그</S.Title>
 				<S.InputTop>
-					<S.Title style={{ position: "initial", margin: "0" }}>
-						태그 <S.Essential>*</S.Essential>
-					</S.Title>
-					<BasicInput
+					<OneController
+						name="tag"
+						control={control}
+						errors={errors}
+						variant={"bgBox"}
+						color={"primary"}
+						size={"primary"}
+						style={{ padding: "18px", width: "100%", marginTop: "20px" }}
+						placeholder="태그를 선택하거나 입력할 수 있습니다.(태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요) / 추후에 form으로 감싸거나 enter 이벤트 줘야함!"
+						onKeyPress={handleKeyPress}
+						// ref={inputRef}
+						value={list}
+						onChange={handleInput}
+					/>
+					{/* <BasicInput
 						variant={"bgBox"}
 						color={"primary"}
 						size={"primary"}
 						style={{ padding: "18px", width: "908px" }}
 						placeholder="태그를 선택하거나 입력할 수 있습니다.(태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요) / 추후에 form으로 감싸거나 enter 이벤트 줘야함!"
-						required
-					/>
+					/> */}
 					<S.ArrowDownIcon>
 						<AiFillCaretDown />
 					</S.ArrowDownIcon>
 				</S.InputTop>
 				<S.TagsBox>
-					{mockTags.map(tag => (
+					{taglist.map(tag => (
 						<BasicButton color={"white"}>
 							#{tag}
 							<GrFormClose size={20} onClick={() => console.log("삭제")} />
@@ -93,8 +164,11 @@ const Inputs = () => {
 				</S.CheckContainer>
 			</S.InputBox>
 			<S.InputBox style={{ borderBottom: "1.3px solid #d9d9d9" }}>
-				<BasicInput
+				<OneController
 					placeholder="숫자만 입력해주세요"
+					name="price"
+					control={control}
+					errors={errors}
 					variant={"line"}
 					style={{
 						padding: "16px",
@@ -102,6 +176,15 @@ const Inputs = () => {
 						margin: "60px 10px 60px 130px",
 					}}
 				/>
+				{/* <BasicInput
+					placeholder="숫자만 입력해주세요"
+					variant={"line"}
+					style={{
+						padding: "16px",
+						height: "3rem",
+						margin: "60px 10px 60px 130px",
+					}}
+				/> */}
 				<S.Title style={{ top: "68px" }}>
 					가격 <S.Essential>*</S.Essential>
 				</S.Title>
@@ -115,7 +198,7 @@ export default Inputs;
 
 const TagsBox = styled.div`
 	display: flex;
-	margin: 20px 0 0 112px;
+	margin-top: 20px;
 
 	button {
 		margin-right: 10px;
@@ -142,12 +225,12 @@ const InputBoxAnother = styled.div`
 	display: flex;
 	flex-direction: column;
 	max-width: 1060px;
-	padding: 60px 20px;
+	padding: 60px 0px;
 	border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 `;
 
 const InputTop = styled.div`
-	display: flex;
+	/* display: flex; */
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
@@ -156,7 +239,7 @@ const InputTop = styled.div`
 const ArrowDownIcon = styled.div`
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: 18px;
 	cursor: pointer;
 	padding: 20px 16px 10px;
 	svg {
@@ -169,7 +252,6 @@ const Title = styled.p`
 	position: absolute;
 	top: 50px;
 	z-index: 1;
-	margin-left: 20px;
 `;
 
 const Essential = styled.span`
@@ -178,7 +260,7 @@ const Essential = styled.span`
 
 const DescBox = styled.div`
 	margin: 60px 0;
-	padding: 0 20px 30px 20px;
+	padding-bottom: 30px;
 	border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 
 	& span {
