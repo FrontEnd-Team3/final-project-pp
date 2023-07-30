@@ -8,12 +8,13 @@ import * as SCHEMA from "../../../consts/schema";
 import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import ValidateInput from "../components/OneValidate";
 import AuthApi from "apis/auth.api";
+import { useAuth } from "context/auth.ctx";
 
 const SignIn = () => {
 	const navigate = useNavigate();
-
 	const { email, pw } = SCHEMA;
 	const schema = yup.object().shape({ email, pw });
+	const auth = useAuth();
 
 	const {
 		handleSubmit,
@@ -26,7 +27,9 @@ const SignIn = () => {
 
 	const onSubmitSignin = handleSubmit(async data => {
 		try {
-			await AuthApi.login(data.email, data.pw);
+			const response = await AuthApi.login(data.email, data.pw);
+			navigate("/");
+			auth.login(response.data.tokenForHeader);
 		} catch (error) {
 			console.error(error);
 		}
@@ -82,6 +85,7 @@ const SignIn = () => {
 		</S.Container>
 	);
 };
+
 export default SignIn;
 const LogoMent = styled.div`
 	position: relative;
