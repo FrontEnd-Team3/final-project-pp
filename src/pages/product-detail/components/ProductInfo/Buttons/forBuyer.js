@@ -1,19 +1,51 @@
 import styled from "styled-components";
 import BasicButton from "components/Button";
 import { GoBookmark, GoBookmarkFill } from "react-icons/go";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { userList } from "mocks/data/user/userList";
 
 const ButtonsForBuyer = ({ bookmark }) => {
+	// 처음 화면이 열렸을 때 찜한 개수는 상품 상세 정보, 북마크 되었는지 아이콘 표시는 유저 정보에서 받아와야 함
+
+	const [isBookmarked, setIsBookmarked] = useState(true);
+	const { id } = useParams();
+	useEffect(() => {
+		const bool = userList.some(product => product.idx === parseInt(id));
+		setIsBookmarked(bool);
+	}, []);
+
 	// 실제 좋아요 값 반영되도록 수정 필요
-	const [isBookmarked, setIsBookmarked] = useState(false);
-	const handleBookmark = () => {
-		setIsBookmarked(prev => !prev);
-	};
+	const [likedCount, setLikedCount] = useState(bookmark);
 
 	const navigate = useNavigate();
 
-	console.log(bookmark);
+	const likeProduct = () => {
+		if (isBookmarked) {
+			axios
+				.post(`/api/product/like?prod_idx=${id}`, {
+					prod_idx: id,
+					isBookmarked,
+				})
+				.then(res => {
+					console.log("Like", res?.data);
+					setLikedCount(res?.data?.data);
+					setIsBookmarked(res?.data?.message);
+				});
+		} else {
+			axios
+				.post(`/api/product/like?prod_idx=${id}`, {
+					prod_idx: id,
+					isBookmarked,
+				})
+				.then(res => {
+					console.log("Like", res?.data);
+					setLikedCount(res?.data?.data);
+					setIsBookmarked(res?.data?.message);
+				});
+		}
+	};
 
 	return (
 		<>
@@ -30,12 +62,14 @@ const ButtonsForBuyer = ({ bookmark }) => {
 							)}
 							{
 								<span style={{ fontSize: "27px", marginLeft: "5px" }}>
-									{bookmark}
+									{likedCount}
 								</span>
 							}
 						</>
 					}
-					onClick={handleBookmark}
+					onClick={() => {
+						likeProduct();
+					}}
 					style={{ display: "flex", alignItems: "center", padding: "0 22px" }}
 				/>
 				<BasicButton

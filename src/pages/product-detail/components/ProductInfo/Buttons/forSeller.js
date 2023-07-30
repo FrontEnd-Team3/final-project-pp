@@ -14,7 +14,7 @@ const ButtonsForSeller = ({ chat }) => {
 
 	const deleteProduct = () => {
 		ProductApi.deleteProduct().then(res => console.log("삭제", res?.data));
-		navigate("/");
+		// navigate("/");
 	};
 
 	const [isModalOpen, setIsModalOpen] = useState(false);

@@ -10,7 +10,7 @@ const ProductApi = {
 	updateProductStatus: async id =>
 		await axios.post(PATH + `/sale-complete?prod_idx=${id}`),
 	registerLikedProduct: () => {},
-	deleteLikedProuct: () => {},
+	deleteLikedProduct: () => {},
 	getChatListForSpecificProduct: () => {},
 };
 
