@@ -528,6 +528,52 @@ export const productList = [
 					socket: "b46d1db6-5733-4726-a405-195b2f9a8c19",
 				},
 			},
+			{
+				idx: 1,
+				User: {
+					nick_name: "bbb222",
+					socket: "b46d1db6-5733-4726-a405-195b2f9a8c19",
+				},
+				Product: {
+					idx: 7,
+					title: "testtest",
+					price: 10000000,
+					img_url: "123",
+					User: {
+						nick_name: "test123",
+						profile_url: FAKEPROFILE,
+					},
+				},
+				isRead: true,
+				lastMessage: "감사합니다:)",
+				lastMessageUser: {
+					nick_name: "aaa111",
+					socket: "b46d1db6-5733-4726-a405-195b2f9a8c19",
+				},
+			},
+			{
+				idx: 2,
+				User: {
+					nick_name: "ccc333",
+					socket: "b46d1db6-5733-4726-a405-195b2f9a8c19",
+				},
+				Product: {
+					idx: 7,
+					title: "testtest",
+					price: 10000000,
+					img_url: "123",
+					User: {
+						nick_name: "test123",
+						profile_url: FAKEPROFILE,
+					},
+				},
+				isRead: true,
+				lastMessage: "감사합니다:)",
+				lastMessageUser: {
+					nick_name: "aaa111",
+					socket: "b46d1db6-5733-4726-a405-195b2f9a8c19",
+				},
+			},
 		], // length > 받은 채팅 개수
 		ProductsTags: [
 			{ idx: 1, Tag: { tag: "크록스" } },

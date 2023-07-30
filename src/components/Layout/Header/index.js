@@ -2,16 +2,13 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "context/auth.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
 	const { accessToken, logout } = useAuth();
-	useEffect(() => {
-		navigate("/");
-	}, []);
 	const categoryArray = [
 		{
 			name: "중고거래",

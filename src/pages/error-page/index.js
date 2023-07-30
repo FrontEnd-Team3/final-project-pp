@@ -1,25 +1,37 @@
+import BasicButton from "components/Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { flexColumn } from "styles/common";
 
 const ErrorPage = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div>
+		<S.Container>
 			<S.Error>404PAGE</S.Error>
 			<div>
-				<button onClick={() => navigate("/")}>메인으로 돌아가기</button>
+				<BasicButton
+					size={"medium"}
+					color={"black"}
+					onClick={() => navigate("/")}
+					children={"메인으로 돌아가기"}
+				/>
 			</div>
-		</div>
+		</S.Container>
 	);
 };
 
 export default ErrorPage;
 
+const Container = styled.div`
+	${flexColumn};
+	justify-content: center;
+`;
+
 const Error = styled.div`
-	font-size: 500px;
+	font-size: 300px;
 	font-weight: bold;
 	color: ${({ theme }) => theme.PALETTE.primary};
 `;
 
-const S = { Error };
+const S = { Container, Error };

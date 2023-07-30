@@ -2,18 +2,22 @@ import styled from "styled-components";
 import loading from "./loading.gif";
 const Loading = () => {
 	return (
-		<div>
+		<S.Container>
 			<S.LoadingImg src={loading} />
-		</div>
+		</S.Container>
 	);
 };
 
 export default Loading;
 
-const LoadingImg = styled.img`
-	width: 500px;
-	height: 500px;
-	margin: 0 auto;
+const Container = styled.div`
+	display: flex;
+	justify-content: center;
 `;
 
-const S = { LoadingImg };
+const LoadingImg = styled.img`
+	width: 200px;
+	height: 200px;
+`;
+
+const S = { Container, LoadingImg };
