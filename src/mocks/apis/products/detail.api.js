@@ -64,12 +64,46 @@ export const getProductDetail = rest.get(
 						User: TargetProduct.User,
 					},
 					relatedProduct: TargetProduct.relatedProduct,
-					isSeller: true,
+					isSeller: false,
 					chat: TargetProduct.chat,
 				}),
 			);
 	},
 );
 
-// 관심 상품 등록
-// 관심 상품 해제
+// 관심 물품 등록, 해제
+export const LikeProductStatusReturnBoolean = rest.post(
+	"/api/product/like",
+	async (req, res, ctx) => {
+		// req로 전달한 상품 id
+		let prod_idx;
+		let message;
+		await req.json().then(data => {
+			prod_idx = data.prod_idx;
+			message = data.isBookmarked;
+		});
+
+		const newProductList = [...productList];
+		const targetIdx = newProductList.findIndex(
+			product => product.idx === parseInt(prod_idx),
+		);
+
+		if (targetIdx !== -1) {
+			message
+				? (newProductList[targetIdx].Liked -= 1)
+				: (newProductList[targetIdx].Liked += 1);
+		} else {
+			return res(
+				ctx.status(404),
+				ctx.json({ message: "Product not found", data: null }),
+			);
+		}
+		return res(
+			ctx.status(200),
+			ctx.json({
+				message: !message,
+				data: newProductList[targetIdx].Liked,
+			}),
+		);
+	},
+);
