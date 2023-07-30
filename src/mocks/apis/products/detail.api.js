@@ -71,6 +71,7 @@ export const getProductDetail = rest.get(
 	},
 );
 
+// 관심 물품 등록, 해제
 export const LikeProductStatusReturnBoolean = rest.post(
 	"/api/product/like",
 	async (req, res, ctx) => {
@@ -81,11 +82,6 @@ export const LikeProductStatusReturnBoolean = rest.post(
 			prod_idx = data.prod_idx;
 			message = data.isBookmarked;
 		});
-
-		// const LikeProductList = userList[1].likeProducts;
-		// const message = LikeProductList.some(
-		// 	product => product.idx === parseInt(prod_idx),
-		// ); // true, false
 
 		const newProductList = [...productList];
 		const targetIdx = newProductList.findIndex(

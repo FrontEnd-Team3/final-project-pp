@@ -3,8 +3,8 @@ import BasicButton from "components/Button";
 import { GoBookmark, GoBookmarkFill } from "react-icons/go";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { userList } from "mocks/data/user/userList";
+import ProductApi from "apis/product.api";
 
 const ButtonsForBuyer = ({ bookmark }) => {
 	// 처음 화면이 열렸을 때 찜한 개수는 상품 상세 정보, 북마크 되었는지 아이콘 표시는 유저 정보에서 받아와야 함
@@ -23,27 +23,21 @@ const ButtonsForBuyer = ({ bookmark }) => {
 
 	const likeProduct = () => {
 		if (isBookmarked) {
-			axios
-				.post(`/api/product/like?prod_idx=${id}`, {
-					prod_idx: id,
-					isBookmarked,
-				})
-				.then(res => {
+			ProductApi.updateLikeStatus(id, { prod_idx: id, isBookmarked }).then(
+				res => {
 					console.log("Like", res?.data);
 					setLikedCount(res?.data?.data);
 					setIsBookmarked(res?.data?.message);
-				});
+				},
+			);
 		} else {
-			axios
-				.post(`/api/product/like?prod_idx=${id}`, {
-					prod_idx: id,
-					isBookmarked,
-				})
-				.then(res => {
+			ProductApi.updateLikeStatus(id, { prod_idx: id, isBookmarked }).then(
+				res => {
 					console.log("Like", res?.data);
 					setLikedCount(res?.data?.data);
 					setIsBookmarked(res?.data?.message);
-				});
+				},
+			);
 		}
 	};
 
