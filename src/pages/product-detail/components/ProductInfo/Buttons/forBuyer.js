@@ -10,16 +10,16 @@ const ButtonsForBuyer = ({ bookmark }) => {
 	// 처음 화면이 열렸을 때 찜한 개수는 상품 상세 정보, 북마크 되었는지 아이콘 표시는 유저 정보에서 받아와야 함
 
 	const [isBookmarked, setIsBookmarked] = useState(true);
+	const [likedCount, setLikedCount] = useState(bookmark);
 	const { id } = useParams();
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		const bool = userList.some(product => product.idx === parseInt(id));
 		setIsBookmarked(bool);
 	}, []);
 
 	// 실제 좋아요 값 반영되도록 수정 필요
-	const [likedCount, setLikedCount] = useState(bookmark);
-
-	const navigate = useNavigate();
 
 	const likeProduct = () => {
 		if (isBookmarked) {
