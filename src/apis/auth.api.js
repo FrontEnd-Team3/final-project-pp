@@ -45,5 +45,16 @@ const AuthApi = {
 			console.error(error);
 		}
 	},
+	logout: async () => {
+		try {
+			const response = await axiosInstance.get(PATH + "/logout");
+			console.log("로그아웃", response);
+			if (response.status === 200) {
+				TokenRepository.removeToken();
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	},
 };
 export default AuthApi;
