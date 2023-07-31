@@ -11,7 +11,6 @@ const ProductApi = {
 		await axios.post(PATH + `/sale-complete?prod_idx=${id}`),
 	updateLikeStatus: async (id, params) =>
 		await axios.post(PATH + `/like??prod_idx=${id}`, (params = { ...params })),
-	getChatListForSpecificProduct: () => {},
 };
 
 export default ProductApi;

@@ -1,17 +1,15 @@
 import styled from "styled-components";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import BasicButton from "components/Button";
-import ProductApi from "apis/product.api";
+import ProductQueryApi from "apis/product.query.api";
 
 const SelectListModal = ({ setIsModalOpen, chat, setIsDealClosed, idx }) => {
-	console.log("id", idx);
+	const updateStatus = ProductQueryApi.updateProductStatus(idx);
 
 	const handleDealClose = () => {
 		setIsModalOpen(false);
 		setIsDealClosed(true);
-		ProductApi.updateProductStatus(idx).then(res =>
-			console.log("판매완료", res?.data),
-		);
+		updateStatus.mutate();
 	};
 
 	return (

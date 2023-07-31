@@ -21,31 +21,7 @@ export const productList = [
 		},
 		Liked: 5,
 		status: "판매중",
-		chat: [
-			{
-				idx: 0,
-				User: {
-					nick_name: "aaa111",
-					socket: "b46d1db6-5733-4726-a405-195b2f9a8c19",
-				},
-				Product: {
-					idx: 2,
-					title: "testtest",
-					price: 10000000,
-					img_url: "123",
-					User: {
-						nick_name: "test123",
-						profile_url: FAKEPROFILE,
-					},
-				},
-				isRead: true,
-				lastMessage: "감사합니다:)",
-				lastMessageUser: {
-					nick_name: "aaa111",
-					socket: "b46d1db6-5733-4726-a405-195b2f9a8c19",
-				},
-			},
-		], // length > 받은 채팅 개수
+		chat: [], // length > 받은 채팅 개수
 		ProductsTags: [
 			{ idx: 1, Tag: { tag: "크록스" } },
 			{ idx: 2, Tag: { tag: "신발" } },
