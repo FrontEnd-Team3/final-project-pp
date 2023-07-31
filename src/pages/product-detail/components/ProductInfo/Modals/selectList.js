@@ -2,16 +2,30 @@ import styled from "styled-components";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import BasicButton from "components/Button";
 import ProductApi from "apis/product.api";
+import { useMutation, useQueryClient } from "react-query";
 
 const SelectListModal = ({ setIsModalOpen, chat, setIsDealClosed, idx }) => {
 	console.log("id", idx);
 
+	const queryClient = useQueryClient();
+
+	const updateStatus = useMutation(() => ProductApi.updateProductStatus(idx), {
+		onSuccess: res => {
+			console.log("성공!", res.data.message);
+			queryClient.invalidateQueries(["productDetail", idx]);
+		},
+		onError: () => {
+			console.error("error");
+		},
+		onSettled: () => {
+			console.log("뭔가 실행됨");
+		},
+	});
+
 	const handleDealClose = () => {
 		setIsModalOpen(false);
 		setIsDealClosed(true);
-		ProductApi.updateProductStatus(idx).then(res =>
-			console.log("판매완료", res?.data),
-		);
+		updateStatus.mutate();
 	};
 
 	return (

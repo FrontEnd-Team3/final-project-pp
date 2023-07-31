@@ -5,6 +5,7 @@ import { useState } from "react";
 import NoListModal from "../Modals/noList";
 import SelectListModal from "../Modals/selectList";
 import ProductApi from "apis/product.api";
+import { useMutation, useQueryClient } from "react-query";
 
 const ButtonsForSeller = ({ chat }) => {
 	const navigate = useNavigate();
@@ -12,9 +13,22 @@ const ButtonsForSeller = ({ chat }) => {
 	const { id } = useParams();
 	console.log("buttonid", id);
 
+	const queryClient = useQueryClient();
+	const deleteData = useMutation(ProductApi.deleteProduct, {
+		onSuccess: res => {
+			console.log("성공!", res.data?.message);
+			queryClient.invalidateQueries(["productDetail", id]);
+		},
+		onError: () => {
+			console.error("error");
+		},
+		onSettled: () => {
+			console.log("뭔가 실행됨");
+		},
+	});
+
 	const deleteProduct = () => {
-		ProductApi.deleteProduct().then(res => console.log("삭제", res?.data));
-		// navigate("/");
+		deleteData.mutate();
 	};
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
