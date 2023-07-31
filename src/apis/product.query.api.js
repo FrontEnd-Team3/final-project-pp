@@ -1,6 +1,7 @@
 import useQueryData from "hooks/useQueryData";
 import ProductApi from "./product.api";
 import QueryConfig from "./queryConfig";
+import useMutateData from "hooks/useMutateData";
 
 const ProductQueryApi = {
 	getProductList: () =>
@@ -9,8 +10,21 @@ const ProductQueryApi = {
 		useQueryData(
 			["productDetail", id],
 			ProductApi.getProductDetail,
-			id,
 			QueryConfig,
+			id,
+		),
+	deleteProduct: id =>
+		useMutateData(() => ProductApi.deleteProduct(id), ["productDetail", id]),
+	updateProductStatus: id =>
+		useMutateData(
+			() => ProductApi.updateProductStatus(id),
+			["productDetail", id],
+		),
+	updateLikeStatus: (id, params, successFn) =>
+		useMutateData(
+			() => ProductApi.updateLikeStatus(id, params),
+			["productDetail", id],
+			successFn,
 		),
 };
 

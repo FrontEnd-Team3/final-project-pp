@@ -4,28 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import NoListModal from "../Modals/noList";
 import SelectListModal from "../Modals/selectList";
-import ProductApi from "apis/product.api";
-import { useMutation, useQueryClient } from "react-query";
+import ProductQueryApi from "apis/product.query.api";
 
 const ButtonsForSeller = ({ chat }) => {
 	const navigate = useNavigate();
 
 	const { id } = useParams();
-	console.log("buttonid", id);
 
-	const queryClient = useQueryClient();
-	const deleteData = useMutation(ProductApi.deleteProduct, {
-		onSuccess: res => {
-			console.log("성공!", res.data?.message);
-			queryClient.invalidateQueries(["productDetail", id]);
-		},
-		onError: () => {
-			console.error("error");
-		},
-		onSettled: () => {
-			console.log("뭔가 실행됨");
-		},
-	});
+	const deleteData = ProductQueryApi.deleteProduct(id);
 
 	const deleteProduct = () => {
 		deleteData.mutate();

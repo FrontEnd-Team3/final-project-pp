@@ -1,11 +1,7 @@
 import { useQuery } from "react-query";
 
-const useQueryData = (key, fn, params) => {
-	const { data, isLoading, isError } = useQuery(key, () =>
-		fn(params).then(res => res.data),
-	);
-
-	return { data, isLoading, isError };
+const useQueryData = (key, fn, queryOptions, params) => {
+	return useQuery(key, () => fn(params).then(res => res.data), queryOptions);
 };
 
 export default useQueryData;
