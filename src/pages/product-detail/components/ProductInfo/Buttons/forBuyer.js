@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import BasicButton from "components/Button";
-import { GoBookmark, GoBookmarkFill } from "react-icons/go";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { userList } from "mocks/data/user/userList";
 import ProductApi from "apis/product.api";
 import { useMutation, useQueryClient } from "react-query";
+import bookmarkFill from "./bookmarkfull.png";
+import bookmarkEmpty from "./bookmark.png";
 
 const ButtonsForBuyer = ({ bookmark }) => {
 	// 처음 화면이 열렸을 때 찜한 개수는 상품 상세 정보, 북마크 되었는지 아이콘 표시는 유저 정보에서 받아와야 함
@@ -74,12 +75,18 @@ const ButtonsForBuyer = ({ bookmark }) => {
 					children={
 						<>
 							{isBookmarked ? (
-								<GoBookmarkFill size="20" />
+								<S.BookmarkIcon src={bookmarkFill} />
 							) : (
-								<GoBookmark size="21" />
+								<S.BookmarkIcon src={bookmarkEmpty} />
 							)}
 							{
-								<span style={{ fontSize: "27px", marginLeft: "5px" }}>
+								<span
+									style={{
+										fontSize: "25px",
+										marginLeft: "5px",
+										fontWeight: "bold",
+									}}
+								>
 									{likedCount}
 								</span>
 							}
@@ -98,6 +105,7 @@ const ButtonsForBuyer = ({ bookmark }) => {
 						fontSize: "22px",
 						letterSpacing: "5px",
 						height: "50px",
+						fontWeight: "bold",
 					}}
 					onClick={() => navigate("/Chat")}
 				/>
@@ -114,4 +122,9 @@ const ProductButtons = styled.div`
 	padding: 30px 0;
 `;
 
-const S = { ProductButtons };
+const BookmarkIcon = styled.img`
+	width: 20px;
+	height: 20px;
+`;
+
+const S = { ProductButtons, BookmarkIcon };
