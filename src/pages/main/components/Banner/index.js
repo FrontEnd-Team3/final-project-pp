@@ -21,8 +21,8 @@ const Banner = () => {
 	return (
 		<S.BannerWrapper>
 			<S.BannerContainer ref={slideRef}>
-				{ImageArr.map(image => (
-					<S.BannerImg src={image} />
+				{ImageArr.map((image, i) => (
+					<S.BannerImg key={i} src={image} />
 				))}
 			</S.BannerContainer>
 			<S.BannerButtons>

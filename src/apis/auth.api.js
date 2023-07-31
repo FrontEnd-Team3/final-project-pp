@@ -1,11 +1,11 @@
-const { axiosInstane } = require("./core");
-
+import TokenRepository from "repositories/TokenRepository";
+import { axiosInstance } from "./core";
 const PATH = "/api/user";
 
 const AuthApi = {
 	signup: async (email, pw, nickName, phone, region) => {
 		try {
-			const response = await axiosInstane.post(PATH, {
+			const response = await axiosInstance.post(PATH, {
 				email,
 				pw,
 				nickName,
@@ -26,23 +26,34 @@ const AuthApi = {
 			console.error(error);
 		}
 	},
-	login: async (email, password) => {
+	login: async (email, pw) => {
 		try {
-			const response = await axiosInstane.post(PATH + "/login", {
+			const response = await axiosInstance.post(PATH + "/login", {
 				email,
-				password,
+				pw,
 			});
 			console.log("로그인", response);
 
 			if (response.status === 200) {
-				console.log("로그인 성공 ");
-				const token = response.data.token;
+				console.log("로그인 성공 ㅎ");
+				const token = response.data.tokenForHeader;
 				TokenRepository.setToken(token);
 			} else {
 				console.log("로그인 실패");
 			}
 		} catch (error) {
 			console.error(error);
+		}
+	},
+	logout: async () => {
+		try {
+			const response = await axiosInstance.get(PATH + "/logout");
+			console.log("로그아웃", response);
+			if (response.status === 200) {
+				TokenRepository.removeToken();
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	},
 };

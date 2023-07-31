@@ -1,9 +1,30 @@
 import styled from "styled-components";
 import BasicButton from "components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import NoListModal from "../Modals/noList";
+import SelectListModal from "../Modals/selectList";
+import ProductApi from "apis/product.api";
 
-const ButtonsForSeller = () => {
+const ButtonsForSeller = ({ chat }) => {
 	const navigate = useNavigate();
+
+	const { id } = useParams();
+	console.log("buttonid", id);
+
+	const deleteProduct = () => {
+		ProductApi.deleteProduct().then(res => console.log("삭제", res?.data));
+		// navigate("/");
+	};
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const onOpenModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const [isDealClosed, setIsDealClosed] = useState(false);
+
 	return (
 		<>
 			<S.ProductButtons>
@@ -18,16 +39,28 @@ const ButtonsForSeller = () => {
 					color={"black"}
 					size={"xxmedium"}
 					children={"삭제"}
-					onClick={() => alert("정말 삭제하시겠습니까?(임시 이벤트)")}
+					onClick={() => deleteProduct()}
 					style={{ fontSize: "20px", fontWeight: "bold" }}
 				/>
 				<BasicButton
-					color={"primary"}
+					color={isDealClosed ? "gray" : "primary"}
 					size={"xxmedium"}
-					children={"판매중"}
+					children={isDealClosed ? "판매완료" : "판매중"}
+					onClick={onOpenModal}
 					style={{ fontSize: "20px", fontWeight: "bold" }}
 				/>
 			</S.ProductButtons>
+			{isModalOpen &&
+				(chat.length ? (
+					<SelectListModal
+						setIsModalOpen={setIsModalOpen}
+						chat={chat}
+						setIsDealClosed={setIsDealClosed}
+						idx={id}
+					/>
+				) : (
+					<NoListModal setIsModalOpen={setIsModalOpen} />
+				))}
 		</>
 	);
 };
