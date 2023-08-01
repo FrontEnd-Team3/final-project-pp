@@ -5,7 +5,7 @@ import useMutateData from "hooks/useMutateData";
 
 const ProductQueryApi = {
 	getProductList: () =>
-		useQueryData(["productData"], ProductApi.getProductList, QueryConfig),
+		useQueryData(["productData"], ProductApi.getProductList, QueryConfig, {}),
 	getProductDetail: id =>
 		useQueryData(
 			["productDetail", id],
