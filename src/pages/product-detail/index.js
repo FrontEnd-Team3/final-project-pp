@@ -6,6 +6,7 @@ import ErrorPage from "pages/error-page";
 import Loading from "components/Loading";
 import ProductQueryApi from "apis/product.query.api";
 import ProductInfo from "./components/ProductInfo";
+import OtherProducts from "./components/OtherProducts";
 
 const ProductDetailPage = () => {
 	const { id } = useParams();
@@ -26,7 +27,7 @@ const ProductDetailPage = () => {
 			<RecentlyClicked />
 			<S.Container>
 				<ProductInfo product={data} />
-				{/* <OtherProducts list={data?.relatedProduct} /> */}
+				<OtherProducts list={data?.relatedProduct} />
 			</S.Container>
 		</>
 	);

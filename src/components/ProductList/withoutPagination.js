@@ -3,15 +3,35 @@ import OneProduct from "./oneProduct";
 
 const ProductListWithoutPagination = ({ productList }) => {
 	if (productList)
-		return (
-			<>
-				<S.Container>
-					{productList.slice(0, 8).map((product, i) => (
-						<OneProduct key={product.idx} product={product} grid={"box" + i} />
-					))}
-				</S.Container>
-			</>
-		);
+		if (productList.product) {
+			return (
+				<>
+					<S.Container>
+						{productList.product.map((product, i) => (
+							<OneProduct
+								key={product.idx}
+								product={product}
+								grid={"box" + i}
+							/>
+						))}
+					</S.Container>
+				</>
+			);
+		} else {
+			return (
+				<>
+					<S.Container>
+						{productList.slice(0, 8).map((product, i) => (
+							<OneProduct
+								key={product.idx}
+								product={product}
+								grid={"box" + i}
+							/>
+						))}
+					</S.Container>
+				</>
+			);
+		}
 };
 
 export default ProductListWithoutPagination;
