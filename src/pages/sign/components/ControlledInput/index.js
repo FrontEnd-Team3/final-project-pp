@@ -5,7 +5,7 @@ const ControlledInput = ({
 	value = "",
 	placeholder,
 	type,
-	onClick,
+	...rest
 }) => {
 	return (
 		<S.Input
@@ -13,7 +13,7 @@ const ControlledInput = ({
 			value={value}
 			placeholder={placeholder}
 			type={type}
-			onClick={onClick}
+			{...rest}
 		/>
 	);
 };

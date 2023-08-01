@@ -25,7 +25,7 @@ const ValidateInput = ({
 							<ControlledInput
 								type={type}
 								onChange={onChange}
-								value={address ? address : ""}
+								value={address ? address : value}
 								placeholder={placeholder}
 								onClick={onClick}
 							/>

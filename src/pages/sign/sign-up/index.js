@@ -125,8 +125,9 @@ const Signup = () => {
 						errors={errors}
 						type={"text"}
 						address={address}
+						onClick={() => setAddressOpen(true)}
 					/>
-					<button onClick={() => setAddressOpen(true)}>주소 설정</button>
+
 					{addressOpen && (
 						<SearchAddress setAddress={setAddress} setIsOpen={setAddressOpen} />
 					)}
