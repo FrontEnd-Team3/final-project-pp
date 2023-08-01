@@ -1,12 +1,19 @@
 import styled from "styled-components";
 
-const ControlledInput = ({ onChange, value = "", placeholder, type }) => {
+const ControlledInput = ({
+	onChange,
+	value = "",
+	placeholder,
+	type,
+	...rest
+}) => {
 	return (
 		<S.Input
 			onChange={onChange}
 			value={value}
 			placeholder={placeholder}
 			type={type}
+			{...rest}
 		/>
 	);
 };
