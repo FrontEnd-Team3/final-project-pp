@@ -4,17 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import NoListModal from "../Modals/noList";
 import SelectListModal from "../Modals/selectList";
-import ProductApi from "apis/product.api";
+import ProductQueryApi from "apis/product.query.api";
 
 const ButtonsForSeller = ({ chat }) => {
 	const navigate = useNavigate();
 
 	const { id } = useParams();
-	console.log("buttonid", id);
+
+	const deleteData = ProductQueryApi.deleteProduct(id);
 
 	const deleteProduct = () => {
-		ProductApi.deleteProduct().then(res => console.log("삭제", res?.data));
-		// navigate("/");
+		deleteData.mutate();
 	};
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
