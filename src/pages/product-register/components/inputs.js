@@ -1,63 +1,120 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
-import { useState } from "react";
-import BasicInput from "components/Input";
+import { useEffect, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
+import OneController from "./OneController";
+// import { RegisterSchema } from "consts/registerschema";
+import { replacePrice } from "utils/priceNum";
+const Inputs = ({ control, errors, watch, setValue }) => {
+	const [description, setDescription] = useState("");
+	const [category, setCategory] = useState(true);
+	const [taglist, setTaglist] = useState([]);
+	const [price, setPrice] = useState();
 
-const Inputs = () => {
-	const [content, setContent] = useState("");
-	const [check, setCheck] = useState(true);
+	// RegisterSchema.validate()
+	// 	.then(() => {
+	// 		console.log("검사 성공");
+	// 	})
+	// 	.catch(error => {
+	// 		console.log("검사 실패:", error.message);
+	// 	});
 
-	const handleCheckedStatus = () => {
-		setCheck(!check);
-		console.log(check);
+	// 태그 유효성 검사
+	const watchTag = watch("tag");
+	const handleKeyPress = e => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			const tag = {
+				idx: Math.floor(Math.random() * 100000),
+				Tag: {
+					tag: e.target.value,
+				},
+			};
+			if (taglist.length < 5) {
+				setTaglist(prev => [...prev, tag]);
+			}
+			setValue("tag", "");
+		}
 	};
 
-	const mockTags = [
-		"중고",
-		"가전제품",
-		"제습기",
-		"제습기팔아요",
-		"여섯글자제한",
-	];
+	// 상품 설명 글자수
+	const handleDescription = e => {
+		setDescription(e.target.value);
+	};
+
+	// 체크 여부
+	const handleCheckedStatus = () => {
+		setCategory(!category);
+	};
+
+	// 가격 유효성 검사
+	const watchPrice = watch("price");
+	useEffect(() => {
+		if (category) {
+			setValue("price", "0");
+		} else if (!category) {
+			const newWatchPrice = replacePrice(watchPrice);
+			setValue("price", newWatchPrice);
+			setPrice(newWatchPrice);
+			console.log("price", price);
+		}
+	}, [watchPrice, setValue, category]);
+
+	// 태그 삭제 로직
+	const handleDelete = idx => {
+		// 갖고온 현재 idx의 값과 기존에 있는 taglist의 idx 값 비교
+		const updateTags = taglist.filter(v => v.idx !== idx);
+		setTaglist(updateTags);
+	};
+
 	return (
 		<div>
 			<S.InputBox>
-				<BasicInput
+				<OneController
+					name="title"
+					control={control}
+					errors={errors}
 					variant={"primary"}
 					color={"primary"}
 					size={"full"}
 					style={{ padding: "60px 30px 40px 136px" }}
 					placeholder="물품 제목을 입력해주세요."
-					required
+					maxLength={40}
 				/>
 				<S.Title>
 					물품명 <S.Essential>*</S.Essential>
 				</S.Title>
 			</S.InputBox>
 			<S.InputBoxAnother>
+				<S.Title style={{ position: "initial", margin: "0" }}>태그</S.Title>
 				<S.InputTop>
-					<S.Title style={{ position: "initial", margin: "0" }}>
-						태그 <S.Essential>*</S.Essential>
-					</S.Title>
-					<BasicInput
+					<OneController
+						name="tag"
+						control={control}
+						errors={errors}
 						variant={"bgBox"}
 						color={"primary"}
 						size={"primary"}
-						style={{ padding: "18px", width: "908px" }}
+						style={{ padding: "18px", width: "100%", marginTop: "20px" }}
 						placeholder="태그를 선택하거나 입력할 수 있습니다.(태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요) / 추후에 form으로 감싸거나 enter 이벤트 줘야함!"
-						required
+						onKeyPress={handleKeyPress}
+						maxLength={6}
 					/>
 					<S.ArrowDownIcon>
 						<AiFillCaretDown />
 					</S.ArrowDownIcon>
 				</S.InputTop>
 				<S.TagsBox>
-					{mockTags.map(tag => (
-						<BasicButton color={"white"}>
-							#{tag}
-							<GrFormClose size={20} onClick={() => console.log("삭제")} />
+					{taglist.map(tagItem => (
+						<BasicButton key={tagItem.idx} color={"white"}>
+							#{tagItem.Tag.tag}
+							<GrFormClose
+								onClick={() => {
+									handleDelete(tagItem.idx);
+								}}
+								size={20}
+							/>
 						</BasicButton>
 					))}
 				</S.TagsBox>
@@ -65,11 +122,12 @@ const Inputs = () => {
 			<S.DescBox>
 				<S.Title style={{ position: "inherit", margin: "0" }}>상품설명</S.Title>
 				<S.Textarea
-					value={content}
-					onChange={e => setContent(e.target.value)}
+					value={description}
+					onChange={handleDescription}
 					placeholder="신뢰할 수 있는 거래를 위해 상품 설명을 상세히 적어주세요"
+					maxLength={1000}
 				/>
-				<span>{content.length}/1000</span>
+				<span>{description.length}/1000</span>
 			</S.DescBox>
 			<S.InputBox>
 				<S.Title style={{ top: "-4px" }}>
@@ -81,21 +139,34 @@ const Inputs = () => {
 							type="radio"
 							id="freeCheckbox"
 							name="radio"
-							checked={check}
+							checked={category}
 							onChange={handleCheckedStatus}
 						/>
 						<label htmlFor="freeCheckbox">무료나눔</label>
 					</S.Checking>
 					<S.Checking>
-						<S.Checkbox type="radio" id="usedCheckbox" name="radio" />
+						<S.Checkbox
+							type="radio"
+							id="usedCheckbox"
+							name="radio"
+							checked={!category}
+							onChange={handleCheckedStatus}
+						/>
 						<label htmlFor="usedCheckbox">중고거래</label>
 					</S.Checking>
 				</S.CheckContainer>
 			</S.InputBox>
 			<S.InputBox style={{ borderBottom: "1.3px solid #d9d9d9" }}>
-				<BasicInput
-					placeholder="숫자만 입력해주세요"
+				<OneController
+					name="price"
+					control={control}
+					errors={errors}
 					variant={"line"}
+					color={"primary"}
+					size={"primary"}
+					maxLength={11}
+					placeholder="숫자만 입력해주세요"
+					type={"text"}
 					style={{
 						padding: "16px",
 						height: "3rem",
@@ -104,8 +175,8 @@ const Inputs = () => {
 				/>
 				<S.Title style={{ top: "68px" }}>
 					가격 <S.Essential>*</S.Essential>
+					<S.Won>원</S.Won>
 				</S.Title>
-				<span>원</span>
 			</S.InputBox>
 		</div>
 	);
@@ -113,9 +184,17 @@ const Inputs = () => {
 
 export default Inputs;
 
+const Won = styled.span`
+	font-weight: 400;
+	font-size: 16px;
+	position: absolute;
+	left: 360px;
+	top: 10px;
+`;
+
 const TagsBox = styled.div`
 	display: flex;
-	margin: 20px 0 0 112px;
+	margin-top: 20px;
 
 	button {
 		margin-right: 10px;
@@ -142,12 +221,12 @@ const InputBoxAnother = styled.div`
 	display: flex;
 	flex-direction: column;
 	max-width: 1060px;
-	padding: 60px 20px;
+	padding: 60px 0px;
 	border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 `;
 
 const InputTop = styled.div`
-	display: flex;
+	/* display: flex; */
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
@@ -156,7 +235,7 @@ const InputTop = styled.div`
 const ArrowDownIcon = styled.div`
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: 18px;
 	cursor: pointer;
 	padding: 20px 16px 10px;
 	svg {
@@ -169,7 +248,6 @@ const Title = styled.p`
 	position: absolute;
 	top: 50px;
 	z-index: 1;
-	margin-left: 20px;
 `;
 
 const Essential = styled.span`
@@ -178,7 +256,7 @@ const Essential = styled.span`
 
 const DescBox = styled.div`
 	margin: 60px 0;
-	padding: 0 20px 30px 20px;
+	padding-bottom: 30px;
 	border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 
 	& span {
@@ -219,6 +297,7 @@ const Checkbox = styled.input`
 `;
 
 const S = {
+	Won,
 	InputBox,
 	InputBoxAnother,
 	InputTop,
