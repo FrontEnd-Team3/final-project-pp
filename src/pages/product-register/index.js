@@ -1,13 +1,11 @@
 import styled from "styled-components";
-import { flexCenter } from "styles/common";
 import BasicButton from "components/Button";
 import Map from "./components/map";
-import { AiFillCamera } from "react-icons/ai";
 import Inputs from "./components/inputs";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "consts/registerschema";
-import { useEffect } from "react";
+import Images from "./components/Images";
 
 const ProductRegister = () => {
 	const {
@@ -26,39 +24,12 @@ const ProductRegister = () => {
 	const onSubmit = data => {
 		console.log("물품 등록하기", data);
 	};
-	useEffect(() => {
-		localStorage.setItem("tag", JSON.stringify([]));
-	}, []);
 
 	return (
 		<S.Wrapper>
 			<S.Container>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<S.ImgRegister>
-						<S.TitleAnother style={{ marginBottom: "20px" }}>
-							상품 이미지 (0/5) <S.Essential>*</S.Essential>
-						</S.TitleAnother>
-						<S.MainImg>
-							<AiFillCamera size={80} />
-							<S.ImageBox>
-								<S.RegisterLabel htmlFor="registerImg">
-									이미지 등록
-								</S.RegisterLabel>
-								<S.RegisterInput
-									type="file"
-									multiple
-									accept="image/*"
-									id="registerImg"
-								/>
-							</S.ImageBox>
-						</S.MainImg>
-					</S.ImgRegister>
-					<S.Images>
-						{/* {registerImg.map((img, i) => (
-							<OneImg key={i} img={img} />
-						))} */}
-						이미지 들어오는 곳
-					</S.Images>
+					<Images />
 					<Inputs
 						errors={errors}
 						control={control}
@@ -109,43 +80,9 @@ const Container = styled.div`
 	max-width: 900px;
 `;
 
-const ImgRegister = styled.div``;
-
 const TitleAnother = styled.p`
 	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
 	font-weight: bold;
-`;
-
-const MainImg = styled.div`
-	${flexCenter}
-	flex-direction: column;
-	width: 412px;
-	height: 412px;
-	background-color: #fafafd;
-	border: 1px solid #ddd;
-
-	& svg {
-		fill: ${({ theme }) => theme.PALETTE.gray};
-	}
-`;
-
-const ImageBox = styled.div``;
-
-const RegisterLabel = styled.label`
-	cursor: pointer;
-	font-weight: bold;
-	color: #9b99a9;
-`;
-
-const RegisterInput = styled.input`
-	display: none;
-`;
-
-const Images = styled.div`
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-gap: 20px;
-	margin: 20px 0;
 `;
 
 const SubmitBtns = styled.div`
@@ -183,14 +120,8 @@ const MapAddress = styled.p`
 const S = {
 	Container,
 	Wrapper,
-	ImgRegister,
 	Title,
 	Essential,
-	MainImg,
-	ImageBox,
-	RegisterLabel,
-	RegisterInput,
-	Images,
 	SubmitBtns,
 	MapBox,
 	TitleAnother,

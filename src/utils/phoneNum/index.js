@@ -29,7 +29,6 @@ export const replacePhone = str => {
 };
 
 export const replacePrice = str => {
-	console.log("strt: ", str);
 	if (!str) return;
 
 	str = str.replace(/[^0-9]/g, "");

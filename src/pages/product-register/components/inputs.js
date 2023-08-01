@@ -4,20 +4,21 @@ import { useEffect, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
-import { RegisterSchema } from "consts/registerschema";
+// import { RegisterSchema } from "consts/registerschema";
 import { replacePrice } from "utils/phoneNum";
 const Inputs = ({ control, errors, watch, setValue }) => {
 	const [description, setDescription] = useState("");
-	const [check, setCheck] = useState(true);
+	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
+	const [price, setPrice] = useState();
 
-	RegisterSchema.validate()
-		.then(() => {
-			console.log("검사 성공");
-		})
-		.catch(error => {
-			console.log("검사 실패:", error.message);
-		});
+	// RegisterSchema.validate()
+	// 	.then(() => {
+	// 		console.log("검사 성공");
+	// 	})
+	// 	.catch(error => {
+	// 		console.log("검사 실패:", error.message);
+	// 	});
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
@@ -44,19 +45,21 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 
 	// 체크 여부
 	const handleCheckedStatus = () => {
-		setCheck(!check);
+		setCategory(!category);
 	};
 
 	// 가격 유효성 검사
 	const watchPrice = watch("price");
 	useEffect(() => {
-		if (check) {
+		if (category) {
 			setValue("price", "0");
-		} else if (!check) {
+		} else if (!category) {
 			const newWatchPrice = replacePrice(watchPrice);
 			setValue("price", newWatchPrice);
+			setPrice(newWatchPrice);
+			console.log("price", price);
 		}
-	}, [watchPrice, setValue, check]);
+	}, [watchPrice, setValue, category]);
 
 	// 태그 삭제 로직
 	const handleDelete = idx => {
@@ -103,14 +106,14 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 					</S.ArrowDownIcon>
 				</S.InputTop>
 				<S.TagsBox>
-					{taglist.map((tagItem, i) => (
+					{taglist.map(tagItem => (
 						<BasicButton key={tagItem.idx} color={"white"}>
 							#{tagItem.Tag.tag}
 							<GrFormClose
 								onClick={() => {
 									handleDelete(tagItem.idx);
 								}}
-								size={30}
+								size={20}
 							/>
 						</BasicButton>
 					))}
@@ -136,7 +139,7 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 							type="radio"
 							id="freeCheckbox"
 							name="radio"
-							checked={check}
+							checked={category}
 							onChange={handleCheckedStatus}
 						/>
 						<label htmlFor="freeCheckbox">무료나눔</label>
@@ -146,7 +149,7 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 							type="radio"
 							id="usedCheckbox"
 							name="radio"
-							checked={!check}
+							checked={!category}
 							onChange={handleCheckedStatus}
 						/>
 						<label htmlFor="usedCheckbox">중고거래</label>
@@ -158,6 +161,9 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 					name="price"
 					control={control}
 					errors={errors}
+					variant={"line"}
+					color={"primary"}
+					size={"primary"}
 					maxLength={11}
 					placeholder="숫자만 입력해주세요"
 					type={"text"}
@@ -169,14 +175,22 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 				/>
 				<S.Title style={{ top: "68px" }}>
 					가격 <S.Essential>*</S.Essential>
+					<S.Won>원</S.Won>
 				</S.Title>
-				<span>원</span>
 			</S.InputBox>
 		</div>
 	);
 };
 
 export default Inputs;
+
+const Won = styled.span`
+	font-weight: 400;
+	font-size: 16px;
+	position: absolute;
+	left: 360px;
+	top: 10px;
+`;
 
 const TagsBox = styled.div`
 	display: flex;
@@ -283,6 +297,7 @@ const Checkbox = styled.input`
 `;
 
 const S = {
+	Won,
 	InputBox,
 	InputBoxAnother,
 	InputTop,
