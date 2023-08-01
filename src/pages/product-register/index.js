@@ -1,63 +1,46 @@
 import styled from "styled-components";
-import { flexCenter } from "styles/common";
-import OneImg from "./components/oneImg";
-import { registerImg } from "mocks/data/registerImg";
 import BasicButton from "components/Button";
-import { AiFillCamera } from "react-icons/ai";
+import Map from "./components/map";
 import Inputs from "./components/inputs";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { RegisterSchema } from "consts/registerschema";
+import Images from "./components/Images";
 
 const ProductRegister = () => {
-	const handleRegisterProduct = e => {
-		e.preventDefault();
-		console.log("물품 등록하기");
+	const {
+		handleSubmit,
+		control,
+		watch,
+		setValue,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(RegisterSchema),
+		mode: "onChange",
+	});
+
+	// 중고거래 선택되어 있는데 0원인 상태로 등록하기 누르면
+	// 저절로 무료나눔으로 체크 변경하거나, 무료나눔으로 데이터 저장하기
+	const onSubmit = data => {
+		console.log("물품 등록하기", data);
 	};
 
 	return (
 		<S.Wrapper>
 			<S.Container>
-				<form onSubmit={handleRegisterProduct}>
-					<S.ImgRegister>
-						<S.Title>
-							상품 이미지 (0/5) <S.Essential>*</S.Essential>
-						</S.Title>
-						<S.MainImg>
-							<AiFillCamera size={80} />
-							<S.ImageBox>
-								<S.RegisterLabel htmlFor="registerImg">
-									이미지 등록
-								</S.RegisterLabel>
-								<S.RegisterInput
-									type="file"
-									multiple
-									accept="image/*"
-									id="registerImg"
-									required
-								/>
-							</S.ImageBox>
-						</S.MainImg>
-					</S.ImgRegister>
-					<S.Images>
-						{registerImg.map((img, i) => (
-							<OneImg key={i} img={img} />
-						))}
-					</S.Images>
-					<Inputs />
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<Images />
+					<Inputs
+						errors={errors}
+						control={control}
+						watch={watch}
+						setValue={setValue}
+					/>
 					<S.MapBox>
 						<S.TitleAnother>
 							위치 설정 <S.Essential>*</S.Essential>
 						</S.TitleAnother>
-						<S.MapAddress>
-							서울시 성동구 성수동{" "}
-							<BasicButton
-								color={"primary"}
-								size={"primary"}
-								shape={"primary"}
-								style={{ lineHeight: "12px" }}
-							>
-								변경
-							</BasicButton>
-						</S.MapAddress>
-						<S.MapApi>지도 api 들어가는 부분</S.MapApi>
+						<Map />
 					</S.MapBox>
 					<S.SubmitBtns>
 						<BasicButton size={"medium"} color={"primary"}>
@@ -75,21 +58,26 @@ const ProductRegister = () => {
 
 export default ProductRegister;
 
+const Title = styled.p`
+	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
+	font-weight: bold;
+	position: absolute;
+	top: 50px;
+	z-index: 1;
+	margin-left: 20px;
+`;
+
+const Essential = styled.span`
+	color: ${({ theme }) => theme.PALETTE.primary};
+`;
+
 const Wrapper = styled.div`
 	width: 100%;
 `;
 
 const Container = styled.div`
 	margin: 50px auto;
-	max-width: 1060px;
-`;
-
-const ImgRegister = styled.div``;
-
-const Title = styled.p`
-	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
-	font-weight: bold;
-	margin-bottom: 40px;
+	max-width: 900px;
 `;
 
 const TitleAnother = styled.p`
@@ -97,46 +85,9 @@ const TitleAnother = styled.p`
 	font-weight: bold;
 `;
 
-const Essential = styled.span`
-	color: ${({ theme }) => theme.PALETTE.primary};
-`;
-
-const MainImg = styled.div`
-	${flexCenter}
-	flex-direction: column;
-	width: 412px;
-	height: 412px;
-	background-color: #fafafd;
-	border: 1px solid #ddd;
-
-	& svg {
-		fill: ${({ theme }) => theme.PALETTE.gray};
-	}
-`;
-
-const ImageBox = styled.div``;
-
-const RegisterLabel = styled.label`
-	cursor: pointer;
-	font-weight: bold;
-	color: #9b99a9;
-`;
-
-const RegisterInput = styled.input`
-	display: none;
-`;
-
-const Images = styled.div`
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-gap: 20px;
-	margin: 20px 0;
-`;
-
 const SubmitBtns = styled.div`
 	display: flex;
 	justify-content: flex-end;
-	padding: 0 20px;
 	button {
 		margin-left: 20px;
 		font-weight: bold;
@@ -158,7 +109,6 @@ const SubmitBtns = styled.div`
 
 const MapBox = styled.div`
 	margin: 30px 0;
-	padding: 0 20px;
 `;
 
 const MapAddress = styled.p`
@@ -167,26 +117,13 @@ const MapAddress = styled.p`
 	margin: 12px 0 20px 0;
 `;
 
-const MapApi = styled.div`
-	width: 100%;
-	height: 400px;
-	background-color: ${({ theme }) => theme.PALETTE.gray};
-`;
-
 const S = {
 	Container,
 	Wrapper,
-	ImgRegister,
 	Title,
 	Essential,
-	MainImg,
-	ImageBox,
-	RegisterLabel,
-	RegisterInput,
-	Images,
 	SubmitBtns,
 	MapBox,
 	TitleAnother,
 	MapAddress,
-	MapApi,
 };
