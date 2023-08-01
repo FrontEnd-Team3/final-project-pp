@@ -11,15 +11,18 @@ import BasicModal from "components/Modal/WithoutButton";
 import ValidateInput from "../components/OneValidate";
 import AuthApi from "apis/auth.api";
 import { replacePhone } from "utils/phoneNum";
+import SearchAddress from "components/SearchAddress";
 
 const Signup = () => {
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
+	const [address, setAddress] = useState("");
+	const [addressOpen, setAddressOpen] = useState(false);
 	const OpenwithClose = () => {
 		setIsOpen(true);
 		setTimeout(() => {
 			setIsOpen(false);
-			navigate("/");
+			navigate("/Signin");
 		}, 3000);
 	};
 
@@ -61,6 +64,10 @@ const Signup = () => {
 		}
 		console.log(data);
 	});
+
+	// const onClickAddress = () => {
+	// 	setAddressOpen(true);
+	// };
 	return (
 		<>
 			<S.Container>
@@ -117,7 +124,13 @@ const Signup = () => {
 						placeholder={"Address"}
 						errors={errors}
 						type={"text"}
+						address={address}
 					/>
+					<button onClick={() => setAddressOpen(true)}>주소 설정</button>
+					{addressOpen && (
+						<SearchAddress setAddress={setAddress} setIsOpen={setAddressOpen} />
+					)}
+
 					<ValidateInput
 						control={control}
 						name={"phone"}

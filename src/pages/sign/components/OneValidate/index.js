@@ -3,7 +3,15 @@ import styled from "styled-components";
 import { flexColumn, flexRow } from "styles/common";
 import ControlledInput from "../ControlledInput";
 
-const ValidateInput = ({ label, control, placeholder, name, type }) => {
+const ValidateInput = ({
+	label,
+	control,
+	placeholder,
+	name,
+	type,
+	address,
+	onClick,
+}) => {
 	return (
 		<S.SignWrapper>
 			<S.Title>{label}</S.Title>
@@ -17,8 +25,9 @@ const ValidateInput = ({ label, control, placeholder, name, type }) => {
 							<ControlledInput
 								type={type}
 								onChange={onChange}
-								value={value}
+								value={address ? address : ""}
 								placeholder={placeholder}
+								onClick={onClick}
 							/>
 							<S.RowBox>{error && <S.Error>{error.message}</S.Error>}</S.RowBox>
 						</>
