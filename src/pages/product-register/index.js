@@ -7,6 +7,7 @@ import Inputs from "./components/inputs";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "consts/registerschema";
+import { useEffect } from "react";
 
 const ProductRegister = () => {
 	const {
@@ -25,6 +26,9 @@ const ProductRegister = () => {
 	const onSubmit = data => {
 		console.log("물품 등록하기", data);
 	};
+	useEffect(() => {
+		localStorage.setItem("tag", JSON.stringify([]));
+	}, []);
 
 	return (
 		<S.Wrapper>

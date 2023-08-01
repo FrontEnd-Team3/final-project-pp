@@ -30,7 +30,6 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 					tag: e.target.value,
 				},
 			};
-
 			if (taglist.length < 5) {
 				setTaglist(prev => [...prev, tag]);
 			}
@@ -58,6 +57,13 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 			setValue("price", newWatchPrice);
 		}
 	}, [watchPrice, setValue, check]);
+
+	// 태그 삭제 로직
+	const handleDelete = idx => {
+		// 갖고온 현재 idx의 값과 기존에 있는 taglist의 idx 값 비교
+		const updateTags = taglist.filter(v => v.idx !== idx);
+		setTaglist(updateTags);
+	};
 
 	return (
 		<div>
@@ -97,10 +103,15 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 					</S.ArrowDownIcon>
 				</S.InputTop>
 				<S.TagsBox>
-					{taglist.map(tagItem => (
+					{taglist.map((tagItem, i) => (
 						<BasicButton key={tagItem.idx} color={"white"}>
 							#{tagItem.Tag.tag}
-							<GrFormClose size={20} onClick={() => console.log("삭제")} />
+							<GrFormClose
+								onClick={() => {
+									handleDelete(tagItem.idx);
+								}}
+								size={30}
+							/>
 						</BasicButton>
 					))}
 				</S.TagsBox>
