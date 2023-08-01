@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { replacePrice } from "utils/phoneNum";
 
 export const RegisterSchema = yup.object().shape({
 	// 물품명 20자 제한
@@ -16,8 +17,30 @@ export const RegisterSchema = yup.object().shape({
 		.required("물품 설명을 필수로 입력해 주세요")
 		.max(1000, "1000자 이내로 입력해 주세요."),
 	price: yup
-		.number()
-		.required("가격은 필수로 입력해 주세요")
-		.max(100000000, "1억 이상은 안대용")
-		.typeError("숫자만 입력해주세요."),
+		.string()
+		.required("가격을 설정해 주세요.")
+		// 세자리마다 콤마 찍어주기
+		.transform(originPrice => {
+			const price = replacePrice(originPrice);
+			return price;
+		})
+		.test({
+			// 글자 수가 10자 이상 넘어가면 1억 이상으로 판단하고, 에러 메세지 띄움
+			message: "1억원 이상은 판매 불가합니다.",
+			test: price => {
+				if (price.length <= 10) return true;
+				else {
+					return false;
+				}
+			},
+		}),
+	// .test({
+	// 	message: "맨앞의 숫자 0을 지우고 입력해 주세요",
+	// 	test: price => {
+	// 		if (price[0] == 0) return false;
+	// 		else {
+	// 			return true;
+	// 		}
+	// 	},
+	// }),
 });

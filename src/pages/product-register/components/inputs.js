@@ -4,76 +4,60 @@ import { useEffect, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
-
-const Inputs = ({ control, errors, register }) => {
+import { RegisterSchema } from "consts/registerschema";
+import { replacePrice } from "utils/phoneNum";
+const Inputs = ({ control, errors, watch, setValue }) => {
 	const [description, setDescription] = useState("");
 	const [check, setCheck] = useState(true);
-	const [price, setPrice] = useState("");
-	// priceRef = useRef();
-	// 태그 추가되게 하는 로직
-	const [tagValue, setTagValue] = useState("");
 	const [taglist, setTaglist] = useState([]);
 
-	useEffect(() => {
-		setCheck(true);
-		setPrice("0");
-	}, []);
+	RegisterSchema.validate()
+		.then(() => {
+			console.log("검사 성공");
+		})
+		.catch(error => {
+			console.log("검사 실패:", error.message);
+		});
 
-	const handleCheckedStatus = () => {
-		setCheck(!check);
-		console.log(check);
-
-		if (!check) setPrice("0");
-	};
-
+	// 태그 유효성 검사
+	const watchTag = watch("tag");
 	const handleKeyPress = e => {
 		if (e.key === "Enter") {
 			e.preventDefault();
 			const tag = {
 				idx: Math.floor(Math.random() * 100000),
 				Tag: {
-					tag: tagValue,
+					tag: e.target.value,
 				},
 			};
+
 			if (taglist.length < 5) {
 				setTaglist(prev => [...prev, tag]);
-				setTagValue("");
 			}
+			setValue("tag", "");
 		}
 	};
 
-	useEffect(() => {
-		console.log(taglist);
-		console.log(description);
-	}, [taglist, description]);
-
-	const handleInput = e => {
-		const inputValue = e.target.value.replace(/\s/g, "  "); // 공백 제거
-		// if (inputValue.length <= 6) 
-		setTagValue(inputValue); // 6자 넘지 못하게
-	};
-
+	// 상품 설명 글자수
 	const handleDescription = e => {
 		setDescription(e.target.value);
 	};
 
-	const formatter = new Intl.NumberFormat("en-US");
-	const handlePrice = e => {
-		const inputValue = e.target.value;
-		if (check) {
-			return;
-		}
-
-		if (inputValue === "") {
-			setPrice("0");
-			// priceRef.current.disabled;
-		} else if (inputValue !== "") {
-			const formattedValue = formatter.format(
-				parseFloat(inputValue.replace(/,/g, "")),
-			);
-			setPrice(formattedValue);
-		}
+	// 체크 여부
+	const handleCheckedStatus = () => {
+		setCheck(!check);
 	};
+
+	// 가격 유효성 검사
+	const watchPrice = watch("price");
+	useEffect(() => {
+		if (check) {
+			setValue("price", "0");
+		} else if (!check) {
+			const newWatchPrice = replacePrice(watchPrice);
+			setValue("price", newWatchPrice);
+		}
+	}, [watchPrice, setValue, check]);
 
 	return (
 		<div>
@@ -106,9 +90,7 @@ const Inputs = ({ control, errors, register }) => {
 						style={{ padding: "18px", width: "100%", marginTop: "20px" }}
 						placeholder="태그를 선택하거나 입력할 수 있습니다.(태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요) / 추후에 form으로 감싸거나 enter 이벤트 줘야함!"
 						onKeyPress={handleKeyPress}
-						maxLength = {6}
-						// value={tagValue}
-						// onChange={handleInput}
+						maxLength={6}
 					/>
 					<S.ArrowDownIcon>
 						<AiFillCaretDown />
@@ -153,6 +135,7 @@ const Inputs = ({ control, errors, register }) => {
 							type="radio"
 							id="usedCheckbox"
 							name="radio"
+							checked={!check}
 							onChange={handleCheckedStatus}
 						/>
 						<label htmlFor="usedCheckbox">중고거래</label>
@@ -161,24 +144,21 @@ const Inputs = ({ control, errors, register }) => {
 			</S.InputBox>
 			<S.InputBox style={{ borderBottom: "1.3px solid #d9d9d9" }}>
 				<OneController
-					placeholder="숫자만 입력해주세요"
 					name="price"
 					control={control}
 					errors={errors}
-					variant={"line"}
-					value={price}
-					onChange={handlePrice}
+					maxLength={11}
+					placeholder="숫자만 입력해주세요"
+					type={"text"}
 					style={{
 						padding: "16px",
 						height: "3rem",
 						margin: "60px 10px 60px 130px",
 					}}
-					// ref = {priceRef}
 				/>
 				<S.Title style={{ top: "68px" }}>
 					가격 <S.Essential>*</S.Essential>
 				</S.Title>
-				{/* {errors.price && <p>{errors.price.message}</p>} */}
 				<span>원</span>
 			</S.InputBox>
 		</div>
