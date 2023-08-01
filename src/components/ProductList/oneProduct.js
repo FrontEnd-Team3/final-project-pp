@@ -31,12 +31,7 @@ const OneProduct = ({ product, grid }) => {
 					<p className="location">{product.region}</p>
 					<p className="icons">
 						<GoBookmark size="16" />
-						{product.Liked}
-						{/* <HiOutlineChatBubbleLeftRight
-							size="16"
-							style={{ marginLeft: "10px" }}
-						/>
-						{product.chat.length} */}
+						{product.liked}
 					</p>
 				</div>
 				<div className="infoBottom">
