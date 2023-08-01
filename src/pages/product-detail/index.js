@@ -1,28 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
-import axios from "axios";
 import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked";
 import ProductInfo from "./components/ProductInfo";
 import OtherProducts from "./components/OtherProducts";
 import ErrorPage from "pages/error-page";
 import Loading from "components/Loading";
+import ProductQueryApi from "apis/product.query.api";
 
 const ProductDetailPage = () => {
 	const { id } = useParams();
 
-	const { data, isLoading, isError } = useQuery({
-		queryKey: ["productDetail", id],
-		queryFn: async () => {
-			try {
-				const response = await axios.get(`/api/product/detail?prod_idx=${id}`);
-				return response.data;
-			} catch (error) {
-				throw new Error("제품을 가져오지 못했어요.");
-			}
-		},
-	});
+	const { data, isLoading, isError } = ProductQueryApi.getProductDetail(id);
 
 	if (isLoading) {
 		return <Loading />;

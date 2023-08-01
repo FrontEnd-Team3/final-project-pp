@@ -9,7 +9,6 @@ const Header = () => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
 	const { accessToken, logout } = useAuth();
-
 	const categoryArray = [
 		{
 			name: "중고거래",
