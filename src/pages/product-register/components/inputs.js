@@ -5,7 +5,7 @@ import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
 // import { RegisterSchema } from "consts/registerschema";
-import { replacePrice } from "utils/phoneNum";
+import { replacePrice } from "utils/priceNum";
 const Inputs = ({ control, errors, watch, setValue }) => {
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState(true);

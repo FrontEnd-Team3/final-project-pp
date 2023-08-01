@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { replacePrice } from "utils/phoneNum";
+import { replacePrice } from "utils/priceNum";
 
 export const RegisterSchema = yup.object().shape({
 	// 물품명 20자 제한
