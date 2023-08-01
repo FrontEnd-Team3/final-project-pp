@@ -9,81 +9,75 @@ import { flexCenter, flexColumn, flexRow } from "styles/common";
  * 호버시 쉐도우 주는거 적용해야함
  *
  */
-const StatusEndProductList = ({ soldProducts, dataLimit, page, offset }) => {
+const StatusEndProductList = ({ product }) => {
 	const sideOptions = [
 		{ value: "판매중", label: "판매중" },
 		{ value: "거래중", label: "거래중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
 
-	if (soldProducts && soldProducts.length > 0) {
-		return (
-			<S.Container>
-				{soldProducts.slice(offset, offset + dataLimit).map((product, i) => (
-					<S.ProductContainer key={product.idx}>
-						<img src={product.img_url} />
-						<div>
+	return (
+		<S.Container>
+			<S.ProductContainer key={product.idx}>
+				<img src={product.img_url} />
+				<div>
+					<div>
+						<S.Wrapper>
+							<S.TextP1>{product.title}</S.TextP1>
 							<div>
-								<S.Wrapper>
-									<S.TextP1>{product.title}</S.TextP1>
-									<div>
-										<BasicButton
-											color={"white"}
-											size={"xsmall"}
-											children={"수정"}
-											style={{
-												fontSize: "14px",
-												height: "28px",
-												borderRadius: "6px",
-												fontWeight: "600",
-												border: "1px solid #dddddd",
-											}}
-										/>
-										<BasicButton
-											color={"primary"}
-											size={"xsmall"}
-											children={"삭제"}
-											style={{
-												fontSize: "14px",
-												height: "28px",
-												borderRadius: "6px",
-												fontWeight: "600",
-												marginLeft: "10px",
-											}}
-										/>
-									</div>
-								</S.Wrapper>
-								<S.Wrapper2>
-									<S.ToggleBox2>
-										<BasicSelect
-											variant={"primary"}
-											options={sideOptions}
-											selectedValue={"판매완료"}
-											style={{ border: "1px solid #dddddd" }}
-										/>
-									</S.ToggleBox2>
-									<S.Wrapper2>
-										<S.TextP1>{product.price}won</S.TextP1>
-									</S.Wrapper2>
-								</S.Wrapper2>
+								<BasicButton
+									color={"white"}
+									size={"xsmall"}
+									children={"수정"}
+									style={{
+										fontSize: "14px",
+										height: "28px",
+										borderRadius: "6px",
+										fontWeight: "600",
+										border: "1px solid #dddddd",
+									}}
+								/>
+								<BasicButton
+									color={"primary"}
+									size={"xsmall"}
+									children={"삭제"}
+									style={{
+										fontSize: "14px",
+										height: "28px",
+										borderRadius: "6px",
+										fontWeight: "600",
+										marginLeft: "10px",
+									}}
+								/>
 							</div>
-							<TextBox2>
-								<p>상품 보러가기 〉</p>
-							</TextBox2>
-						</div>
-					</S.ProductContainer>
-				))}
-				<StatusEndProductList />
-			</S.Container>
-		);
-	}
+						</S.Wrapper>
+						<S.Wrapper2>
+							<S.ToggleBox2>
+								<BasicSelect
+									variant={"primary"}
+									options={sideOptions}
+									selectedValue={"판매완료"}
+									style={{ border: "1px solid #dddddd" }}
+								/>
+							</S.ToggleBox2>
+							<S.Wrapper2>
+								<S.TextP1>{product.price}won</S.TextP1>
+							</S.Wrapper2>
+						</S.Wrapper2>
+					</div>
+					<TextBox2>
+						<p>상품 보러가기 〉</p>
+					</TextBox2>
+				</div>
+			</S.ProductContainer>
+		</S.Container>
+	);
 };
 
 export default StatusEndProductList;
 
 const Container = styled.div`
 	display: flex;
-	margin-bottom: 150px;
 	${flexColumn}
 	${flexCenter}
 `;

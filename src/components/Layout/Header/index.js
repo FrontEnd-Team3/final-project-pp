@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
 import { useState } from "react";
+import { useAuth } from "context/auth.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
+	const { accessToken, logout } = useAuth();
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -21,6 +23,14 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
+	const handleLogout = async () => {
+		try {
+			await logout();
+			navigate("/Signin");
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<>
@@ -54,14 +64,21 @@ const Header = () => {
 					<div>
 						<S.NewChat>새로운 채팅 도착!</S.NewChat>
 						<S.InfoWrapper>
-							<div
-								style={{ cursor: "pointer" }}
-								onClick={() => {
-									navigate("/Signin");
-								}}
-							>
-								LOGIN
-							</div>
+							{accessToken ? (
+								<div style={{ cursor: "pointer" }} onClick={handleLogout}>
+									LOGOUT
+								</div>
+							) : (
+								<div
+									style={{ cursor: "pointer" }}
+									onClick={() => {
+										navigate("/Signin");
+									}}
+								>
+									LOGIN
+								</div>
+							)}
+
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => {

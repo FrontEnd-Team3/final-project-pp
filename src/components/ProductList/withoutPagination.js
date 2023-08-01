@@ -7,7 +7,7 @@ const ProductListWithoutPagination = ({ productList }) => {
 			<>
 				<S.Container>
 					{productList.slice(0, 8).map((product, i) => (
-						<OneProduct key={product.id} product={product} grid={"box" + i} />
+						<OneProduct key={product.idx} product={product} grid={"box" + i} />
 					))}
 				</S.Container>
 			</>

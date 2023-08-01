@@ -9,13 +9,13 @@ import EmptyData from "../EmptyData";
  *
  */
 
-const TransactionHistory = ({ productListStatusEnd }) => {
+const TransactionHistory = ({ MyuserList }) => {
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
 	];
 
-	if (productListStatusEnd && productListStatusEnd.length > 0) {
+	if (MyuserList && MyuserList.length > 0) {
 		return (
 			<S.Container>
 				<S.RowBox>
@@ -29,13 +29,13 @@ const TransactionHistory = ({ productListStatusEnd }) => {
 						/>
 					</S.ToggleBox>
 				</S.RowBox>
-				{productListStatusEnd.map(product => (
-					<S.ProductContainer key={product.id}>
-						<img src={product.image[0]} />
+				{MyuserList.map(product => (
+					<S.ProductContainer key={product.idx}>
+						<img src={product.img_url} />
 						<div>
 							<div>
 								<S.Wrapper>
-									<p>{product.name}</p>
+									<p>{product.title}</p>
 									<div>
 										<BasicButton
 											color={"white"}
@@ -65,7 +65,7 @@ const TransactionHistory = ({ productListStatusEnd }) => {
 								</S.Wrapper>
 								<S.Wrapper2>
 									<div>
-										<p>350,000</p> <p>won</p>
+										<p>{product.price}</p> <p>won</p>
 									</div>
 								</S.Wrapper2>
 							</div>

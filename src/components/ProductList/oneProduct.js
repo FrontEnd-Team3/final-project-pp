@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { GoBookmark } from "react-icons/go";
-import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 
 const OneProduct = ({ product, grid }) => {
 	// console.log(product);
@@ -33,11 +32,11 @@ const OneProduct = ({ product, grid }) => {
 					<p className="icons">
 						<GoBookmark size="16" />
 						{product.Liked}
-						<HiOutlineChatBubbleLeftRight
+						{/* <HiOutlineChatBubbleLeftRight
 							size="16"
 							style={{ marginLeft: "10px" }}
 						/>
-						{product.chat.length}
+						{product.chat.length} */}
 					</p>
 				</div>
 				<div className="infoBottom">

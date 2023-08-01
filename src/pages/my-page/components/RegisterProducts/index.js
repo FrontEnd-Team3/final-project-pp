@@ -22,14 +22,13 @@ const RegisterProduct = () => {
 			product.status === "판매완료",
 	);
 
-	const combinedProductList = [...sellingProducts, <StatusEndProductList />];
-
+	const allProducts = [...sellingProducts, ...soldProducts];
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
 	];
 	const sideOptions = [
-		{ value: "판매중", label: "판매중" },
+		{ value: "판매완료", label: "판매완료" },
 		{ value: "거래중", label: "거래중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
@@ -38,7 +37,7 @@ const RegisterProduct = () => {
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * dataLimit;
 
-	if (combinedProductList && combinedProductList.length > 0) {
+	if (sellingProducts.length > 0 || soldProducts.length > 0) {
 		return (
 			<>
 				<S.Container>
@@ -53,9 +52,10 @@ const RegisterProduct = () => {
 							/>
 						</S.ToggleBox>
 					</S.RowBox>
-					{combinedProductList
-						.slice(offset, offset + dataLimit)
-						.map((product, i) => (
+					{allProducts.slice(offset, offset + dataLimit).map((product, i) => {
+						return product.status === "판매완료" ? (
+							<StatusEndProductList product={product} />
+						) : (
 							<S.ProductContainer key={product.idx}>
 								<img src={product.img_url} />
 								<div>
@@ -108,10 +108,11 @@ const RegisterProduct = () => {
 									</TextBox2>
 								</div>
 							</S.ProductContainer>
-						))}
+						);
+					})}
 				</S.Container>
 				<Pagination
-					totalData={combinedProductList.length}
+					totalData={sellingProducts.length + soldProducts.length}
 					dataLimit={dataLimit}
 					page={page}
 					setPage={setPage}
