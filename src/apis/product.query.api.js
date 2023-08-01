@@ -26,6 +26,12 @@ const ProductQueryApi = {
 			["productDetail", id],
 			successFn,
 		),
+	updateProduct: successFn =>
+		useMutateData(
+			() => ProductApi.updateProduct,
+			["productRegister"],
+			successFn,
+		),
 };
 
 export default ProductQueryApi;

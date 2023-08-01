@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosInstance } from "./core";
 
 const PATH = "/api/product";
 
@@ -11,6 +12,8 @@ const ProductApi = {
 		await axios.post(PATH + `/sale-complete?prod_idx=${id}`),
 	updateLikeStatus: async (id, params) =>
 		await axios.post(PATH + `/like??prod_idx=${id}`, (params = { ...params })),
+	updateProduct: async productData =>
+		await axiosInstance.post(PATH, productData),
 };
 
 export default ProductApi;
