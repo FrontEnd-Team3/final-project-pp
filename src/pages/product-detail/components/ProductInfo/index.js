@@ -1,33 +1,34 @@
 import { flexColumn } from "styles/common";
 import styled from "styled-components";
-import UserInfo from "./userInfo";
 import ButtonContainer from "./Buttons/index";
 import ProductImages from "./productImages";
+import UserInfo from "./userInfo";
 
 const ProductInfo = ({ product }) => {
-	const { searchProducts, isSeller, chat } = product;
-	const localPrice = searchProducts?.price.toLocaleString("ko-KR");
+	console.log("상세", product);
+	const { searchProduct, isSeller, chat } = product;
+	const localPrice = searchProduct?.price.toLocaleString("ko-KR");
 
 	if (product)
 		return (
 			<S.Container>
-				<ProductImages image={searchProducts?.ProductImages} />
+				<ProductImages product={searchProduct} />
 				<S.InfoContainer>
-					<S.ProductName>{searchProducts?.title}</S.ProductName>
+					<S.ProductName>{searchProduct?.title}</S.ProductName>
 					<S.ProductLocation>
-						{searchProducts?.region}(위도, 경도)
+						{searchProduct?.region}(위도, 경도)
 					</S.ProductLocation>
-					<UserInfo targetUser={searchProducts?.User} />
-					<S.Introduction>{searchProducts?.description}</S.Introduction>
+					<UserInfo targetUser={searchProduct?.User} />
+					<S.Introduction>{searchProduct?.description}</S.Introduction>
 					<div>
-						{searchProducts?.ProductsTags.map(tag => (
+						{searchProduct?.ProductsTags.map(tag => (
 							<S.Tag># {tag.Tag["tag"]}</S.Tag>
 						))}
 					</div>
 					<S.ProductPrice>{localPrice} 원</S.ProductPrice>
 					<ButtonContainer
 						isSeller={isSeller}
-						bookmark={searchProducts?.liked}
+						bookmark={searchProduct?.liked}
 						chat={chat}
 					/>
 				</S.InfoContainer>
