@@ -14,7 +14,7 @@ const SignIn = () => {
 	const navigate = useNavigate();
 	const { email, pw } = SCHEMA;
 	const schema = yup.object().shape({ email, pw });
-	const auth = useAuth();
+	const { login } = useAuth();
 
 	const {
 		handleSubmit,
@@ -26,13 +26,10 @@ const SignIn = () => {
 	});
 
 	const onSubmitSignin = handleSubmit(async data => {
-		try {
-			const response = await AuthApi.login(data.email, data.pw);
-			navigate("/");
-			auth.login(response.data.tokenForHeader);
-		} catch (error) {
-			console.error(error);
-		}
+		const response = await AuthApi.login(data.email, data.pw);
+		console.log("로그인", response.data.user);
+		login(response.data.tokenForHeader);
+		navigate("/");
 	});
 	return (
 		<S.Container>
