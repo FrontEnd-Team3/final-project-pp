@@ -18,13 +18,15 @@ const Signup = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [address, setAddress] = useState("");
 	const [addressOpen, setAddressOpen] = useState(false);
-	const OpenwithClose = () => {
-		setIsOpen(true);
-		setTimeout(() => {
-			setIsOpen(false);
-			navigate("/Signin");
-		}, 3000);
-	};
+	// const OpenwithClose = () => {
+	// 	setIsOpen(true);
+	// 	if (data.status === 200) {
+	// 		setTimeout(() => {
+	// 			setIsOpen(false);
+	// 			navigate("/Signin");
+	// 		}, 3000);
+	// 	}
+	// };
 
 	const { email, pw, pwCheck, nickName, region, phone } = SCHEMA;
 	const schema = yup
@@ -35,6 +37,7 @@ const Signup = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
+		getValues,
 		setValue, // useForm에서 setValue 메서드를 가져옵니다.
 		watch,
 	} = useForm({
@@ -51,19 +54,59 @@ const Signup = () => {
 
 	const onSubmitSignUp = handleSubmit(async data => {
 		try {
-			await AuthApi.signup(
+			const response = await AuthApi.signup(
 				data.email,
 				data.pw,
 				data.nickName,
 				data.phone,
 				data.region,
 			);
-			console.log(data);
+			console.log("회원가입data", response);
+			if (response && response.status === 200) {
+				setIsOpen(true);
+				setTimeout(() => {
+					setIsOpen(false);
+					navigate("/Signin");
+				}, 3000);
+			}
+			return response;
 		} catch (error) {
 			console.error(error);
 		}
 		console.log(data);
 	});
+
+	const onEmailCheck = async () => {
+		try {
+			const email = getValues("email");
+			console.log(email);
+			const response = await AuthApi.emailCheck(email);
+			if (response.status === 200) {
+				alert("사용 가능한 이메일 입니다.");
+			}
+		} catch (error) {
+			if (error.response.status === 400) {
+				alert("중복된 이메일 입니다.");
+				console.log(error);
+			}
+		}
+	};
+
+	const onNickNameCheck = async () => {
+		try {
+			const nickName = getValues("nickName");
+			console.log(nickName);
+			const response = await AuthApi.nickNameCheck(nickName);
+			if (response.status === 200) {
+				alert("사용 가능한 닉네임 입니다.");
+			}
+		} catch (error) {
+			if (error.response.status === 400) {
+				alert("중복된 닉네임 입니다.");
+				console.log(error);
+			}
+		}
+	};
 
 	// const onClickAddress = () => {
 	// 	setAddressOpen(true);
@@ -91,6 +134,23 @@ const Signup = () => {
 						errors={errors}
 						type={"text"}
 					/>
+					<BasicButton
+						color={"black"}
+						size={"account"}
+						children={"중복 검사"}
+						type={"button"}
+						style={{
+							position: "absolute",
+							right: "26px",
+							top: "46px",
+							fontSize: "12px",
+							fontWeight: "500",
+							marginRight: "16px",
+						}}
+						onClick={onEmailCheck}
+						disabled={errors.email ? true : false}
+					/>
+
 					<ValidateInput
 						control={control}
 						name={"pw"}
@@ -107,21 +167,39 @@ const Signup = () => {
 						errors={errors}
 						type={"password"}
 					/>
-					<ValidateInput
-						control={control}
-						name={"nickName"}
-						label={"Nick Name"}
-						placeholder={"Nick Name"}
-						errors={errors}
-						type={"text"}
-					/>
+					<S.ButtonWrapper>
+						<ValidateInput
+							control={control}
+							name={"nickName"}
+							label={"Nick Name"}
+							placeholder={"Nick Name"}
+							errors={errors}
+							type={"text"}
+						>
+							<BasicButton
+								color={"black"}
+								size={"account"}
+								children={"중복 검사"}
+								type={"button"}
+								style={{
+									position: "absolute",
+									right: "26px",
+									top: "242px",
+									fontSize: "12px",
+									fontWeight: "500",
+									marginRight: "16px",
+								}}
+								onClick={onNickNameCheck}
+								disabled={errors.nickName ? true : false}
+							/>
+						</ValidateInput>
+					</S.ButtonWrapper>
 
-					{/* 주소창 수정예정 */}
 					<ValidateInput
 						control={control}
 						name={"region"}
 						label={"Address"}
-						placeholder={"Address"}
+						placeholder={"주소창을 클릭해주세요"}
 						errors={errors}
 						type={"text"}
 						address={address}
@@ -149,7 +227,7 @@ const Signup = () => {
 							size={"mediumfourth"}
 							variant={"primary"}
 							color={"darkBlack"}
-							onClick={OpenwithClose}
+							// onClick={OpenwithClose}
 						>
 							회원가입
 						</BasicButton>
@@ -225,6 +303,11 @@ const Wrapper = styled.div`
 	position: relative;
 	top: 25px;
 `;
+
+const CheckBtnWrapper = styled.div`
+	position: relative;
+`;
+
 const ButtonWrapper = styled.div`
 	margin-top: 20px;
 	button {
@@ -280,4 +363,5 @@ const S = {
 	Addresswrapper,
 	AddressSearchBtn,
 	ButtonWrapper,
+	CheckBtnWrapper,
 };

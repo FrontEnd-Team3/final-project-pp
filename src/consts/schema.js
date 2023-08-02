@@ -33,6 +33,7 @@ export const pwCheck = yup
 /**중복검사 필요 */
 export const nickName = yup
 	.string()
+	.min(2, "2자 이상 입력해주세요.")
 	.max(12, "12자 미만 입력해주세요.")
 	.required("닉네임을 입력해주세요.")
 	.matches(REGEX.nickName, {
