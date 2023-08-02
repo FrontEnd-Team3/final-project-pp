@@ -4,32 +4,30 @@ import { useEffect, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
-// import { RegisterSchema } from "consts/registerschema";
 import { replacePrice } from "utils/priceNum";
-const Inputs = ({ control, errors, watch, setValue, onInputValuesChange }) => {
+const Inputs = ({
+	control,
+	errors,
+	watch,
+	setValue,
+	onInputValuesChange,
+	imageArr,
+}) => {
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
 	const [price, setPrice] = useState("");
-
-	// RegisterSchema.validate()
-	// 	.then(() => {
-	// 		console.log("검사 성공");
-	// 	})
-	// 	.catch(error => {
-	// 		console.log("검사 실패:", error.message);
-	// 	});
 
 	useEffect(() => {
 		const inputValues = {
 			idx: Math.floor(Math.random() * 100000),
 			title: watch("title"),
 			description,
-			price: Number(price.replace(",", "")),
+			price: Number(price.replace(",", "")), // 문자입력시 버그있음
 			region: "서울시 성동구 성수동",
 			category,
-			taglist,
-			img: [],
+			ProductsTags: taglist,
+			ProductImages: imageArr,
 		};
 		onInputValuesChange(inputValues);
 	}, [watch, description, price, category, taglist]);

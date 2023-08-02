@@ -27,31 +27,46 @@ const ProductRegister = () => {
 		setProduct(inputValues);
 	};
 
+	const handleImageChange = imgArr => {
+		setProduct(prevState => ({
+			...prevState,
+			ProductImages: imgArr,
+		}));
+	};
+
+	const handleRegionChange = address => {
+		setProduct(prevState => ({
+			...prevState,
+			region: address,
+		}));
+	};
+
 	// 중고거래 선택되어 있는데 0원인 상태로 등록하기 누르면
 	// 저절로 무료나눔으로 체크 변경하거나, 무료나눔으로 데이터 저장하기
 	const onSubmit = data => {
-		console.log("물품 등록하기", data);
-		console.log("등록", product);
-		ProductApi.updateProduct(product);
+		console.log("유효성 검사 데이터", data);
+		console.log("등록값", product);
+		ProductApi.updateProduct(product); // msw
 	};
 
 	return (
 		<S.Wrapper>
 			<S.Container>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<Images />
+					<Images onImageChange={handleImageChange} />
 					<Inputs
 						errors={errors}
 						control={control}
 						watch={watch}
 						setValue={setValue}
 						onInputValuesChange={handleInputValues}
+						imageArr={product.ProductImages}
 					/>
 					<S.MapBox>
 						<S.TitleAnother>
 							위치 설정 <S.Essential>*</S.Essential>
 						</S.TitleAnother>
-						<Map />
+						<Map onRegionChange={handleRegionChange} />
 					</S.MapBox>
 					<S.SubmitBtns>
 						<BasicButton size={"medium"} color={"primary"}>
