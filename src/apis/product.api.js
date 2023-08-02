@@ -11,6 +11,8 @@ const ProductApi = {
 		await axios.post(PATH + `/sale-complete?prod_idx=${id}`),
 	updateLikeStatus: async (id, params) =>
 		await axios.post(PATH + `/like??prod_idx=${id}`, (params = { ...params })),
+	updateProduct: async productData => await axios.post(PATH, productData),
 };
 
 export default ProductApi;
+// 지금 등록 하시는 거죠?네네

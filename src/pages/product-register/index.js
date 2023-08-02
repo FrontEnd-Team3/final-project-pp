@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "consts/registerschema";
 import Images from "./components/Images";
+import ProductApi from "apis/product.api";
 
 const ProductRegister = () => {
 	const {
@@ -19,10 +20,20 @@ const ProductRegister = () => {
 		mode: "onChange",
 	});
 
-	// 중고거래 선택되어 있는데 0원인 상태로 등록하기 누르면
-	// 저절로 무료나눔으로 체크 변경하거나, 무료나눔으로 데이터 저장하기
+	const DATA = {
+		idx: 2,
+		title: "노트북",
+		price: 20000,
+		description: "안녕여어어",
+		region: "성숭",
+		category: "전자",
+		ProductsTags: [],
+		ProductImages: [],
+	};
+
+	// axios.post("/api/product", DATA);
 	const onSubmit = data => {
-		console.log("물품 등록하기", data);
+		ProductApi.updateProduct(DATA);
 	};
 
 	return (

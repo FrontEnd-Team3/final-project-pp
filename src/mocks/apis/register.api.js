@@ -26,21 +26,14 @@ export const addProduct = rest.post("/api/product", async (req, res, ctx) => {
 	return res(
 		ctx.status(200),
 		ctx.json({
-			// idx: Math.floor(Math.random() * 100000),
-			// title,
-			// price,
-			// description,
-			// region,
-			// category,
-			// ProductsTags,
-			// ProductImages,
-			// created_at: new Date(),
-			// img_url: ProductImages[0],
-			// Liked: 0,
-			// status: "판매중",
-			// User: {},
-			// chat: [],
 			idx: parseInt(prod_idx),
+			title,
+			price,
+			description,
+			region,
+			category,
+			ProductsTags,
+			ProductImages,
 		}),
 	);
 });
