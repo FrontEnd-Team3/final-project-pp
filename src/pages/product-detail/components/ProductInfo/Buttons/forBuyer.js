@@ -21,6 +21,7 @@ const ButtonsForBuyer = ({ bookmark }) => {
 	}, []);
 
 	const successFn = res => {
+		console.log("찜하기", res);
 		setLikedCount(res?.data?.data);
 		setIsBookmarked(res?.data?.message);
 	};

@@ -1,12 +1,6 @@
-import { userList } from "mocks/data/user/userList";
 import styled from "styled-components";
 
 const UserInfo = ({ targetUser }) => {
-	const TargetUser = userList.find(user => user.socket == targetUser.socket);
-	const DealCount = TargetUser.registerProducts.filter(
-		product => product.status === "판매완료",
-	)?.length;
-
 	return (
 		<S.Container>
 			<S.ProfileImg src={targetUser.profile_url} className="profileImg" />
@@ -16,7 +10,7 @@ const UserInfo = ({ targetUser }) => {
 				</div>
 				<div style={{ display: "flex" }}>
 					<div className="degree">매너온도: {targetUser.Ondo["ondo"]}도</div>
-					<div className="dealCount">(총 거래 건: {DealCount})</div>
+					{/* <div className="dealCount">(총 거래 건: {DealCount})</div> */}
 				</div>
 			</S.InfoContainer>
 		</S.Container>

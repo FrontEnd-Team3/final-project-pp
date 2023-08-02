@@ -34,6 +34,13 @@ export const addProduct = rest.post("/api/product", async (req, res, ctx) => {
 			category,
 			ProductsTags,
 			ProductImages,
+			// created_at: new Date(),
+			// img_url: ProductImages[0],
+			// Liked: 0,
+			// status: "판매중",
+			// User: {},
+			// chat: [],
+			// idx: parseInt(prod_idx),
 		}),
 	);
 });

@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "consts/registerschema";
 import Images from "./components/Images";
+import { useState } from "react";
 import ProductApi from "apis/product.api";
 
 const ProductRegister = () => {
@@ -20,20 +21,18 @@ const ProductRegister = () => {
 		mode: "onChange",
 	});
 
-	const DATA = {
-		idx: 2,
-		title: "노트북",
-		price: 20000,
-		description: "안녕여어어",
-		region: "성숭",
-		category: "전자",
-		ProductsTags: [],
-		ProductImages: [],
+	const [product, setProduct] = useState([]);
+
+	const handleInputValues = inputValues => {
+		setProduct(inputValues);
 	};
 
-	// axios.post("/api/product", DATA);
+	// 중고거래 선택되어 있는데 0원인 상태로 등록하기 누르면
+	// 저절로 무료나눔으로 체크 변경하거나, 무료나눔으로 데이터 저장하기
 	const onSubmit = data => {
-		ProductApi.updateProduct(DATA);
+		console.log("물품 등록하기", data);
+		console.log("등록", product);
+		ProductApi.updateProduct(product);
 	};
 
 	return (
@@ -46,6 +45,7 @@ const ProductRegister = () => {
 						control={control}
 						watch={watch}
 						setValue={setValue}
+						onInputValuesChange={handleInputValues}
 					/>
 					<S.MapBox>
 						<S.TitleAnother>
