@@ -4,6 +4,7 @@ import * as chatApi from "./apis/chat.api";
 import * as userApi from "./apis/user.api";
 import * as mainApi from "./apis/products/main.api";
 import * as detailApi from "./apis/products/detail.api";
+import * as registerApi from "./apis/register.api";
 
 const handlers = [
 	...Object.values(productApi),
@@ -11,5 +12,6 @@ const handlers = [
 	...Object.values(userApi),
 	...Object.values(mainApi),
 	...Object.values(detailApi),
+	...Object.values(registerApi),
 ];
 export const worker = setupWorker(...handlers);

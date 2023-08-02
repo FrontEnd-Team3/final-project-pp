@@ -1,31 +1,33 @@
+import ProductQueryApi from "apis/product.query.api";
 import BasicButton from "components/Button";
+import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
 import BasicSelect from "components/Select";
-import { productList } from "mocks/data/products/productsList";
 import { useState } from "react";
 import styled from "styled-components";
 
 const UsedTransaction = () => {
-	const PRODUCTLIST = productList.filter(
-		product => product.status !== "판매완료" && product.category,
-	);
-	const [filterdProducts, setFilterdProducts] = useState(PRODUCTLIST);
+	const { data, isLoading } = ProductQueryApi.getProductList();
+	console.log("중고물품", data?.usedProduct);
+
+	const [filteredProducts, setFilteredProducts] = useState(data?.usedProduct);
 
 	const onFiltering = value => {
-		let filteredList = [...PRODUCTLIST];
+		let filteredList = [...data?.usedProduct];
 
 		if (value === "등록순") {
-			filteredList.sort((a, b) => a.created_at.localeCompare(b.created_at));
+			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.Liked - a.Liked);
+			filteredList.sort((a, b) => b.liked - a.liked);
 		} else if (value === "저가순") {
 			filteredList.sort((a, b) => a.price - b.price);
+			console.log("저가순", filteredList);
 		} else if (value === "고가순") {
 			filteredList.sort((a, b) => b.price - a.price);
+			console.log("고가순", filteredList);
 		}
-
-		setFilterdProducts(filteredList);
+		setFilteredProducts(filteredList);
 	};
 
 	const options = [
@@ -35,6 +37,8 @@ const UsedTransaction = () => {
 		{ value: "고가순", label: "고가순" },
 	];
 
+	if (isLoading) return <Loading />;
+
 	return (
 		<S.Container>
 			<S.Wrapper>
@@ -43,7 +47,7 @@ const UsedTransaction = () => {
 				</S.Title>
 				<S.Address>
 					<div>
-						서울시 성동구 성수동{" "}
+						서울시 성동구 성수동
 						<BasicButton
 							color={"primary"}
 							shape={"primary"}
@@ -58,7 +62,7 @@ const UsedTransaction = () => {
 						onChange={onFiltering}
 					/>
 				</S.Address>
-				<ProductList productList={filterdProducts} />
+				<ProductList productList={filteredProducts} />
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>

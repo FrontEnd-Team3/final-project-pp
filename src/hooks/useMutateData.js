@@ -4,6 +4,7 @@ const useMutateData = (mutateFn, queryKey, successFn) => {
 	const queryClient = useQueryClient();
 
 	return useMutation(mutateFn, {
+		onMutate: () => {},
 		onSuccess: res => {
 			console.log("res", res.body);
 			console.log("성공!", res.data.message);

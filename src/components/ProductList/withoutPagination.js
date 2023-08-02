@@ -2,16 +2,20 @@ import styled from "styled-components";
 import OneProduct from "./oneProduct";
 
 const ProductListWithoutPagination = ({ productList }) => {
-	if (productList)
+	if (productList) {
+		const targetData = productList?.product
+			? productList.product
+			: productList.slice(0, 8);
 		return (
 			<>
 				<S.Container>
-					{productList.slice(0, 8).map((product, i) => (
+					{targetData.map((product, i) => (
 						<OneProduct key={product.idx} product={product} grid={"box" + i} />
 					))}
 				</S.Container>
 			</>
 		);
+	}
 };
 
 export default ProductListWithoutPagination;

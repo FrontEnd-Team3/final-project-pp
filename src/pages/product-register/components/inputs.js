@@ -6,11 +6,11 @@ import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
 // import { RegisterSchema } from "consts/registerschema";
 import { replacePrice } from "utils/priceNum";
-const Inputs = ({ control, errors, watch, setValue }) => {
+const Inputs = ({ control, errors, watch, setValue, onInputValuesChange }) => {
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
-	const [price, setPrice] = useState();
+	const [price, setPrice] = useState("");
 
 	// RegisterSchema.validate()
 	// 	.then(() => {
@@ -19,6 +19,20 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 	// 	.catch(error => {
 	// 		console.log("검사 실패:", error.message);
 	// 	});
+
+	useEffect(() => {
+		const inputValues = {
+			idx: Math.floor(Math.random() * 100000),
+			title: watch("title"),
+			description,
+			price: Number(price.replace(",", "")),
+			region: "서울시 성동구 성수동",
+			category,
+			taglist,
+			img: [],
+		};
+		onInputValuesChange(inputValues);
+	}, [watch, description, price, category, taglist]);
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
@@ -40,7 +54,10 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 
 	// 상품 설명 글자수
 	const handleDescription = e => {
-		setDescription(e.target.value);
+		const inputValue = e.target.value;
+		// 엔터 두번 이상이면 무조건 한 번으로 인식하게 하는 로직(엔터 남발 방지)
+		const enterEditValue = inputValue.replace(/\n{3,}/g, "\n\n");
+		setDescription(enterEditValue);
 	};
 
 	// 체크 여부

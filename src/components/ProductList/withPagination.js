@@ -4,6 +4,7 @@ import { useState } from "react";
 import Pagination from "components/Pagination";
 
 const ProductList = ({ productList }) => {
+	console.log("관련상품", productList);
 	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * dataLimit;

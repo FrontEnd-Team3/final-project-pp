@@ -1,11 +1,11 @@
-import ProductList from "components/ProductList/withPagination";
+import ProductListWithoutPagination from "components/ProductList/withoutPagination";
 import styled from "styled-components";
 
 const OtherProducts = ({ list }) => {
 	return (
 		<>
 			<S.OtherProductTitle>연관 상품 보러가기</S.OtherProductTitle>
-			<ProductList productList={list} />
+			<ProductListWithoutPagination productList={list} />
 		</>
 	);
 };

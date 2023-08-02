@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-const ProductImages = ({ image }) => {
-	const subImages = image.slice(1);
+const ProductImages = ({ product }) => {
+	console.log("상품 이미지", product);
+	const subImages = product.ProductImages;
 	return (
 		<S.ImageContainer>
 			<S.MainImage className="main">
-				<img src={image[0]} alt="main" />
+				<img src={product.img_url} alt="main" />
 			</S.MainImage>
 			<S.SubImages className="sub">
 				{subImages.map(img => (
