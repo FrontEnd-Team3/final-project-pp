@@ -10,7 +10,6 @@ const ProductQueryApi = {
 			[QueryKey.productData],
 			ProductApi.getProductList,
 			QueryConfig,
-			{},
 		),
 	getProductDetail: id =>
 		useQueryData(

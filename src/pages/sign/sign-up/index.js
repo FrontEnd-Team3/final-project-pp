@@ -50,6 +50,7 @@ const Signup = () => {
 	}, [phoneNumber, setValue]);
 
 	const onSubmitSignUp = handleSubmit(async data => {
+		console.log("data", data);
 		try {
 			await AuthApi.signup(
 				data.email,
@@ -64,6 +65,8 @@ const Signup = () => {
 		}
 		console.log(data);
 	});
+
+	console.log("address", address);
 
 	// const onClickAddress = () => {
 	// 	setAddressOpen(true);
