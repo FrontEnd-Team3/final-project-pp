@@ -9,8 +9,8 @@ const ProductImages = ({ product }) => {
 				<img src={product.img_url} alt="main" />
 			</S.MainImage>
 			<S.SubImages className="sub">
-				{subImages.map(img => (
-					<img src={img} />
+				{subImages.map((img, index) => (
+					<img src={img.img_url} key={index} />
 				))}
 			</S.SubImages>
 		</S.ImageContainer>
