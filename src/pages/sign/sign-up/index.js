@@ -129,7 +129,11 @@ const Signup = () => {
 					/>
 
 					{addressOpen && (
-						<SearchAddress setAddress={setAddress} setIsOpen={setAddressOpen} />
+						<SearchAddress
+							setAddress={setAddress}
+							setIsOpen={setAddressOpen}
+							setValue={setValue}
+						/>
 					)}
 
 					<ValidateInput
