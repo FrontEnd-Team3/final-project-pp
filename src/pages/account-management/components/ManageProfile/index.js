@@ -1,62 +1,79 @@
 import styled from "styled-components";
 import Nav from "pages/my-page/components/Nav";
 import BasicButton from "components/Button";
+import UserQueryApi from "apis/user.query.api";
 
 const MyProfile = () => {
-	return (
-		<S.ContentWrapper>
-			<S.NavWrapper>
-				<Nav />
-			</S.NavWrapper>
-			<S.ProfileWrapper>
-				<S.ProfileManagement>프로필 관리</S.ProfileManagement>
-				<S.Line />
-				<S.ProfileImgContainer>
-					<S.ProfileImg src="img/profile.png" />
-					<S.ProfileIntroductionContainer>
-						<S.ProfileNickName>Jaewon 님 </S.ProfileNickName>
-						<S.ProfileIntroduction>
-							자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
-						</S.ProfileIntroduction>
-						<S.ProfileImgBtnContainer>
-							<BasicButton
-								size={"medium"}
-								color={"darkBlack"}
-								children={"이미지 변경"}
-							/>
-							<BasicButton
-								size={"medium"}
-								color={"darkBlack"}
-								children={"이미지 삭제"}
-							/>
-						</S.ProfileImgBtnContainer>
-					</S.ProfileIntroductionContainer>
-				</S.ProfileImgContainer>
-				<S.Line />
-				<S.NickNameTitle>닉네임</S.NickNameTitle>
-				<S.NickNameContainer>
-					<S.NickName>Jaewon</S.NickName>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.NickNameContainer>
+	const userInfo = UserQueryApi.getUserInfo();
+	const userData = userInfo.data;
+	console.log("userData", userData);
 
-				<S.Line />
-				<S.NameTitle>이름</S.NameTitle>
+	if (userData) {
+		return (
+			<S.ContentWrapper>
+				<S.NavWrapper>
+					<Nav />
+				</S.NavWrapper>
+				<S.ProfileWrapper>
+					<S.ProfileManagement>프로필 관리</S.ProfileManagement>
+					<S.Line />
+					<S.ProfileImgContainer>
+						{userData?.profile_url ? (
+							<S.ProfileImg src={userData?.profile_url} alt="User Profile" />
+						) : (
+							<S.ProfileImg src="img/profile.png" alt="Default Profile" />
+						)}
+						<S.ProfileIntroductionContainer>
+							<S.ProfileNickName>{userData?.nick_name}님 </S.ProfileNickName>
+							<S.ProfileIntroduction>
+								자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
+							</S.ProfileIntroduction>
+							<S.ProfileImgBtnContainer>
+								<BasicButton
+									size={"medium"}
+									color={"darkBlack"}
+									children={"이미지 변경"}
+								/>
+								<BasicButton
+									size={"medium"}
+									color={"darkBlack"}
+									children={"이미지 삭제"}
+								/>
+							</S.ProfileImgBtnContainer>
+						</S.ProfileIntroductionContainer>
+					</S.ProfileImgContainer>
+					<S.Line />
+					<S.NickNameTitle>닉네임</S.NickNameTitle>
+					<S.NickNameContainer>
+						<S.NickName>{userData?.nick_name}</S.NickName>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+						/>
+					</S.NickNameContainer>
+					<S.Line />
+					{/* <S.NameTitle>이름</S.NameTitle>
 				<S.NameContainer>
 					<S.Name>심재원</S.Name>
 					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.NameContainer>
-				<S.Line />
-				<S.IntroducationTitle>소개</S.IntroducationTitle>
-				<S.IntroducationContainer>
-					<S.Introducation>
-						자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
-					</S.Introducation>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.IntroducationContainer>
-				<S.Line />
-			</S.ProfileWrapper>
-		</S.ContentWrapper>
-	);
+				</S.NameContainer> */}
+					<S.IntroducationTitle>소개</S.IntroducationTitle>
+					<S.IntroducationContainer>
+						<S.Introducation>
+							자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
+						</S.Introducation>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+						/>
+					</S.IntroducationContainer>
+					<S.Line />
+				</S.ProfileWrapper>
+			</S.ContentWrapper>
+		);
+	}
 };
 
 export default MyProfile;

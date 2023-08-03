@@ -88,6 +88,7 @@ const Signup = () => {
 			if (error.response.status === 400) {
 				alert("중복된 이메일 입니다.");
 				console.log(error);
+				setValue("email", "");
 			}
 		}
 	};
@@ -104,13 +105,11 @@ const Signup = () => {
 			if (error.response.status === 400) {
 				alert("중복된 닉네임 입니다.");
 				console.log(error);
+				setValue("nickName", "");
 			}
 		}
 	};
 
-	// const onClickAddress = () => {
-	// 	setAddressOpen(true);
-	// };
 	return (
 		<>
 			<S.Container>
@@ -126,30 +125,32 @@ const Signup = () => {
 					<S.LogoMent>지구를 위해 버리지 말고 중고 거래를 해보세요!</S.LogoMent>
 				</S.LogoWrapper>
 				<S.SignWrapper onSubmit={onSubmitSignUp}>
-					<ValidateInput
-						control={control}
-						name={"email"}
-						label={"Email"}
-						placeholder={"예) example@trimm.com"}
-						errors={errors}
-						type={"text"}
-					/>
-					<BasicButton
-						color={"black"}
-						size={"account"}
-						children={"중복 검사"}
-						type={"button"}
-						style={{
-							position: "absolute",
-							right: "26px",
-							top: "46px",
-							fontSize: "12px",
-							fontWeight: "500",
-							marginRight: "16px",
-						}}
-						onClick={onEmailCheck}
-						disabled={errors.email ? true : false}
-					/>
+					<S.CheckBtnWrapper>
+						<ValidateInput
+							control={control}
+							name={"email"}
+							label={"Email"}
+							placeholder={"예) example@trimm.com"}
+							errors={errors}
+							type={"text"}
+						/>
+						<BasicButton
+							color={"black"}
+							size={"account"}
+							children={"중복 검사"}
+							type={"button"}
+							style={{
+								position: "absolute",
+								right: "0px",
+								top: "4px",
+								fontSize: "12px",
+								fontWeight: "500",
+								marginRight: "16px",
+							}}
+							onClick={onEmailCheck}
+							disabled={errors.email || !getValues("email")}
+						/>
+					</S.CheckBtnWrapper>
 
 					<ValidateInput
 						control={control}
@@ -167,7 +168,7 @@ const Signup = () => {
 						errors={errors}
 						type={"password"}
 					/>
-					<S.ButtonWrapper>
+					<S.CheckBtnWrapper>
 						<ValidateInput
 							control={control}
 							name={"nickName"}
@@ -175,25 +176,24 @@ const Signup = () => {
 							placeholder={"Nick Name"}
 							errors={errors}
 							type={"text"}
-						>
-							<BasicButton
-								color={"black"}
-								size={"account"}
-								children={"중복 검사"}
-								type={"button"}
-								style={{
-									position: "absolute",
-									right: "26px",
-									top: "242px",
-									fontSize: "12px",
-									fontWeight: "500",
-									marginRight: "16px",
-								}}
-								onClick={onNickNameCheck}
-								disabled={errors.nickName ? true : false}
-							/>
-						</ValidateInput>
-					</S.ButtonWrapper>
+						/>
+						<BasicButton
+							color={"black"}
+							size={"account"}
+							children={"중복 검사"}
+							type={"button"}
+							style={{
+								position: "absolute",
+								right: "0px",
+								top: "4px",
+								fontSize: "12px",
+								fontWeight: "500",
+								marginRight: "16px",
+							}}
+							onClick={onNickNameCheck}
+							disabled={errors.nickName || !getValues("nickName")}
+						/>
+					</S.CheckBtnWrapper>
 
 					<ValidateInput
 						control={control}
@@ -293,7 +293,6 @@ const SignWrapper = styled.form`
 	width: 450px;
 	${flexColumn}
 	align-items: center;
-	position: relative;
 	padding: 40px;
 `;
 

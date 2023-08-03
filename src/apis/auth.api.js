@@ -39,6 +39,12 @@ const AuthApi = {
 			`${PATH}/check/nickName?nickName=${nickName}`,
 		);
 	},
+	userInfo: async () => {
+		return await axiosInstance.get(`${PATH}/info`);
+	},
+	userMypageInfo: async () => {
+		return await axiosInstance.get(`${PATH}/my-page`);
+	},
 };
 
 export default AuthApi;
