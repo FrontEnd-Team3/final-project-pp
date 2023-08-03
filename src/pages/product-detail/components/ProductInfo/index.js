@@ -5,7 +5,7 @@ import ProductImages from "./productImages";
 import UserInfo from "./userInfo";
 
 const ProductInfo = ({ product }) => {
-	console.log("상세", product);
+	// console.log("상세", product);
 	const { searchProduct, isSeller, chat } = product;
 	const localPrice = searchProduct?.price.toLocaleString("ko-KR");
 

@@ -12,7 +12,7 @@ const ProductDetailPage = () => {
 	const { id } = useParams();
 
 	const { data, isLoading, isError } = ProductQueryApi.getProductDetail(id);
-	console.log("상품상세", data);
+	// console.log("상품상세", data);
 
 	if (isLoading) {
 		return <Loading />;

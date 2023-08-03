@@ -53,6 +53,7 @@ const Signup = () => {
 	}, [phoneNumber, setValue]);
 
 	const onSubmitSignUp = handleSubmit(async data => {
+		console.log("data", data);
 		try {
 			const response = await AuthApi.signup(
 				data.email,
