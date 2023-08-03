@@ -10,11 +10,8 @@ const ProductApi = {
 	deleteProduct: async id => await axios.delete(PATH + `?prod_idx=${id}`),
 	updateProductStatus: async id =>
 		await axios.post(PATH + `/sale-complete?prod_idx=${id}`),
-	updateLikeStatus: async (id, params) =>
-		await axiosInstance.post(
-			PATH + `/like??prod_idx=${id}`,
-			(params = { ...params }),
-		),
+	updateLikeStatus: async params =>
+		await axiosInstance.post(PATH + `/like`, (params = { ...params })),
 };
 
 export default ProductApi;

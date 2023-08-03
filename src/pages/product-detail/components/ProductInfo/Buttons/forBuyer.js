@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import BasicButton from "components/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { userList } from "mocks/data/user/userList";
 import bookmarkFill from "./bookmarkfull.png";
 import bookmarkEmpty from "./bookmark.png";
 import ProductQueryApi from "apis/product.query.api";
@@ -10,30 +9,28 @@ import ProductQueryApi from "apis/product.query.api";
 const ButtonsForBuyer = ({ bookmark }) => {
 	// 처음 화면이 열렸을 때 찜한 개수는 상품 상세 정보, 북마크 되었는지 아이콘 표시는 유저 정보에서 받아와야 함
 
-	const [isBookmarked, setIsBookmarked] = useState(true);
-	const [likedCount, setLikedCount] = useState(bookmark);
+	const [isBookmarked, setIsBookmarked] = useState(false);
 	const { id } = useParams();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const bool = userList.some(product => product.idx === parseInt(id));
-		setIsBookmarked(bool);
-	}, []);
-
 	const successFn = res => {
-		console.log("찜하기", res);
-		setLikedCount(res?.data?.data);
 		setIsBookmarked(res?.data?.message);
+		const { refetch } = ProductQueryApi.getProductDetail(res?.data?.prod_idx);
+		refetch();
 	};
 
-	const bookmarkData = ProductQueryApi.updateLikeStatus(
-		id,
-		{ prod_idx: id, isBookmarked },
-		successFn,
-	);
+	const bookmarkData = ProductQueryApi.updateLikeStatus(id, {
+		prod_idx: parseInt(id),
+	});
 
-	const likeProduct = () => {
-		bookmarkData.mutate();
+	const likeProduct = async () => {
+		try {
+			const res = await bookmarkData.mutateAsync();
+			console.log("찜하기", res);
+			successFn(res);
+		} catch (error) {
+			console.error("찜하기 오류:", error);
+		}
 	};
 
 	return (
@@ -57,7 +54,7 @@ const ButtonsForBuyer = ({ bookmark }) => {
 										fontWeight: "bold",
 									}}
 								>
-									{likedCount}
+									{bookmark}
 								</span>
 							}
 						</>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const ProductImages = ({ product }) => {
-	console.log("상품 이미지", product);
+	// console.log("상품 이미지", product);
 	const subImages = product.ProductImages;
 	return (
 		<S.ImageContainer>
