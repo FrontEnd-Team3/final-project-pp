@@ -48,6 +48,12 @@ export const name = yup
 	.matches(REGEX.name, {
 		message: "이름을 입력해주세요.",
 	});
+export const region = yup
+	.string()
+	.required("주소를 입력해주세요.")
+	.matches(REGEX.region, {
+		message: "주소를 입력해주세요.",
+	});
 
 export const phone = yup
 	.string()
