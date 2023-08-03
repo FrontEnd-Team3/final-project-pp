@@ -62,7 +62,7 @@ const UsedTransaction = () => {
 						onChange={onFiltering}
 					/>
 				</S.Address>
-				<ProductList productList={filteredProducts} />
+				<ProductList productList={filteredProducts || data?.usedProduct} />
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>

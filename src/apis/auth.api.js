@@ -17,6 +17,7 @@ const AuthApi = {
 			} else {
 				console.log(" 회원가입 실패 ");
 			}
+			return response;
 		} catch (error) {
 			console.error(error);
 		}
@@ -29,6 +30,14 @@ const AuthApi = {
 	},
 	logout: async () => {
 		return await axiosInstance.get(PATH + "/logout");
+	},
+	emailCheck: async email => {
+		return await axiosInstance.get(`${PATH}/check/email?email=${email}`);
+	},
+	nickNameCheck: async nickName => {
+		return await axiosInstance.get(
+			`${PATH}/check/nickName?nickName=${nickName}`,
+		);
 	},
 };
 

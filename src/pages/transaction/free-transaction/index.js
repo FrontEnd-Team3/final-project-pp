@@ -8,8 +8,9 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const FreeTransaction = () => {
-	const { data, isLoading } = ProductQueryApi.getProductList();
-	// console.log("무료나눔", data?.freeProduct);
+	const { data, isLoading, error } = ProductQueryApi.getProductList();
+
+	console.log("main", data);
 
 	const [filteredProducts, setFilteredProducts] = useState(data?.freeProduct);
 
@@ -33,6 +34,11 @@ const FreeTransaction = () => {
 
 	if (isLoading) return <Loading />;
 
+	if (error) {
+		window.location.reload();
+		queryClient.refetchQueries(QueryKey.productData);
+	}
+
 	return (
 		<S.Container>
 			<S.Wrapper>
@@ -51,7 +57,7 @@ const FreeTransaction = () => {
 						onChange={onFiltering}
 					/>
 				</S.Address>
-				<ProductList productList={filteredProducts} />
+				<ProductList productList={filteredProducts || data?.freeProduct} />
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>
