@@ -1,48 +1,70 @@
+import UserQueryApi from "apis/user.query.api";
 import BasicButton from "components/Button";
 import Nav from "pages/my-page/components/Nav";
 import styled from "styled-components";
 
 const AccountPrivacy = () => {
-	return (
-		<S.MasterWrapper>
-			<S.NavWrapper>
-				<Nav />
-			</S.NavWrapper>
-			<S.PrivacyWrapper>
-				<S.PrivacyCorrectionWrapper>
-					<S.PrivacyCorrection>개인 정보 수정</S.PrivacyCorrection>
-				</S.PrivacyCorrectionWrapper>
-				<S.Line />
-				<S.Account>내 계정</S.Account>
-				<S.EmailTitle>이메일 주소</S.EmailTitle>
-				<S.EmailContainer>
-					<S.Email>s******1@naver.com</S.Email>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.EmailContainer>
-				<S.Line />
-				<S.PasswordTitle>비밀번호</S.PasswordTitle>
-				<S.PasswordContainer>
-					<S.Password>●●●●●●●●●●</S.Password>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.PasswordContainer>
-				<S.Line />
-				<S.Privacy>개인정보</S.Privacy>
-				<S.PhoneNumberTitle>휴대폰 번호</S.PhoneNumberTitle>
-				<S.PhoneNumberContainer>
-					<S.PhoneNumber>010-3038-0098</S.PhoneNumber>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.PhoneNumberContainer>
-				<S.Line />
-				<S.TrandingAreaTitle>주 거래 지역</S.TrandingAreaTitle>
-				<S.TrandingAreaContainer>
-					<S.TrandingArea>서울 성수동</S.TrandingArea>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.TrandingAreaContainer>
-				<S.Line />
-				<S.Withdrawal>회원탈퇴</S.Withdrawal>
-			</S.PrivacyWrapper>
-		</S.MasterWrapper>
-	);
+	const userInfo = UserQueryApi.getUserInfo();
+	const userData = userInfo.data;
+
+	if (userData) {
+		return (
+			<S.MasterWrapper>
+				<S.NavWrapper>
+					<Nav />
+				</S.NavWrapper>
+				<S.PrivacyWrapper>
+					<S.PrivacyCorrectionWrapper>
+						<S.PrivacyCorrection>개인 정보 수정</S.PrivacyCorrection>
+					</S.PrivacyCorrectionWrapper>
+					<S.Line />
+					<S.Account>내 계정</S.Account>
+					<S.EmailTitle>이메일 주소</S.EmailTitle>
+					<S.EmailContainer>
+						<S.Email>{userData?.email}</S.Email>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+						/>
+					</S.EmailContainer>
+					<S.Line />
+					<S.PasswordTitle>비밀번호</S.PasswordTitle>
+					<S.PasswordContainer>
+						<S.Password>●●●●●●●●●●</S.Password>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+						/>
+					</S.PasswordContainer>
+					<S.Line />
+					<S.Privacy>개인정보</S.Privacy>
+					<S.PhoneNumberTitle>휴대폰 번호</S.PhoneNumberTitle>
+					<S.PhoneNumberContainer>
+						<S.PhoneNumber>{userData?.phone}</S.PhoneNumber>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+						/>
+					</S.PhoneNumberContainer>
+					<S.Line />
+					<S.TrandingAreaTitle>주 거래 지역</S.TrandingAreaTitle>
+					<S.TrandingAreaContainer>
+						<S.TrandingArea>{userData?.region}</S.TrandingArea>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+						/>
+					</S.TrandingAreaContainer>
+					<S.Line />
+					<S.Withdrawal>회원탈퇴</S.Withdrawal>
+				</S.PrivacyWrapper>
+			</S.MasterWrapper>
+		);
+	}
 };
 
 export default AccountPrivacy;
