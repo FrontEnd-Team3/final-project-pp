@@ -2,10 +2,37 @@ import styled from "styled-components";
 import Nav from "pages/my-page/components/Nav";
 import BasicButton from "components/Button";
 import UserQueryApi from "apis/user.query.api";
+import MyProfileImage from "./components/MyprofileImage";
+import { useState } from "react";
 
 const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
+
+	const [imageSrc, setImageSrc] = useState(null);
+
+	const onUpload = e => {
+		const file = e.target.files[0];
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+
+		return new Promise(resolve => {
+			reader.onload = () => {
+				setImageSrc(reader.result || null); // 파일의 컨텐츠
+				resolve();
+			};
+		});
+	};
+
+	// 입력 파일 창을 숨기고, 이미지 변경 버튼 클릭 시 파일 업로드 창이 뜨도록 설정
+	const handleUploadClick = () => {
+		const fileInput = document.getElementById("fileInput");
+		fileInput.click();
+	};
+
+	const handleDeleteClick = () => {
+		setImageSrc(null);
+	};
 
 	if (userData) {
 		return (
@@ -17,26 +44,31 @@ const MyProfile = () => {
 					<S.ProfileManagement>프로필 관리</S.ProfileManagement>
 					<S.Line />
 					<S.ProfileImgContainer>
-						{userData?.profile_url ? (
-							<S.ProfileImg src={userData?.profile_url} alt="User Profile" />
-						) : (
-							<S.ProfileImg src="img/profile.png" alt="Default Profile" />
-						)}
+						<MyProfileImage userData={userData} imageSrc={imageSrc} />
 						<S.ProfileIntroductionContainer>
 							<S.ProfileNickName>{userData?.nick_name}님 </S.ProfileNickName>
 							<S.ProfileIntroduction>
 								자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
 							</S.ProfileIntroduction>
 							<S.ProfileImgBtnContainer>
+								<input
+									id="fileInput"
+									style={{ display: "none" }}
+									accept="image/*"
+									type="file"
+									onChange={e => onUpload(e)}
+								/>
 								<BasicButton
 									size={"medium"}
 									color={"darkBlack"}
 									children={"이미지 변경"}
+									onClick={handleUploadClick}
 								/>
 								<BasicButton
 									size={"medium"}
 									color={"darkBlack"}
 									children={"이미지 삭제"}
+									onClick={handleDeleteClick}
 								/>
 							</S.ProfileImgBtnContainer>
 						</S.ProfileIntroductionContainer>

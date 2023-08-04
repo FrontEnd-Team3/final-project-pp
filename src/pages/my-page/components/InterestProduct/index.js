@@ -27,7 +27,7 @@ const InterestProduct = () => {
 			product.status === "판매완료",
 	);
 
-	const [dataLimit, setDataLimit] = useState(4);
+	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * dataLimit;
 	const options = [
