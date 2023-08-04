@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import BasicButton from "components/Button";
-import { useState } from "react";
+import { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import bookmarkFill from "./bookmarkfull.png";
 import bookmarkEmpty from "./bookmark.png";
@@ -9,13 +9,13 @@ import ProductQueryApi from "apis/product.query.api";
 const ButtonsForBuyer = ({ bookmark }) => {
 	// 처음 화면이 열렸을 때 찜한 개수는 상품 상세 정보, 북마크 되었는지 아이콘 표시는 유저 정보에서 받아와야 함
 
-	const [isBookmarked, setIsBookmarked] = useState(false);
+	const isBookmarked = useRef(false);
 	const { id } = useParams();
 	const navigate = useNavigate();
 
+	const { refetch } = ProductQueryApi.getProductDetail(id);
 	const successFn = res => {
-		setIsBookmarked(res?.data?.message);
-		const { refetch } = ProductQueryApi.getProductDetail(res?.data?.prod_idx);
+		isBookmarked.current = res?.data?.message;
 		refetch();
 	};
 
@@ -41,7 +41,7 @@ const ButtonsForBuyer = ({ bookmark }) => {
 					size={"xxsmall"}
 					children={
 						<>
-							{isBookmarked ? (
+							{isBookmarked.current ? (
 								<S.BookmarkIcon src={bookmarkFill} />
 							) : (
 								<S.BookmarkIcon src={bookmarkEmpty} />

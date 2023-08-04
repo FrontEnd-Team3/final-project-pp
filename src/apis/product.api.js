@@ -12,6 +12,8 @@ const ProductApi = {
 		await axios.post(PATH + `/sale-complete?prod_idx=${id}`),
 	updateLikeStatus: async params =>
 		await axiosInstance.post(PATH + `/like`, (params = { ...params })),
+	getRecentlyViewedProducts: async () =>
+		await axiosInstance.get(PATH + "/viewed-list"),
 };
 
 export default ProductApi;

@@ -1,20 +1,18 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import useRecentlyClicked from "hooks/useRecentlyClicked";
-import { productList } from "mocks/data/products/productsList";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-const ImageSlide = () => {
+const ImageSlide = ({ productList }) => {
+	console.log("eachProduct", productList[0]?.Product);
 	// 이미지 배열
 	// localStorage에서 최근 본 상품 가져오기
 	const recentlyClicked = useRecentlyClicked();
 
 	// 최근 본 상품 배열에 들어있는 id 값과 일치하는 상품의 이미지 가져오기
 	// localstorage에는 id가 문자열로 들어가므로 빈 문자열 더해서 검사
-	const ImageArr = productList
-		.filter(product => recentlyClicked.includes(product.idx + ""))
-		.map(product => product.img_url);
+	const ImageArr = productList.map(product => product.Product.img_url);
 	// console.log("최근 본 상품", ImageArr);
 
 	// 각 이미지 클릭 시 해당 상품 상세 페이지로 이동
@@ -27,7 +25,7 @@ const ImageSlide = () => {
 	const SLIDE_RANGE = currentIndex * IMAGE_SIZE;
 
 	const handleDownSlideIndex = () => {
-		if (!recentlyClicked.length || recentlyClicked.length === 1) return;
+		if (!productList.length || productList.length === 1) return;
 		if (currentIndex === InfiniteArr.length - 1) {
 			slideRef.current.style.transition = "";
 			setCurrentIndex(1);
@@ -43,7 +41,7 @@ const ImageSlide = () => {
 	};
 
 	const handleUpSlideIndex = () => {
-		if (!recentlyClicked.length || recentlyClicked.length === 1) return;
+		if (!productList.length || productList.length === 1) return;
 		if (currentIndex === 0) {
 			slideRef.current.style.transition = "";
 			setCurrentIndex(InfiniteArr.length - 2);
@@ -72,7 +70,7 @@ const ImageSlide = () => {
 			<IoIosArrowUp size="30" onClick={handleUpSlideIndex} />
 			<S.SlideWrapper>
 				<S.SlideContainer ref={slideRef} length={InfiniteArr.length}>
-					{recentlyClicked.length ? (
+					{productList.length ? (
 						<>
 							<li>
 								{InfiniteArr.map((image, i) => (

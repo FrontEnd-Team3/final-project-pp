@@ -33,6 +33,12 @@ const ProductQueryApi = {
 			() => ProductApi.updateLikeStatus(params),
 			[QueryKey.productDetail, id],
 		),
+	getRecentlyViewedProducts: () =>
+		useQueryData(
+			[QueryKey.recentlyViewed],
+			ProductApi.getRecentlyViewedProducts,
+			QueryConfig,
+		),
 };
 
 export default ProductQueryApi;

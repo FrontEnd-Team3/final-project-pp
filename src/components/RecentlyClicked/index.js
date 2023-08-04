@@ -3,10 +3,20 @@ import styled from "styled-components";
 import { GoBookmark } from "react-icons/go";
 import ImageSlide from "./imageSlide";
 import ScrollToTop from "./scrollToTop";
+import ProductQueryApi from "apis/product.query.api";
 
 const RecentlyClicked = () => {
 	// 추후 API로 데이터 들어오면 수정
 	const [likes, setLikes] = useState(0);
+
+	const { data, error } = ProductQueryApi.getRecentlyViewedProducts();
+
+	console.log("recently", data);
+
+	if (error) {
+		window.location.reload();
+		queryClient.refetchQueries(QueryKey.recentlyViewed);
+	}
 
 	return (
 		<S.Container>
@@ -15,7 +25,7 @@ const RecentlyClicked = () => {
 			</S.Top>
 			<S.Middle>
 				<div className="title">최근 본 상품</div>
-				<ImageSlide />
+				<ImageSlide productList={data?.productList} />
 			</S.Middle>
 			<ScrollToTop />
 		</S.Container>
