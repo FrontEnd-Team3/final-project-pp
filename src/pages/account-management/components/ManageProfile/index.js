@@ -5,6 +5,7 @@ import UserQueryApi from "apis/user.query.api";
 import MyProfileImage from "./components/MyprofileImage";
 import { useState } from "react";
 import AuthApi from "apis/auth.api";
+import MyProfileInfo from "./components/MyprofileInfo";
 
 const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
@@ -90,32 +91,7 @@ const MyProfile = () => {
 						</S.ProfileIntroductionContainer>
 					</S.ProfileImgContainer>
 					<S.Line />
-					<S.NickNameTitle>닉네임</S.NickNameTitle>
-					<S.NickNameContainer>
-						<S.NickName>{userData?.nick_name}</S.NickName>
-						<BasicButton
-							size={"account"}
-							color={"darkBlack"}
-							children={"변경"}
-						/>
-					</S.NickNameContainer>
-					<S.Line />
-					{/* <S.NameTitle>이름</S.NameTitle>
-				<S.NameContainer>
-					<S.Name>심재원</S.Name>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.NameContainer> */}
-					<S.IntroducationTitle>소개</S.IntroducationTitle>
-					<S.IntroducationContainer>
-						<S.Introducation>
-							자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
-						</S.Introducation>
-						<BasicButton
-							size={"account"}
-							color={"darkBlack"}
-							children={"변경"}
-						/>
-					</S.IntroducationContainer>
+					<MyProfileInfo userData={userData} />
 					<S.Line />
 					<BasicButton
 						size={"medium"}
