@@ -4,6 +4,7 @@ import BasicButton from "components/Button";
 import UserQueryApi from "apis/user.query.api";
 import MyProfileImage from "./components/MyprofileImage";
 import { useState } from "react";
+import AuthApi from "apis/auth.api";
 
 const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
@@ -31,7 +32,20 @@ const MyProfile = () => {
 	};
 
 	const handleDeleteClick = () => {
-		setImageSrc(null);
+		setImageSrc("img/profile.png");
+	};
+
+	const handleSave = async () => {
+		if (imageSrc) {
+			try {
+				const inputImageFile = document.getElementById("fileInput").files[0];
+				const response = await AuthApi.userProfileImage(inputImageFile); // 함수가 호출되도록 수정함
+				console.log("이미지 수정사항 저장 성공:", response);
+				return response;
+			} catch (error) {
+				console.error("이미지 수정사항 저장 실패:", error);
+			}
+		}
 	};
 
 	if (userData) {
@@ -101,6 +115,13 @@ const MyProfile = () => {
 						/>
 					</S.IntroducationContainer>
 					<S.Line />
+					<BasicButton
+						size={"medium"}
+						color={"darkBlack"}
+						children={"변경사항 저장"}
+						style={{ marginTop: "80px" }}
+						onClick={handleSave}
+					/>
 				</S.ProfileWrapper>
 			</S.ContentWrapper>
 		);
