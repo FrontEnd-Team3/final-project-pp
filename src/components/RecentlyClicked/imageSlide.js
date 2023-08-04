@@ -79,19 +79,22 @@ const ImageSlide = ({ productList }) => {
 						<>
 							<li>
 								{InfiniteArr.map((image, i) => (
-									<S.SlideImage
-										src={image}
-										key={i}
-										onClick={() =>
-											navigate(
-												`/product/${
-													productList.find(
-														product => product.image[0] === image,
-													).id
-												}`,
-											)
-										}
-									/>
+									<div>
+										<S.SlideImage
+											src={image}
+											key={i}
+											onClick={() => {
+												navigate(
+													`/product/${
+														productList.find(
+															product => product.Product.img_url === image,
+														).Product.idx
+													}`,
+												);
+											}}
+										/>
+										<button></button>
+									</div>
 								))}
 							</li>
 						</>
