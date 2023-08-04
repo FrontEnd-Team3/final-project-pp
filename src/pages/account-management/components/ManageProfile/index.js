@@ -6,7 +6,6 @@ import UserQueryApi from "apis/user.query.api";
 const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
-	console.log("userData", userData);
 
 	if (userData) {
 		return (
