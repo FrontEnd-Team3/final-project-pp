@@ -18,7 +18,7 @@ const Images = ({ onImageChange }) => {
 
 		// 각 파일의 URL을 배열로 만드는 작업
 		const newImages = Array.from(files).map(imgFile => ({
-			imgUrl: URL.createObjectURL(imgFile), // URL.createObjectURL 해당 파일 url 생성하는 메서드
+			img_url: URL.createObjectURL(imgFile), // URL.createObjectURL 해당 파일 url 생성하는 메서드
 		}));
 
 		// 이미지 배열에 추가, 최대 5개까지 가능
@@ -58,7 +58,7 @@ const Images = ({ onImageChange }) => {
 			</div>
 			<S.RealImageBox>
 				{imageArr.map((imageUrl, i) => (
-					<S.OneImage key={i} imageUrl={imageUrl.imgUrl}>
+					<S.OneImage key={i} imageUrl={imageUrl.img_url}>
 						<S.DeleteIcons onClick={() => onDeleteImage(i)}>
 							<TiDelete size={20} />
 						</S.DeleteIcons>

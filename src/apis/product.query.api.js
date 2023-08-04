@@ -34,6 +34,14 @@ const ProductQueryApi = {
 			[QueryKey.productDetail, id],
 		),
 
+	// 물품 등록
+	addProduct: (product) => {
+		useMutateData(
+			() => ProductApi.addProduct(product),
+			[QueryKey.productRegister],
+		);
+	},
+
 	// 데이터 갱신
 	updateProduct: (product, successFn, id) =>
 		useMutateData(
@@ -50,8 +58,6 @@ const ProductQueryApi = {
 			ProductApi.getProductList,
 			QueryConfig,
 		),
-
-	
 };
 
 export default ProductQueryApi;

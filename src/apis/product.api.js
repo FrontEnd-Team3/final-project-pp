@@ -13,7 +13,10 @@ const ProductApi = {
 	updateLikeStatus: async params =>
 		await axiosInstance.post(PATH + `/like`, (params = { ...params })),
 	// 물품 추가
-	addProduct: async productData => await axios.post(PATH, productData),
+	addProduct: async productData =>
+		await axiosInstance.post(PATH, productData, {
+			headers: { "Content-Type": "multipart/form-data" },
+		}),
 
 	// 물품 수정
 	updateProduct: async productData =>

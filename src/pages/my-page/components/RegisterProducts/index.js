@@ -85,7 +85,6 @@ const RegisterProduct = () => {
 													onClick={() => {
 														// GetRegisterProduct();
 														navigate("/productRegister");
-														
 													}}
 													style={{
 														fontSize: "14px",

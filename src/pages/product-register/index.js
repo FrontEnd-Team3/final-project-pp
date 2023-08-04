@@ -8,6 +8,10 @@ import { RegisterSchema } from "consts/registerschema";
 import Images from "./components/Images";
 import { useState } from "react";
 import ProductApi from "apis/product.api";
+import { useMutation, useQueryClient } from "react-query";
+import QueryKey from "consts/queryKey";
+// import { useQueryClient } from "react-query";
+
 const ProductRegister = () => {
 	const {
 		handleSubmit,
@@ -21,11 +25,18 @@ const ProductRegister = () => {
 	});
 
 	const [product, setProduct] = useState([]);
+	const formData = new FormData();
 
-	const prod_idx = product.idx;
+	// const productData = ProductQueryApi.addProduct(product);
 
-	console.log(prod_idx);
-	console.log(product);
+	const queryClient = useQueryClient();
+
+	const { mutate } = useMutation(formData => ProductApi.addProduct(formData), {
+		onSuccess: async () => {
+			await queryClient.invalidateQueries([QueryKey.productRegister]);
+		},
+	});
+
 	const handleInputValues = inputValues => {
 		setProduct(inputValues);
 	};
@@ -43,15 +54,38 @@ const ProductRegister = () => {
 			region: address,
 		}));
 	};
-
+	// const headers = { "Content-Type": "application/json" };
+	// async function saveProduct(product) {
+	// 	try {
+	// 		const response = await axiosInstance.post("/api/product", product, {
+	// 			headers,
+	// 		});
+	// 		console.log("성공적으로 데이터를 저장했습니다:", response.data);
+	// 	} catch (error) {
+	// 		console.error("데이터 저장에 실패했습니다:", error);
+	// 	}
+	// }
 	// 중고거래 선택되어 있는데 0원인 상태로 등록하기 누르면
 	// 저절로 무료나눔으로 체크 변경하거나, 무료나눔으로 데이터 저장하기
 
 	const onSubmit = data => {
 		console.log("물품 등록하기", data);
 		console.log("등록", product);
-		ProductApi.updateProduct(product);
+		// ProductApi.updateProduct(product);
+		//
+		formData.append("title", product.title);
+		formData.append("region", product.region);
+		formData.append("price", product.price);
+		formData.append("description", product.discription);
+		formData.append("images", product.images);
+		formData.append("tag", product.tag);
+
+		mutate(product);
+		// product =
+		// saveProduct(product);
+		// AddProduct();
 	};
+
 	return (
 		<S.Wrapper>
 			<S.Container>
