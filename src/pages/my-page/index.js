@@ -1,77 +1,40 @@
 import styled from "styled-components";
 import MyProfile from "./components/MyProfile";
 import Nav from "./components/Nav";
-import { userList } from "mocks/data/user/userList";
+import { flexCenter } from "styles/common";
 
 const Mypage = () => {
-	const UserList = userList.filter(user => user.name === "test");
-
-	if (!UserList) {
-		return <EmptyData />;
-	}
 	return (
-		<S.MypageContainer>
-			<S.NavWrapper>
-				<Nav />
-			</S.NavWrapper>
-			<S.MyProfileWrapper>
-				<MyProfile userList={userList} />
-				<S.DivisionLine />
-			</S.MyProfileWrapper>
-
-			{/* {ProductList && (
-				<>
-					<RegisterProduct
-						productList={ProductList}
-						productListStatusEnd={ProductListStatusEnd}
-					/>
-					<HouseKeeping />
-					<TransactionHistory
-						productList={ProductList}
-						productListStatusEnd={ProductListStatusEnd}
-					/>
-
-					<InterestProduct
-						productList={ProductList}
-						productListStatusEnd={ProductListStatusEnd}
-					/>
-				</>
-			)}
-			{ProductListStatusEndUser1 && (
-				<PurchasedItem productList={ProductListStatusEndUser1} />
-			)}
-			<TransactionHistory />
-			<Review /> */}
-		</S.MypageContainer>
+		<>
+			<S.MypageContainer>
+				<S.MyProfileWrapper>
+					<S.NavWrapper>
+						<Nav />
+					</S.NavWrapper>
+					<MyProfile />
+				</S.MyProfileWrapper>
+			</S.MypageContainer>
+			<S.DivisionLine />
+		</>
 	);
 };
 
 export default Mypage;
 
-const NavWrapper = styled.div`
-	padding-top: 124px;
-	margin-left: 180px;
-`;
-
 const MypageContainer = styled.div`
-	display: flex;
-	justify-content: start;
-	flex-direction: row;
-	margin-left: 0px;
+	${flexCenter}
 	padding: 20px 0;
+	width: 100%;
+`;
+const NavWrapper = styled.div`
+	position: absolute;
+	padding-top: 124px;
+	left: -220px;
 `;
 
 const MyProfileWrapper = styled.div`
-	margin: 0 100px;
-`;
-const ContentWrapper = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-`;
-
-const NavWarrper = styled.div`
-	padding-top: 124px;
+	width: 962px;
+	position: relative;
 `;
 
 const DivisionLine = styled.hr`
@@ -85,7 +48,5 @@ const S = {
 	NavWrapper,
 	MypageContainer,
 	DivisionLine,
-	NavWarrper,
-	ContentWrapper,
 	MyProfileWrapper,
 };

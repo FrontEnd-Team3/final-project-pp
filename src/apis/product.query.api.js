@@ -39,6 +39,12 @@ const ProductQueryApi = {
 			ProductApi.getRecentlyViewedProducts,
 			QueryConfig,
 		),
+	updateProduct: successFn =>
+		useMutateData(
+			() => ProductApi.updateProduct,
+			[QueryKey.productRegister],
+			successFn,
+		),
 };
 
 export default ProductQueryApi;

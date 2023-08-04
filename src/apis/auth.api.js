@@ -17,6 +17,7 @@ const AuthApi = {
 			} else {
 				console.log(" 회원가입 실패 ");
 			}
+			return response;
 		} catch (error) {
 			console.error(error);
 		}
@@ -29,6 +30,38 @@ const AuthApi = {
 	},
 	logout: async () => {
 		return await axiosInstance.get(PATH + "/logout");
+	},
+	emailCheck: async email => {
+		return await axiosInstance.get(`${PATH}/check/email?email=${email}`);
+	},
+	nickNameCheck: async nickName => {
+		return await axiosInstance.get(
+			`${PATH}/check/nickName?nickName=${nickName}`,
+		);
+	},
+	userInfo: async () => {
+		return await axiosInstance.get(`${PATH}/info`);
+	},
+	userMypageInfo: async () => {
+		return await axiosInstance.get(`${PATH}/my-page`);
+	},
+	userProductInfo: async (page, category) => {
+		return await axiosInstance.get(`${PATH}/my-page/product-list`);
+	},
+
+	userProfileImage: async profile => {
+		try {
+			const response = await axiosInstance.post(`${PATH}/profile`);
+			console.log("profileImage", response);
+			if (response.status === 200) {
+				console.log("이미지 업로드 성공");
+			} else {
+				console.log("이미지 업로드 실패");
+			}
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
 	},
 };
 

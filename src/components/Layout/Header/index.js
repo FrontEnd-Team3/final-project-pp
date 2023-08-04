@@ -32,6 +32,14 @@ const Header = () => {
 		}
 	};
 
+	const handleMypage = () => {
+		if (accessToken) {
+			navigate("/Signin");
+		} else {
+			n;
+		}
+	};
+
 	return (
 		<>
 			<S.Container>
@@ -82,7 +90,7 @@ const Header = () => {
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => {
-									navigate("/mypage");
+									accessToken ? navigate("/mypage") : navigate("/Signin");
 								}}
 							>
 								MYPAGE

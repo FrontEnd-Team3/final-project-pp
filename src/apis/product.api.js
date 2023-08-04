@@ -14,6 +14,7 @@ const ProductApi = {
 		await axiosInstance.post(PATH + `/like`, (params = { ...params })),
 	getRecentlyViewedProducts: async () =>
 		await axiosInstance.get(PATH + "/viewed-list"),
+	addProduct: async productData => await axios.post(PATH, productData),
 };
 
 export default ProductApi;

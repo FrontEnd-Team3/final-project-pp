@@ -1,45 +1,48 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = () => {
 	const navigate = useNavigate();
+	const [scrollY, setScrollY] = useState(0);
 
-	const handleNavAccountCorrection = () => {
-		navigate("/privacy");
-	};
-	const handleNavProfile = () => {
-		navigate("/profile");
-	};
-	const handleNavMyPage = () => {
-		navigate("/mypage");
-	};
-	const handleNavPurchasedItem = () => {
-		navigate("/mypage/purchased-item");
-	};
+	useEffect(() => {
+		const handleScroll = () => {
+			setScrollY(window.scrollY);
+		};
 
-	const handleNavInterestProduct = () => {
-		navigate("/mypage/interest-product");
-	};
+		window.addEventListener("scroll", handleScroll);
 
-	const handleNavHouseKeeping = () => {
-		navigate("/mypage/house-keeping");
-	};
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 
-	const handleNavReview = () => {
-		navigate("/mypage/review");
+	const handleNavigateClick = path => {
+		navigate(path);
+	};
+	const handleClick = async path => {
+		await navigate(path);
+		setTimeout(() => {
+			window.scrollTo(0, 665);
+		}, 0);
 	};
 
 	return (
 		<S.MyPageNavWrapper>
-			<S.NavMyPageTitle onClick={handleNavMyPage}>마이페이지</S.NavMyPageTitle>
-			<div onClick={handleNavMyPage}>등록 물품</div>
-			<div onClick={handleNavPurchasedItem}>구매 물품</div>
-			<div onClick={handleNavInterestProduct}>관심 상품</div>
-			<div onClick={handleNavHouseKeeping}>가계부</div>
-			<div onClick={handleNavReview}>후기</div>
+			<S.NavMyPageTitle onClick={() => handleClick("/mypage")}>
+				마이페이지
+			</S.NavMyPageTitle>
+			<div onClick={() => handleClick("/mypage")}>등록 물품</div>
+			<div onClick={() => handleClick("/mypage/purchased-item")}>구매 물품</div>
+			<div onClick={() => handleClick("/mypage/interest-product")}>
+				관심 상품
+			</div>
+			<div onClick={() => handleClick("/mypage/house-keeping")}>가계부</div>
+			<div onClick={() => handleClick("/mypage/review")}>후기</div>
 			<S.NavAccountTitle>계정관리</S.NavAccountTitle>
-			<div onClick={handleNavAccountCorrection}>개인정보 수정</div>
-			<div onClick={handleNavProfile}>프로필 관리</div>
+			<div onClick={() => handleNavigateClick("/privacy")}>개인정보 수정</div>
+			<div onClick={() => handleNavigateClick("/profile")}>프로필 관리</div>
 		</S.MyPageNavWrapper>
 	);
 };

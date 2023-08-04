@@ -27,17 +27,12 @@ const InterestProduct = () => {
 			product.status === "판매완료",
 	);
 
-	const [dataLimit, setDataLimit] = useState(4);
+	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * dataLimit;
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
-	];
-
-	const statusOption = [
-		{ value: "판매완료", label: "판매완료" },
-		{ value: "판매완료", label: "판매완료" },
 	];
 
 	const allProducts = [...sellingProducts, ...soldProducts];
