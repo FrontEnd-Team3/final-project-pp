@@ -9,7 +9,6 @@ const Chatting = () => {
 	const [inputVal, setInputVal] = useState("");
 	const [sendedContents, setSendedContents] = useState([]);
 	const handleInput = e => {
-		// console.log(e.target.value);
 		setInputVal(e.target.value);
 	};
 	const handleChatContent = e => {
