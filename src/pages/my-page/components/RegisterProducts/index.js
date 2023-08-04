@@ -24,16 +24,17 @@ const RegisterProduct = () => {
 
 	const allProducts = [...sellingProducts, ...soldProducts];
 	const options = [
-		{ value: "중고거래", label: "중고거래" },
-		{ value: "무료나눔", label: "무료나눔" },
+		{ value: "판매중", label: "판매중" },
+		{ value: "거래중", label: "거래중" },
+		{ value: "판매완료", label: "판매완료" },
 	];
 	const sideOptions = [
-		{ value: "판매완료", label: "판매완료" },
+		{ value: "판매중", label: "판매중" },
 		{ value: "거래중", label: "거래중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
 
-	const [dataLimit, setDataLimit] = useState(4);
+	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * dataLimit;
 
@@ -47,7 +48,7 @@ const RegisterProduct = () => {
 							<BasicSelect
 								variant={"primary"}
 								options={options}
-								selectedValue={"중고거래"}
+								selectedValue={"판매중"}
 								style={{ border: "1px solid #dddddd" }}
 							/>
 						</S.ToggleBox>

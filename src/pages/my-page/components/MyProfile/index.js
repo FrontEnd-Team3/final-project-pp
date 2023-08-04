@@ -5,7 +5,7 @@ import { flexRow } from "styles/common";
 import ProgressBar from "./ProgressBar";
 import UserQueryApi from "apis/user.query.api";
 
-const MyProfile = ({ userList }) => {
+const MyProfile = () => {
 	const navigate = useNavigate();
 
 	const userInfo = UserQueryApi.getUserInfo();

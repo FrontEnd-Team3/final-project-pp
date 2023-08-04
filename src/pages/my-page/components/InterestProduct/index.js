@@ -35,11 +35,6 @@ const InterestProduct = () => {
 		{ value: "무료나눔", label: "무료나눔" },
 	];
 
-	const statusOption = [
-		{ value: "판매완료", label: "판매완료" },
-		{ value: "판매완료", label: "판매완료" },
-	];
-
 	const allProducts = [...sellingProducts, ...soldProducts];
 
 	if (sellingProducts.length > 0 || soldProducts.length > 0) {

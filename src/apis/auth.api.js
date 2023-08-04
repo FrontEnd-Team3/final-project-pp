@@ -45,6 +45,9 @@ const AuthApi = {
 	userMypageInfo: async () => {
 		return await axiosInstance.get(`${PATH}/my-page`);
 	},
+	userProductInfo: async (page, category) => {
+		return await axiosInstance.get(`${PATH}/my-page/product-list`);
+	},
 };
 
 export default AuthApi;

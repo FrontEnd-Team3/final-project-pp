@@ -14,6 +14,13 @@ const UserQueryApi = {
 			QueryConfig,
 			{},
 		),
+	getUserProductInfo: () =>
+		useQueryData(
+			[QueryKey.userProductData],
+			AuthApi.userProductInfo,
+			QueryConfig,
+			{},
+		),
 };
 
 export default UserQueryApi;
