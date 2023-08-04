@@ -14,6 +14,10 @@ const ProductApi = {
 		await axiosInstance.post(PATH + `/like`, (params = { ...params })),
 	getRecentlyViewedProducts: async () =>
 		await axiosInstance.get(PATH + "/viewed-list"),
+	addRecentlyViewedProducts: async params =>
+		await axiosInstance.post(PATH + "/viewed-list", (params = { ...params })),
+	deleteRecentlyViewedProducts: async prod_idx =>
+		await axiosInstance.delete(PATH + `/viewed-list?prod_idx=${prod_idx}`),
 	addProduct: async productData => await axios.post(PATH, productData),
 };
 

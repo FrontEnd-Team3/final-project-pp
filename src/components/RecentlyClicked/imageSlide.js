@@ -1,19 +1,24 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import useRecentlyClicked from "hooks/useRecentlyClicked";
+
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 const ImageSlide = ({ productList }) => {
-	console.log("eachProduct", productList[0]?.Product);
 	// 이미지 배열
-	// localStorage에서 최근 본 상품 가져오기
-	const recentlyClicked = useRecentlyClicked();
 
 	// 최근 본 상품 배열에 들어있는 id 값과 일치하는 상품의 이미지 가져오기
 	// localstorage에는 id가 문자열로 들어가므로 빈 문자열 더해서 검사
-	const ImageArr = productList.map(product => product.Product.img_url);
-	// console.log("최근 본 상품", ImageArr);
+	const ImageSet = new Set();
+	const ImageArr = productList
+		.map(product => product.Product.img_url)
+		.filter(img_url => {
+			if (!ImageSet.has(img_url)) {
+				ImageSet.add(img_url);
+				return true;
+			}
+			return false;
+		});
 
 	// 각 이미지 클릭 시 해당 상품 상세 페이지로 이동
 	const navigate = useNavigate();
@@ -57,9 +62,9 @@ const ImageSlide = ({ productList }) => {
 	};
 
 	// 무한 슬라이드
-	const firstElement = ImageArr[ImageArr.length - 1];
-	const lastElement = ImageArr[0];
-	const InfiniteArr = [firstElement, ...ImageArr, lastElement];
+	const firstElement = ImageArr[0];
+	const lastElement = ImageArr[ImageArr.length - 1];
+	const InfiniteArr = [...ImageArr, firstElement, lastElement];
 
 	useEffect(() => {
 		slideRef.current.style.transform = `translateY(-${SLIDE_RANGE}px)`;

@@ -39,6 +39,18 @@ const ProductQueryApi = {
 			ProductApi.getRecentlyViewedProducts,
 			QueryConfig,
 		),
+	addRecentlyViewedProducts: successFn =>
+		useMutateData(
+			() => ProductApi.addRecentlyViewedProducts,
+			[QueryKey.recentlyViewed],
+			successFn,
+		),
+	deleteRecentlyViewedProducts: successFn =>
+		useMutateData(
+			() => ProductApi.deleteRecentlyViewedProducts,
+			[QueryKey.recentlyViewed],
+			successFn,
+		),
 	updateProduct: successFn =>
 		useMutateData(
 			() => ProductApi.updateProduct,
