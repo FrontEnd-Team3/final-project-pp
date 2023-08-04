@@ -26,7 +26,7 @@ export const addProduct = rest.post("/api/product", async (req, res, ctx) => {
 	return res(
 		ctx.status(200),
 		ctx.json({
-			idx: parseInt(prod_idx),
+			// idx: parseInt(prod_idx),
 			title,
 			price,
 			description,

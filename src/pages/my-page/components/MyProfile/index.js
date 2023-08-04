@@ -3,32 +3,46 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexRow } from "styles/common";
 import ProgressBar from "./ProgressBar";
+import UserQueryApi from "apis/user.query.api";
 
 const MyProfile = ({ userList }) => {
 	const navigate = useNavigate();
-	const MyuserList = userList?.filter(user => user.id === 1)[0];
-	if (MyuserList) {
+
+	const userInfo = UserQueryApi.getUserInfo();
+	const userData = userInfo.data;
+
+	const userMypage = UserQueryApi.getUserdetail();
+	const userMypageData = userMypage.data;
+
+	console.log("userdata", userInfo);
+	console.log("usermypagedata", userMypage);
+
+	if (userData) {
 		return (
 			<>
-				<S.Container key={MyuserList.idx}>
+				<S.Container>
 					<S.RowBox>
 						<S.MyImage>
-							<img src={MyuserList.profile_url} />
+							{userData?.profile_url ? (
+								<img src={userData?.profile_url} alt="User Profile" />
+							) : (
+								<img src="/img/Profile.png" alt="Default Profile" />
+							)}
 						</S.MyImage>
 						<S.TextBox>
 							<S.RowBox>
 								<p>닉네임 </p>
-								<TextP1>{MyuserList.nickName} </TextP1>
+								<TextP1>{userData?.nick_name} </TextP1>
 							</S.RowBox>
 							<S.RowBox>
 								<p>활동 지역</p>
-								<TextP2>{MyuserList.region}</TextP2>
+								<TextP2>{userData?.region}</TextP2>
 							</S.RowBox>
 							<div>
 								<p>나의 온도</p>
 								<S.RowBox>
-									<p>{MyuserList.ondo}℃</p>
-									<ProgressBar percentage={MyuserList.ondo} />
+									<p>{userMypageData?.ondo}℃</p>
+									<ProgressBar percentage={userMypageData?.ondo} />
 								</S.RowBox>
 							</div>
 						</S.TextBox>
@@ -78,7 +92,7 @@ const countBox = styled.div`
 `;
 
 const MyImage = styled.div`
-	margin: 0 auto;
+	margin: 0px 40px;
 	img {
 		width: 150px;
 		height: 150px;

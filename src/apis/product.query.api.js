@@ -10,7 +10,6 @@ const ProductQueryApi = {
 			[QueryKey.productData],
 			ProductApi.getProductList,
 			QueryConfig,
-			{},
 		),
 	getProductDetail: id =>
 		useQueryData(
@@ -29,11 +28,10 @@ const ProductQueryApi = {
 			() => ProductApi.updateProductStatus(id),
 			[QueryKey.productDetail, id],
 		),
-	updateLikeStatus: (id, params, successFn) =>
+	updateLikeStatus: (id, params) =>
 		useMutateData(
-			() => ProductApi.updateLikeStatus(id, params),
+			() => ProductApi.updateLikeStatus(params),
 			[QueryKey.productDetail, id],
-			successFn,
 		),
 
 	// 데이터 갱신

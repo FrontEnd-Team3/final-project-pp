@@ -4,41 +4,54 @@ import { useEffect, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
-// import { RegisterSchema } from "consts/registerschema";
 import { replacePrice } from "utils/priceNum";
-const Inputs = ({ control, errors, watch, setValue, onInputValuesChange }) => {
+import useToggle from "hooks/useToggle";
+import { tagCategory } from "mocks/data/products/category";
+const Inputs = ({
+	control,
+	errors,
+	watch,
+	setValue,
+	onInputValuesChange,
+	imageArr,
+}) => {
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
 	const [price, setPrice] = useState("");
-
-	// RegisterSchema.validate()
-	// 	.then(() => {
-	// 		console.log("검사 성공");
-	// 	})
-	// 	.catch(error => {
-	// 		console.log("검사 실패:", error.message);
-	// 	});
+	const { isToggle, setIsToggle, Toggle } = useToggle();
 
 	useEffect(() => {
 		const inputValues = {
-			idx: Math.floor(Math.random() * 100000),
 			title: watch("title"),
 			description,
-			price: Number(price.replace(",", "")),
-			region: "서울시 성동구 성수동",
+			price: category ? 0 : Number(price?.replace(",", "") || 0),
+			region: "서울시 성동구 성수동1가",
 			category,
-			taglist,
-			img: [],
+			ProductsTags: taglist,
+			ProductImages: imageArr,
 		};
 		onInputValuesChange(inputValues);
 	}, [watch, description, price, category, taglist]);
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
+
+	// 입력값 enter로 태그 추가
 	const handleKeyPress = e => {
 		if (e.key === "Enter") {
 			e.preventDefault();
+
+			// 빈값 추가 막기
+			if (e.target.value.trim() === "") return;
+
+			// 중복값 막기
+			const isDuplicate = taglist.some(
+				tagItem => tagItem.Tag.tag === e.target.value.trim(),
+			);
+
+			if (isDuplicate) return;
+
 			const tag = {
 				idx: Math.floor(Math.random() * 100000),
 				Tag: {
@@ -49,6 +62,28 @@ const Inputs = ({ control, errors, watch, setValue, onInputValuesChange }) => {
 				setTaglist(prev => [...prev, tag]);
 			}
 			setValue("tag", "");
+		}
+	};
+
+	// 태그 카테고리 li 클릭 시 태그 추가
+	const handleAddTaglist = content => {
+		// 중복값 막기
+		const isDuplicate = taglist.some(tagItem => tagItem.Tag.tag === content);
+
+		const tag = {
+			idx: Math.floor(Math.random() * 100000),
+			Tag: {
+				tag: content,
+			},
+		};
+
+		if (isDuplicate) {
+			setIsToggle(false);
+		}
+
+		if (!isDuplicate) {
+			setTaglist(prev => [...prev, tag].slice(0, 5));
+			setIsToggle(false);
 		}
 	};
 
@@ -72,8 +107,9 @@ const Inputs = ({ control, errors, watch, setValue, onInputValuesChange }) => {
 			setValue("price", "0");
 		} else if (!category) {
 			const newWatchPrice = replacePrice(watchPrice);
-			setValue("price", newWatchPrice);
-			setPrice(newWatchPrice);
+			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; // 변환값이 0이면 빈값으로 초기화, 그렇지 않은 경우 입력값 사용(0,003원 이런식으로 입력되는 버그 수정해야함)
+			setValue("price", priceValue);
+			setPrice(priceValue);
 			console.log("price", price);
 		}
 	}, [watchPrice, setValue, category]);
@@ -114,13 +150,22 @@ const Inputs = ({ control, errors, watch, setValue, onInputValuesChange }) => {
 						color={"primary"}
 						size={"primary"}
 						style={{ padding: "18px", width: "100%", marginTop: "20px" }}
-						placeholder="태그를 선택하거나 입력할 수 있습니다.(태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요) / 추후에 form으로 감싸거나 enter 이벤트 줘야함!"
+						placeholder="태그를 선택하거나 입력할 수 있습니다. 태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요"
 						onKeyPress={handleKeyPress}
 						maxLength={6}
 					/>
 					<S.ArrowDownIcon>
-						<AiFillCaretDown />
+						<S.Icon onClick={Toggle} isopen={isToggle} />
 					</S.ArrowDownIcon>
+					{isToggle && (
+						<S.TagCateroryUl>
+							{tagCategory.map(onetag => (
+								<li onClick={() => handleAddTaglist(onetag.content)}>
+									{onetag.content}
+								</li>
+							))}
+						</S.TagCateroryUl>
+					)}
 				</S.InputTop>
 				<S.TagsBox>
 					{taglist.map(tagItem => (
@@ -188,6 +233,7 @@ const Inputs = ({ control, errors, watch, setValue, onInputValuesChange }) => {
 						padding: "16px",
 						height: "3rem",
 						margin: "60px 10px 60px 130px",
+						backgroundColor: category ? "#ddd" : "initial",
 					}}
 				/>
 				<S.Title style={{ top: "68px" }}>
@@ -243,7 +289,6 @@ const InputBoxAnother = styled.div`
 `;
 
 const InputTop = styled.div`
-	/* display: flex; */
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
@@ -255,7 +300,39 @@ const ArrowDownIcon = styled.div`
 	top: 18px;
 	cursor: pointer;
 	padding: 20px 16px 10px;
-	svg {
+`;
+
+const Icon = styled(AiFillCaretDown)`
+	transform: ${({ isopen }) => (isopen ? "rotate(180deg)" : "rotate(0deg)")};
+`;
+
+const TagCateroryUl = styled.ul`
+	background-color: #ddd;
+	width: 900px;
+	height: 170px;
+	overflow: auto;
+	position: absolute;
+	z-index: 10;
+	background-color: #f1f1f1;
+	font-weight: 500;
+
+	li {
+		cursor: pointer;
+		padding: 18px 0 9px 18px;
+	}
+
+	li:hover {
+		color: ${({ theme }) => theme.PALETTE.primary};
+		font-weight: bold;
+		background-color: rgba(255, 255, 255, 1);
+	}
+
+	li:nth-child(even) {
+		background-color: #f9f9f9;
+	}
+
+	li:nth-child(even):hover {
+		background-color: rgba(255, 255, 255, 0.8);
 	}
 `;
 
@@ -327,4 +404,6 @@ const S = {
 	Checkbox,
 	TagsBox,
 	ArrowDownIcon,
+	Icon,
+	TagCateroryUl,
 };
