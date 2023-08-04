@@ -27,14 +27,5 @@ export const RegisterSchema = yup.object().shape({
 					return false;
 				}
 			},
-		})
-		.test({
-			message: "맨앞의 숫자 0을 지우고 입력해 주세요",
-			test: price => {
-				if (price[0] == 0) return false;
-				else {
-					return true;
-				}
-			},
 		}),
 });

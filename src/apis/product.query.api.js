@@ -33,6 +33,12 @@ const ProductQueryApi = {
 			() => ProductApi.updateLikeStatus(params),
 			[QueryKey.productDetail, id],
 		),
+	updateProduct: successFn =>
+		useMutateData(
+			() => ProductApi.updateProduct,
+			[QueryKey.productRegister],
+			successFn,
+		),
 };
 
 export default ProductQueryApi;

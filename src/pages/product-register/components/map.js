@@ -3,10 +3,10 @@ import SearchAddress from "components/SearchAddress";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const Map = () => {
+const Map = ({ onRegionChange }) => {
 	const { kakao } = window;
 	const [isOpen, setIsOpen] = useState(false);
-	const [address, setAddress] = useState("서울시 성동구 성수동");
+	const [address, setAddress] = useState("서울시 성동구 성수동1가");
 	const [map, setMap] = useState(null);
 	const [marker, setMarker] = useState(null);
 
@@ -48,6 +48,7 @@ const Map = () => {
 			}
 		});
 		setIsOpen(false);
+		onRegionChange(newAddress);
 	};
 
 	return (
