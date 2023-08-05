@@ -35,7 +35,7 @@ const ProductQueryApi = {
 		),
 
 	// 물품 등록
-	addProduct: (product) => {
+	addProduct: product => {
 		useMutateData(
 			() => ProductApi.addProduct(product),
 			[QueryKey.productRegister],

@@ -27,8 +27,6 @@ const ProductRegister = () => {
 	const [product, setProduct] = useState([]);
 	const formData = new FormData();
 
-	// const productData = ProductQueryApi.addProduct(product);
-
 	const queryClient = useQueryClient();
 
 	const { mutate } = useMutation(formData => ProductApi.addProduct(formData), {
@@ -37,6 +35,7 @@ const ProductRegister = () => {
 		},
 	});
 
+	// 이미지 데이터가 제대로 안들어가고 있음
 	const handleInputValues = inputValues => {
 		setProduct(inputValues);
 	};
@@ -46,6 +45,7 @@ const ProductRegister = () => {
 			...prevState,
 			ProductImages: imgArr,
 		}));
+		console.log("이미지들어가는중", product);
 	};
 
 	const handleRegionChange = address => {
@@ -53,37 +53,31 @@ const ProductRegister = () => {
 			...prevState,
 			region: address,
 		}));
+		console.log("지역 들어가는중", product);
 	};
-	// const headers = { "Content-Type": "application/json" };
-	// async function saveProduct(product) {
-	// 	try {
-	// 		const response = await axiosInstance.post("/api/product", product, {
-	// 			headers,
-	// 		});
-	// 		console.log("성공적으로 데이터를 저장했습니다:", response.data);
-	// 	} catch (error) {
-	// 		console.error("데이터 저장에 실패했습니다:", error);
-	// 	}
-	// }
-	// 중고거래 선택되어 있는데 0원인 상태로 등록하기 누르면
-	// 저절로 무료나눔으로 체크 변경하거나, 무료나눔으로 데이터 저장하기
+
+	const config = {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	};
 
 	const onSubmit = data => {
-		console.log("물품 등록하기", data);
-		console.log("등록", product);
-		// ProductApi.updateProduct(product);
-		//
-		formData.append("title", product.title);
+		// console.log("물품 등록하기", data);
+		// console.log("등록", product);	formData.append("title", product.title);
 		formData.append("region", product.region);
 		formData.append("price", product.price);
 		formData.append("description", product.discription);
 		formData.append("images", product.images);
 		formData.append("tag", product.tag);
-
-		mutate(product);
-		// product =
-		// saveProduct(product);
-		// AddProduct();
+		axiosInstance
+			.post("/api/product", formData, config)
+			.then(response => {
+				console.log(response.data);
+			})
+			.catch(error => {
+				console.error(error);
+			});
 	};
 
 	return (
@@ -103,7 +97,9 @@ const ProductRegister = () => {
 						<S.TitleAnother>
 							위치 설정 <S.Essential>*</S.Essential>
 						</S.TitleAnother>
-						<Map onRegionChange={handleRegionChange} />
+						<Map
+						// onRegionChange={handleRegionChange}
+						/>
 					</S.MapBox>
 					<S.SubmitBtns>
 						<BasicButton size={"medium"} color={"primary"}>

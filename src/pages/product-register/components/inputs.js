@@ -16,11 +16,12 @@ const Inputs = ({
 	imageArr,
 }) => {
 	const [description, setDescription] = useState("");
-	const [category, setCategory] = useState(true);
+	const [category, setCategory] = useState(0);
 	const [taglist, setTaglist] = useState([]);
 	const [price, setPrice] = useState("");
 	const { isToggle, setIsToggle, Toggle } = useToggle();
 
+	// ** 지금 여기서 재랜더링 할때마다 이미지가 undefined로 돌아감
 	useEffect(() => {
 		const inputValues = {
 			title: watch("title"),
@@ -33,7 +34,6 @@ const Inputs = ({
 		};
 		onInputValuesChange(inputValues);
 	}, [watch, description, price, category, taglist]);
-
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");

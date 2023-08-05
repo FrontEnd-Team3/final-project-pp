@@ -9,6 +9,7 @@ const Images = ({ onImageChange }) => {
 
 	useEffect(() => {
 		console.log(imageArr);
+		onImageChange(imageArr);
 	}, [imageArr]);
 
 	// 이미지 상대 경로 저장
