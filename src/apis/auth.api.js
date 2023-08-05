@@ -49,15 +49,26 @@ const AuthApi = {
 		return await axiosInstance.get(`${PATH}/my-page/product-list`);
 	},
 
-	userProfileImage: async profile => {
+	userProfileImage: async image => {
 		try {
-			const response = await axiosInstance.post(`${PATH}/profile`);
-			console.log("profileImage", response);
-			if (response.status === 200) {
-				console.log("이미지 업로드 성공");
-			} else {
-				console.log("이미지 업로드 실패");
-			}
+			// 'Content-Type' 헤더를 별도로 추가해야 함
+			const config = {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			};
+
+			// FormData 객체 생성 및 이미지 추가
+			const formData = new FormData();
+			formData.append("image", image);
+
+			// PATCH 요청을 사용하여 프로필 이미지 업데이트
+			const response = await axiosInstance.patch(
+				"/api/user/profile",
+				formData,
+				config,
+			);
+
 			return response;
 		} catch (error) {
 			console.error(error);

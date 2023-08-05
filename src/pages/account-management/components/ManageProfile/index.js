@@ -4,6 +4,8 @@ import BasicButton from "components/Button";
 import UserQueryApi from "apis/user.query.api";
 import MyProfileImage from "./components/MyprofileImage";
 import { useState } from "react";
+import AuthApi from "apis/auth.api";
+import MyProfileInfo from "./components/MyprofileInfo";
 
 const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
@@ -12,16 +14,18 @@ const MyProfile = () => {
 	const [imageSrc, setImageSrc] = useState(null);
 
 	const onUpload = e => {
-		const file = e.target.files[0];
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
+		if (e.target.files && e.target.files[0]) {
+			const file = e.target.files[0];
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
 
-		return new Promise(resolve => {
-			reader.onload = () => {
-				setImageSrc(reader.result || null); // 파일의 컨텐츠
-				resolve();
-			};
-		});
+			return new Promise(resolve => {
+				reader.onload = () => {
+					setImageSrc(reader.result || null); // 파일의 컨텐츠
+					resolve();
+				};
+			});
+		}
 	};
 
 	// 입력 파일 창을 숨기고, 이미지 변경 버튼 클릭 시 파일 업로드 창이 뜨도록 설정
@@ -31,7 +35,20 @@ const MyProfile = () => {
 	};
 
 	const handleDeleteClick = () => {
-		setImageSrc(null);
+		setImageSrc("img/profile.png"); // 삭제 버튼으로 프로필 이미지 삭제시 기본 프로필 이미지가 나오도록 함
+	};
+
+	const handleSave = async () => {
+		if (imageSrc) {
+			try {
+				const inputImageFile = document.getElementById("fileInput").files[0];
+				const response = await AuthApi.userProfileImage(inputImageFile);
+				console.log("이미지 수정사항 저장 성공:", response);
+				return response;
+			} catch (error) {
+				console.error("이미지 수정사항 저장 실패:", error);
+			}
+		}
 	};
 
 	if (userData) {
@@ -74,33 +91,15 @@ const MyProfile = () => {
 						</S.ProfileIntroductionContainer>
 					</S.ProfileImgContainer>
 					<S.Line />
-					<S.NickNameTitle>닉네임</S.NickNameTitle>
-					<S.NickNameContainer>
-						<S.NickName>{userData?.nick_name}</S.NickName>
-						<BasicButton
-							size={"account"}
-							color={"darkBlack"}
-							children={"변경"}
-						/>
-					</S.NickNameContainer>
+					<MyProfileInfo userData={userData} />
 					<S.Line />
-					{/* <S.NameTitle>이름</S.NameTitle>
-				<S.NameContainer>
-					<S.Name>심재원</S.Name>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.NameContainer> */}
-					<S.IntroducationTitle>소개</S.IntroducationTitle>
-					<S.IntroducationContainer>
-						<S.Introducation>
-							자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
-						</S.Introducation>
-						<BasicButton
-							size={"account"}
-							color={"darkBlack"}
-							children={"변경"}
-						/>
-					</S.IntroducationContainer>
-					<S.Line />
+					<BasicButton
+						size={"medium"}
+						color={"darkBlack"}
+						children={"변경사항 저장"}
+						style={{ marginTop: "80px" }}
+						onClick={handleSave}
+					/>
 				</S.ProfileWrapper>
 			</S.ContentWrapper>
 		);
