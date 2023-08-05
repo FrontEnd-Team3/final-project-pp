@@ -74,6 +74,22 @@ const AuthApi = {
 			console.error(error);
 		}
 	},
+	userProfileInfo: async newValue => {
+		try {
+			const response = await axiosInstance.patch("/api/user", {
+				...newValue,
+			});
+			console.log("개인정보 수정:", response);
+			if (response.status === 200) {
+				console.log(" 개인정보 수정 성공");
+			} else {
+				console.log(" 개인정보 수정 실패 ");
+			}
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	},
 };
 
 export default AuthApi;

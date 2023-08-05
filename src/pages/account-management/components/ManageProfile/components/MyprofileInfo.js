@@ -1,20 +1,93 @@
+import AuthApi from "apis/auth.api";
 import BasicButton from "components/Button";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 
-const MyProfileInfo = ({ userData }) => {
+const MyProfileInfo = ({ userData, nickNameValue, setNickNameValue }) => {
+	const [openNickNameInput, setOpenNickNameInput] = useState(true);
+	const nickNameRef = useRef(null);
+	// const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
+
+	const handleEdit = btnName => {
+		if (btnName === "변경") {
+			setOpenNickNameInput(false);
+		} else if (btnName === "완료") {
+			setOpenNickNameInput(true);
+			// nickNameRef.current.value의 값이 빈 문자열이라면 함수를 빠져나감
+			if (!nickNameRef.current.value.trim()) {
+				return setNickNameValue(userData?.nick_name);
+			}
+			setNickNameValue(nickNameRef.current.value);
+		}
+	};
+	const onChangeRef = e => {
+		nickNameRef.current.value = e.target.value;
+	};
+
+	const onNickNameCheck = async () => {
+		if (!nickNameRef.current.value.trim()) return;
+		try {
+			const nickName = nickNameValue;
+			console.log(nickName);
+			const response = await AuthApi.nickNameCheck(nickName);
+			if (response.status === 200) {
+				alert("사용 가능한 닉네임 입니다.");
+			}
+		} catch (error) {
+			if (error.response.status === 400) {
+				alert("중복된 닉네임 입니다.");
+				console.log(error);
+				setValue("nickName", "");
+			}
+		}
+	};
+
 	return (
 		<>
-			<S.NickNameTitle>닉네임</S.NickNameTitle>
+			<S.NickNameTitle openNickNameInput={openNickNameInput}>
+				닉네임
+			</S.NickNameTitle>
 			<S.NickNameContainer>
-				<S.NickName>{userData?.nick_name}</S.NickName>
-				<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
+				{openNickNameInput ? (
+					<>
+						<S.NickName>{nickNameValue || userData?.nick_name}</S.NickName>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+							onClick={() => {
+								handleEdit("변경");
+							}}
+						/>
+					</>
+				) : (
+					<>
+						<S.InputBox
+							defaultValue={nickNameValue}
+							ref={nickNameRef}
+							onChange={onChangeRef}
+						/>
+						<div>
+							<BasicButton
+								size={"account"}
+								color={"darkBlack"}
+								children={"중복 확인"}
+								onClick={onNickNameCheck}
+							/>
+							<BasicButton
+								size={"account"}
+								color={"darkBlack"}
+								children={"완료"}
+								style={{ marginLeft: "5px" }}
+								onClick={() => {
+									handleEdit("완료");
+								}}
+							/>
+						</div>
+					</>
+				)}
 			</S.NickNameContainer>
 			<S.Line />
-			{/* <S.NameTitle>이름</S.NameTitle>
-				<S.NameContainer>
-					<S.Name>심재원</S.Name>
-					<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-				</S.NameContainer> */}
 			<S.IntroducationTitle>소개</S.IntroducationTitle>
 			<S.IntroducationContainer>
 				<S.Introducation>
@@ -28,6 +101,11 @@ const MyProfileInfo = ({ userData }) => {
 
 export default MyProfileInfo;
 
+const InputBox = styled.input`
+	width: 765px;
+	font-size: 16px;
+`;
+
 const Line = styled.div`
 	width: 950px;
 	background-color: #dddddd;
@@ -37,6 +115,7 @@ const Line = styled.div`
 
 const NickNameTitle = styled.div`
 	margin-top: 80px;
+	margin-bottom: ${props => (props.openNickNameInput ? "2px" : "7px")};
 	color: #8a8a8a;
 `;
 const NickNameContainer = styled.div`
@@ -60,6 +139,7 @@ const Introducation = styled.div`
 `;
 
 const S = {
+	InputBox,
 	Line,
 	NickNameTitle,
 	NickNameContainer,
