@@ -58,8 +58,7 @@ const ModifyInfoList = ({ userData }) => {
 					title={
 						key.charAt(0).toUpperCase() +
 						key.slice(1, key.length).toLowerCase() +
-						" " +
-						(key === "phone" ? "번호" : "")
+						" "
 					}
 					value={inputValues[key]}
 					handleChange={handleEditChange}

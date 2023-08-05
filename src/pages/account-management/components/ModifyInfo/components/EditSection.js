@@ -1,3 +1,4 @@
+import AuthApi from "apis/auth.api";
 import BasicButton from "components/Button";
 import { useRef } from "react";
 import styled from "styled-components";
@@ -23,6 +24,24 @@ const EditSection = ({
 		handleChange(editStateKey);
 	}
 
+	const onEmailCheck = async () => {
+		console.log(inputRef.current.value);
+		if (!inputRef.current.value.trim()) return;
+		try {
+			const email = inputRef.current.value;
+			const response = await AuthApi.emailDoubleCheck(email);
+			if (response.status === 200) {
+				alert("사용 가능한 이메일 입니다.");
+			}
+		} catch (error) {
+			if (error.response.status === 400) {
+				alert("중복된 이메일 입니다.");
+				console.log(error);
+				inputRef.current.value = "";
+			}
+		}
+	};
+
 	if (open) {
 		return (
 			<>
@@ -44,18 +63,26 @@ const EditSection = ({
 
 	return (
 		<>
-			<S.Title>{title}</S.Title>
+			<S.Title editStateKey={editStateKey}>{title}</S.Title>
 			<S.Container>
-				<S.InputBox ref={inputRef} defaultValue={value} />
+				<S.InputBox ref={inputRef} type="text" defaultValue={value} />
+				{editStateKey === "email" && (
+					<BasicButton
+						size={"account"}
+						color={"darkBlack"}
+						children={"중복 확인"}
+						onClick={onEmailCheck}
+					/>
+				)}
 				<BasicButton
 					size={"account"}
 					color={"darkBlack"}
 					children={"완료"}
-					style={{ marginLeft: "5px" }}
 					name={`${editStateKey}`}
 					onClick={handleCompleteEditClicked}
 				/>
 			</S.Container>
+			<S.Line />
 		</>
 	);
 };
@@ -80,6 +107,7 @@ const Value = styled.div`
 
 const Title = styled.div`
 	margin-top: 40px;
+	margin-bottom: ${props => (props.editStateKey ? "7px" : "2px")};
 	color: #8a8a8a;
 `;
 

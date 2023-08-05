@@ -39,6 +39,9 @@ const AuthApi = {
 			`${PATH}/check/nickName?nickName=${nickName}`,
 		);
 	},
+	emailDoubleCheck: async email => {
+		return await axiosInstance.get(`${PATH}/check/email?email=${email}`);
+	},
 	userInfo: async () => {
 		return await axiosInstance.get(`${PATH}/info`);
 	},
