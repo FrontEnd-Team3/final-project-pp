@@ -44,7 +44,7 @@ const Map = ({ onRegionChange }) => {
 			if (status === kakao.maps.services.Status.OK) {
 				const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 				map.panTo(coords);
-				marker.setPosition(coords);
+				// marker.setPosition(coords);
 			}
 		});
 		setIsOpen(false);
