@@ -45,8 +45,11 @@ const InterestEndProductList = ({ product }) => {
 							</div>
 						</S.Wrapper>
 						<S.Wrapper2>
+							<S.Wrapper3>
+								<div>{product.status}</div>
+							</S.Wrapper3>
 							<div>
-								<S.TextP1>{product.price}won</S.TextP1>
+								<p>{product.price}</p> <p>won</p>
 							</div>
 						</S.Wrapper2>
 					</div>
@@ -63,7 +66,6 @@ export default InterestEndProductList;
 
 const Container = styled.div`
 	display: flex;
-	margin-bottom: 100px;
 	${flexColumn}
 	${flexCenter}
 `;
@@ -112,6 +114,16 @@ const Wrapper2 = styled.div`
 		${flexRow}
 	}
 `;
+const Wrapper3 = styled.div`
+	${flexRow}
+	align-items:center;
+	width: 90px;
+	height: 40px;
+	border: 1px solid rgb(221, 221, 221);
+	border-radius: 4px;
+	padding: 1rem;
+	margin-right: 20px;
+`;
 
 const RowBox = styled.div`
 	width: 100%;
@@ -141,6 +153,7 @@ const S = {
 	ProductContainer,
 	Wrapper,
 	Wrapper2,
+	Wrapper3,
 	RowBox,
 	ToggleBox,
 	ToggleBox2,

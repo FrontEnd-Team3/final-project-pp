@@ -1,15 +1,9 @@
 import styled from "styled-components";
 import MyProfile from "./components/MyProfile";
 import Nav from "./components/Nav";
-import { userList } from "mocks/data/user/userList";
 import { flexCenter } from "styles/common";
 
 const Mypage = () => {
-	const UserList = userList.filter(user => user.name === "test");
-
-	if (!UserList) {
-		return <EmptyData />;
-	}
 	return (
 		<>
 			<S.MypageContainer>
@@ -17,7 +11,7 @@ const Mypage = () => {
 					<S.NavWrapper>
 						<Nav />
 					</S.NavWrapper>
-					<MyProfile userList={userList} />
+					<MyProfile />
 				</S.MyProfileWrapper>
 			</S.MypageContainer>
 			<S.DivisionLine />
