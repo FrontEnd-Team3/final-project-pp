@@ -1,3 +1,4 @@
+import ProductQueryApi from "apis/product.query.api";
 import BasicButton from "components/Button";
 import BasicSelect from "components/Select";
 import styled from "styled-components";
@@ -16,6 +17,7 @@ const StatusEndProductList = ({ product }) => {
 		{ value: "판매완료", label: "판매완료" },
 	];
 
+	const updateProduct = ProductQueryApi.updateProduct(product);
 	return (
 		<S.Container>
 			<S.ProductContainer key={product.idx}>
@@ -35,6 +37,9 @@ const StatusEndProductList = ({ product }) => {
 										borderRadius: "6px",
 										fontWeight: "600",
 										border: "1px solid #dddddd",
+									}}
+									onClick={() => {
+										updateProduct();
 									}}
 								/>
 								<BasicButton

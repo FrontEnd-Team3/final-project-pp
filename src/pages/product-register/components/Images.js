@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { flexCenter } from "styles/common";
 import { AiFillCamera } from "react-icons/ai";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { TiDelete } from "react-icons/ti";
-const Images = ({ onImageChange }) => {
+const Images = ({ imageArr, setImageArr }) => {
 	const fileInput = useRef(null); // ref로 input 태그 참조
-	const [imageArr, setImageArr] = useState([]); // 이미지 담을 배열
 
 	useEffect(() => {
 		console.log(imageArr);
@@ -13,19 +12,18 @@ const Images = ({ onImageChange }) => {
 
 	// 이미지 상대 경로 저장
 	const onChangeImage = e => {
-		// console.log(e.target.files[0]);
 		const files = e.target.files; // input에 file 선택, e.target.files 파일 선택목록 가져오는 로직, files에 저장
 
 		// 각 파일의 URL을 배열로 만드는 작업
-		const newImages = Array.from(files).map(imgFile => ({
-			imgUrl: URL.createObjectURL(imgFile), // URL.createObjectURL 해당 파일 url 생성하는 메서드
-		}));
+
+		const newImages = Array.from(files).map(
+			imgFile => URL.createObjectURL(imgFile), // URL.createObjectURL 해당 파일 url 생성하는 메서드
+		);
 
 		// 이미지 배열에 추가, 최대 5개까지 가능
 		const updatedImages = [...imageArr, ...newImages].slice(0, 5);
 
 		setImageArr(updatedImages);
-		onImageChange(updatedImages);
 	};
 
 	// 개별 이미지 삭제 로직
@@ -58,7 +56,7 @@ const Images = ({ onImageChange }) => {
 			</div>
 			<S.RealImageBox>
 				{imageArr.map((imageUrl, i) => (
-					<S.OneImage key={i} imageUrl={imageUrl.imgUrl}>
+					<S.OneImage key={i} imageUrl={imageUrl}>
 						<S.DeleteIcons onClick={() => onDeleteImage(i)}>
 							<TiDelete size={20} />
 						</S.DeleteIcons>

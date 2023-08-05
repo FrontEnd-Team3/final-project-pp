@@ -7,32 +7,40 @@ import OneController from "./OneController";
 import { replacePrice } from "utils/priceNum";
 import useToggle from "hooks/useToggle";
 import { tagCategory } from "mocks/data/products/category";
-const Inputs = ({
-	control,
-	errors,
-	watch,
-	setValue,
-	onInputValuesChange,
-	imageArr,
-}) => {
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { RegisterSchema } from "consts/registerschema";
+import Map from "./map";
+import { useMutation, useQueryClient } from "react-query";
+import ProductApi from "apis/product.api";
+import Images from "./images";
+const Inputs = () => {
+	const {
+		handleSubmit,
+		control,
+		watch,
+		setValue,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(RegisterSchema),
+		mode: "onChange",
+	});
+
+	const [imageArr, setImageArr] = useState([]); // 이미지 담을 배열
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
 	const [price, setPrice] = useState("");
+	const [address, setAddress] = useState("서울시 성동구 성수동1가");
 	const { isToggle, setIsToggle, Toggle } = useToggle();
 
-	useEffect(() => {
-		const inputValues = {
-			title: watch("title"),
-			description,
-			price: category ? 0 : Number(price?.replace(",", "") || 0),
-			region: "서울시 성동구 성수동1가",
-			category,
-			ProductsTags: taglist,
-			ProductImages: imageArr,
-		};
-		onInputValuesChange(inputValues);
-	}, [watch, description, price, category, taglist]);
+	const queryClient = useQueryClient();
+
+	const { mutate } = useMutation(data => ProductApi.addProduct(data), {
+		onSuccess: async () => {
+			await queryClient.invalidateQueries(["registers"]);
+		},
+	});
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
@@ -47,19 +55,13 @@ const Inputs = ({
 
 			// 중복값 막기
 			const isDuplicate = taglist.some(
-				tagItem => tagItem.Tag.tag === e.target.value.trim(),
+				tagItem => tagItem === e.target.value.trim(),
 			);
 
 			if (isDuplicate) return;
 
-			const tag = {
-				idx: Math.floor(Math.random() * 100000),
-				Tag: {
-					tag: e.target.value,
-				},
-			};
 			if (taglist.length < 5) {
-				setTaglist(prev => [...prev, tag]);
+				setTaglist(prev => [...prev, e.target.value]);
 			}
 			setValue("tag", "");
 		}
@@ -68,21 +70,14 @@ const Inputs = ({
 	// 태그 카테고리 li 클릭 시 태그 추가
 	const handleAddTaglist = content => {
 		// 중복값 막기
-		const isDuplicate = taglist.some(tagItem => tagItem.Tag.tag === content);
-
-		const tag = {
-			idx: Math.floor(Math.random() * 100000),
-			Tag: {
-				tag: content,
-			},
-		};
+		const isDuplicate = taglist.some(tagItem => tagItem === content);
 
 		if (isDuplicate) {
 			setIsToggle(false);
 		}
 
 		if (!isDuplicate) {
-			setTaglist(prev => [...prev, tag].slice(0, 5));
+			setTaglist(prev => [...prev, content].slice(0, 5));
 			setIsToggle(false);
 		}
 	};
@@ -121,8 +116,38 @@ const Inputs = ({
 		setTaglist(updateTags);
 	};
 
+	const onSubmit = data => {
+		// console.log("물품 등록하기", data);
+		console.log("title: ", data.title);
+		console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
+		console.log("description: ", description);
+		console.log("region: ", address);
+		console.log("tag: ", taglist);
+		console.log("images: ", imageArr);
+		console.log("category: ", category ? 1 : 0);
+		try {
+			const formData = new FormData();
+			formData.append("title", data.title);
+			formData.append("region", address);
+			formData.append(
+				"price",
+				category ? 0 : Number(price?.replace(",", "") || 0),
+			);
+			formData.append("description", description);
+			formData.append("category", category ? 1 : 0);
+			formData.append("tag", taglist);
+			for (let i = 0; i < imageArr.length; i++) {
+				formData.append("images", imageArr[i]);
+			}
+			mutate(formData);
+		} catch (error) {
+			console.error("데이터 저장에 실패했습니다:", error);
+		}
+	};
+
 	return (
-		<div>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<Images imageArr={imageArr} setImageArr={setImageArr} />
 			<S.InputBox>
 				<OneController
 					name="title"
@@ -170,7 +195,7 @@ const Inputs = ({
 				<S.TagsBox>
 					{taglist.map(tagItem => (
 						<BasicButton key={tagItem.idx} color={"white"}>
-							#{tagItem.Tag.tag}
+							#{tagItem}
 							<GrFormClose
 								onClick={() => {
 									handleDelete(tagItem.idx);
@@ -241,11 +266,56 @@ const Inputs = ({
 					<S.Won>원</S.Won>
 				</S.Title>
 			</S.InputBox>
-		</div>
+			<S.MapBox>
+				<S.TitleAnother>
+					위치 설정 <S.Essential>*</S.Essential>
+				</S.TitleAnother>
+				<Map address={address} setAddress={setAddress} />
+			</S.MapBox>
+			<S.SubmitBtns>
+				<BasicButton size={"medium"} color={"primary"}>
+					등록하기
+				</BasicButton>
+				<BasicButton size={"medium"} color={"white"}>
+					취소
+				</BasicButton>
+			</S.SubmitBtns>
+		</form>
 	);
 };
 
 export default Inputs;
+
+const TitleAnother = styled.p`
+	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
+	font-weight: bold;
+`;
+
+const SubmitBtns = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	button {
+		margin-left: 20px;
+		font-weight: bold;
+		transition: background 0.1s;
+		font-size: ${({ theme }) => theme.FONT_SIZE.small};
+	}
+	button:hover {
+		background: rgba(60, 179, 113, 0.9);
+	}
+
+	button:last-of-type {
+		color: ${({ theme }) => theme.PALETTE.primary};
+		transition: background 0.1s;
+	}
+	button:last-of-type:hover {
+		background: transparent;
+	}
+`;
+
+const MapBox = styled.div`
+	margin: 30px 0;
+`;
 
 const Won = styled.span`
 	font-weight: 400;
@@ -391,6 +461,9 @@ const Checkbox = styled.input`
 `;
 
 const S = {
+	SubmitBtns,
+	MapBox,
+	TitleAnother,
 	Won,
 	InputBox,
 	InputBoxAnother,
