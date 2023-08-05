@@ -53,7 +53,6 @@ const ProductRegister = () => {
 			...prevState,
 			region: address,
 		}));
-		console.log("지역 들어가는중", product);
 	};
 
 	const config = {
@@ -97,9 +96,7 @@ const ProductRegister = () => {
 						<S.TitleAnother>
 							위치 설정 <S.Essential>*</S.Essential>
 						</S.TitleAnother>
-						<Map
-						// onRegionChange={handleRegionChange}
-						/>
+						<Map onRegionChange={handleRegionChange} />
 					</S.MapBox>
 					<S.SubmitBtns>
 						<BasicButton size={"medium"} color={"primary"}>
