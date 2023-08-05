@@ -11,6 +11,24 @@ const EditSection = ({
 	editStateKey,
 	open,
 }) => {
+	// const { email, pw, pwCheck, nickName, region, phone } = SCHEMA;
+	// const schema = yup
+	// 	.object()
+	// 	.shape({ email, pw, pwCheck, nickName, region, phone });
+
+	// const {
+	// 	handleSubmit,
+	// 	control,
+	// 	formState: { errors },
+	// 	getValues,
+	// 	setValue, // useForm에서 setValue 메서드를 가져옵니다.
+	// 	watch,
+	// 	register,
+	// } = useForm({
+	// 	resolver: yupResolver(schema),
+	// 	mode: "onChange",
+	// });
+
 	const inputRef = useRef(null);
 
 	function handleEditClick() {
@@ -65,7 +83,12 @@ const EditSection = ({
 		<>
 			<S.Title editStateKey={editStateKey}>{title}</S.Title>
 			<S.Container>
-				<S.InputBox ref={inputRef} type="text" defaultValue={value} />
+				<S.InputBox
+					ref={inputRef}
+					type="text"
+					defaultValue={value}
+					// {...register(editStateKey)}
+				/>
 				{editStateKey === "email" && (
 					<BasicButton
 						size={"account"}

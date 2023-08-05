@@ -215,7 +215,7 @@ const Name = styled.div`
 	margin-top: 16px;
 `;
 const IntroducationTitle = styled.div`
-	margin-top: 80px;
+	margin-top: 40px;
 	color: #8a8a8a;
 `;
 const IntroducationContainer = styled.div`

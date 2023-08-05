@@ -106,7 +106,7 @@ const Line = styled.div`
 `;
 
 const NickNameTitle = styled.div`
-	margin-top: 80px;
+	margin-top: 40px;
 	margin-bottom: ${props => (props.openNickNameInput ? "2px" : "7px")};
 	color: #8a8a8a;
 `;

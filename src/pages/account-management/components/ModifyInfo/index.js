@@ -60,7 +60,7 @@ const Line = styled.div`
 	margin: 14px 0;
 `;
 const Account = styled.div`
-	margin-top: 100px;
+	margin-top: 60px;
 	font-size: 20px;
 	font-weight: bold;
 `;
