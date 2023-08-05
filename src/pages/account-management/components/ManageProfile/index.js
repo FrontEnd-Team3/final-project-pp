@@ -104,6 +104,18 @@ const MyProfile = () => {
 						setNickNameValue={setNickNameValue}
 					/>
 					<S.Line />
+					<S.IntroducationTitle>소개</S.IntroducationTitle>
+					<S.IntroducationContainer>
+						<S.Introducation>
+							자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
+						</S.Introducation>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+						/>
+					</S.IntroducationContainer>
+					<S.Line />
 					<BasicButton
 						size={"medium"}
 						color={"darkBlack"}

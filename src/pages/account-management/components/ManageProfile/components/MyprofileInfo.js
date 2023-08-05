@@ -87,14 +87,6 @@ const MyProfileInfo = ({ userData, nickNameValue, setNickNameValue }) => {
 					</>
 				)}
 			</S.NickNameContainer>
-			<S.Line />
-			<S.IntroducationTitle>소개</S.IntroducationTitle>
-			<S.IntroducationContainer>
-				<S.Introducation>
-					자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
-				</S.Introducation>
-				<BasicButton size={"account"} color={"darkBlack"} children={"변경"} />
-			</S.IntroducationContainer>
 		</>
 	);
 };
@@ -126,25 +118,10 @@ const NickName = styled.div`
 	margin-top: 16px;
 `;
 
-const IntroducationTitle = styled.div`
-	margin-top: 80px;
-	color: #8a8a8a;
-`;
-const IntroducationContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-`;
-const Introducation = styled.div`
-	margin-top: 16px;
-`;
-
 const S = {
 	InputBox,
 	Line,
 	NickNameTitle,
 	NickNameContainer,
 	NickName,
-	IntroducationTitle,
-	IntroducationContainer,
-	Introducation,
 };
