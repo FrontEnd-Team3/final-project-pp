@@ -108,23 +108,11 @@ const MyProfile = () => {
 							setNickNameValue={setNickNameValue}
 						/>
 						<S.Line />
-						<S.IntroducationTitle>소개</S.IntroducationTitle>
-						<S.IntroducationContainer>
-							<S.Introducation>
-								자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
-							</S.Introducation>
-							<BasicButton
-								size={"account"}
-								color={"darkBlack"}
-								children={"변경"}
-							/>
-						</S.IntroducationContainer>
-						<S.Line />
 						<BasicButton
 							size={"medium"}
 							color={"darkBlack"}
 							children={"변경사항 저장"}
-							style={{ marginTop: "80px" }}
+							style={{ marginTop: "60px", marginLeft: "400px" }}
 							onClick={handleSave}
 						/>
 					</S.ProfileWrapper>
@@ -155,12 +143,13 @@ const ContentWrapper = styled.div`
 `;
 const NavWrapper = styled.div`
 	padding-top: 124px;
+	padding: 124px 80px 0px 0px;
 `;
 
 const ProfileWrapper = styled.div`
 	width: 1060px;
 	padding: 60px;
-	margin: 80px 50px 200px 50px;
+
 	button {
 		font-size: 16px;
 	}
@@ -231,17 +220,6 @@ const NameContainer = styled.div`
 const Name = styled.div`
 	margin-top: 16px;
 `;
-const IntroducationTitle = styled.div`
-	margin-top: 40px;
-	color: #8a8a8a;
-`;
-const IntroducationContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-`;
-const Introducation = styled.div`
-	margin-top: 16px;
-`;
 
 const S = {
 	ContentWrapper,
@@ -255,13 +233,10 @@ const S = {
 	NickName,
 	NameTitle,
 	Name,
-	IntroducationTitle,
-	Introducation,
 	ProfileImgContainer,
 	ProfileIntroductionContainer,
 	ProfileImgBtnContainer,
 	NameContainer,
 	NickNameContainer,
-	IntroducationContainer,
 	NavWrapper,
 };
