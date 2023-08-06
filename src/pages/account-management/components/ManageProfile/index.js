@@ -11,6 +11,7 @@ const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
 
+	const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
 	const [imageSrc, setImageSrc] = useState(null);
 
 	const onUpload = e => {
@@ -39,14 +40,20 @@ const MyProfile = () => {
 	};
 
 	const handleSave = async () => {
-		if (imageSrc) {
+		if (imageSrc || nickNameValue) {
 			try {
 				const inputImageFile = document.getElementById("fileInput").files[0];
-				const response = await AuthApi.userProfileImage(inputImageFile);
-				console.log("이미지 수정사항 저장 성공:", response);
-				return response;
+				if (inputImageFile) {
+					const responseImage = await AuthApi.userProfileImage(inputImageFile);
+					console.log("이미지 수정사항 저장 성공:", responseImage);
+				}
+				const newValue = {
+					nickName: nickNameValue,
+				};
+				const responseInfo = await AuthApi.userProfileInfo(newValue);
+				console.log("nickName 수정사항 저장 성공:", responseInfo);
 			} catch (error) {
-				console.error("이미지 수정사항 저장 실패:", error);
+				console.error("수정사항 저장 실패:", error);
 			}
 		}
 	};
@@ -91,7 +98,22 @@ const MyProfile = () => {
 						</S.ProfileIntroductionContainer>
 					</S.ProfileImgContainer>
 					<S.Line />
-					<MyProfileInfo userData={userData} />
+					<MyProfileInfo
+						userData={userData}
+						setNickNameValue={setNickNameValue}
+					/>
+					<S.Line />
+					<S.IntroducationTitle>소개</S.IntroducationTitle>
+					<S.IntroducationContainer>
+						<S.Introducation>
+							자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
+						</S.Introducation>
+						<BasicButton
+							size={"account"}
+							color={"darkBlack"}
+							children={"변경"}
+						/>
+					</S.IntroducationContainer>
 					<S.Line />
 					<BasicButton
 						size={"medium"}
@@ -192,7 +214,7 @@ const Name = styled.div`
 	margin-top: 16px;
 `;
 const IntroducationTitle = styled.div`
-	margin-top: 80px;
+	margin-top: 40px;
 	color: #8a8a8a;
 `;
 const IntroducationContainer = styled.div`

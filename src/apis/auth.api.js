@@ -39,6 +39,9 @@ const AuthApi = {
 			`${PATH}/check/nickName?nickName=${nickName}`,
 		);
 	},
+	emailDoubleCheck: async email => {
+		return await axiosInstance.get(`${PATH}/check/email?email=${email}`);
+	},
 	userInfo: async () => {
 		return await axiosInstance.get(`${PATH}/info`);
 	},
@@ -69,6 +72,22 @@ const AuthApi = {
 				config,
 			);
 
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	},
+	userProfileInfo: async newValue => {
+		try {
+			const response = await axiosInstance.patch("/api/user", {
+				...newValue,
+			});
+			console.log("개인정보 수정:", response);
+			if (response.status === 200) {
+				console.log(" 개인정보 수정 성공");
+			} else {
+				console.log(" 개인정보 수정 실패 ");
+			}
 			return response;
 		} catch (error) {
 			console.error(error);
