@@ -9,6 +9,8 @@ const ProductInfo = ({ product }) => {
 	const { searchProduct, isSeller, chat } = product;
 	const localPrice = searchProduct?.price.toLocaleString("ko-KR");
 
+	console.log("productInfo", product?.searchProduct);
+
 	if (product)
 		return (
 			<S.Container>
@@ -30,6 +32,7 @@ const ProductInfo = ({ product }) => {
 						isSeller={isSeller}
 						bookmark={searchProduct?.liked}
 						chat={chat}
+						status={searchProduct?.status}
 					/>
 				</S.InfoContainer>
 			</S.Container>

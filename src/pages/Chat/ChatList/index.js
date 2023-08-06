@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
+import getUserData from "utils/getUserData";
 
 const ChatList = ({ setTargetChat }) => {
-	const { data } = ChatQueryApi.getChatList();
+	const { data } = ChatQueryApi.getChatList("buyer");
 	console.log("chat", data);
 
-	const sellChat = data?.chats.filter(chat => chat.isSeller);
-	const buyChat = data?.chats.filter(chat => !chat.isSeller);
+	let nick_name;
+	const DATA = getUserData();
+	if (DATA) nick_name = DATA.nick_name;
+
+	const sellChat = data?.chats.filter(
+		chat => chat.User.nick_name === nick_name,
+	);
+	const buyChat = data?.chats.filter(chat => chat.User.nick_name !== nick_name);
 
 	const [isSell, SetIsSell] = useState(true);
 
