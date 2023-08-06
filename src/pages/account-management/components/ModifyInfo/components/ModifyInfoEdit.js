@@ -50,8 +50,8 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 
 	const onEmailCheck = async () => {
 		console.log("hihi");
-		if (!emailValue) return;
-		const email = emailValue;
+		if (!fieldValue) return;
+		const email = fieldValue;
 		try {
 			const response = await AuthApi.emailDoubleCheck(email);
 			if (response.status === 200) {
