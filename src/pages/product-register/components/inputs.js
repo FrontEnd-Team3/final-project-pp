@@ -14,6 +14,8 @@ import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import Images from "./Images";
+import BasicNavigateModal from "components/Modal/WithButton";
+import { useNavigate } from "react-router-dom";
 const Inputs = () => {
 	const {
 		handleSubmit,
@@ -34,6 +36,8 @@ const Inputs = () => {
 	const [price, setPrice] = useState("");
 	const [address, setAddress] = useState("서울시 성동구 성수동1가");
 	const { isToggle, setIsToggle, Toggle } = useToggle();
+	const [isOpen, setIsOpen] = useState();
+	const navigate = useNavigate();
 
 	const queryClient = useQueryClient();
 
@@ -138,13 +142,31 @@ const Inputs = () => {
 			formData.append("category", category ? 1 : 0);
 			formData.append("tag", taglist);
 			// formData.append("images", imageArr);
-			for (let i = 0; i < imageDBArr.length; i++) {
-				formData.append("images", imageDBArr[i]);
+			for (let i = 0; i < imageArr.length; i++) {
+				formData.append("images", imageArr[i]);
 			}
-			mutate(formData);
+			formData.append("main", imageDBArr[0]);
+			if (imageDBArr.length) {
+				mutate(formData);
+				setIsOpen(true);
+				setTimeout(() => {
+					setIsOpen(false);
+					navigate("/");
+				}, 2000);
+			}
 		} catch (error) {
 			console.error("데이터 저장에 실패했습니다:", error);
 		}
+	};
+
+	// 입력값 리셋
+	const resetData = () => {
+		setImageArr([]);
+		setTaglist([]);
+		setCategory(true);
+		setDescription("");
+		setAddress("");
+		setValue("title", "");
 	};
 
 	return (
@@ -283,10 +305,21 @@ const Inputs = () => {
 				<BasicButton size={"medium"} color={"primary"}>
 					등록하기
 				</BasicButton>
-				<BasicButton size={"medium"} color={"white"}>
+				<BasicButton onClick={resetData} size={"medium"} color={"white"}>
 					취소
 				</BasicButton>
 			</S.SubmitBtns>
+			{isOpen && (
+				<BasicNavigateModal
+					background={"gray"}
+					subtitle={"primary"}
+					title={"primary"}
+					container={"primary"}
+					position={"primary"}
+					titlement={"Welcome to TRIMM!"}
+					subtitlement={"물품 등록이 완료되었습니다!"}
+				/>
+			)}
 		</form>
 	);
 };
