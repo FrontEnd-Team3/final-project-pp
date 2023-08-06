@@ -14,6 +14,8 @@ import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import Images from "./Images";
+import BasicNavigateModal from "components/Modal/WithButton";
+import { useNavigate } from "react-router-dom";
 const Inputs = () => {
 	const {
 		handleSubmit,
@@ -32,8 +34,11 @@ const Inputs = () => {
 	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
 	const [price, setPrice] = useState("");
-	const [address, setAddress] = useState("서울시 성동구 성수동1가");
+	const [address, setAddress] = useState("");
 	const { isToggle, setIsToggle, Toggle } = useToggle();
+	const [isMap, setIsMap] = useState(false);
+	const [isOpened, setIsOpened] = useState();
+	const navigate = useNavigate();
 
 	const queryClient = useQueryClient();
 
@@ -91,6 +96,13 @@ const Inputs = () => {
 		setDescription(enterEditValue);
 	};
 
+	// 태그 삭제 로직
+	const handleDelete = tagItem => {
+		// 갖고온 현재 idx의 값과 기존에 있는 taglist의 idx 값 비교
+		const updateTags = taglist.filter(v => v !== tagItem);
+		setTaglist(updateTags);
+	};
+
 	// 체크 여부
 	const handleCheckedStatus = () => {
 		setCategory(!category);
@@ -110,26 +122,26 @@ const Inputs = () => {
 		}
 	}, [watchPrice, setValue, category]);
 
-	// 태그 삭제 로직
-	const handleDelete = idx => {
-		// 갖고온 현재 idx의 값과 기존에 있는 taglist의 idx 값 비교
-		const updateTags = taglist.filter(v => v.idx !== idx);
-		setTaglist(updateTags);
-	};
-
 	const onSubmit = data => {
 		// console.log("물품 등록하기", data);
 		console.log("title: ", data.title);
 		console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
 		console.log("description: ", description);
 		console.log("region: ", address);
+
 		console.log("tag: ", taglist);
 		console.log("images: ", imageDBArr);
 		console.log("category: ", category ? 1 : 0);
 		try {
 			const formData = new FormData();
 			formData.append("title", data.title);
-			formData.append("region", address);
+
+			if (address === "") {
+				setIsMap(true);
+			} else {
+				setIsMap(false);
+				formData.append("region", address);
+			}
 			formData.append(
 				"price",
 				category ? 0 : Number(price?.replace(",", "") || 0),
@@ -137,7 +149,6 @@ const Inputs = () => {
 			formData.append("description", description);
 			formData.append("category", category ? 1 : 0);
 			formData.append("tag", taglist);
-			// formData.append("images", imageArr);
 			for (let i = 0; i < imageDBArr.length; i++) {
 				formData.append("images", imageDBArr[i]);
 			}
@@ -145,6 +156,15 @@ const Inputs = () => {
 		} catch (error) {
 			console.error("데이터 저장에 실패했습니다:", error);
 		}
+	};
+
+	const resetData = () => {
+		setImageArr([]);
+		setTaglist([]);
+		setCategory(true);
+		setDescription("");
+		setAddress("");
+		setValue("title", "");
 	};
 
 	return (
@@ -205,7 +225,7 @@ const Inputs = () => {
 							#{tagItem}
 							<GrFormClose
 								onClick={() => {
-									handleDelete(tagItem.idx);
+									handleDelete(tagItem);
 								}}
 								size={20}
 							/>
@@ -277,16 +297,34 @@ const Inputs = () => {
 				<S.TitleAnother>
 					위치 설정 <S.Essential>*</S.Essential>
 				</S.TitleAnother>
+				{isMap && <div>위치 설정해주세요</div>}
 				<Map address={address} setAddress={setAddress} />
 			</S.MapBox>
 			<S.SubmitBtns>
-				<BasicButton size={"medium"} color={"primary"}>
+				<BasicButton
+					size={"medium"}
+					color={"primary"}
+					onClick={() => {
+						setIsMap(true);
+					}}
+				>
 					등록하기
 				</BasicButton>
-				<BasicButton size={"medium"} color={"white"}>
+				<BasicButton onClick={resetData} size={"medium"} color={"white"}>
 					취소
 				</BasicButton>
 			</S.SubmitBtns>
+			{isOpened && (
+				<BasicNavigateModal
+					background={"gray"}
+					subtitle={"primary"}
+					title={"primary"}
+					container={"primary"}
+					position={"primary"}
+					titlement={"Welcome to TRIMM!"}
+					subtitlement={"물품 등록이 완료되었습니다!"}
+				/>
+			)}
 		</form>
 	);
 };
