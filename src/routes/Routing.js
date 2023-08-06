@@ -2,8 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "components/Layout";
 import Main from "pages/main";
 import MakeScrollToTop from "components/MakeScrollToTop";
-import AccountPrivacy from "pages/account-management/components/ModifyInfo";
-import MyProfile from "pages/account-management/components/ManageProfile";
 import SignIn from "pages/sign/sign-in";
 import Signup from "pages/sign/sign-up";
 import ProductDetailPage from "pages/product-detail";
@@ -18,7 +16,9 @@ import HouseKeeping from "pages/my-page/components/HousekeepingBook";
 import PurchasedItem from "pages/my-page/components/PurchasedItem";
 import InterestProduct from "pages/my-page/components/InterestProduct";
 import Review from "pages/my-page/components/Review";
+import AccountManagement from "pages/account-management";
 import Chat from "pages/Chat";
+
 
 const router = createBrowserRouter([
 	{
@@ -34,12 +34,8 @@ const router = createBrowserRouter([
 				element: <Main />,
 			},
 			{
-				path: "/privacy",
-				element: <AccountPrivacy />,
-			},
-			{
-				path: "/profile",
-				element: <MyProfile />,
+				path: "/account",
+				element: <AccountManagement />,
 			},
 			{
 				path: "/Signin",
