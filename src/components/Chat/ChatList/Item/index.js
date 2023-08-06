@@ -2,13 +2,11 @@ import { useState } from "react";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 
-const ChatItem = ({ chat, lastMessage, price, product }) => {
-	const { userimg, move } = chat || {};
+const ChatItem = ({ chat, setTargetChat }) => {
+	const { idx, isRead, lastMessage, product } = chat;
 
 	// 읽음
 	const [isOpen, setIsOpen] = useState(false);
-	// 데이터 연결되면 다른 방식으로 수정할 예정
-	const [isRead, setIsRead] = useState(false);
 
 	return (
 		<>
@@ -17,10 +15,10 @@ const ChatItem = ({ chat, lastMessage, price, product }) => {
 					{!isRead && <S.New>New</S.New>}
 					<S.Iimg src={product.img_url} />
 				</S.IimgContainer>
-				<S.TextContainer>
-					<S.ChatContent>
+				<S.TextContainer onClick={() => setTargetChat(idx)}>
+					<S.ChatContent onClick={() => setIsOpen(false)}>
 						<S.Iproduct>{product.title}</S.Iproduct>
-						<S.Ichat>{lastMessage || "No content for List"}</S.Ichat>
+						<S.Ichat>{lastMessage || "대화 내역이 존재하지 않습니다."}</S.Ichat>
 						<S.Iprice>{product.price}</S.Iprice>
 					</S.ChatContent>
 					<S.SettingContent>
@@ -31,14 +29,12 @@ const ChatItem = ({ chat, lastMessage, price, product }) => {
 						</S.Span>
 						{isOpen && (
 							<S.SettingBox>
-								<div className="read" onClick={() => setIsRead(true)}>
-									읽음
-								</div>
+								<div className="read">읽음</div>
 							</S.SettingBox>
 						)}
-						{move && <S.Imove>상품이동 ▶</S.Imove>}
 					</S.SettingContent>
 				</S.TextContainer>
+				{/* {move && <S.Imove>상품이동 ▶</S.Imove>} */}
 			</S.Item>
 		</>
 	);
@@ -57,6 +53,7 @@ const Item = styled.div`
 	padding: 20px;
 	padding-top: 20px;
 	position: relative;
+	cursor: pointer;
 `;
 
 const New = styled.div`

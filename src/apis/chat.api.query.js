@@ -1,8 +1,8 @@
-import useQueryData from "hooks/useQueryData";
 import QueryConfig from "./queryConfig";
 import useMutateData from "hooks/useMutateData";
 import QueryKey from "consts/queryKey";
 import ChatApi from "./chat.api";
+import useQueryData from "hooks/useQueryData";
 
 const ChatQueryApi = {
 	createChatRoom: (id, params, successFn) =>
@@ -23,10 +23,10 @@ const ChatQueryApi = {
 			[QueryKey.chatRoom, id],
 			successFn,
 		),
-	getChatLogs: (room_idx, params) =>
+	getChatLogs: room_idx =>
 		useQueryData(
 			[QueryKey.chatLogs],
-			() => ChatApi.getChatLogs(room_idx, params),
+			() => ChatApi.getChatLogs(room_idx),
 			QueryConfig,
 		),
 	getChatList: params =>

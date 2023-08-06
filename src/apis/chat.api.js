@@ -9,11 +9,8 @@ const ChatApi = {
 		await axiosInstance.post(PATH + `read-all?room_idx=${room_idx}}`),
 	saveMessages: async params =>
 		await axiosInstance.post(PATH + "/send", (params = { ...params })),
-	getChatLogs: async (room_idx, params) =>
-		await axiosInstance.get(
-			PATH + `/chat-log?room_idx=${room_idx}`,
-			(params = { ...params }),
-		),
+	getChatLogs: async room_idx =>
+		await axiosInstance.get(PATH + `/chat-log?room_idx=${room_idx}`),
 	getChatList: async params =>
 		await axiosInstance.get(PATH + "/chat-room-list", (params = { ...params })),
 	getSpecificChatList: async (prod_idx, params) =>

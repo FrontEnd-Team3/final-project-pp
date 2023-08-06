@@ -3,33 +3,33 @@ import styled from "styled-components";
 import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
 
-const ChatList = () => {
+const ChatList = ({ setTargetChat }) => {
 	const { data } = ChatQueryApi.getChatList();
-	console.log("chatlist", data?.chats);
 
 	const sellChat = data?.chats.filter(chat => chat.isSeller);
 	const buyChat = data?.chats.filter(chat => !chat.isSeller);
-
-	console.log("sell, buy", sellChat, buyChat);
 
 	const [isSell, SetIsSell] = useState(true);
 
 	return (
 		<S.Container>
 			<S.Header>
-				<S.Sell onClick={() => SetIsSell(true)}>판매 내역</S.Sell>
-				<S.Buy onClick={() => SetIsSell(false)}>구매 내역</S.Buy>
+				<S.Sell isSell={isSell} onClick={() => SetIsSell(true)}>
+					판매 내역
+				</S.Sell>
+				<S.Buy isSell={isSell} onClick={() => SetIsSell(false)}>
+					구매 내역
+				</S.Buy>
 			</S.Header>
 			<S.Main>
 				{isSell ? (
 					<S.Chatlist className="sell">
-						{sellChat.length > 0 ? (
+						{sellChat?.length > 0 ? (
 							sellChat.map(chat => (
 								<ChatItem
 									key={chat.idx}
 									chat={chat}
-									product={chat.product}
-									lastMessage={chat.lastMessage}
+									setTargetChat={setTargetChat}
 								/>
 							))
 						) : (
@@ -40,13 +40,12 @@ const ChatList = () => {
 					</S.Chatlist>
 				) : (
 					<S.Chatlist className="buy">
-						{buyChat.length > 0 ? (
+						{buyChat?.length > 0 ? (
 							buyChat.map(chat => (
 								<ChatItem
 									key={chat.idx}
 									chat={chat}
-									product={chat.product}
-									lastMessage={chat.lastMessage}
+									setTargetChat={setTargetChat}
 								/>
 							))
 						) : (
@@ -84,7 +83,8 @@ const Header = styled.div`
 	}
 `;
 const Sell = styled.div`
-	background-color: #3cb371;
+	background-color: ${({ theme, isSell }) =>
+		isSell ? theme.PALETTE.primary : theme.PALETTE.gray};
 	color: #ffffff;
 	width: 225px;
 	font-size: 18px;
@@ -95,7 +95,8 @@ const Sell = styled.div`
 `;
 
 const Buy = styled.div`
-	background-color: #d5d5d5;
+	background-color: ${({ theme, isSell }) =>
+		!isSell ? theme.PALETTE.primary : theme.PALETTE.gray};
 	color: #ffffff;
 	width: 225px;
 	font-size: 18px;
