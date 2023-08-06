@@ -30,10 +30,11 @@ const Inputs = ({
 			region: "서울시 성동구 성수동1가",
 			category,
 			tag: taglist,
-			images: imageArr,
+			// images: imageArr,
 		};
 		onInputValuesChange(inputValues);
-	}, [watch, description, price, category, taglist]);
+		console.log("data :", inputValues);
+	}, [watch, description, price, category, taglist, imageArr]);
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");

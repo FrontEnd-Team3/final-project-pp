@@ -10,6 +10,7 @@ import { useState } from "react";
 import ProductApi from "apis/product.api";
 import { useMutation, useQueryClient } from "react-query";
 import QueryKey from "consts/queryKey";
+import { axiosInstance } from "apis/core";
 // import { useQueryClient } from "react-query";
 
 const ProductRegister = () => {
@@ -35,23 +36,22 @@ const ProductRegister = () => {
 		},
 	});
 
-	// 이미지 데이터가 제대로 안들어가고 있음
-	const handleInputValues = inputValues => {
-		setProduct(inputValues);
-	};
-
 	const handleImageChange = imgArr => {
-		setProduct(prevState => ({
-			...prevState,
-			ProductImages: imgArr,
-		}));
-		console.log("이미지들어가는중", product);
+		setProduct({ ProductImages: imgArr });
 	};
 
 	const handleRegionChange = address => {
 		setProduct(prevState => ({
 			...prevState,
 			region: address,
+		}));
+	};
+
+	// 이미지 데이터가 제대로 안들어가고 있음
+	const handleInputValues = inputValues => {
+		setProduct(prevState => ({
+			...prevState,
+			inputValues,
 		}));
 	};
 
@@ -64,19 +64,29 @@ const ProductRegister = () => {
 	const onSubmit = data => {
 		// console.log("물품 등록하기", data);
 		// console.log("등록", product);	formData.append("title", product.title);
+		formData.append("images", product.ProductImages);
+		formData.append("title", product.inputValues.title);
+		formData.append("category", product.inputValues.category);
+		formData.append("description", product.inputValues.description);
+		formData.append("price", product.inputValues.price);
+		formData.append("tag", product.inputValues.tag);
 		formData.append("region", product.region);
-		formData.append("price", product.price);
-		formData.append("description", product.discription);
-		formData.append("images", product.images);
-		formData.append("tag", product.tag);
+		for (let i = 0; i < product.ProductImages.length; i++) {
+			formData.append("images", product.ProductImages[i].file);
+		}
 		axiosInstance
 			.post("/api/product", formData, config)
 			.then(response => {
-				console.log(response.data);
+				console.log("성공", response);
 			})
 			.catch(error => {
-				console.error(error);
+				if (error.response && error.response.data) {
+					console.log("에러", error.response.data); // 서버에서 전달한 상세 에러 메시지 출력
+				} else {
+					console.error("에러", error); // 그 외의 에러인 경우 에러 객체 전체 출력
+				}
 			});
+		console.log(product);
 	};
 
 	return (
@@ -90,7 +100,7 @@ const ProductRegister = () => {
 						watch={watch}
 						setValue={setValue}
 						onInputValuesChange={handleInputValues}
-						imageArr={product.ProductImages}
+						// imageArr={product.ProductImages}
 					/>
 					<S.MapBox>
 						<S.TitleAnother>
