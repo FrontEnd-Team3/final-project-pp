@@ -10,6 +10,7 @@ import MyProfileInfo from "./components/MyprofileInfo";
 const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
+	console.log("userData", userData);
 
 	const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
 	const [imageSrc, setImageSrc] = useState(null);
