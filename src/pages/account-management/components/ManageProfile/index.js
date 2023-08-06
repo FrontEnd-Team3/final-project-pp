@@ -6,11 +6,15 @@ import MyProfileImage from "./components/MyprofileImage";
 import { useState } from "react";
 import AuthApi from "apis/auth.api";
 import MyProfileInfo from "./components/MyprofileInfo";
+import BasicModal from "components/Modal/WithoutButton";
 
 const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
 
+	const [isOpen, setIsOpen] = useState(false);
+
+	const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
 	const [imageSrc, setImageSrc] = useState(null);
 
 	const onUpload = e => {
@@ -39,69 +43,105 @@ const MyProfile = () => {
 	};
 
 	const handleSave = async () => {
-		if (imageSrc) {
+		if (imageSrc || nickNameValue) {
 			try {
+				setIsOpen(true);
 				const inputImageFile = document.getElementById("fileInput").files[0];
-				const response = await AuthApi.userProfileImage(inputImageFile);
-				console.log("이미지 수정사항 저장 성공:", response);
-				return response;
+				if (inputImageFile) {
+					const responseImage = await AuthApi.userProfileImage(inputImageFile);
+					console.log("이미지 수정사항 저장 성공:", responseImage);
+				}
+				const newValue = {
+					nickName: nickNameValue,
+				};
+				const responseInfo = await AuthApi.userProfileInfo(newValue);
+				console.log("nickName 수정사항 저장 성공:", responseInfo);
 			} catch (error) {
-				console.error("이미지 수정사항 저장 실패:", error);
+				console.error("수정사항 저장 실패:", error);
 			}
 		}
 	};
 
 	if (userData) {
 		return (
-			<S.ContentWrapper>
-				<S.NavWrapper>
-					<Nav />
-				</S.NavWrapper>
-				<S.ProfileWrapper>
-					<S.ProfileManagement>프로필 관리</S.ProfileManagement>
-					<S.Line />
-					<S.ProfileImgContainer>
-						<MyProfileImage userData={userData} imageSrc={imageSrc} />
-						<S.ProfileIntroductionContainer>
-							<S.ProfileNickName>{userData?.nick_name}님 </S.ProfileNickName>
-							<S.ProfileIntroduction>
+			<>
+				<S.ContentWrapper>
+					<S.NavWrapper>
+						<Nav />
+					</S.NavWrapper>
+					<S.ProfileWrapper>
+						<S.ProfileManagement>프로필 관리</S.ProfileManagement>
+						<S.Line />
+						<S.ProfileImgContainer>
+							<MyProfileImage userData={userData} imageSrc={imageSrc} />
+							<S.ProfileIntroductionContainer>
+								<S.ProfileNickName>{userData?.nick_name}님 </S.ProfileNickName>
+								<S.ProfileIntroduction>
+									자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
+								</S.ProfileIntroduction>
+								<S.ProfileImgBtnContainer>
+									<input
+										id="fileInput"
+										style={{ display: "none" }}
+										accept="image/*"
+										type="file"
+										onChange={e => onUpload(e)}
+									/>
+									<BasicButton
+										size={"medium"}
+										color={"darkBlack"}
+										children={"이미지 변경"}
+										onClick={handleUploadClick}
+									/>
+									<BasicButton
+										size={"medium"}
+										color={"darkBlack"}
+										children={"이미지 삭제"}
+										onClick={handleDeleteClick}
+									/>
+								</S.ProfileImgBtnContainer>
+							</S.ProfileIntroductionContainer>
+						</S.ProfileImgContainer>
+						<S.Line />
+						<MyProfileInfo
+							userData={userData}
+							setNickNameValue={setNickNameValue}
+						/>
+						<S.Line />
+						<S.IntroducationTitle>소개</S.IntroducationTitle>
+						<S.IntroducationContainer>
+							<S.Introducation>
 								자기소개 페이지입니다. 날 펙트로 정의 하자면 퍼펙트.
-							</S.ProfileIntroduction>
-							<S.ProfileImgBtnContainer>
-								<input
-									id="fileInput"
-									style={{ display: "none" }}
-									accept="image/*"
-									type="file"
-									onChange={e => onUpload(e)}
-								/>
-								<BasicButton
-									size={"medium"}
-									color={"darkBlack"}
-									children={"이미지 변경"}
-									onClick={handleUploadClick}
-								/>
-								<BasicButton
-									size={"medium"}
-									color={"darkBlack"}
-									children={"이미지 삭제"}
-									onClick={handleDeleteClick}
-								/>
-							</S.ProfileImgBtnContainer>
-						</S.ProfileIntroductionContainer>
-					</S.ProfileImgContainer>
-					<S.Line />
-					<MyProfileInfo userData={userData} />
-					<S.Line />
-					<BasicButton
-						size={"medium"}
-						color={"darkBlack"}
-						children={"변경사항 저장"}
-						style={{ marginTop: "80px" }}
-						onClick={handleSave}
+							</S.Introducation>
+							<BasicButton
+								size={"account"}
+								color={"darkBlack"}
+								children={"변경"}
+							/>
+						</S.IntroducationContainer>
+						<S.Line />
+						<BasicButton
+							size={"medium"}
+							color={"darkBlack"}
+							children={"변경사항 저장"}
+							style={{ marginTop: "80px" }}
+							onClick={handleSave}
+						/>
+					</S.ProfileWrapper>
+				</S.ContentWrapper>
+				{isOpen && (
+					<BasicModal
+						background={"gray"}
+						subtitle={"primary"}
+						title={"primary"}
+						container={"primary"}
+						position={"primary"}
+						titlement={"Have been saved!"}
+						subtitlement={"수정이 완료되었습니다"}
+						onClickOutside={() => setIsOpen(false)}
 					/>
-				</S.ProfileWrapper>
-			</S.ContentWrapper>
+				)}
+			</>
 		);
 	}
 };
@@ -192,7 +232,7 @@ const Name = styled.div`
 	margin-top: 16px;
 `;
 const IntroducationTitle = styled.div`
-	margin-top: 80px;
+	margin-top: 40px;
 	color: #8a8a8a;
 `;
 const IntroducationContainer = styled.div`

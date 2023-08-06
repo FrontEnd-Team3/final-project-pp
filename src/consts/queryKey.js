@@ -10,6 +10,7 @@ const QueryKey = {
 	chatRoom: "chatRoom",
 	chatLogs: "chatLogs",
 	productChat: "productChat",
+	searchData: "searchData",
 };
 
 export default QueryKey;

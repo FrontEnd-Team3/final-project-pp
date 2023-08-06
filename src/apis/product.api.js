@@ -19,7 +19,27 @@ const ProductApi = {
 		await axiosInstance.post(PATH + "/viewed-list", (params = { ...params })),
 	deleteRecentlyViewedProducts: async prod_idx =>
 		await axiosInstance.delete(PATH + `/viewed-list?prod_idx=${prod_idx}`),
-	addProduct: async productData => await axios.post(PATH, productData),
+	// 물품 추가
+	addProduct: async productData =>
+		await axiosInstance.post(PATH, productData, {
+			headers: { "Content-Type": "multipart/form-data" },
+		}),
+
+	// 물품 수정
+	updateProduct: async productData =>
+		await axiosInstance.patch(PATH, productData),
+
+	// 물품 검색
+	searchProduct: async ({ category, keyword, page }) =>
+		await axiosInstance.get(PATH + `/search`, {
+			params: { category, keyword, page },
+		}),
+
+	// 물품 시세 검색
+	searchProduct: async ({ keyword, start, end }) =>
+		await axiosInstance.get(PATH + `/quote`, {
+			params: { keyword, start, end },
+		}),
 };
 
 export default ProductApi;

@@ -14,7 +14,7 @@ const ValidateInput = ({
 }) => {
 	return (
 		<S.SignWrapper>
-			<S.Title>{label}</S.Title>
+			{label && <S.Title>{label}</S.Title>}
 			<Controller
 				name={name}
 				control={control}
