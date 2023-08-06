@@ -29,12 +29,8 @@ const ChatQueryApi = {
 			() => ChatApi.getChatLogs(room_idx),
 			QueryConfig,
 		),
-	getChatList: params =>
-		useQueryData(
-			[QueryKey.chatList],
-			() => ChatApi.getChatList(params),
-			QueryConfig,
-		),
+	getChatList: () =>
+		useQueryData([QueryKey.chatList], () => ChatApi.getChatList(), QueryConfig),
 	getSpecificChatList: (prod_idx, params) =>
 		useQueryData([QueryKey.productChat], () =>
 			ChatApi.getSpecificChatList(prod_idx, params),

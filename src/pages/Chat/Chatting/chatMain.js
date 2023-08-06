@@ -6,10 +6,12 @@ import ChatQueryApi from "apis/chat.api.query";
 import getUserData from "utils/getUserData";
 import { useState } from "react";
 import OtherChat from "./otherChat";
+import ChatApi from "apis/chat.api";
 
 const ChatMain = ({ targetChat }) => {
 	// 대화 내역 가져오기
 	const { data } = ChatQueryApi.getChatLogs(parseInt(targetChat));
+	console.log("target", targetChat);
 	let nick_name;
 	const DATA = getUserData();
 	if (DATA) nick_name = DATA.nick_name;
@@ -51,7 +53,6 @@ const ChatMain = ({ targetChat }) => {
 	// console.log("filtered", filteredByUser);
 
 	// 전송 시 input 값 전송
-	const [sendedContents, setSendedContents] = useState([]);
 	const [inputVal, setInputVal] = useState("");
 	const handleInput = e => {
 		setInputVal(e.target.value);
@@ -60,28 +61,35 @@ const ChatMain = ({ targetChat }) => {
 	const handleChatContent = e => {
 		e.preventDefault();
 		console.log(inputVal);
-		setSendedContents(prev => [...prev, inputVal]);
+		try {
+			ChatApi.saveMessages({
+				room_idx: parseInt(targetChat),
+				message: inputVal,
+			}).then(res => console.log("save", res));
+		} catch (err) {
+			console.error(err);
+		}
 		setInputVal("");
 	};
 
 	return (
 		<S.ChatMainWrapper>
 			{filteredByUser &&
-				filteredByUser.map(list => (
-					<S.Chat>
+				filteredByUser.map((list, i) => (
+					<S.Chat key={i}>
 						<S.day>{list?.date}</S.day>
 						<S.hr />
-						{list?.logs?.map(content =>
+						{list?.logs?.map((content, i) =>
 							content.isMine ? (
 								<MyChat
-									key={content.createdAt}
+									key={i}
 									createdAt={content.createdAt}
 									message={content.message}
 									user={content.User}
 								/>
 							) : (
 								<OtherChat
-									key={content.createdAt}
+									key={i}
 									createdAt={content.createdAt}
 									message={content.message}
 									user={content.User}
