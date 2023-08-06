@@ -19,7 +19,6 @@ import Review from "pages/my-page/components/Review";
 import AccountManagement from "pages/account-management";
 import Chat from "pages/Chat";
 
-
 const router = createBrowserRouter([
 	{
 		element: (

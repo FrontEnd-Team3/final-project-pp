@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import FakeProfile from "./bud.png";
 
 const MyChat = ({ createdAt, message, user }) => {
+	console.log("내 프로필 사진", user.profile_url);
 	return (
 		<S.MyChats>
 			<S.OneChat>
@@ -14,7 +16,7 @@ const MyChat = ({ createdAt, message, user }) => {
 						<S.MyNickname>{user.nick_name}</S.MyNickname>
 					</S.My>
 					<S.MyImg>
-						<S.Mimg src={user.profile_url} />
+						<S.Mimg src={user.profile_url || FakeProfile} />
 					</S.MyImg>
 				</S.MyWrapper>
 			</S.OneChat>
