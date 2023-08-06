@@ -5,6 +5,7 @@ const QueryKey = {
 	userData: "userData",
 	userDetail: "userDetail",
 	userProductData: "userProductData",
+	searchData: "searchData",
 };
 
 export default QueryKey;
