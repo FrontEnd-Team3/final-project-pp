@@ -14,20 +14,9 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 	const onChangeImage = async e => {
 		const files = e.target.files; // input에 file 선택, e.target.files 파일 선택목록 가져오는 로직, files에 저장
 
-		const updatedImages = [];
-		const updatedDBImages = [];
+		const updatedImages = [...imageArr];
+		const updatedDBImages = [...imageDBArr];
 
-		// for (let i = 0; i < files.length; i++) {
-		// 	const file = files[i];
-		// 	const reader = new FileReader();
-
-		// 	reader.onload = () => {
-		// 		console.log(reader.result);
-		// 		updatedImages[i] = reader.result;
-		// 		setImageArr([...updatedImages].slice(0, 5));
-		// 	};
-		// 	reader.readAsDataURL(file);
-		// }
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
 			const reader = new FileReader();
