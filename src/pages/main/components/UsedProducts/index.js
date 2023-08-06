@@ -18,7 +18,7 @@ const UsedProduct = ({ region, list }) => {
 	// 토큰 없으면 로그인 창으로 이동하는 모달 띄우기
 	const [hasToken, setHasToken] = useState(false);
 
-	console.log("list", list);
+	// console.log("list", list);
 	return (
 		<>
 			{hasToken

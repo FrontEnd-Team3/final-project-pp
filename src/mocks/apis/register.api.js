@@ -11,7 +11,7 @@ export const addProduct = rest.post("/api/product", async (req, res, ctx) => {
 	let region;
 	let category;
 	let ProductsTags;
-	let ProductImages;
+	let images;
 
 	await req.json().then(data => {
 		title = data.title;
@@ -20,73 +20,73 @@ export const addProduct = rest.post("/api/product", async (req, res, ctx) => {
 		region = data.region;
 		category = data.category;
 		ProductsTags = data.ProductsTags;
-		ProductImages = data.ProductImages;
+		images = data.images;
 	});
 
 	return res(
 		ctx.status(200),
 		ctx.json({
-			// idx: Math.floor(Math.random() * 100000),
-			// title,
-			// price,
-			// description,
-			// region,
-			// category,
-			// ProductsTags,
-			// ProductImages,
+			// idx: parseInt(prod_idx),
+			title,
+			price,
+			description,
+			region,
+			category,
+			ProductsTags,
+			images,
 			// created_at: new Date(),
 			// img_url: ProductImages[0],
 			// Liked: 0,
 			// status: "판매중",
 			// User: {},
 			// chat: [],
-			idx: parseInt(prod_idx),
+			// idx: parseInt(prod_idx),
 		}),
 	);
 });
 
 // 물품 수정
-export const updateProducts = rest.patch(
-	"/api/product",
-	async (req, res, ctx) => {
-		let idx;
-		let title;
-		let price;
-		let description;
-		let category;
-		let region;
-		let ProductsTags;
-		let img_url;
-		let main_url;
-		let ProductImages;
+// export const updateProducts = rest.patch(
+// 	"/api/product",
+// 	async (req, res, ctx) => {
+// 		let idx;
+// 		let title;
+// 		let price;
+// 		let description;
+// 		let category;
+// 		let region;
+// 		let ProductsTags;
+// 		let img_url;
+// 		let main_url;
+// 		let ProductImages;
 
-		await req.json().then(data => {
-			idx = data.idx;
-			title = data.title;
-			price = data.price;
-			description = data.description;
-			category = data.category;
-			region = data.region;
-			ProductsTags = data.ProductsTags;
-			img_url = data.img_url;
-			main_url = data.main_url;
-			ProductImages = data.ProductImages;
-		});
+// 		await req.json().then(data => {
+// 			idx = data.idx;
+// 			title = data.title;
+// 			price = data.price;
+// 			description = data.description;
+// 			category = data.category;
+// 			region = data.region;
+// 			ProductsTags = data.ProductsTags;
+// 			img_url = data.img_url;
+// 			main_url = data.main_url;
+// 			ProductImages = data.ProductImages;
+// 		});
 
-		return res(
-			ctx.status(200),
-			ctx.json({
-				// idx,
-				// title,
-				// price,
-				// description,
-				// category,
-				// region,
-				// ProductsTags,
-				// img_url,
-				// ProductImages,
-				message: "success",
-			}),
-		);
-	},
-);
+// 		return res(
+// 			ctx.status(200),
+// 			ctx.json({
+// 				// idx,
+// 				// title,
+// 				// price,
+// 				// description,
+// 				// category,
+// 				// region,
+// 				// ProductsTags,
+// 				// img_url,
+// 				// ProductImages,
+// 				message: "success",
+// 			}),
+// 		);
+// 	},
+// );

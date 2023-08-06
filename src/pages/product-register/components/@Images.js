@@ -3,48 +3,27 @@ import { flexCenter } from "styles/common";
 import { AiFillCamera } from "react-icons/ai";
 import { useEffect, useRef } from "react";
 import { TiDelete } from "react-icons/ti";
-const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
+const Images = ({ imageArr, setImageArr }) => {
 	const fileInput = useRef(null); // ref로 input 태그 참조
 
 	useEffect(() => {
-		console.log(imageArr, imageDBArr);
-	}, [imageArr, imageDBArr]);
+		console.log(imageArr);
+	}, [imageArr]);
 
 	// 이미지 상대 경로 저장
-	const onChangeImage = async e => {
+	const onChangeImage = e => {
 		const files = e.target.files; // input에 file 선택, e.target.files 파일 선택목록 가져오는 로직, files에 저장
 
-		const updatedImages = [];
-		const updatedDBImages = [];
+		// 각 파일의 URL을 배열로 만드는 작업
 
-		// for (let i = 0; i < files.length; i++) {
-		// 	const file = files[i];
-		// 	const reader = new FileReader();
+		const newImages = Array.from(files).map(
+			imgFile => URL.createObjectURL(imgFile), // URL.createObjectURL 해당 파일 url 생성하는 메서드
+		);
 
-		// 	reader.onload = () => {
-		// 		console.log(reader.result);
-		// 		updatedImages[i] = reader.result;
-		// 		setImageArr([...updatedImages].slice(0, 5));
-		// 	};
-		// 	reader.readAsDataURL(file);
-		// }
-		for (let i = 0; i < files.length; i++) {
-			const file = files[i];
-			const reader = new FileReader();
+		// 이미지 배열에 추가, 최대 5개까지 가능
+		const updatedImages = [...imageArr, ...newImages].slice(0, 5);
 
-			// base64 인코딩된 이미지를 바이너리 데이터로 변환
-			const binaryData = await new Promise(resolve => {
-				reader.onload = () => {
-					resolve(reader.result.split(",")[1]);
-				};
-				reader.readAsDataURL(file);
-			});
-			updatedImages.push(URL.createObjectURL(file));
-			updatedDBImages.push(binaryData);
-		}
-		console.log("test", updatedDBImages);
-		setImageArr(updatedImages.slice(0, 5));
-		setImageDBArr(updatedDBImages.slice(0, 5));
+		setImageArr(updatedImages);
 	};
 
 	// 개별 이미지 삭제 로직
@@ -65,7 +44,7 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 						<S.RegisterLabel htmlFor="registerImg">이미지 등록</S.RegisterLabel>
 						<S.RegisterInput
 							ref={fileInput}
-							onChange={e => onChangeImage(e)}
+							onChange={onChangeImage}
 							type="file"
 							accept="image/*"
 							multiple

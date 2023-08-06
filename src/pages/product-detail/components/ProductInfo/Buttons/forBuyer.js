@@ -2,64 +2,111 @@ import styled from "styled-components";
 import BasicButton from "components/Button";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { userList } from "mocks/data/user/userList";
 import bookmarkFill from "./bookmarkfull.png";
 import bookmarkEmpty from "./bookmark.png";
 import ProductQueryApi from "apis/product.query.api";
+import getUserData from "utils/getUserData";
+import ChatApi from "apis/chat.api";
 
-const ButtonsForBuyer = ({ bookmark }) => {
-	// 처음 화면이 열렸을 때 찜한 개수는 상품 상세 정보, 북마크 되었는지 아이콘 표시는 유저 정보에서 받아와야 함
+const BOOKMARK_KEY = "bookmarkedProducts";
 
-	const [isBookmarked, setIsBookmarked] = useState(true);
-	const [likedCount, setLikedCount] = useState(bookmark);
+const ButtonsForBuyer = ({ bookmark, chat }) => {
+	const [isBookmarked, setIsBookmarked] = useState(false);
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const { refetch } = ProductQueryApi.getProductDetail(id);
+
+	const DATA = getUserData();
+	let nick_name;
+	if (DATA) nick_name = DATA.nick_name;
 
 	useEffect(() => {
-		const bool = userList.some(product => product.idx === parseInt(id));
-		setIsBookmarked(bool);
-	}, []);
+		// Check if the product is bookmarked in local storage on component mount
+		const bookmarkedProducts =
+			JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
+		setIsBookmarked(bookmarkedProducts.includes(id));
+	}, [id]);
 
 	const successFn = res => {
-		console.log("찜하기", res);
-		setLikedCount(res?.data?.data);
 		setIsBookmarked(res?.data?.message);
+		refetch();
 	};
 
-	const bookmarkData = ProductQueryApi.updateLikeStatus(
-		id,
-		{ prod_idx: id, isBookmarked },
-		successFn,
-	);
+	const bookmarkData = ProductQueryApi.updateLikeStatus(id, {
+		prod_idx: parseInt(id),
+	});
 
-	const likeProduct = () => {
-		bookmarkData.mutate();
+	const likeProduct = async () => {
+		try {
+			const res = await bookmarkData.mutateAsync();
+			// console.log("Wish", res);
+			successFn(res);
+			const bookmarkedProducts =
+				JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
+			if (isBookmarked) {
+				localStorage.setItem(
+					BOOKMARK_KEY,
+					JSON.stringify(
+						bookmarkedProducts.filter(productId => productId !== id),
+					),
+				);
+			} else {
+				localStorage.setItem(
+					BOOKMARK_KEY,
+					JSON.stringify([...bookmarkedProducts, id]),
+				);
+			}
+		} catch (error) {
+			console.error("Save Error:", error);
+		}
+	};
+
+	const startChat = () => {
+		const bool = chat.some(el => {
+			console.log("닉네임", el.User.nick_name, nick_name);
+			return el.User.nick_name !== nick_name;
+		});
+		console.log("chatlength", chat.length);
+		console.log("bool", bool);
+		if (!chat.length && !bool) {
+			console.log("hi");
+			try {
+				ChatApi.createChatRoom(parseInt(id)).then(res => {
+					console.log("start", res);
+					ChatApi.saveMessages({
+						room_idx: res.data?.idx,
+						message: "너 나한테 물건을 팔아라!",
+					}).then(res => console.log("save", res));
+				});
+			} catch (err) {
+				console.error("error", err);
+			}
+		}
+		navigate("/Chat");
 	};
 
 	return (
 		<>
-			<S.ProductButtons>
+			<ProductButtons>
 				<BasicButton
 					color={"gray"}
 					size={"xxsmall"}
 					children={
 						<>
 							{isBookmarked ? (
-								<S.BookmarkIcon src={bookmarkFill} />
+								<BookmarkIcon src={bookmarkFill} />
 							) : (
-								<S.BookmarkIcon src={bookmarkEmpty} />
+								<BookmarkIcon src={bookmarkEmpty} />
 							)}
-							{
-								<span
-									style={{
-										fontSize: "25px",
-										marginLeft: "5px",
-										fontWeight: "bold",
-									}}
-								>
-									{likedCount}
-								</span>
-							}
+							<span
+								style={{
+									fontSize: "25px",
+									marginLeft: "5px",
+									fontWeight: "bold",
+								}}
+							>
+								{bookmark}
+							</span>
 						</>
 					}
 					onClick={() => {
@@ -77,9 +124,9 @@ const ButtonsForBuyer = ({ bookmark }) => {
 						height: "50px",
 						fontWeight: "bold",
 					}}
-					onClick={() => navigate("/Chat")}
+					onClick={startChat}
 				/>
-			</S.ProductButtons>
+			</ProductButtons>
 		</>
 	);
 };
@@ -96,5 +143,3 @@ const BookmarkIcon = styled.img`
 	width: 20px;
 	height: 20px;
 `;
-
-const S = { ProductButtons, BookmarkIcon };

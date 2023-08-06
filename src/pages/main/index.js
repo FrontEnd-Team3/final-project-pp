@@ -6,12 +6,23 @@ import RecentlyClicked from "components/RecentlyClicked";
 import UsedProduct from "./components/UsedProducts";
 import FreeProduct from "./components/FreeProducts";
 import ProductQueryApi from "apis/product.query.api";
+import { useQueryClient } from "react-query";
+import QueryKey from "consts/queryKey";
+import Loading from "components/Loading";
 
 const Main = () => {
-	const { data } = ProductQueryApi.getProductList();
-	console.log("main", data);
+	const queryClient = useQueryClient();
 
-	// if (isLoading) return <Loading />;
+	const { data, isLoading, error } = ProductQueryApi.getProductList();
+
+	// console.log("main", data);
+
+	if (isLoading) return <Loading />;
+
+	if (error) {
+		window.location.reload();
+		queryClient.refetchQueries(QueryKey.productData);
+	}
 
 	return (
 		<>

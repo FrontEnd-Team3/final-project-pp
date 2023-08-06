@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked";
@@ -7,12 +7,17 @@ import Loading from "components/Loading";
 import ProductQueryApi from "apis/product.query.api";
 import ProductInfo from "./components/ProductInfo";
 import OtherProducts from "./components/OtherProducts";
+import ProductApi from "apis/product.api";
 
 const ProductDetailPage = () => {
 	const { id } = useParams();
 
 	const { data, isLoading, isError } = ProductQueryApi.getProductDetail(id);
 	console.log("상품상세", data);
+
+	useEffect(() => {
+		ProductApi.addRecentlyViewedProducts({ prod_idx: parseInt(id) });
+	}, []);
 
 	if (isLoading) {
 		return <Loading />;

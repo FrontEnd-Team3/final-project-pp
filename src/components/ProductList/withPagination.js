@@ -2,8 +2,10 @@ import styled from "styled-components";
 import OneProduct from "./oneProduct";
 import { useState } from "react";
 import Pagination from "components/Pagination";
+import TokenRepository from "repositories/TokenRepository";
 
 const ProductList = ({ productList }) => {
+	console.log("token", TokenRepository.getToken());
 	console.log("관련상품", productList);
 	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);

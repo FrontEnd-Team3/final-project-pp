@@ -1,25 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GoBookmark } from "react-icons/go";
 import ImageSlide from "./imageSlide";
 import ScrollToTop from "./scrollToTop";
+import ProductQueryApi from "apis/product.query.api";
+import { useParams } from "react-router-dom";
 
 const RecentlyClicked = () => {
 	// 추후 API로 데이터 들어오면 수정
 	const [likes, setLikes] = useState(0);
+	const { id } = useParams();
 
-	return (
-		<S.Container>
-			<S.Top>
-				찜한 상품 <GoBookmark color="white" size="22" /> {likes}
-			</S.Top>
-			<S.Middle>
-				<div className="title">최근 본 상품</div>
-				<ImageSlide />
-			</S.Middle>
-			<ScrollToTop />
-		</S.Container>
-	);
+	const { data, error, refetch } = ProductQueryApi.getRecentlyViewedProducts();
+
+	useEffect(() => {
+		refetch();
+	}, [id]);
+
+	// console.log("recently", data);
+
+	if (error) {
+		window.location.reload();
+		queryClient.refetchQueries(QueryKey.recentlyViewed);
+	}
+
+	if (data) {
+		return (
+			<S.Container>
+				<S.Top>
+					찜한 상품 <GoBookmark color="white" size="22" /> {likes}
+				</S.Top>
+				<S.Middle>
+					<div className="title">최근 본 상품</div>
+					<ImageSlide productList={data?.productList} />
+				</S.Middle>
+				<ScrollToTop />
+			</S.Container>
+		);
+	}
 };
 
 export default RecentlyClicked;

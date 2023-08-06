@@ -10,7 +10,6 @@ const ProductQueryApi = {
 			[QueryKey.productData],
 			ProductApi.getProductList,
 			QueryConfig,
-			{},
 		),
 	getProductDetail: id =>
 		useQueryData(
@@ -29,12 +28,57 @@ const ProductQueryApi = {
 			() => ProductApi.updateProductStatus(id),
 			[QueryKey.productDetail, id],
 		),
-	updateLikeStatus: (id, params, successFn) =>
+	updateLikeStatus: (id, params) =>
 		useMutateData(
-			() => ProductApi.updateLikeStatus(id, params),
+			() => ProductApi.updateLikeStatus(params),
 			[QueryKey.productDetail, id],
+		),
+	getRecentlyViewedProducts: () =>
+		useQueryData(
+			[QueryKey.recentlyViewed],
+			ProductApi.getRecentlyViewedProducts,
+			QueryConfig,
+		),
+	addRecentlyViewedProducts: successFn =>
+		useMutateData(
+			() => ProductApi.addRecentlyViewedProducts,
+			[QueryKey.recentlyViewed],
 			successFn,
 		),
+	deleteRecentlyViewedProducts: successFn =>
+		useMutateData(
+			() => ProductApi.deleteRecentlyViewedProducts,
+			[QueryKey.recentlyViewed],
+			successFn,
+		),
+	// 물품 등록
+	addProduct: product => {
+		useMutateData(
+			() => ProductApi.addProduct(product),
+			[QueryKey.productRegister],
+		);
+	},
+
+	// 데이터 갱신
+	updateProduct: (product, successFn, id) =>
+		useMutateData(
+			() => ProductApi.updateProduct(product),
+			[QueryKey.productRegister, id],
+			successFn,
+		),
+
+	// 데이터 수정 눌렀을 때 이전 데이터 조회
+	// 추후 idx를 줄 예정
+	getRegisterProduct: () =>
+		useQueryData(
+			[QueryKey.productRegister],
+			ProductApi.getProductList,
+			QueryConfig,
+		),
+
+	// 검색 결과
+	searchProductList: () =>
+		useQueryData([QueryKey.searchData], ProductApi.searchProduct, QueryConfig),
 };
 
 export default ProductQueryApi;

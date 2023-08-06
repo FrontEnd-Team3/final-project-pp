@@ -4,43 +4,91 @@ import { useEffect, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
-// import { RegisterSchema } from "consts/registerschema";
 import { replacePrice } from "utils/priceNum";
-const Inputs = ({ control, errors, watch, setValue }) => {
+import useToggle from "hooks/useToggle";
+import { tagCategory } from "mocks/data/products/category";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { RegisterSchema } from "consts/registerschema";
+import Map from "./map";
+import { useMutation, useQueryClient } from "react-query";
+import ProductApi from "apis/product.api";
+import Images from "./Images";
+const Inputs = () => {
+	const {
+		handleSubmit,
+		control,
+		watch,
+		setValue,
+		formState: { errors },
+	} = useForm({
+		resolver: yupResolver(RegisterSchema),
+		mode: "onChange",
+	});
+
+	const [imageArr, setImageArr] = useState([]); // 이미지 담을 배열
+	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
-	const [price, setPrice] = useState();
+	const [price, setPrice] = useState("");
+	const [address, setAddress] = useState("서울시 성동구 성수동1가");
+	const { isToggle, setIsToggle, Toggle } = useToggle();
 
-	// RegisterSchema.validate()
-	// 	.then(() => {
-	// 		console.log("검사 성공");
-	// 	})
-	// 	.catch(error => {
-	// 		console.log("검사 실패:", error.message);
-	// 	});
+	const queryClient = useQueryClient();
+
+	const { mutate } = useMutation(data => ProductApi.addProduct(data), {
+		onSuccess: async () => {
+			await queryClient.invalidateQueries(["registers"]);
+		},
+	});
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
+
+	// 입력값 enter로 태그 추가
 	const handleKeyPress = e => {
 		if (e.key === "Enter") {
 			e.preventDefault();
-			const tag = {
-				idx: Math.floor(Math.random() * 100000),
-				Tag: {
-					tag: e.target.value,
-				},
-			};
+
+			// 빈값 추가 막기
+			if (e.target.value.trim() === "") return;
+
+			// 중복값 막기
+			const isDuplicate = taglist.some(
+				tagItem => tagItem === e.target.value.trim(),
+			);
+
+			if (isDuplicate) return;
+
 			if (taglist.length < 5) {
-				setTaglist(prev => [...prev, tag]);
+				setTaglist(prev => [...prev, e.target.value]);
 			}
 			setValue("tag", "");
 		}
 	};
 
+	// 태그 카테고리 li 클릭 시 태그 추가
+	const handleAddTaglist = content => {
+		// 중복값 막기
+		const isDuplicate = taglist.some(tagItem => tagItem === content);
+
+		if (isDuplicate) {
+			setIsToggle(false);
+		}
+
+		if (!isDuplicate) {
+			setTaglist(prev => [...prev, content].slice(0, 5));
+			setIsToggle(false);
+		}
+	};
+
 	// 상품 설명 글자수
 	const handleDescription = e => {
-		setDescription(e.target.value);
+		const inputValue = e.target.value;
+		// 엔터 두번 이상이면 무조건 한 번으로 인식하게 하는 로직(엔터 남발 방지)
+		const enterEditValue = inputValue.replace(/\n{3,}/g, "\n\n");
+		setDescription(enterEditValue);
 	};
 
 	// 체크 여부
@@ -55,8 +103,9 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 			setValue("price", "0");
 		} else if (!category) {
 			const newWatchPrice = replacePrice(watchPrice);
-			setValue("price", newWatchPrice);
-			setPrice(newWatchPrice);
+			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; // 변환값이 0이면 빈값으로 초기화, 그렇지 않은 경우 입력값 사용(0,003원 이런식으로 입력되는 버그 수정해야함)
+			setValue("price", priceValue);
+			setPrice(priceValue);
 			console.log("price", price);
 		}
 	}, [watchPrice, setValue, category]);
@@ -68,8 +117,44 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 		setTaglist(updateTags);
 	};
 
+	const onSubmit = data => {
+		// console.log("물품 등록하기", data);
+		console.log("title: ", data.title);
+		console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
+		console.log("description: ", description);
+		console.log("region: ", address);
+		console.log("tag: ", taglist);
+		console.log("images: ", imageDBArr);
+		console.log("category: ", category ? 1 : 0);
+		try {
+			const formData = new FormData();
+			formData.append("title", data.title);
+			formData.append("region", address);
+			formData.append(
+				"price",
+				category ? 0 : Number(price?.replace(",", "") || 0),
+			);
+			formData.append("description", description);
+			formData.append("category", category ? 1 : 0);
+			formData.append("tag", taglist);
+			// formData.append("images", imageArr);
+			for (let i = 0; i < imageDBArr.length; i++) {
+				formData.append("images", imageDBArr[i]);
+			}
+			mutate(formData);
+		} catch (error) {
+			console.error("데이터 저장에 실패했습니다:", error);
+		}
+	};
+
 	return (
-		<div>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<Images
+				imageArr={imageArr}
+				setImageArr={setImageArr}
+				imageDBArr={imageDBArr}
+				setImageDBArr={setImageDBArr}
+			/>
 			<S.InputBox>
 				<OneController
 					name="title"
@@ -97,18 +182,27 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 						color={"primary"}
 						size={"primary"}
 						style={{ padding: "18px", width: "100%", marginTop: "20px" }}
-						placeholder="태그를 선택하거나 입력할 수 있습니다.(태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요) / 추후에 form으로 감싸거나 enter 이벤트 줘야함!"
+						placeholder="태그를 선택하거나 입력할 수 있습니다. 태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요"
 						onKeyPress={handleKeyPress}
 						maxLength={6}
 					/>
 					<S.ArrowDownIcon>
-						<AiFillCaretDown />
+						<S.Icon onClick={Toggle} isopen={isToggle} />
 					</S.ArrowDownIcon>
+					{isToggle && (
+						<S.TagCateroryUl>
+							{tagCategory.map(onetag => (
+								<li onClick={() => handleAddTaglist(onetag.content)}>
+									{onetag.content}
+								</li>
+							))}
+						</S.TagCateroryUl>
+					)}
 				</S.InputTop>
 				<S.TagsBox>
 					{taglist.map(tagItem => (
 						<BasicButton key={tagItem.idx} color={"white"}>
-							#{tagItem.Tag.tag}
+							#{tagItem}
 							<GrFormClose
 								onClick={() => {
 									handleDelete(tagItem.idx);
@@ -171,6 +265,7 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 						padding: "16px",
 						height: "3rem",
 						margin: "60px 10px 60px 130px",
+						backgroundColor: category ? "#ddd" : "initial",
 					}}
 				/>
 				<S.Title style={{ top: "68px" }}>
@@ -178,11 +273,56 @@ const Inputs = ({ control, errors, watch, setValue }) => {
 					<S.Won>원</S.Won>
 				</S.Title>
 			</S.InputBox>
-		</div>
+			<S.MapBox>
+				<S.TitleAnother>
+					위치 설정 <S.Essential>*</S.Essential>
+				</S.TitleAnother>
+				<Map address={address} setAddress={setAddress} />
+			</S.MapBox>
+			<S.SubmitBtns>
+				<BasicButton size={"medium"} color={"primary"}>
+					등록하기
+				</BasicButton>
+				<BasicButton size={"medium"} color={"white"}>
+					취소
+				</BasicButton>
+			</S.SubmitBtns>
+		</form>
 	);
 };
 
 export default Inputs;
+
+const TitleAnother = styled.p`
+	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
+	font-weight: bold;
+`;
+
+const SubmitBtns = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	button {
+		margin-left: 20px;
+		font-weight: bold;
+		transition: background 0.1s;
+		font-size: ${({ theme }) => theme.FONT_SIZE.small};
+	}
+	button:hover {
+		background: rgba(60, 179, 113, 0.9);
+	}
+
+	button:last-of-type {
+		color: ${({ theme }) => theme.PALETTE.primary};
+		transition: background 0.1s;
+	}
+	button:last-of-type:hover {
+		background: transparent;
+	}
+`;
+
+const MapBox = styled.div`
+	margin: 30px 0;
+`;
 
 const Won = styled.span`
 	font-weight: 400;
@@ -226,7 +366,6 @@ const InputBoxAnother = styled.div`
 `;
 
 const InputTop = styled.div`
-	/* display: flex; */
 	justify-content: space-between;
 	align-items: center;
 	position: relative;
@@ -238,7 +377,39 @@ const ArrowDownIcon = styled.div`
 	top: 18px;
 	cursor: pointer;
 	padding: 20px 16px 10px;
-	svg {
+`;
+
+const Icon = styled(AiFillCaretDown)`
+	transform: ${({ isopen }) => (isopen ? "rotate(180deg)" : "rotate(0deg)")};
+`;
+
+const TagCateroryUl = styled.ul`
+	background-color: #ddd;
+	width: 900px;
+	height: 170px;
+	overflow: auto;
+	position: absolute;
+	z-index: 10;
+	background-color: #f1f1f1;
+	font-weight: 500;
+
+	li {
+		cursor: pointer;
+		padding: 18px 0 9px 18px;
+	}
+
+	li:hover {
+		color: ${({ theme }) => theme.PALETTE.primary};
+		font-weight: bold;
+		background-color: rgba(255, 255, 255, 1);
+	}
+
+	li:nth-child(even) {
+		background-color: #f9f9f9;
+	}
+
+	li:nth-child(even):hover {
+		background-color: rgba(255, 255, 255, 0.8);
 	}
 `;
 
@@ -297,6 +468,9 @@ const Checkbox = styled.input`
 `;
 
 const S = {
+	SubmitBtns,
+	MapBox,
+	TitleAnother,
 	Won,
 	InputBox,
 	InputBoxAnother,
@@ -310,4 +484,6 @@ const S = {
 	Checkbox,
 	TagsBox,
 	ArrowDownIcon,
+	Icon,
+	TagCateroryUl,
 };
