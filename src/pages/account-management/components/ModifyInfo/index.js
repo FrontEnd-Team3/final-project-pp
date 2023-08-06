@@ -28,6 +28,9 @@ const AccountPrivacy = () => {
 				setIsOpen(true);
 				const responseInfo = await AuthApi.userProfileInfo(newValue);
 				console.log("개인정보 수정사항 저장 성공:", responseInfo);
+				const pw = passwordValue;
+				const reponsePasswordInfo = await AuthApi.userPasswordInfo(pw);
+				console.log("비밀번호 수정 저장 성공:", reponsePasswordInfo);
 			} catch (error) {
 				console.error("개인정보 저장 실패:", error);
 			}
