@@ -3,10 +3,9 @@ import SearchAddress from "components/SearchAddress";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const Map = ({ onRegionChange }) => {
+const Map = ({ address, setAddress }) => {
 	const { kakao } = window;
 	const [isOpen, setIsOpen] = useState(false);
-	const [address, setAddress] = useState("서울시 성동구 성수동1가");
 	const [map, setMap] = useState(null);
 	const [marker, setMarker] = useState(null);
 
@@ -20,21 +19,6 @@ const Map = ({ onRegionChange }) => {
 		// 지도 생성 .
 		const map = new kakao.maps.Map(container, options);
 		setMap(map);
-		// kakao.maps.event.addListener(map, "click", function (mouseEvent) {
-		// 	var latlng = mouseEvent.latLng;
-		// 	const geocoder = new kakao.maps.services.Geocoder();
-		// 	var coords = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
-		// 	var marker = new kakao.maps.Marker({
-		// 		map: map,
-		// 		position: coords,
-		// 	});
-		// 	setMarker(marker);
-		// 	geocoder.addressSearch(coords, function (result, status) {
-		// 		if (status === kakao.maps.services.Status.OK) {
-		// 			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		// 		}
-		// 	});
-		// });
 	}, []);
 
 	// 위치 변경시 지도에 마크 찍히게

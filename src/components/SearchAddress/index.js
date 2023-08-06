@@ -7,13 +7,12 @@ const SearchAddress = ({ setAddress, setIsOpen, setValue }) => {
 		width: "400px",
 	};
 
-	// setValue 에러 > 일단 주석 걸어둠
 	const handleAddress = data => {
 		console.log(`주소: ${data.address}`);
 		// 서울시 + .. 구 + .. 동
 		const fullAdress = data.sido + " " + data.sigungu + " " + data.bname;
 		setAddress(fullAdress);
-		// setValue("region", fullAdress);
+		setValue("region", fullAdress);
 		setIsOpen(false);
 	};
 
