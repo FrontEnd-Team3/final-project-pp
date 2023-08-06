@@ -2,7 +2,6 @@ import AuthApi from "apis/auth.api";
 import UserQueryApi from "apis/user.query.api";
 import BasicButton from "components/Button";
 import BasicModal from "components/Modal/WithoutButton";
-import Nav from "pages/my-page/components/Nav";
 import { useState } from "react";
 import styled from "styled-components";
 import ModifyInfoEdit from "./components/ModifyInfoEdit";
@@ -29,6 +28,9 @@ const AccountPrivacy = () => {
 				setIsOpen(true);
 				const responseInfo = await AuthApi.userProfileInfo(newValue);
 				console.log("개인정보 수정사항 저장 성공:", responseInfo);
+				const pw = passwordValue;
+				const reponsePasswordInfo = await AuthApi.userPasswordInfo(pw);
+				console.log("비밀번호 수정 저장 성공:", reponsePasswordInfo);
 			} catch (error) {
 				console.error("개인정보 저장 실패:", error);
 			}
@@ -39,9 +41,6 @@ const AccountPrivacy = () => {
 		return (
 			<>
 				<S.MasterWrapper>
-					<S.NavWrapper>
-						<Nav />
-					</S.NavWrapper>
 					<S.PrivacyWrapper>
 						<S.PrivacyCorrectionWrapper>
 							<S.PrivacyCorrection>개인 정보 수정</S.PrivacyCorrection>
@@ -76,7 +75,7 @@ const AccountPrivacy = () => {
 							size={"medium"}
 							color={"darkBlack"}
 							children={"변경사항 저장"}
-							style={{ marginTop: "80px" }}
+							style={{ marginTop: "60px", marginLeft: "400px" }}
 							onClick={handleSave}
 						/>
 					</S.PrivacyWrapper>
@@ -105,13 +104,11 @@ const MasterWrapper = styled.div`
 	flex-direction: row;
 	justify-content: center;
 `;
-const NavWrapper = styled.div`
-	padding-top: 124px;
-`;
+
 const PrivacyWrapper = styled.div`
 	width: 1060px;
 	padding: 60px;
-	margin: 100px 50px;
+	margin: 0px 0px 50px 174px;
 	button {
 		font-size: 16px;
 	}
@@ -139,7 +136,6 @@ const Account = styled.div`
 
 const S = {
 	MasterWrapper,
-	NavWrapper,
 	PrivacyWrapper,
 	PrivacyCorrectionWrapper,
 	PrivacyCorrection,

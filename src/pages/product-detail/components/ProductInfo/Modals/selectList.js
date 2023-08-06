@@ -4,6 +4,8 @@ import BasicButton from "components/Button";
 import ProductQueryApi from "apis/product.query.api";
 
 const SelectListModal = ({ setIsModalOpen, chat, setIsDealClosed, idx }) => {
+	// 특정 상품 채팅방 목록 조회
+
 	const updateStatus = ProductQueryApi.updateProductStatus(idx);
 
 	const handleDealClose = () => {

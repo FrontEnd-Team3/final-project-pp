@@ -5,6 +5,12 @@ const QueryKey = {
 	userData: "userData",
 	userDetail: "userDetail",
 	userProductData: "userProductData",
+	recentlyViewed: "recentlyViewed",
+	chatList: "chatList",
+	chatRoom: "chatRoom",
+	chatLogs: "chatLogs",
+	productChat: "productChat",
+	searchData: "searchData",
 };
 
 export default QueryKey;
