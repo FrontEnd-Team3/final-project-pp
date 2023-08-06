@@ -37,7 +37,6 @@ const Map = ({ address, setAddress }) => {
 			}
 		});
 		setIsOpen(false);
-		onRegionChange(newAddress);
 	};
 
 	return (
