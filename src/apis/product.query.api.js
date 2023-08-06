@@ -33,7 +33,24 @@ const ProductQueryApi = {
 			() => ProductApi.updateLikeStatus(params),
 			[QueryKey.productDetail, id],
 		),
-
+	getRecentlyViewedProducts: () =>
+		useQueryData(
+			[QueryKey.recentlyViewed],
+			ProductApi.getRecentlyViewedProducts,
+			QueryConfig,
+		),
+	addRecentlyViewedProducts: successFn =>
+		useMutateData(
+			() => ProductApi.addRecentlyViewedProducts,
+			[QueryKey.recentlyViewed],
+			successFn,
+		),
+	deleteRecentlyViewedProducts: successFn =>
+		useMutateData(
+			() => ProductApi.deleteRecentlyViewedProducts,
+			[QueryKey.recentlyViewed],
+			successFn,
+		),
 	// 물품 등록
 	addProduct: product => {
 		useMutateData(

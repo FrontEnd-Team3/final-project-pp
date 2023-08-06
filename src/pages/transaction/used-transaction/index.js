@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 const UsedTransaction = () => {
 	const { data, isLoading } = ProductQueryApi.getProductList();
-	console.log("중고물품", data?.usedProduct);
+	// console.log("중고물품", data?.usedProduct);
 
 	const [filteredProducts, setFilteredProducts] = useState(data?.usedProduct);
 
@@ -22,10 +22,10 @@ const UsedTransaction = () => {
 			filteredList.sort((a, b) => b.liked - a.liked);
 		} else if (value === "저가순") {
 			filteredList.sort((a, b) => a.price - b.price);
-			console.log("저가순", filteredList);
+			// console.log("저가순", filteredList);
 		} else if (value === "고가순") {
 			filteredList.sort((a, b) => b.price - a.price);
-			console.log("고가순", filteredList);
+			// console.log("고가순", filteredList);
 		}
 		setFilteredProducts(filteredList);
 	};

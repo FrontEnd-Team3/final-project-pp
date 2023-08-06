@@ -10,7 +10,7 @@ import { useState } from "react";
 const FreeTransaction = () => {
 	const { data, isLoading, error } = ProductQueryApi.getProductList();
 
-	console.log("main", data);
+	// console.log("main", data);
 
 	const [filteredProducts, setFilteredProducts] = useState(data?.freeProduct);
 
