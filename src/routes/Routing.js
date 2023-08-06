@@ -11,7 +11,6 @@ import MarketPrice from "pages/market-price";
 import ProductRegister from "pages/product-register";
 import UsedTransaction from "pages/transaction/used-transaction";
 import FreeTransaction from "pages/transaction/free-transaction";
-import Chat from "components/Chat";
 import SearchPage from "pages/search-page";
 import MypageLayout from "pages/my-page/layout/mypage-layout";
 import RegisterProduct from "pages/my-page/components/RegisterProducts";
@@ -19,6 +18,7 @@ import HouseKeeping from "pages/my-page/components/HousekeepingBook";
 import PurchasedItem from "pages/my-page/components/PurchasedItem";
 import InterestProduct from "pages/my-page/components/InterestProduct";
 import Review from "pages/my-page/components/Review";
+import Chat from "pages/Chat";
 
 const router = createBrowserRouter([
 	{

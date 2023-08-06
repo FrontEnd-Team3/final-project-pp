@@ -1,12 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 
 const ChatItem = ({ chat, setTargetChat }) => {
 	const { idx, isRead, lastMessage, product } = chat;
+	console.log("product", product);
 
 	// 읽음
 	const [isOpen, setIsOpen] = useState(false);
+
+	// 페이지 이동
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -32,9 +37,11 @@ const ChatItem = ({ chat, setTargetChat }) => {
 								<div className="read">읽음</div>
 							</S.SettingBox>
 						)}
+						<S.Imove onClick={() => navigate(`/product/${product.idx}`)}>
+							상품이동 ▶
+						</S.Imove>
 					</S.SettingContent>
 				</S.TextContainer>
-				{/* {move && <S.Imove>상품이동 ▶</S.Imove>} */}
 			</S.Item>
 		</>
 	);

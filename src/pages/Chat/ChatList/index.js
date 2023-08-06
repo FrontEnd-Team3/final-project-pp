@@ -5,6 +5,7 @@ import ChatQueryApi from "apis/chat.api.query";
 
 const ChatList = ({ setTargetChat }) => {
 	const { data } = ChatQueryApi.getChatList();
+	console.log("chat", data);
 
 	const sellChat = data?.chats.filter(chat => chat.isSeller);
 	const buyChat = data?.chats.filter(chat => !chat.isSeller);
