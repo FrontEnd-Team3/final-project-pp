@@ -13,7 +13,7 @@ import { RegisterSchema } from "consts/registerschema";
 import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
-import Images from "./images";
+import Images from "./Images";
 const Inputs = () => {
 	const {
 		handleSubmit,
@@ -27,6 +27,7 @@ const Inputs = () => {
 	});
 
 	const [imageArr, setImageArr] = useState([]); // 이미지 담을 배열
+	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
@@ -123,7 +124,7 @@ const Inputs = () => {
 		console.log("description: ", description);
 		console.log("region: ", address);
 		console.log("tag: ", taglist);
-		console.log("images: ", imageArr);
+		console.log("images: ", imageDBArr);
 		console.log("category: ", category ? 1 : 0);
 		try {
 			const formData = new FormData();
@@ -136,8 +137,9 @@ const Inputs = () => {
 			formData.append("description", description);
 			formData.append("category", category ? 1 : 0);
 			formData.append("tag", taglist);
-			for (let i = 0; i < imageArr.length; i++) {
-				formData.append("images", imageArr[i]);
+			// formData.append("images", imageArr);
+			for (let i = 0; i < imageDBArr.length; i++) {
+				formData.append("images", imageDBArr[i]);
 			}
 			mutate(formData);
 		} catch (error) {
@@ -147,7 +149,12 @@ const Inputs = () => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Images imageArr={imageArr} setImageArr={setImageArr} />
+			<Images
+				imageArr={imageArr}
+				setImageArr={setImageArr}
+				imageDBArr={imageDBArr}
+				setImageDBArr={setImageDBArr}
+			/>
 			<S.InputBox>
 				<OneController
 					name="title"
