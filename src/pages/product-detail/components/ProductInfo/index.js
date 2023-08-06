@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ButtonContainer from "./Buttons/index";
 import ProductImages from "./productImages";
 import UserInfo from "./userInfo";
+import getUserData from "utils/getUserData";
 
 const ProductInfo = ({ product }) => {
 	// console.log("상세", product);
@@ -10,6 +11,12 @@ const ProductInfo = ({ product }) => {
 	const localPrice = searchProduct?.price.toLocaleString("ko-KR");
 
 	// console.log("productInfo", product?.searchProduct);
+	const DATA = getUserData();
+	const location = {};
+	if (DATA) {
+		location.x = DATA.x;
+		location.y = DATA.y;
+	}
 
 	if (product)
 		return (
@@ -18,7 +25,8 @@ const ProductInfo = ({ product }) => {
 				<S.InfoContainer>
 					<S.ProductName>{searchProduct?.title}</S.ProductName>
 					<S.ProductLocation>
-						{searchProduct?.region}(위도, 경도)
+						{searchProduct?.region}({parseFloat(location?.x).toFixed(3)},{" "}
+						{parseFloat(location?.y).toFixed(3)})
 					</S.ProductLocation>
 					<UserInfo targetUser={searchProduct?.User} />
 					<S.Introduction>{searchProduct?.description}</S.Introduction>
