@@ -1,41 +1,62 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ChatItem from "./Item";
-import { chatList } from "mocks/data/chat/chatList";
+import ChatQueryApi from "apis/chat.api.query";
 
 const ChatList = () => {
-	const [showSalesHistory, setShowSalesHistory] = useState(true);
+	const { data } = ChatQueryApi.getChatList();
+	console.log("chatlist", data?.chats);
 
-	const onSalesHeaderClick = () => {
-		setShowSalesHistory(true);
-	};
+	const sellChat = data?.chats.filter(chat => chat.isSeller);
+	const buyChat = data?.chats.filter(chat => !chat.isSeller);
 
-	const onPurchaseHeaderClick = () => {
-		setShowSalesHistory(false);
-	};
+	console.log("sell, buy", sellChat, buyChat);
+
+	const [isSell, SetIsSell] = useState(true);
 
 	return (
 		<S.Container>
 			<S.Header>
-				<S.Hsale onClick={onSalesHeaderClick}>판매 내역</S.Hsale>
-				<S.Hbuy onClick={onPurchaseHeaderClick}>구매 내역</S.Hbuy>
+				<S.Sell onClick={() => SetIsSell(true)}>판매 내역</S.Sell>
+				<S.Buy onClick={() => SetIsSell(false)}>구매 내역</S.Buy>
 			</S.Header>
-			<S.AllMain>
-				<S.Main>
-					{chatList.length > 0 ? (
-						chatList.map(chat => (
-							<ChatItem
-								key={chat.idx}
-								chat={chat}
-								product={chat.product}
-								lastMessage={chat.lastMessage}
-							/>
-						))
-					) : (
-						<div>왜 채팅이 안나오지..</div>
-					)}
-				</S.Main>
-			</S.AllMain>
+			<S.Main>
+				{isSell ? (
+					<S.Chatlist className="sell">
+						{sellChat.length > 0 ? (
+							sellChat.map(chat => (
+								<ChatItem
+									key={chat.idx}
+									chat={chat}
+									product={chat.product}
+									lastMessage={chat.lastMessage}
+								/>
+							))
+						) : (
+							<S.NoChat>
+								채팅 내역이 없습니다. 새로운 거래를 시작해보세요!
+							</S.NoChat>
+						)}
+					</S.Chatlist>
+				) : (
+					<S.Chatlist className="buy">
+						{buyChat.length > 0 ? (
+							buyChat.map(chat => (
+								<ChatItem
+									key={chat.idx}
+									chat={chat}
+									product={chat.product}
+									lastMessage={chat.lastMessage}
+								/>
+							))
+						) : (
+							<S.NoChat>
+								채팅 내역이 없습니다. 새로운 거래를 시작해보세요!
+							</S.NoChat>
+						)}
+					</S.Chatlist>
+				)}
+			</S.Main>
 		</S.Container>
 	);
 };
@@ -62,7 +83,7 @@ const Header = styled.div`
 		}
 	}
 `;
-const Hsale = styled.div`
+const Sell = styled.div`
 	background-color: #3cb371;
 	color: #ffffff;
 	width: 225px;
@@ -73,7 +94,7 @@ const Hsale = styled.div`
 	font-weight: bold;
 `;
 
-const Hbuy = styled.div`
+const Buy = styled.div`
 	background-color: #d5d5d5;
 	color: #ffffff;
 	width: 225px;
@@ -84,12 +105,12 @@ const Hbuy = styled.div`
 	font-weight: bold;
 `;
 
-const AllMain = styled.div`
+const Main = styled.div`
 	width: 900px;
 	display: flex;
 `;
 
-const Main = styled.div`
+const Chatlist = styled.div`
 	width: 450px;
 	height: 520px;
 	/* border-right: 1px solid #ebebeb; */
@@ -100,11 +121,18 @@ const Main = styled.div`
 	}
 `;
 
+const NoChat = styled.div`
+	text-align: center;
+	color: ${({ theme }) => theme.PALETTE.gray};
+	margin-top: 50px;
+`;
+
 const S = {
 	Container,
 	Header,
-	Hsale,
-	Hbuy,
+	Sell,
+	Buy,
 	Main,
-	AllMain,
+	Chatlist,
+	NoChat,
 };
