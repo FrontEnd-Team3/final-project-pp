@@ -51,15 +51,19 @@ const ChatMain = ({ targetChat }) => {
 	// console.log("filtered", filteredByUser);
 
 	// 전송 시 input 값 전송
+	const [sendedContents, setSendedContents] = useState([]);
 	const [inputVal, setInputVal] = useState("");
 	const handleInput = e => {
 		setInputVal(e.target.value);
 	};
+
 	const handleChatContent = e => {
 		e.preventDefault();
 		console.log(inputVal);
 		setSendedContents(prev => [...prev, inputVal]);
+		setInputVal("");
 	};
+
 	return (
 		<S.ChatMainWrapper>
 			{filteredByUser &&
@@ -70,12 +74,14 @@ const ChatMain = ({ targetChat }) => {
 						{list?.logs?.map(content =>
 							content.isMine ? (
 								<MyChat
+									key={content.createdAt}
 									createdAt={content.createdAt}
 									message={content.message}
 									user={content.User}
 								/>
 							) : (
 								<OtherChat
+									key={content.createdAt}
 									createdAt={content.createdAt}
 									message={content.message}
 									user={content.User}

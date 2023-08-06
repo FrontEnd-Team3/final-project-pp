@@ -27,7 +27,6 @@ const OtherChatWrapper = styled.div`
 	display: flex;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	float: left;
 	align-items: flex-end;
 `;
 
