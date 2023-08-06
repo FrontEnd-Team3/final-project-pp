@@ -29,7 +29,7 @@ const ButtonsForSeller = ({ chat, status }) => {
 	return (
 		<>
 			<S.ProductButtons>
-				{status !== "판매완료" && (
+				{status !== "판매완료" ? (
 					<>
 						<BasicButton
 							color={"white"}
@@ -51,16 +51,17 @@ const ButtonsForSeller = ({ chat, status }) => {
 							children={"판매중"}
 							onClick={onOpenModal}
 							style={{ fontSize: "20px", fontWeight: "bold" }}
+							disabled
 						/>
 					</>
+				) : (
+					<BasicButton
+						size={"large"}
+						children={"판매완료"}
+						style={{ fontSize: "20px", fontWeight: "bold" }}
+						disabled
+					/>
 				)}
-
-				<BasicButton
-					size={"large"}
-					children={"판매완료"}
-					style={{ fontSize: "20px", fontWeight: "bold" }}
-					disabled
-				/>
 			</S.ProductButtons>
 			{isModalOpen &&
 				(chat.length ? (
