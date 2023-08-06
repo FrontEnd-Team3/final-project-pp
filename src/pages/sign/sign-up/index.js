@@ -18,15 +18,6 @@ const Signup = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [address, setAddress] = useState("");
 	const [addressOpen, setAddressOpen] = useState(false);
-	// const OpenwithClose = () => {
-	// 	setIsOpen(true);
-	// 	if (data.status === 200) {
-	// 		setTimeout(() => {
-	// 			setIsOpen(false);
-	// 			navigate("/Signin");
-	// 		}, 3000);
-	// 	}
-	// };
 
 	const { email, pw, pwCheck, nickName, region, phone } = SCHEMA;
 	const schema = yup

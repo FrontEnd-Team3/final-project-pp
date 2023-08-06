@@ -105,7 +105,7 @@ const ProductInfo = styled.div`
 		}
 	}
 	.infoMiddle {
-		margin-top: 28px;
+		/* margin-top: 28px; */
 		display: flex;
 		justify-content: space-between;
 		font-size: 13px;

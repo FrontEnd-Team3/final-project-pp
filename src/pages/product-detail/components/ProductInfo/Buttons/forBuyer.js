@@ -5,14 +5,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import bookmarkFill from "./bookmarkfull.png";
 import bookmarkEmpty from "./bookmark.png";
 import ProductQueryApi from "apis/product.query.api";
+import getUserData from "utils/getUserData";
+import ChatApi from "apis/chat.api";
 
 const BOOKMARK_KEY = "bookmarkedProducts";
 
-const ButtonsForBuyer = ({ bookmark }) => {
+const ButtonsForBuyer = ({ bookmark, chat }) => {
 	const [isBookmarked, setIsBookmarked] = useState(false);
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const { refetch } = ProductQueryApi.getProductDetail(id);
+
+	const DATA = getUserData();
+	let nick_name;
+	if (DATA) nick_name = DATA.nick_name;
 
 	useEffect(() => {
 		// Check if the product is bookmarked in local storage on component mount
@@ -33,7 +39,7 @@ const ButtonsForBuyer = ({ bookmark }) => {
 	const likeProduct = async () => {
 		try {
 			const res = await bookmarkData.mutateAsync();
-			console.log("Wish", res);
+			// console.log("Wish", res);
 			successFn(res);
 			const bookmarkedProducts =
 				JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
@@ -53,6 +59,30 @@ const ButtonsForBuyer = ({ bookmark }) => {
 		} catch (error) {
 			console.error("Save Error:", error);
 		}
+	};
+
+	const startChat = () => {
+		const bool = chat.some(el => {
+			console.log("닉네임", el.User.nick_name, nick_name);
+			return el.User.nick_name !== nick_name;
+		});
+		console.log("chatlength", chat.length);
+		console.log("bool", bool);
+		if (!chat.length && !bool) {
+			console.log("hi");
+			try {
+				ChatApi.createChatRoom(parseInt(id)).then(res => {
+					console.log("start", res);
+					ChatApi.saveMessages({
+						room_idx: res.data?.idx,
+						message: "너 나한테 물건을 팔아라!",
+					}).then(res => console.log("save", res));
+				});
+			} catch (err) {
+				console.error("error", err);
+			}
+		}
+		navigate("/Chat");
 	};
 
 	return (
@@ -87,14 +117,14 @@ const ButtonsForBuyer = ({ bookmark }) => {
 				<BasicButton
 					color={"black"}
 					size={"mediumThird"}
-					children={"Chat"}
+					children={"채팅하기"}
 					style={{
 						fontSize: "22px",
 						letterSpacing: "5px",
 						height: "50px",
 						fontWeight: "bold",
 					}}
-					onClick={() => navigate("/Chat")}
+					onClick={startChat}
 				/>
 			</ProductButtons>
 		</>

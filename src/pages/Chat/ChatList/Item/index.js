@@ -1,26 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 
-const ChatItem = ({ chat, lastMessage, price, product }) => {
-	const { userimg, move } = chat || {};
+const ChatItem = ({ chat, setTargetChat }) => {
+	const { idx, isRead, lastMessage, product } = chat;
+	// console.log("product", product);
 
-	// 상품 이름, 이미지 보여주기
-	// const product = productList.find(product => product.idx === chat.product.idx);
-	// const productName = product
-	// 	? product.title
-	// 	: `Product ID: ${chat.product.idx}`;
-	// const productImgUrl = product ? product.img_url : userimg;
-
-	// 상품 상세 페이지로 이동
-	// 현재 mock data 구조 문제로 에러 발생, 추후 데이터 받아와서 다시 구현 예정
-	// const navigate = useNavigate();
-	// onClick={() => navigate(`/product/${productID}`)}
-
-	// 읽음, 나가기
+	// 읽음
 	const [isOpen, setIsOpen] = useState(false);
-	// 데이터 연결되면 다른 방식으로 수정할 예정
-	const [isRead, setIsRead] = useState(false);
+
+	// 페이지 이동
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -29,10 +20,10 @@ const ChatItem = ({ chat, lastMessage, price, product }) => {
 					{!isRead && <S.New>New</S.New>}
 					<S.Iimg src={product.img_url} />
 				</S.IimgContainer>
-				<S.TextContainer>
-					<S.ChatContent>
+				<S.TextContainer onClick={() => setTargetChat(idx)}>
+					<S.ChatContent onClick={() => setIsOpen(false)}>
 						<S.Iproduct>{product.title}</S.Iproduct>
-						<S.Ichat>{lastMessage || "No content for List"}</S.Ichat>
+						<S.Ichat>{lastMessage || "대화 내역이 존재하지 않습니다."}</S.Ichat>
 						<S.Iprice>{product.price}</S.Iprice>
 					</S.ChatContent>
 					<S.SettingContent>
@@ -43,13 +34,12 @@ const ChatItem = ({ chat, lastMessage, price, product }) => {
 						</S.Span>
 						{isOpen && (
 							<S.SettingBox>
-								<div className="read" onClick={() => setIsRead(true)}>
-									읽음
-								</div>
-								<div className="out">나가기</div>
+								<div className="read">읽음</div>
 							</S.SettingBox>
 						)}
-						{move && <S.Imove>상품이동 ▶</S.Imove>}
+						<S.Imove onClick={() => navigate(`/product/${product.idx}`)}>
+							상품이동 ▶
+						</S.Imove>
 					</S.SettingContent>
 				</S.TextContainer>
 			</S.Item>
@@ -70,6 +60,7 @@ const Item = styled.div`
 	padding: 20px;
 	padding-top: 20px;
 	position: relative;
+	cursor: pointer;
 `;
 
 const New = styled.div`
@@ -135,13 +126,6 @@ const SettingBox = styled.div`
 	background-color: white;
 	.read {
 		border-bottom: 1px solid ${({ theme }) => theme.PALETTE.gray};
-		padding: 5px;
-		:hover {
-			background-color: ${({ theme }) => theme.PALETTE.primary};
-			color: ${({ theme }) => theme.PALETTE.white};
-		}
-	}
-	.out {
 		padding: 5px;
 		:hover {
 			background-color: ${({ theme }) => theme.PALETTE.primary};
