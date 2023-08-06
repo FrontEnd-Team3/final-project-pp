@@ -29,27 +29,37 @@ const ButtonsForSeller = ({ chat, status }) => {
 	return (
 		<>
 			<S.ProductButtons>
+				{status !== "판매완료" && (
+					<>
+						<BasicButton
+							color={"white"}
+							size={"xxmedium"}
+							children={"수정"}
+							onClick={() => navigate("/productRegister")}
+							style={{ fontSize: "20px", fontWeight: "bold" }}
+						/>
+						<BasicButton
+							color={"black"}
+							size={"xxmedium"}
+							children={"삭제"}
+							onClick={() => deleteProduct()}
+							style={{ fontSize: "20px", fontWeight: "bold" }}
+						/>
+						<BasicButton
+							color={"primary"}
+							size={"xxmedium"}
+							children={"판매중"}
+							onClick={onOpenModal}
+							style={{ fontSize: "20px", fontWeight: "bold" }}
+						/>
+					</>
+				)}
+
 				<BasicButton
-					color={"white"}
-					size={"xxmedium"}
-					children={"수정"}
-					onClick={() => navigate("/productRegister")}
+					size={"large"}
+					children={"판매완료"}
 					style={{ fontSize: "20px", fontWeight: "bold" }}
-				/>
-				<BasicButton
-					color={"black"}
-					size={"xxmedium"}
-					children={"삭제"}
-					onClick={() => deleteProduct()}
-					style={{ fontSize: "20px", fontWeight: "bold" }}
-				/>
-				<BasicButton
-					color={status === "판매완료" ? "gray" : "primary"}
-					size={"xxmedium"}
-					children={status === "판매완료" ? "판매완료" : "판매중"}
-					onClick={onOpenModal}
-					style={{ fontSize: "20px", fontWeight: "bold" }}
-					disabled={status === "판매완료"}
+					disabled
 				/>
 			</S.ProductButtons>
 			{isModalOpen &&

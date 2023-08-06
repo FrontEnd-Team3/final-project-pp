@@ -24,7 +24,6 @@ const ProductApi = {
 		await axiosInstance.post(PATH, productData, {
 			headers: { "Content-Type": "multipart/form-data" },
 		}),
-
 	// 물품 수정
 	updateProduct: async productData =>
 		await axiosInstance.patch(PATH, productData),
