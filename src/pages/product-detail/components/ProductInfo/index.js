@@ -9,7 +9,7 @@ const ProductInfo = ({ product }) => {
 	const { searchProduct, isSeller, chat } = product;
 	const localPrice = searchProduct?.price.toLocaleString("ko-KR");
 
-	console.log("productInfo", product?.searchProduct);
+	// console.log("productInfo", product?.searchProduct);
 
 	if (product)
 		return (

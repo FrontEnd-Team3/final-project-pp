@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import bookmarkFill from "./bookmarkfull.png";
 import bookmarkEmpty from "./bookmark.png";
 import ProductQueryApi from "apis/product.query.api";
+import ChatApi from "apis/chat.api";
 
 const BOOKMARK_KEY = "bookmarkedProducts";
 
@@ -33,7 +34,7 @@ const ButtonsForBuyer = ({ bookmark }) => {
 	const likeProduct = async () => {
 		try {
 			const res = await bookmarkData.mutateAsync();
-			console.log("Wish", res);
+			// console.log("Wish", res);
 			successFn(res);
 			const bookmarkedProducts =
 				JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
@@ -53,6 +54,17 @@ const ButtonsForBuyer = ({ bookmark }) => {
 		} catch (error) {
 			console.error("Save Error:", error);
 		}
+	};
+
+	const startChat = () => {
+		try {
+			ChatApi.createChatRoom(parseInt(id)).then(res =>
+				console.log("start", res),
+			);
+		} catch (err) {
+			console.error("error", err);
+		}
+		navigate("/Chat");
 	};
 
 	return (
@@ -87,14 +99,14 @@ const ButtonsForBuyer = ({ bookmark }) => {
 				<BasicButton
 					color={"black"}
 					size={"mediumThird"}
-					children={"Chat"}
+					children={"채팅하기"}
 					style={{
 						fontSize: "22px",
 						letterSpacing: "5px",
 						height: "50px",
 						fontWeight: "bold",
 					}}
-					onClick={() => navigate("/Chat")}
+					onClick={() => startChat()}
 				/>
 			</ProductButtons>
 		</>

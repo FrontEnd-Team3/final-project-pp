@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const Chat = () => {
 	const [targetChat, setTargetChat] = useState("");
-	console.log("target", targetChat);
+	// console.log("target", targetChat);
 
 	return (
 		<S.ChatRoom>

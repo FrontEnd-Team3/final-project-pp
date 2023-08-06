@@ -3,8 +3,8 @@ import { axiosInstance } from "./core";
 const PATH = "/api/chat";
 
 const ChatApi = {
-	createChatRoom: async params =>
-		await axiosInstance.post(PATH, (params = { ...params })),
+	createChatRoom: async prod_idx =>
+		await axiosInstance.post(PATH, { prod_idx: prod_idx }),
 	readEveryMessageInRoom: async room_idx =>
 		await axiosInstance.post(PATH + `read-all?room_idx=${room_idx}}`),
 	saveMessages: async params =>

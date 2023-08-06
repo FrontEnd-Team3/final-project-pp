@@ -17,7 +17,7 @@ const RecentlyClicked = () => {
 		refetch();
 	}, [id]);
 
-	console.log("recently", data);
+	// console.log("recently", data);
 
 	if (error) {
 		window.location.reload();

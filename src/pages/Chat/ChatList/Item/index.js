@@ -5,7 +5,7 @@ import { flexColumn } from "styles/common";
 
 const ChatItem = ({ chat, setTargetChat }) => {
 	const { idx, isRead, lastMessage, product } = chat;
-	console.log("product", product);
+	// console.log("product", product);
 
 	// 읽음
 	const [isOpen, setIsOpen] = useState(false);
