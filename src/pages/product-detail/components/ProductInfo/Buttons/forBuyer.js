@@ -76,7 +76,7 @@ const ButtonsForBuyer = ({ bookmark, chat }) => {
 					ChatApi.saveMessages({
 						room_idx: res.data?.idx,
 						message: "너 나한테 물건을 팔아라!",
-					}).then(res => console.log("save", res));
+					});
 				});
 			} catch (err) {
 				console.error("error", err);
