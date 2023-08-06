@@ -1,6 +1,7 @@
 import AuthApi from "apis/auth.api";
 import UserQueryApi from "apis/user.query.api";
 import BasicButton from "components/Button";
+import BasicModal from "components/Modal/WithoutButton";
 import Nav from "pages/my-page/components/Nav";
 import { useState } from "react";
 import styled from "styled-components";
@@ -9,6 +10,8 @@ import ModifyInfoEdit from "./components/ModifyInfoEdit";
 const AccountPrivacy = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
+
+	const [isOpen, setIsOpen] = useState(false);
 
 	const [emailValue, setEmailValue] = useState(userData?.email);
 	const [passwordValue, setPasswordValue] = useState("000000000");
@@ -23,6 +26,7 @@ const AccountPrivacy = () => {
 					phone: phoneValue,
 					region: regionValue,
 				};
+				setIsOpen(true);
 				const responseInfo = await AuthApi.userProfileInfo(newValue);
 				console.log("개인정보 수정사항 저장 성공:", responseInfo);
 			} catch (error) {
@@ -33,49 +37,63 @@ const AccountPrivacy = () => {
 
 	if (userData) {
 		return (
-			<S.MasterWrapper>
-				<S.NavWrapper>
-					<Nav />
-				</S.NavWrapper>
-				<S.PrivacyWrapper>
-					<S.PrivacyCorrectionWrapper>
-						<S.PrivacyCorrection>개인 정보 수정</S.PrivacyCorrection>
-					</S.PrivacyCorrectionWrapper>
-					<S.Line />
-					<S.Account>내 계정</S.Account>
-					<ModifyInfoEdit
-						userData={userData}
-						field={"email"}
-						setFieldValue={setEmailValue}
+			<>
+				<S.MasterWrapper>
+					<S.NavWrapper>
+						<Nav />
+					</S.NavWrapper>
+					<S.PrivacyWrapper>
+						<S.PrivacyCorrectionWrapper>
+							<S.PrivacyCorrection>개인 정보 수정</S.PrivacyCorrection>
+						</S.PrivacyCorrectionWrapper>
+						<S.Line />
+						<S.Account>내 계정</S.Account>
+						<ModifyInfoEdit
+							userData={userData}
+							field={"email"}
+							setFieldValue={setEmailValue}
+						/>
+						<S.Line />
+						<ModifyInfoEdit
+							userData={userData}
+							field={"pw"}
+							setFieldValue={setPasswordValue}
+						/>
+						<S.Line />
+						<ModifyInfoEdit
+							userData={userData}
+							field={"phone"}
+							setFieldValue={setPhoneValue}
+						/>
+						<S.Line />
+						<ModifyInfoEdit
+							userData={userData}
+							field={"region"}
+							setFieldValue={setRegionValue}
+						/>
+						<S.Line />
+						<BasicButton
+							size={"medium"}
+							color={"darkBlack"}
+							children={"변경사항 저장"}
+							style={{ marginTop: "80px" }}
+							onClick={handleSave}
+						/>
+					</S.PrivacyWrapper>
+				</S.MasterWrapper>
+				{isOpen && (
+					<BasicModal
+						background={"gray"}
+						subtitle={"primary"}
+						title={"primary"}
+						container={"primary"}
+						position={"primary"}
+						titlement={"Have been saved!"}
+						subtitlement={"수정이 완료되었습니다"}
+						onClickOutside={() => setIsOpen(false)}
 					/>
-					<S.Line />
-					<ModifyInfoEdit
-						userData={userData}
-						field={"pw"}
-						setFieldValue={setPasswordValue}
-					/>
-					<S.Line />
-					<ModifyInfoEdit
-						userData={userData}
-						field={"phone"}
-						setFieldValue={setPhoneValue}
-					/>
-					<S.Line />
-					<ModifyInfoEdit
-						userData={userData}
-						field={"region"}
-						setFieldValue={setRegionValue}
-					/>
-					<S.Line />
-					<BasicButton
-						size={"medium"}
-						color={"darkBlack"}
-						children={"변경사항 저장"}
-						style={{ marginTop: "80px" }}
-						onClick={handleSave}
-					/>
-				</S.PrivacyWrapper>
-			</S.MasterWrapper>
+				)}
+			</>
 		);
 	}
 };
