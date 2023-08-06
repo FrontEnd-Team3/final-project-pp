@@ -100,7 +100,6 @@ const MyProfile = () => {
 					<S.Line />
 					<MyProfileInfo
 						userData={userData}
-						nickNameValue={nickNameValue}
 						setNickNameValue={setNickNameValue}
 					/>
 					<S.Line />

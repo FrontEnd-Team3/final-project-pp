@@ -1,12 +1,31 @@
 import AuthApi from "apis/auth.api";
 import BasicButton from "components/Button";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import * as SCHEMA from "../../../../../consts/schema";
+import * as yup from "yup";
+import ValidateInput from "pages/sign/components/OneValidate";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-const MyProfileInfo = ({ userData, nickNameValue, setNickNameValue }) => {
+const MyProfileInfo = ({ userData, setNickNameValue }) => {
 	const [openNickNameInput, setOpenNickNameInput] = useState(true);
-	const nickNameRef = useRef(null);
-	// const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
+
+	// 닉네임 schema 적용하기
+	const { nickName } = SCHEMA;
+	const schema = yup.object().shape({ nickName });
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+		getValues,
+		setValue,
+	} = useForm({
+		resolver: yupResolver(schema),
+		mode: "onChange",
+	});
+
+	const nickNameValue = getValues("nickName");
 
 	const handleEdit = btnName => {
 		if (btnName === "변경") {
@@ -14,22 +33,17 @@ const MyProfileInfo = ({ userData, nickNameValue, setNickNameValue }) => {
 		} else if (btnName === "완료") {
 			setOpenNickNameInput(true);
 			// nickNameRef.current.value의 값이 빈 문자열이라면 함수를 빠져나감
-			if (!nickNameRef.current.value.trim()) {
-				return setNickNameValue(userData?.nick_name);
+			if (!nickNameValue.trim()) {
+				return setValue("nickName", userData?.nick_name);
 			}
-			setNickNameValue(nickNameRef.current.value);
+			setNickNameValue(nickNameValue);
 		}
 	};
-	const onChangeRef = e => {
-		nickNameRef.current.value = e.target.value;
-	};
 
-	const onNickNameCheck = async () => {
-		if (!nickNameRef.current.value.trim()) return;
+	const onNickNameCheck = handleSubmit(async () => {
+		if (!nickNameValue.trim()) return;
 		try {
-			const nickName = nickNameValue;
-			console.log(nickName);
-			const response = await AuthApi.nickNameCheck(nickName);
+			const response = await AuthApi.nickNameCheck(nickNameValue);
 			if (response.status === 200) {
 				alert("사용 가능한 닉네임 입니다.");
 			}
@@ -40,7 +54,7 @@ const MyProfileInfo = ({ userData, nickNameValue, setNickNameValue }) => {
 				setValue("nickName", "");
 			}
 		}
-	};
+	});
 
 	return (
 		<>
@@ -62,10 +76,11 @@ const MyProfileInfo = ({ userData, nickNameValue, setNickNameValue }) => {
 					</>
 				) : (
 					<>
-						<S.InputBox
-							defaultValue={nickNameValue}
-							ref={nickNameRef}
-							onChange={onChangeRef}
+						<ValidateInput
+							control={control}
+							name={"nickName"}
+							errors={errors}
+							type={"text"}
 						/>
 						<div>
 							<BasicButton
