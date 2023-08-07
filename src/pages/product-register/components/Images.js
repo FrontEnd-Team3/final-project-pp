@@ -19,19 +19,11 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
-			const reader = new FileReader();
-
-			// base64 인코딩된 이미지를 바이너리 데이터로 변환
-			const binaryData = await new Promise(resolve => {
-				reader.onload = () => {
-					resolve(reader.result.split(",")[1]);
-				};
-				reader.readAsDataURL(file);
-			});
 			updatedImages.push(URL.createObjectURL(file));
-			updatedDBImages.push(binaryData);
+			updatedDBImages.push(file);
 		}
 		console.log("test", updatedDBImages);
+
 		setImageArr(updatedImages.slice(0, 5));
 		setImageDBArr(updatedDBImages.slice(0, 5));
 	};

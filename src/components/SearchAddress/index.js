@@ -2,11 +2,10 @@ import DaumPostcode from "react-daum-postcode";
 import styled from "styled-components";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
-const SearchAddress = ({ setAddress, setIsOpen, setValue }) => {
+const SearchAddress = ({ setAddress, setIsOpen, setValue = () => {} }) => {
 	const postCodeStyle = {
 		width: "400px",
 	};
-
 	const handleAddress = data => {
 		console.log(`주소: ${data.address}`);
 		// 서울시 + .. 구 + .. 동

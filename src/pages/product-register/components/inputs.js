@@ -132,10 +132,10 @@ const Inputs = () => {
 		console.log("tag: ", taglist);
 		console.log("images: ", imageDBArr);
 		console.log("category: ", category ? 1 : 0);
+
 		try {
 			const formData = new FormData();
 			formData.append("title", data.title);
-
 			if (address === "") {
 				setIsMap(true);
 			} else {
