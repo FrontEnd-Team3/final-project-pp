@@ -66,7 +66,7 @@ const router = createBrowserRouter([
 				element: <Chat />,
 			},
 			{
-				path: "/search",
+				path: "/search/:keyword",
 				element: <SearchPage />,
 			},
 			{

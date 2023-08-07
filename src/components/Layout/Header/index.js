@@ -2,13 +2,15 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
 	const { accessToken, logout } = useAuth();
+	const searchInput = useRef();
+	const [filteredProducts, setfilteredProducts] = useState([]);
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -40,6 +42,27 @@ const Header = () => {
 		}
 	};
 
+	//
+	const handleSearchResult = async e => {
+		e.preventDefault();
+		const searchValue = searchInput.current.value;
+		console.log("검색 값:", searchValue);
+		if (searchValue === "") return;
+		navigate(`/search/${searchValue}`);
+		searchInput.current.value = "";
+		// try {
+		// 	const response = await ProductApi.searchProduct({
+		// 		category: 0,
+		// 		keyword: searchValue,
+		// 		page: 1,
+		// 	});
+		// 	console.log(response);
+		// 	navigate(`/search?category=0&keyword=${searchValue}&page=1`);
+		// } catch (error) {
+		// 	console.error("Error while searching products:", error);
+		// }
+	};
+
 	return (
 		<>
 			<S.Container>
@@ -61,13 +84,16 @@ const Header = () => {
 						</S.SideTitle>
 					</div>
 					<S.SearchWrapper>
-						<S.SearchBar></S.SearchBar>
-						<S.Searchicon
-							src="img/search.png"
-							onClick={() => {
-								navigate("/search");
-							}}
-						></S.Searchicon>
+						<form onSubmit={handleSearchResult}>
+							<S.SearchBar
+								placeholder="제목, 태그명을 입력해주세요"
+								ref={searchInput}
+							/>
+							<S.Searchicon
+								src="img/search.png"
+								onClick={handleSearchResult}
+							></S.Searchicon>
+						</form>
 					</S.SearchWrapper>
 					<div>
 						<S.NewChat>새로운 채팅 도착!</S.NewChat>

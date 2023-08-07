@@ -35,7 +35,7 @@ const ProductApi = {
 		}),
 
 	// 물품 시세 검색
-	searchProduct: async ({ keyword, start, end }) =>
+	searchPriceProduct: async ({ keyword, start, end }) =>
 		await axiosInstance.get(PATH + `/quote`, {
 			params: { keyword, start, end },
 		}),
