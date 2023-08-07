@@ -1,6 +1,7 @@
 import ProductQueryApi from "apis/product.query.api";
 import ProductList from "components/ProductList/withPagination";
 import BasicSelect from "components/Select";
+import { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,6 +10,7 @@ const SearchPage = () => {
 	const category = searchParams.get("category") || 0;
 	const { keyword } = useParams();
 	const page = searchParams.get("page") || 1;
+	const [searchResults, setSearchResults] = useState([]);
 
 	const { data, isLoading } = ProductQueryApi.searchProductList(
 		category,
@@ -35,24 +37,21 @@ const SearchPage = () => {
 			return filterValue.includes(keyword.toLowerCase());
 		}) || [];
 
-	// const onFiltering = value => {
-	// 	let filteredList = [...data.product];
+	const onFiltering = value => {
+		let filteredList = [...filteredSearchResults];
 
-	// 	if (value === "등록순") {
-	// 		filteredList.sort((a, b) => a.created_at.localeCompare(b.created_at));
-	// 	} else if (value === "인기순") {
-	// 		filteredList.sort((a, b) => b.Liked - a.Liked);
-	// 	} else if (value === "저가순") {
-	// 		filteredList.sort((a, b) => a.price - b.price);
-	// 	} else if (value === "고가순") {
-	// 		filteredList.sort((a, b) => b.price - a.price);
-	// 	}
+		if (value === "등록순") {
+			filteredList.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+		} else if (value === "인기순") {
+			filteredList.sort((a, b) => b.liked - a.liked);
+		} else if (value === "저가순") {
+			filteredList.sort((a, b) => a.price - b.price);
+		} else if (value === "고가순") {
+			filteredList.sort((a, b) => b.price - a.price);
+		}
 
-	// 	filteredList = filteredList.filter(item => item.title.includes(keyword));
-
-	// 	console.log("필터링", filteredList);
-	// 	setSearchResults(filteredList);
-	// };
+		setSearchResults(filteredList);
+	};
 
 	const options = [
 		{ value: "등록순", label: "등록순" },
@@ -66,16 +65,21 @@ const SearchPage = () => {
 			<S.Wrapper>
 				<S.ResultandFilter>
 					<S.SearchText>
-						<span>{keyword}</span>의 검색결과 {filteredSearchResults.length}개
+						<span>"{keyword}"</span>의 검색결과 {filteredSearchResults.length}개
 					</S.SearchText>
 					<BasicSelect
 						variant={"primary"}
 						options={options}
 						selectedValue={"등록순"}
-						// onChange={onFiltering}
+						onChange={onFiltering}
 					/>
 				</S.ResultandFilter>
-				<ProductList productList={filteredSearchResults} />
+				{/* 검색 결과가 onFiltering 이벤트 발생시에 searchResults 적용되도록 */}
+				{searchResults.length > 0 ? (
+					<ProductList productList={searchResults} />
+				) : (
+					<ProductList productList={filteredSearchResults} />
+				)}
 			</S.Wrapper>
 		</S.Container>
 	);
