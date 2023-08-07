@@ -15,6 +15,8 @@ const Main = () => {
 
 	const { data, isLoading, error } = ProductQueryApi.getProductList();
 
+	// const { accessToken } = useAuth();
+
 	console.log("main", data);
 
 	if (isLoading) return <Loading />;

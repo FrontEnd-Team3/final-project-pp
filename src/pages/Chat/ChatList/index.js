@@ -4,7 +4,7 @@ import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
 import getUserData from "utils/getUserData";
 
-const ChatList = ({ setTargetChat }) => {
+const ChatList = ({ setTargetChat, targetChat }) => {
 	const { data } = ChatQueryApi.getChatList();
 	console.log("chat", data);
 
@@ -29,6 +29,15 @@ const ChatList = ({ setTargetChat }) => {
 		window.localStorage.setItem("isSell", isSell);
 	}, [isSell]);
 
+	// const [targetChat, setTargetChat] = useState(null);
+	// const navigate = useNavigate();
+
+	// const showChat = chatIdx => {
+	// 	ChatApi.getChatLogs(chatIdx).then(chat => {
+	// 		setTargetChat(chat); // 채팅 정보를 상태에 저장합니다.
+	// 	});
+	// };
+
 	return (
 		<S.Container>
 			<S.Header>
@@ -48,6 +57,7 @@ const ChatList = ({ setTargetChat }) => {
 									key={chat.idx}
 									chat={chat}
 									setTargetChat={setTargetChat}
+									targetChat={targetChat}
 								/>
 							))
 						) : (
@@ -64,6 +74,7 @@ const ChatList = ({ setTargetChat }) => {
 									key={chat.idx}
 									chat={chat}
 									setTargetChat={setTargetChat}
+									targetChat={targetChat}
 								/>
 							))
 						) : (

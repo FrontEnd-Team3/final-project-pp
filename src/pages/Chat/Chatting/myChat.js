@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FakeProfile from "./bud.png";
+import FakeProfile from "./planting.png";
 
 const MyChat = ({ createdAt, message, user }) => {
 	console.log("내 프로필 사진", user.profile_url);
