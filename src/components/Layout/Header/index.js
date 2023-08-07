@@ -10,7 +10,6 @@ const Header = () => {
 	const [state, setState] = useState(null);
 	const { accessToken, logout } = useAuth();
 	const searchInput = useRef();
-	const [filteredProducts, setfilteredProducts] = useState([]);
 	const categoryArray = [
 		{
 			name: "중고거래",

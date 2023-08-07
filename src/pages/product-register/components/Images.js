@@ -19,8 +19,8 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
-			updatedImages.push(URL.createObjectURL(file));
-			updatedDBImages.push(file);
+			updatedImages.push(URL.createObjectURL(file)); // 미리보기
+			updatedDBImages.push(file); // DB용
 		}
 		console.log("test", updatedDBImages);
 
@@ -32,6 +32,8 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 	const onDeleteImage = id => {
 		const _imageArr = imageArr.filter((_, idx) => idx !== id);
 		setImageArr(_imageArr);
+		const _setImageDBArr = imageDBArr.filter((_, idx) => idx !== id);
+		setImageDBArr(_setImageDBArr);
 	};
 
 	return (
