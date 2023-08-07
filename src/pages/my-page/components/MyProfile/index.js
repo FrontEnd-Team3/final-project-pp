@@ -11,9 +11,6 @@ const MyProfile = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
 
-	const userMypage = UserQueryApi.getUserdetail();
-	const userMypageData = userMypage.data;
-
 	if (userData) {
 		return (
 			<>
