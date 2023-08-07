@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
@@ -8,16 +8,26 @@ const ChatList = ({ setTargetChat }) => {
 	const { data } = ChatQueryApi.getChatList();
 	console.log("chat", data);
 
+	// 로그인한 User의 정보 가져옴
 	let nick_name;
 	const DATA = getUserData();
 	if (DATA) nick_name = DATA.nick_name;
 
+	// 물품 판매자 데이터를 통해 비교
 	const sellChat = data?.chats.filter(
 		chat => chat.User.nick_name === nick_name,
 	);
 	const buyChat = data?.chats.filter(chat => chat.User.nick_name !== nick_name);
 
-	const [isSell, SetIsSell] = useState(true);
+	// localstorage에는 값이 string으로 저장됨
+	const [isSell, SetIsSell] = useState(
+		window.localStorage.getItem("isSell") === "true",
+	);
+
+	// 새로고침 시 탭 유지되도록 localstorage에 저장
+	useEffect(() => {
+		window.localStorage.setItem("isSell", isSell);
+	}, [isSell]);
 
 	return (
 		<S.Container>
