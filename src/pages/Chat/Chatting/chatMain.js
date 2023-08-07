@@ -4,13 +4,19 @@ import styled from "styled-components";
 import MyChat from "./myChat";
 import ChatQueryApi from "apis/chat.api.query";
 import getUserData from "utils/getUserData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OtherChat from "./otherChat";
 import ChatApi from "apis/chat.api";
 
 const ChatMain = ({ targetChat }) => {
 	// 대화 내역 가져오기
-	const { data } = ChatQueryApi.getChatLogs(parseInt(targetChat));
+	console.log("chatMain", targetChat);
+	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
+
+	useEffect(() => {
+		refetch();
+	}, [targetChat]);
+
 	console.log("target", targetChat);
 	let nick_name;
 	const DATA = getUserData();
