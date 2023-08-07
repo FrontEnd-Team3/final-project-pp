@@ -5,6 +5,8 @@ import { useState } from "react";
 import NoListModal from "../Modals/noList";
 import SelectListModal from "../Modals/selectList";
 import ProductApi from "apis/product.api";
+import { useQuery } from "react-query";
+import { axiosInstance } from "apis/core";
 
 const ButtonsForSeller = ({ chat, status }) => {
 	const navigate = useNavigate();
@@ -26,6 +28,15 @@ const ButtonsForSeller = ({ chat, status }) => {
 		setIsModalOpen(true);
 	};
 
+	// const getData = () => {
+	// const { data } = useQuery(
+	// 	"prevProduct",
+	// 	async id => await axiosInstance.get(`/product/${id}`),
+	// );
+	useQuery("prevData", async () => await axiosInstance.get("/api/product"));
+
+	// };
+
 	return (
 		<>
 			<S.ProductButtons>
@@ -35,7 +46,10 @@ const ButtonsForSeller = ({ chat, status }) => {
 							color={"white"}
 							size={"xxmedium"}
 							children={"수정"}
-							onClick={() => navigate("/productRegister")}
+							onClick={() => {
+								navigate("/productRegister");
+								// , getData();
+							}}
 							style={{ fontSize: "20px", fontWeight: "bold" }}
 						/>
 						<BasicButton

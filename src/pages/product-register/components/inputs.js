@@ -45,8 +45,9 @@ const Inputs = () => {
 	const { mutate } = useMutation(data => ProductApi.addProduct(data), {
 		onSuccess: async () => {
 			await queryClient.invalidateQueries(["registers"]);
+			console.log()
 		},
-	});
+	}); 
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
@@ -128,7 +129,6 @@ const Inputs = () => {
 		console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
 		console.log("description: ", description);
 		console.log("region: ", address);
-
 		console.log("tag: ", taglist);
 		console.log("images: ", imageDBArr);
 		console.log("category: ", category ? 1 : 0);
@@ -153,6 +153,7 @@ const Inputs = () => {
 				formData.append("images", imageDBArr[i]);
 			}
 			mutate(formData);
+			
 		} catch (error) {
 			console.error("데이터 저장에 실패했습니다:", error);
 		}

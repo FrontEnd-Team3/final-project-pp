@@ -41,16 +41,6 @@ const RegisterProduct = () => {
 
 	const { id } = useParams();
 
-	// // 클릭했을 때 데이터 조회 가능한 로직
-	// const GetRegisterProduct = () => {
-	// 	const { data } = ProductQueryApi.getRegisterProduct();
-	// 	console.log("지금이야", data);
-	// };
-
-	// 데이터 조회 가능한 쿼리 로직
-	// const { data } = ProductQueryApi.getRegisterProduct();
-	// console.log("등록상품", data);
-
 	const navigate = useNavigate();
 
 	if (sellingProducts.length > 0 || soldProducts.length > 0) {
@@ -84,7 +74,6 @@ const RegisterProduct = () => {
 													size={"xsmall"}
 													children={"수정"}
 													onClick={() => {
-														// GetRegisterProduct();
 														navigate("/productRegister");
 													}}
 													style={{

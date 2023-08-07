@@ -19,6 +19,12 @@ const Map = ({ address, setAddress }) => {
 		// 지도 생성 .
 		const map = new kakao.maps.Map(container, options);
 		setMap(map);
+		const coords = new kakao.maps.LatLng(33.450701, 126.570667);
+		var marker = new kakao.maps.Marker({
+			map: map,
+			position: coords,
+		});
+		setMarker(marker);
 	}, []);
 
 	// 위치 변경시 지도에 마크 찍히게
