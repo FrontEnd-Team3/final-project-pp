@@ -31,12 +31,13 @@ const EditInputs = prevData => {
 	const editData = prevData.prevData.searchProduct;
 	console.log("idx", editData.idx);
 	// 이미지 데이터 배열 만들기 => ProductImages에는 서브이미지, img_url에는 메인 이미지
-	const imageDataList = editData.ProductImages.map(v => v.img_url);
-	const AllimageList = imageDataList.push(editData.img_url);
-	console.log(imageDataList);
-	const [imageArr, setImageArr] = useState(imageDataList); // 이미지 담을 배열
-	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 
+	const imageDataList = editData.ProductImages.map(v => v.img_url);
+
+	const AllimageList = editData.img_url.concat(imageDataList);
+	console.log(imageDataList);
+	const [imageArr, setImageArr] = useState(AllimageList); // 이미지 담을 배열
+	const [imageDBArr, setImageDBArr] = useState(AllimageList); // DB로 보낼 베열
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
 	const queryClient = useQueryClient();
