@@ -10,6 +10,7 @@ const Header = () => {
 	const [state, setState] = useState(null);
 	const { accessToken, logout } = useAuth();
 	const searchInput = useRef();
+	const [filter, setFilter] = useState("등록순");
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -47,7 +48,7 @@ const Header = () => {
 		const searchValue = searchInput.current.value;
 		const keyword = searchValue.replace(/\s/g, ""); // 띄어쓰기 막기
 		if (keyword === "") return; // 빈값 막기
-		navigate(`/search/${keyword}`);
+		navigate(`/search/${keyword}?filter=${filter}`);
 		searchInput.current.value = "";
 	};
 

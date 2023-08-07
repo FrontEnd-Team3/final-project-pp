@@ -10,12 +10,14 @@ const SearchPage = () => {
 	const category = searchParams.get("category") || 0;
 	const { keyword } = useParams();
 	const page = searchParams.get("page") || 1;
+	const filter = searchParams.get("filter") || "등록순";
 	const [searchResults, setSearchResults] = useState([]);
 
 	const { data, isLoading } = ProductQueryApi.searchProductList(
 		category,
 		keyword,
 		page,
+		filter,
 	);
 
 	console.log("result", data);
@@ -51,6 +53,8 @@ const SearchPage = () => {
 		}
 
 		setSearchResults(filteredList);
+		// filter params만 업데이트하는 로직
+		setSearchParams(new URLSearchParams({ ...searchParams, filter: value }));
 	};
 
 	const options = [
@@ -70,7 +74,7 @@ const SearchPage = () => {
 					<BasicSelect
 						variant={"primary"}
 						options={options}
-						selectedValue={"등록순"}
+						selectedValue={filter}
 						onChange={onFiltering}
 					/>
 				</S.ResultandFilter>
