@@ -32,11 +32,15 @@ const Inputs = () => {
 	const [imageArr, setImageArr] = useState([]); // 이미지 담을 배열
 	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 	const [description, setDescription] = useState("");
-	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
 	const [price, setPrice] = useState("");
 	const [address, setAddress] = useState("");
 	const { isToggle, setIsToggle, Toggle } = useToggle();
+	const {
+		isToggle: category,
+		setIsToggle: setCategory,
+		Toggle: ToggleCategory,
+	} = useToggle(true);
 	const [isMap, setIsMap] = useState(false);
 	const [isOpened, setIsOpened] = useState();
 	const navigate = useNavigate();
@@ -105,11 +109,6 @@ const Inputs = () => {
 		setTaglist(updateTags);
 	};
 
-	// 체크 여부
-	const handleCheckedStatus = () => {
-		setCategory(!category);
-	};
-
 	// 가격 유효성 검사
 	const watchPrice = watch("price");
 	useEffect(() => {
@@ -134,21 +133,20 @@ const Inputs = () => {
 	}, [imageDBArr, address]);
 
 	const onSubmit = data => {
-		// console.log("물품 등록하기", data);
-		console.log("title: ", data.title);
-		console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
-		console.log("description: ", description);
-		console.log("region: ", address);
-
-		console.log("tag: ", taglist);
-		console.log("images: ", imageDBArr);
-		console.log("category: ", category ? 1 : 0);
-
 		if (imageDBArr.length === 0 && address === "") {
 			setIsImage(true);
 			setIsMap(true);
 			return;
 		}
+
+		if (imageDBArr.length === 0) {
+			setIsImage(true);
+		}
+
+		if (address === "") {
+			setIsMap(true);
+		}
+
 		try {
 			const formData = new FormData();
 			formData.append("title", data.title);
@@ -268,7 +266,7 @@ const Inputs = () => {
 							id="freeCheckbox"
 							name="radio"
 							checked={category}
-							onChange={handleCheckedStatus}
+							onChange={ToggleCategory}
 						/>
 						<label htmlFor="freeCheckbox">무료나눔</label>
 					</S.Checking>
@@ -278,7 +276,7 @@ const Inputs = () => {
 							id="usedCheckbox"
 							name="radio"
 							checked={!category}
-							onChange={handleCheckedStatus}
+							onChange={ToggleCategory}
 						/>
 						<label htmlFor="usedCheckbox">중고거래</label>
 					</S.Checking>
