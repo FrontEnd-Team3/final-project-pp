@@ -13,10 +13,6 @@ const ChatMain = ({ targetChat }) => {
 	console.log("chatMain", targetChat);
 	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
 
-	useEffect(() => {
-		refetch();
-	}, [targetChat]);
-
 	console.log("target", targetChat);
 	let nick_name;
 	const DATA = getUserData();
@@ -64,6 +60,10 @@ const ChatMain = ({ targetChat }) => {
 		setInputVal(e.target.value);
 	};
 
+	useEffect(() => {
+		refetch();
+	}, [targetChat]);
+
 	const handleChatContent = e => {
 		e.preventDefault();
 		if (inputVal) {
@@ -71,7 +71,9 @@ const ChatMain = ({ targetChat }) => {
 				ChatApi.saveMessages({
 					room_idx: parseInt(targetChat),
 					message: inputVal,
-				}).then(res => console.log("save", res));
+				}).then(() => {
+					refetch();
+				});
 			} catch (err) {
 				console.error(err);
 			}
