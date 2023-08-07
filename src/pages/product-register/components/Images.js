@@ -21,10 +21,9 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 			updatedImages.push(URL.createObjectURL(file));
 			updatedDBImages.push(file);
 		}
-		console.log("test", updatedDBImages);
+
 		setImageArr(updatedImages.slice(0, 5));
 		setImageDBArr(updatedDBImages.slice(0, 5));
-	
 	};
 
 	// 개별 이미지 삭제 로직

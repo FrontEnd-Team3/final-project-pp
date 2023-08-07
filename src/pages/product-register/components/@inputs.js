@@ -15,8 +15,7 @@ import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import Images from "./Images";
 import BasicNavigateModal from "components/Modal/WithButton";
-import { useLocation } from "react-router-dom";
-import EditInputs from "./editinputs";
+import { useNavigate } from "react-router-dom";
 const Inputs = () => {
 	const {
 		handleSubmit,
@@ -39,19 +38,16 @@ const Inputs = () => {
 	const { isToggle, setIsToggle, Toggle } = useToggle();
 	const [isMap, setIsMap] = useState(false);
 	const [isOpened, setIsOpened] = useState();
-	const location = useLocation();
-	const prevData = location.state ? location.state.prevData : null;
-	console.log("현재 불러온 데이터", prevData);
+	const navigate = useNavigate();
 
 	const queryClient = useQueryClient();
 
-	const { data, mutate } = useMutation(data => ProductApi.addProduct(data), {
+	const { mutate } = useMutation(data => ProductApi.addProduct(data), {
 		onSuccess: async data => {
 			await queryClient.invalidateQueries(["registers"]);
+			console.log(data);
 		},
 	});
-
-	// const { data, isLoading, error } = ProductQueryApi.getProductDetail(id);
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
@@ -128,6 +124,15 @@ const Inputs = () => {
 	}, [watchPrice, setValue, category]);
 
 	const onSubmit = data => {
+		// console.log("물품 등록하기", data);
+		console.log("title: ", data.title);
+		console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
+		console.log("description: ", description);
+		console.log("region: ", address);
+		console.log("tag: ", taglist);
+		console.log("images: ", imageDBArr);
+		console.log("category: ", category ? 1 : 0);
+
 		try {
 			const formData = new FormData();
 			formData.append("title", data.title);
@@ -162,12 +167,6 @@ const Inputs = () => {
 		setValue("title", "");
 	};
 
-	// if (data) {
-	// 	return <div>하하</div>;
-	// }
-	if (prevData) {
-		return <EditInputs prevData={prevData} />;
-	}
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Images
@@ -187,6 +186,7 @@ const Inputs = () => {
 					style={{ padding: "60px 30px 40px 136px" }}
 					placeholder="물품 제목을 입력해주세요."
 					maxLength={40}
+					value={"안녕"}
 				/>
 				<S.Title>
 					물품명 <S.Essential>*</S.Essential>

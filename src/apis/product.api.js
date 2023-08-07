@@ -26,7 +26,9 @@ const ProductApi = {
 		}),
 	// 물품 수정
 	updateProduct: async productData =>
-		await axiosInstance.patch(PATH, productData),
+		await axiosInstance.patch(PATH, productData, {
+			headers: { "Content-Type": "multipart/form-data" },
+		}),
 
 	// 물품 검색
 	searchProduct: async ({ category, keyword, page }) =>

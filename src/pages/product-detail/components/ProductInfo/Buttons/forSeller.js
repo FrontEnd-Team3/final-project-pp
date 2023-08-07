@@ -5,14 +5,14 @@ import { useState } from "react";
 import NoListModal from "../Modals/noList";
 import SelectListModal from "../Modals/selectList";
 import ProductApi from "apis/product.api";
-import { useQuery } from "react-query";
-import { axiosInstance } from "apis/core";
+import { useQueryClient } from "react-query";
+import ProductQueryApi from "apis/product.query.api";
 
 const ButtonsForSeller = ({ chat, status }) => {
 	const navigate = useNavigate();
 
 	const { id } = useParams();
-
+	const queryClient = useQueryClient();
 	const deleteProduct = () => {
 		console.log(
 			ProductApi.deleteProduct(id)
@@ -28,14 +28,12 @@ const ButtonsForSeller = ({ chat, status }) => {
 		setIsModalOpen(true);
 	};
 
-	// const getData = () => {
-	// const { data } = useQuery(
-	// 	"prevProduct",
-	// 	async id => await axiosInstance.get(`/product/${id}`),
-	// );
-	useQuery("prevData", async () => await axiosInstance.get("/api/product"));
-
-	// };
+	// 기존 데이터 가져오기
+	const { data, isLoading, error } = ProductQueryApi.getProductDetail(id);
+	// 등록 페이지로 이동하면서 등록페이지에 조회한 데이터 전달
+	const handleEdit = () => {
+		navigate("/productRegister", { state: { prevData: data } });
+	};
 
 	return (
 		<>
@@ -46,10 +44,7 @@ const ButtonsForSeller = ({ chat, status }) => {
 							color={"white"}
 							size={"xxmedium"}
 							children={"수정"}
-							onClick={() => {
-								navigate("/productRegister");
-								// , getData();
-							}}
+							onClick={() => handleEdit()}
 							style={{ fontSize: "20px", fontWeight: "bold" }}
 						/>
 						<BasicButton

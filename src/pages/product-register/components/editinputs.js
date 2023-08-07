@@ -15,9 +15,7 @@ import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import Images from "./Images";
 import BasicNavigateModal from "components/Modal/WithButton";
-import { useLocation } from "react-router-dom";
-import EditInputs from "./editinputs";
-const Inputs = () => {
+const EditInputs = prevData => {
 	const {
 		handleSubmit,
 		control,
@@ -29,29 +27,35 @@ const Inputs = () => {
 		mode: "onChange",
 	});
 
-	const [imageArr, setImageArr] = useState([]); // 이미지 담을 배열
+	// 이전 데이터 불러와서 editData에 저장
+	const editData = prevData.prevData.searchProduct;
+	// 이미지 데이터 배열 만들기 => ProductImages에는 서브이미지, img_url에는 메인 이미지
+	const imageDataList = editData.ProductImages.map(v => v.img_url);
+	const AllimageList = imageDataList.push(editData.img_url);
+	console.log(imageDataList);
+	const [imageArr, setImageArr] = useState(imageDataList); // 이미지 담을 배열
 	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
-	const [description, setDescription] = useState("");
-	const [category, setCategory] = useState(true);
-	const [taglist, setTaglist] = useState([]);
+
+	const [description, setDescription] = useState(editData.description);
+	const [category, setCategory] = useState(editData.category);
+	const queryClient = useQueryClient();
+
+	// 태그 이전 데이터 가져와서 map 돌려줌 > 태그 데이터 형태 때문에
+	const EditTagList = editData.ProductsTags;
+	const EditTag = EditTagList.map(v => v.Tag.tag);
+	const [taglist, setTaglist] = useState(EditTag);
+	console.log(editData.price);
 	const [price, setPrice] = useState("");
-	const [address, setAddress] = useState("");
+	const [address, setAddress] = useState(editData.region);
 	const { isToggle, setIsToggle, Toggle } = useToggle();
 	const [isMap, setIsMap] = useState(false);
 	const [isOpened, setIsOpened] = useState();
-	const location = useLocation();
-	const prevData = location.state ? location.state.prevData : null;
-	console.log("현재 불러온 데이터", prevData);
-
-	const queryClient = useQueryClient();
 
 	const { data, mutate } = useMutation(data => ProductApi.addProduct(data), {
 		onSuccess: async data => {
 			await queryClient.invalidateQueries(["registers"]);
 		},
 	});
-
-	// const { data, isLoading, error } = ProductQueryApi.getProductDetail(id);
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
@@ -162,12 +166,6 @@ const Inputs = () => {
 		setValue("title", "");
 	};
 
-	// if (data) {
-	// 	return <div>하하</div>;
-	// }
-	if (prevData) {
-		return <EditInputs prevData={prevData} />;
-	}
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Images
@@ -187,6 +185,7 @@ const Inputs = () => {
 					style={{ padding: "60px 30px 40px 136px" }}
 					placeholder="물품 제목을 입력해주세요."
 					maxLength={40}
+					value={editData.title}
 				/>
 				<S.Title>
 					물품명 <S.Essential>*</S.Essential>
@@ -330,7 +329,7 @@ const Inputs = () => {
 	);
 };
 
-export default Inputs;
+export default EditInputs;
 
 const TitleAnother = styled.p`
 	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
