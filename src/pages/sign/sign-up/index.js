@@ -56,10 +56,6 @@ const Signup = () => {
 			console.log("회원가입data", response);
 			if (response && response.status === 200) {
 				setIsOpen(true);
-				setTimeout(() => {
-					setIsOpen(false);
-					navigate("/Signin");
-				}, 3000);
 			}
 			return response;
 		} catch (error) {
@@ -67,6 +63,15 @@ const Signup = () => {
 		}
 		console.log(data);
 	});
+
+	const onClickOutside = () => {
+		setIsOpen(false);
+		navigate("/Signin");
+		setTimeout(() => {
+			setIsOpen(false);
+			navigate("/Signin");
+		}, 3000);
+	};
 
 	const onEmailCheck = async () => {
 		try {
@@ -235,6 +240,7 @@ const Signup = () => {
 					position={"primary"}
 					titlement={"Welcome to TRIMM!"}
 					subtitlement={"회원가입이 완료되었습니다"}
+					onClickOutside={onClickOutside}
 				/>
 			)}
 		</>
