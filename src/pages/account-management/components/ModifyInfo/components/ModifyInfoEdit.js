@@ -42,14 +42,13 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 		} else if (btnName === "완료") {
 			setOpenInput(true);
 			if (!fieldValue) {
-				return setValue(field, userData[field]);
+				return;
 			}
 			setFieldValue(fieldValue);
 		}
 	};
 
 	const onEmailCheck = async () => {
-		console.log("hihi");
 		if (!fieldValue) return;
 		const email = fieldValue;
 		try {
