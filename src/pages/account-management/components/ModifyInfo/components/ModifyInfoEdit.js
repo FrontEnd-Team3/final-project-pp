@@ -8,10 +8,12 @@ import * as yup from "yup";
 import ValidateInput from "pages/sign/components/OneValidate";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { replacePhone } from "utils/phoneNum";
+import SearchAddress from "components/SearchAddress";
 
 const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 	const [openInput, setOpenInput] = useState(true);
-
+	const [address, setAddress] = useState("");
+	const [addressOpen, setAddressOpen] = useState(false);
 	// 닉네임 schema 적용하기
 	const { email, pw, phone, region } = SCHEMA;
 	const schema = yup.object().shape({ email, pw, phone, region });
@@ -42,14 +44,13 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 		} else if (btnName === "완료") {
 			setOpenInput(true);
 			if (!fieldValue) {
-				return setValue(field, userData[field]);
+				return;
 			}
 			setFieldValue(fieldValue);
 		}
 	};
 
 	const onEmailCheck = async () => {
-		console.log("hihi");
 		if (!fieldValue) return;
 		const email = fieldValue;
 		try {
@@ -95,7 +96,23 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 							name={field}
 							errors={errors}
 							type={field === "pw" ? "password" : "text"}
+							placeholder={
+								field === "region"
+									? "주소창을 클릭해주세요"
+									: "변경할 정보를 입력해주세요"
+							}
+							address={field === "region" ? address : undefined}
+							onClick={
+								field === "region" ? () => setAddressOpen(true) : undefined
+							}
 						/>
+						{addressOpen && (
+							<SearchAddress
+								setAddress={setAddress}
+								setIsOpen={setAddressOpen}
+								setValue={setValue}
+							/>
+						)}
 						<div>
 							{field === "email" ? (
 								<>
@@ -104,6 +121,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 										color={"darkBlack"}
 										children={"중복 확인"}
 										onClick={onEmailCheck}
+										disabled={errors[field] || !getValues("email")}
 									/>
 									<BasicButton
 										size={"account"}
@@ -113,6 +131,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 										onClick={() => {
 											handleEdit("완료");
 										}}
+										disabled={errors[field] || !getValues("email")}
 									/>
 								</>
 							) : (
@@ -124,6 +143,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 									onClick={() => {
 										handleEdit("완료");
 									}}
+									disabled={errors[field] || !getValues(field)}
 								/>
 							)}
 						</div>
