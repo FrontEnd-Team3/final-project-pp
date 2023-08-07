@@ -99,6 +99,7 @@ const MyProfileInfo = ({ userData, setNickNameValue }) => {
 								onClick={() => {
 									handleEdit("완료");
 								}}
+								disabled={errors.nickName || !getValues("nickName")}
 							/>
 						</div>
 					</>

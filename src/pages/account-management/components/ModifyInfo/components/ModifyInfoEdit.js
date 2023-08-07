@@ -103,6 +103,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 										color={"darkBlack"}
 										children={"중복 확인"}
 										onClick={onEmailCheck}
+										disabled={errors[field] || !getValues("email")}
 									/>
 									<BasicButton
 										size={"account"}
@@ -112,6 +113,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 										onClick={() => {
 											handleEdit("완료");
 										}}
+										disabled={errors[field] || !getValues("email")}
 									/>
 								</>
 							) : (
@@ -123,6 +125,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 									onClick={() => {
 										handleEdit("완료");
 									}}
+									disabled={errors[field] || !getValues(field)}
 								/>
 							)}
 						</div>
