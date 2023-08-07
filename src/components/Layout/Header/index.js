@@ -50,17 +50,6 @@ const Header = () => {
 		if (searchValue === "") return;
 		navigate(`/search/${searchValue}`);
 		searchInput.current.value = "";
-		// try {
-		// 	const response = await ProductApi.searchProduct({
-		// 		category: 0,
-		// 		keyword: searchValue,
-		// 		page: 1,
-		// 	});
-		// 	console.log(response);
-		// 	navigate(`/search?category=0&keyword=${searchValue}&page=1`);
-		// } catch (error) {
-		// 	console.error("Error while searching products:", error);
-		// }
 	};
 
 	return (

@@ -27,8 +27,8 @@ const SearchPage = () => {
 
 	const filteredSearchResults =
 		prod?.filter(product => {
-			const { title, description, ProductTags } = product;
-			const tags = ProductTags?.map(item => item.Tag.tag) || [];
+			const { title, description, ProductsTags } = product;
+			const tags = ProductsTags?.map(item => item.Tag.tag) || [];
 
 			const filterValue = [title, description, ...tags]
 				.join(" ")
