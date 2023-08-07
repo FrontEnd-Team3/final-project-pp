@@ -43,9 +43,11 @@ const MyProfileInfo = ({ userData, setNickNameValue }) => {
 	const onNickNameCheck = handleSubmit(async () => {
 		if (!nickNameValue) return;
 		try {
-			const response = await AuthApi.nickNameCheck(nickNameValue);
+			const nickname = nickNameValue;
+			const response = await AuthApi.nickNameDoubleCheck(nickname);
 			if (response.status === 200) {
 				alert("사용 가능한 닉네임 입니다.");
+				console.log(response);
 			}
 		} catch (error) {
 			if (error.response.status === 400) {
