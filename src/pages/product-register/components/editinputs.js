@@ -51,7 +51,6 @@ const EditInputs = prevData => {
 	const { isToggle, setIsToggle, Toggle } = useToggle();
 	const [isMap, setIsMap] = useState(false);
 	const [isOpened, setIsOpened] = useState();
-	const [title, setTitle] = useState(editData.title);
 
 	const { mutate } = useMutation(data => ProductApi.updateProduct(data), {
 		onSuccess: async data => {
