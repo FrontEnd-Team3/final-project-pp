@@ -1,16 +1,14 @@
 import ProductQueryApi from "apis/product.query.api";
 import ProductList from "components/ProductList/withPagination";
 import BasicSelect from "components/Select";
-import { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const SearchPage = () => {
-	const [searchParams, _] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const category = searchParams.get("category") || 0;
 	const { keyword } = useParams();
 	const page = searchParams.get("page") || 1;
-	const [searchResults, setSearchResults] = useState([]);
 
 	const { data, isLoading } = ProductQueryApi.searchProductList(
 		category,
@@ -25,14 +23,15 @@ const SearchPage = () => {
 		return <div>스켈레톤 UI로 변경 예정</div>;
 	}
 
+	// title, description, tag 값 포함되는 결과만 보여주는 로직(객체분해할당)
+	// " " 공백 join하여 문자열 합쳐 검색
+	// toLocaleLowerCase -> 영문 검색시 소문자로 변환하여 모두 검색 가능하도록
 	const filteredSearchResults =
 		prod?.filter(product => {
 			const { title, description, ProductsTags } = product;
 			const tags = ProductsTags?.map(item => item.Tag.tag) || [];
 
-			const filterValue = [title, description, ...tags]
-				.join(" ")
-				.toLocaleLowerCase();
+			const filterValue = [title, description, ...tags].join(" ").toLowerCase();
 			return filterValue.includes(keyword.toLowerCase());
 		}) || [];
 

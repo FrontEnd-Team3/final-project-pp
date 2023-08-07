@@ -42,13 +42,13 @@ const Header = () => {
 		}
 	};
 
-	//
+	// 입력 검색어 params 설정하여 페이지 이동하는
 	const handleSearchResult = async e => {
 		e.preventDefault();
 		const searchValue = searchInput.current.value;
-		console.log("검색 값:", searchValue);
-		if (searchValue === "") return;
-		navigate(`/search/${searchValue}`);
+		const keyword = searchValue.replace(/\s/g, ""); // 띄어쓰기 막기
+		if (keyword === "") return; // 빈값 막기
+		navigate(`/search/${keyword}`);
 		searchInput.current.value = "";
 	};
 
