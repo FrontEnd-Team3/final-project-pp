@@ -33,19 +33,18 @@ const MyProfileInfo = ({ userData, setNickNameValue }) => {
 		} else if (btnName === "완료") {
 			setOpenNickNameInput(true);
 			// nickNameRef.current.value의 값이 빈 문자열이라면 함수를 빠져나감
-			if (!nickNameValue.trim()) {
-				return setValue("nickName", userData?.nick_name);
-			}
 			setNickNameValue(nickNameValue);
 		}
 	};
 
 	const onNickNameCheck = handleSubmit(async () => {
-		if (!nickNameValue.trim()) return;
+		if (!nickNameValue) return;
 		try {
-			const response = await AuthApi.nickNameCheck(nickNameValue);
+			const nickname = nickNameValue;
+			const response = await AuthApi.nickNameDoubleCheck(nickname);
 			if (response.status === 200) {
 				alert("사용 가능한 닉네임 입니다.");
+				console.log(response);
 			}
 		} catch (error) {
 			if (error.response.status === 400) {
@@ -97,6 +96,7 @@ const MyProfileInfo = ({ userData, setNickNameValue }) => {
 								onClick={() => {
 									handleEdit("완료");
 								}}
+								disabled={errors.nickName || !getValues("nickName")}
 							/>
 						</div>
 					</>

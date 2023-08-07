@@ -31,12 +31,9 @@ const AuthApi = {
 	logout: async () => {
 		return await axiosInstance.get(PATH + "/logout");
 	},
-	emailCheck: async email => {
-		return await axiosInstance.get(`${PATH}/check/email?email=${email}`);
-	},
-	nickNameCheck: async nickName => {
+	nickNameDoubleCheck: async nickname => {
 		return await axiosInstance.get(
-			`${PATH}/check/nickName?nickName=${nickName}`,
+			`${PATH}/check/nickname?nickname=${nickname}`,
 		);
 	},
 	emailDoubleCheck: async email => {
