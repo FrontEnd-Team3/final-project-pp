@@ -4,8 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import NoListModal from "../Modals/noList";
 import SelectListModal from "../Modals/selectList";
-import ProductApi from "apis/product.api";
 import AlertModal from "../Modals/alert";
+import ProductQueryApi from "apis/product.query.api";
+import { useQueryClient } from "react-query";
+import QueryKey from "consts/queryKey";
 
 const ButtonsForSeller = ({ chat, status }) => {
 	const navigate = useNavigate();
@@ -14,9 +16,16 @@ const ButtonsForSeller = ({ chat, status }) => {
 
 	const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
 
+	const queryClient = useQueryClient();
+	const deleteData = ProductQueryApi.deleteProduct(
+		id,
+		queryClient.invalidateQueries([QueryKey.productData]),
+	);
+
 	const deleteProduct = () => {
 		console.log(
-			ProductApi.deleteProduct(id)
+			deleteData
+				.mutateAsync()
 				.then(res => console.log("delete", res))
 				.catch(err => console.error(err)),
 		);
