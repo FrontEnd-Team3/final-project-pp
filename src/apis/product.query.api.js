@@ -18,10 +18,11 @@ const ProductQueryApi = {
 			QueryConfig,
 			id,
 		),
-	deleteProduct: id =>
+	deleteProduct: (id, successFn) =>
 		useMutateData(
 			() => ProductApi.deleteProduct(id),
 			[QueryKey.productDetail, id],
+			successFn,
 		),
 	updateProductStatus: id =>
 		useMutateData(
