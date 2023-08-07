@@ -29,6 +29,7 @@ const EditInputs = prevData => {
 
 	// 이전 데이터 불러와서 editData에 저장
 	const editData = prevData.prevData.searchProduct;
+	console.log("idx", editData.idx);
 	// 이미지 데이터 배열 만들기 => ProductImages에는 서브이미지, img_url에는 메인 이미지
 	const imageDataList = editData.ProductImages.map(v => v.img_url);
 	const AllimageList = imageDataList.push(editData.img_url);
@@ -50,10 +51,12 @@ const EditInputs = prevData => {
 	const { isToggle, setIsToggle, Toggle } = useToggle();
 	const [isMap, setIsMap] = useState(false);
 	const [isOpened, setIsOpened] = useState();
+	const [title, setTitle] = useState(editData.title);
 
-	const { data, mutate } = useMutation(data => ProductApi.addProduct(data), {
+	const { mutate } = useMutation(data => ProductApi.updateProduct(data), {
 		onSuccess: async data => {
 			await queryClient.invalidateQueries(["registers"]);
+			console.log("data", data);
 		},
 	});
 
@@ -82,6 +85,9 @@ const EditInputs = prevData => {
 		}
 	};
 
+	const onChangeTitle = e => {
+		setTitle(e.target.value);
+	};
 	// 태그 카테고리 li 클릭 시 태그 추가
 	const handleAddTaglist = content => {
 		// 중복값 막기
@@ -132,22 +138,28 @@ const EditInputs = prevData => {
 	}, [watchPrice, setValue, category]);
 
 	const onSubmit = data => {
+		// formData.appent("idx", editData.idx);
+		// console.log("title: ", data.title);
+		// console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
+		// console.log("description: ", description);
+		// console.log("region: ", address);
+		// console.log("tag: ", taglist);
+		// console.log("images: ", imageDBArr);
+		// console.log("category: ", category ? 1 : 0);
 		try {
 			const formData = new FormData();
+			formData.append("idx", editData.idx);
 			formData.append("title", data.title);
-			if (address === "") {
-				setIsMap(true);
-			} else {
-				setIsMap(false);
-				formData.append("region", address);
-			}
 			formData.append(
 				"price",
 				category ? 0 : Number(price?.replace(",", "") || 0),
 			);
 			formData.append("description", description);
 			formData.append("category", category ? 1 : 0);
+			formData.append("region", address);
 			formData.append("tag", taglist);
+			formData.append("img_url", editData.img_url);
+			formData.append("main_url", imageDataList);
 			for (let i = 0; i < imageDBArr.length; i++) {
 				formData.append("images", imageDBArr[i]);
 			}
@@ -183,9 +195,8 @@ const EditInputs = prevData => {
 					color={"primary"}
 					size={"full"}
 					style={{ padding: "60px 30px 40px 136px" }}
-					placeholder="물품 제목을 입력해주세요."
 					maxLength={40}
-					value={editData.title}
+					defaultValue={editData.title}
 				/>
 				<S.Title>
 					물품명 <S.Essential>*</S.Essential>
@@ -287,6 +298,7 @@ const EditInputs = prevData => {
 						margin: "60px 10px 60px 130px",
 						backgroundColor: category ? "#ddd" : "initial",
 					}}
+					defaultValue={editData.price}
 				/>
 				<S.Title style={{ top: "68px" }}>
 					가격 <S.Essential>*</S.Essential>
@@ -297,7 +309,6 @@ const EditInputs = prevData => {
 				<S.TitleAnother>
 					위치 설정 <S.Essential>*</S.Essential>
 				</S.TitleAnother>
-				{isMap && <div>위치 설정해주세요</div>}
 				<Map address={address} setAddress={setAddress} />
 			</S.MapBox>
 			<S.SubmitBtns>

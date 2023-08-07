@@ -7,7 +7,7 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 	const fileInput = useRef(null); // ref로 input 태그 참조
 
 	useEffect(() => {
-		console.log(imageArr, imageDBArr);
+		// console.log(imageArr, imageDBArr);
 	}, [imageArr, imageDBArr]);
 
 	// 이미지 상대 경로 저장

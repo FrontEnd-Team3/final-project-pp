@@ -48,6 +48,7 @@ const Inputs = () => {
 	const { data, mutate } = useMutation(data => ProductApi.addProduct(data), {
 		onSuccess: async data => {
 			await queryClient.invalidateQueries(["registers"]);
+			console.log(data);
 		},
 	});
 
