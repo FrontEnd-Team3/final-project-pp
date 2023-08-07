@@ -5,20 +5,20 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import * as SCHEMA from "../../../../../consts/schema";
 import * as yup from "yup";
-import ValidateInput from "pages/sign/components/OneValidate";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { replacePhone } from "utils/phoneNum";
 import SearchAddress from "components/SearchAddress";
+import ValidateInput from "../../OneValidate";
 
 const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 	const [openInput, setOpenInput] = useState(true);
 	const [address, setAddress] = useState("");
 	const [addressOpen, setAddressOpen] = useState(false);
 	// 닉네임 schema 적용하기
-	const { email, pw, phone, region } = SCHEMA;
-	const schema = yup.object().shape({ email, pw, phone, region });
+	const { email, pw, phone, region, nickName } = SCHEMA;
+	const schema = yup.object().shape({ email, pw, phone, region, nickName });
 	const {
-		handleSubmit,
 		control,
 		formState: { errors },
 		getValues,
@@ -27,6 +27,9 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 	} = useForm({
 		resolver: yupResolver(schema),
 		mode: "onChange",
+		defaultValues: {
+			[field]: userData[field],
+		},
 	});
 
 	const phoneNumber = watch("phone");
@@ -64,6 +67,24 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 				alert("중복된 이메일 입니다.");
 				console.log(error);
 				setValue("email", "");
+			}
+		}
+	};
+
+	const onNickNameCheck = async () => {
+		if (!fieldValue) return;
+		const nickName = fieldValue;
+		try {
+			const response = await AuthApi.nickNameDoubleCheck(nickName);
+			if (response.status === 200) {
+				alert("사용 가능한 닉네임입니다.");
+				console.log(response);
+			}
+		} catch (error) {
+			if (error.response.status === 400) {
+				alert("중복된 닉네임입니다.");
+				console.log(error);
+				setValue("nickName", "");
 			}
 		}
 	};
@@ -114,7 +135,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 							/>
 						)}
 						<div>
-							{field === "email" ? (
+							{field === "email" && (
 								<>
 									<BasicButton
 										size={"account"}
@@ -134,7 +155,29 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 										disabled={errors[field] || !getValues("email")}
 									/>
 								</>
-							) : (
+							)}
+							{field === "nickName" && (
+								<>
+									<BasicButton
+										size={"account"}
+										color={"darkBlack"}
+										children={"중복 확인"}
+										onClick={onNickNameCheck}
+										disabled={errors[field] || !getValues("nickName")}
+									/>
+									<BasicButton
+										size={"account"}
+										color={"darkBlack"}
+										children={"완료"}
+										style={{ marginLeft: "5px" }}
+										onClick={() => {
+											handleEdit("완료");
+										}}
+										disabled={errors[field] || !getValues("nickName")}
+									/>
+								</>
+							)}
+							{field !== "email" && field !== "nickName" && (
 								<BasicButton
 									size={"account"}
 									color={"darkBlack"}

@@ -29,7 +29,9 @@ const SignIn = () => {
 		const response = await AuthApi.login(data.email, data.pw);
 		console.log("로그인", response.data.user);
 		login(response.data.tokenForHeader);
+
 		navigate("/");
+		window.location.reload();
 	});
 	return (
 		<S.Container>
