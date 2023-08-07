@@ -15,13 +15,7 @@ const OneController = ({ name, control, errors, field, ...rest }) => {
 			/>
 			{errors && (
 				<S.ErrorBox>
-					<ErrorMessage
-						name={name}
-						errors={errors}
-						// render={({ message }) => (
-						// 	<p style={{ color: "blue", fontWeight: "400" }}>{message}</p>
-						// )}
-					/>
+					<ErrorMessage name={name} errors={errors} />
 				</S.ErrorBox>
 			)}
 		</>

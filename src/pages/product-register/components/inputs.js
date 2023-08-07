@@ -22,6 +22,7 @@ const Inputs = () => {
 		control,
 		watch,
 		setValue,
+		setError,
 		formState: { errors },
 	} = useForm({
 		resolver: yupResolver(RegisterSchema),
@@ -39,6 +40,7 @@ const Inputs = () => {
 	const [isMap, setIsMap] = useState(false);
 	const [isOpened, setIsOpened] = useState();
 	const navigate = useNavigate();
+	const [isImage, setIsImage] = useState(false);
 
 	const queryClient = useQueryClient();
 
@@ -122,6 +124,15 @@ const Inputs = () => {
 		}
 	}, [watchPrice, setValue, category]);
 
+	useEffect(() => {
+		if (imageDBArr.length > 0) {
+			setIsImage(false);
+		}
+		if (address) {
+			setIsMap(false);
+		}
+	}, [imageDBArr, address]);
+
 	const onSubmit = data => {
 		// console.log("물품 등록하기", data);
 		console.log("title: ", data.title);
@@ -133,15 +144,15 @@ const Inputs = () => {
 		console.log("images: ", imageDBArr);
 		console.log("category: ", category ? 1 : 0);
 
+		if (imageDBArr.length === 0 && address === "") {
+			setIsImage(true);
+			setIsMap(true);
+			return;
+		}
 		try {
 			const formData = new FormData();
 			formData.append("title", data.title);
-			if (address === "") {
-				setIsMap(true);
-			} else {
-				setIsMap(false);
-				formData.append("region", address);
-			}
+			formData.append("region", address);
 			formData.append(
 				"price",
 				category ? 0 : Number(price?.replace(",", "") || 0),
@@ -175,6 +186,9 @@ const Inputs = () => {
 				imageDBArr={imageDBArr}
 				setImageDBArr={setImageDBArr}
 			/>
+			{isImage && (
+				<S.ErrorMessage>이미지는 한 장 이상 등록해주세요</S.ErrorMessage>
+			)}
 			<S.InputBox>
 				<OneController
 					name="title"
@@ -294,20 +308,11 @@ const Inputs = () => {
 				</S.Title>
 			</S.InputBox>
 			<S.MapBox>
-				<S.TitleAnother>
-					위치 설정 <S.Essential>*</S.Essential>
-				</S.TitleAnother>
-				{isMap && <div>위치 설정해주세요</div>}
+				{isMap && <S.ErrorMessage>위치를 설정해주세요</S.ErrorMessage>}
 				<Map address={address} setAddress={setAddress} />
 			</S.MapBox>
 			<S.SubmitBtns>
-				<BasicButton
-					size={"medium"}
-					color={"primary"}
-					onClick={() => {
-						setIsMap(true);
-					}}
-				>
+				<BasicButton size={"medium"} color={"primary"}>
 					등록하기
 				</BasicButton>
 				<BasicButton onClick={resetData} size={"medium"} color={"white"}>
@@ -330,11 +335,6 @@ const Inputs = () => {
 };
 
 export default Inputs;
-
-const TitleAnother = styled.p`
-	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
-	font-weight: bold;
-`;
 
 const SubmitBtns = styled.div`
 	display: flex;
@@ -505,10 +505,14 @@ const Checkbox = styled.input`
 	accent-color: ${({ theme }) => theme.PALETTE.darkPrimary};
 `;
 
+const ErrorMessage = styled.div`
+	color: ${({ theme }) => theme.PALETTE.red};
+	margin-bottom: 10px;
+`;
+
 const S = {
 	SubmitBtns,
 	MapBox,
-	TitleAnother,
 	Won,
 	InputBox,
 	InputBoxAnother,
@@ -524,4 +528,5 @@ const S = {
 	ArrowDownIcon,
 	Icon,
 	TagCateroryUl,
+	ErrorMessage,
 };

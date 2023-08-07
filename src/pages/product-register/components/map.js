@@ -47,6 +47,19 @@ const Map = ({ address, setAddress }) => {
 
 	return (
 		<>
+			<S.TitleAnother>
+				위치 설정 <S.Essential>*</S.Essential>
+				<BasicButton
+					color={"primary"}
+					size={"primary"}
+					shape={"primary"}
+					children={"주소 찾기"}
+					onClick={e => {
+						e.preventDefault();
+						setIsOpen(true);
+					}}
+				/>
+			</S.TitleAnother>
 			<S.MapAddress>
 				{isOpen && (
 					<SearchAddress
@@ -55,16 +68,6 @@ const Map = ({ address, setAddress }) => {
 					/>
 				)}
 				{address}
-				<BasicButton
-					color={"primary"}
-					size={"primary"}
-					shape={"primary"}
-					children={"주소 설정"}
-					onClick={e => {
-						e.preventDefault();
-						setIsOpen(true);
-					}}
-				/>
 			</S.MapAddress>
 
 			<S.MapBox id="map" />
@@ -81,7 +84,7 @@ const MapBox = styled.div.attrs({
 `;
 
 const MapAddress = styled.div`
-	font-size: 12px;
+	font-size: 14px;
 	color: gray;
 	margin: 12px 0 20px 0;
 
@@ -90,7 +93,25 @@ const MapAddress = styled.div`
 		margin-left: 8px;
 	}
 `;
+
+const Essential = styled.span`
+	color: ${({ theme }) => theme.PALETTE.primary};
+`;
+
+const TitleAnother = styled.p`
+	display: flex;
+	align-items: center;
+	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
+	font-weight: bold;
+
+	button {
+		margin-left: 12px;
+	}
+`;
+
 const S = {
 	MapAddress,
 	MapBox,
+	TitleAnother,
+	Essential,
 };
