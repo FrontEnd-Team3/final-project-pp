@@ -5,11 +5,14 @@ import { useState } from "react";
 import NoListModal from "../Modals/noList";
 import SelectListModal from "../Modals/selectList";
 import ProductApi from "apis/product.api";
+import AlertModal from "../Modals/alert";
 
 const ButtonsForSeller = ({ chat, status }) => {
 	const navigate = useNavigate();
 
 	const { id } = useParams();
+
+	const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
 
 	const deleteProduct = () => {
 		console.log(
@@ -17,7 +20,11 @@ const ButtonsForSeller = ({ chat, status }) => {
 				.then(res => console.log("delete", res))
 				.catch(err => console.error(err)),
 		);
-		navigate("/");
+		setIsAlertModalOpen(true);
+		setTimeout(() => {
+			setIsAlertModalOpen(false);
+			navigate("/");
+		}, 1500);
 	};
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,6 +81,7 @@ const ButtonsForSeller = ({ chat, status }) => {
 				) : (
 					<NoListModal setIsModalOpen={setIsModalOpen} />
 				))}
+			{isAlertModalOpen && <AlertModal message={"삭제가 완료되었습니다."} />}
 		</>
 	);
 };
