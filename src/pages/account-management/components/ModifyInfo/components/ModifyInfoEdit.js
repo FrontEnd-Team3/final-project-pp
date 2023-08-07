@@ -8,10 +8,12 @@ import * as yup from "yup";
 import ValidateInput from "pages/sign/components/OneValidate";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { replacePhone } from "utils/phoneNum";
+import SearchAddress from "components/SearchAddress";
 
 const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 	const [openInput, setOpenInput] = useState(true);
-
+	const [address, setAddress] = useState("");
+	const [addressOpen, setAddressOpen] = useState(false);
 	// 닉네임 schema 적용하기
 	const { email, pw, phone, region } = SCHEMA;
 	const schema = yup.object().shape({ email, pw, phone, region });
@@ -94,7 +96,17 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 							name={field}
 							errors={errors}
 							type={field === "pw" ? "password" : "text"}
+							placeholder={"주소창을 클릭해주세요"}
+							address={field === "region" && address}
+							onClick={() => setAddressOpen(true)}
 						/>
+						{addressOpen && (
+							<SearchAddress
+								setAddress={setAddress}
+								setIsOpen={setAddressOpen}
+								setValue={setValue}
+							/>
+						)}
 						<div>
 							{field === "email" ? (
 								<>

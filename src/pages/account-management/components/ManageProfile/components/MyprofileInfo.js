@@ -33,9 +33,6 @@ const MyProfileInfo = ({ userData, setNickNameValue }) => {
 		} else if (btnName === "완료") {
 			setOpenNickNameInput(true);
 			// nickNameRef.current.value의 값이 빈 문자열이라면 함수를 빠져나감
-			if (!nickNameValue) {
-				return;
-			}
 			setNickNameValue(nickNameValue);
 		}
 	};
