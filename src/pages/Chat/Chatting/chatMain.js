@@ -60,16 +60,17 @@ const ChatMain = ({ targetChat }) => {
 
 	const handleChatContent = e => {
 		e.preventDefault();
-		console.log(inputVal);
-		try {
-			ChatApi.saveMessages({
-				room_idx: parseInt(targetChat),
-				message: inputVal,
-			}).then(res => console.log("save", res));
-		} catch (err) {
-			console.error(err);
+		if (inputVal) {
+			try {
+				ChatApi.saveMessages({
+					room_idx: parseInt(targetChat),
+					message: inputVal,
+				}).then(res => console.log("save", res));
+			} catch (err) {
+				console.error(err);
+			}
+			setInputVal("");
 		}
-		setInputVal("");
 	};
 
 	return (

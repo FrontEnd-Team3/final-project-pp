@@ -1,36 +1,20 @@
 import BasicButton from "components/Button";
-import SinginModal from "components/Modal/WithButton";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
-import SearchAddress from "components/SearchAddress";
-import { useState } from "react";
+import RouteKey from "consts/routes";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter } from "styles/common";
 
-const FreeProduct = ({ region, list }) => {
+const FreeProduct = ({ list }) => {
 	const navigate = useNavigate();
-
-	// 주소 변경
-	const [isOpen, setIsOpen] = useState(false);
-	const [address, setAddress] = useState(region);
-
-	// 토큰 있을 때만 주소 변경 가능하게 하기
-	// 토큰 없으면 로그인 창으로 이동하는 모달 띄우기
-	const [hasToken, setHasToken] = useState(true);
-
 	return (
 		<>
-			{hasToken
-				? isOpen && (
-						<SearchAddress setAddress={setAddress} setIsOpen={setIsOpen} />
-				  )
-				: isOpen && <SinginModal setOpen={setIsOpen} />}
 			<S.Container>
 				<div>
 					<S.Title>
 						우리 동네 <S.Free>무료</S.Free> 나눔
 					</S.Title>
-					<S.Location>
+					{/* <S.Location>
 						{address}
 						<BasicButton
 							color={"primary"}
@@ -39,7 +23,7 @@ const FreeProduct = ({ region, list }) => {
 							style={{ marginLeft: "15px" }}
 							onClick={() => setIsOpen(true)}
 						/>
-					</S.Location>
+					</S.Location> */}
 				</div>
 				<ProductListWithoutPagination productList={list} />
 				<S.ButtonContainer>
@@ -48,7 +32,7 @@ const FreeProduct = ({ region, list }) => {
 						size={"small"}
 						children={"MORE +"}
 						style={{ fontSize: "14px", height: "28px" }}
-						onClick={() => navigate("/free-transaction")}
+						onClick={() => navigate(RouteKey.free)}
 					/>
 				</S.ButtonContainer>
 			</S.Container>
@@ -64,10 +48,10 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-	font-size: 28px;
+	font-size: 40px;
 	color: #${({ theme }) => theme.PALETTE.darkPrimary};
 	text-align: center;
-	margin-top: 90px;
+	margin: 90px 0;
 `;
 
 const Free = styled.span`
