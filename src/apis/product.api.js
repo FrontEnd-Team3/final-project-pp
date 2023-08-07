@@ -31,13 +31,13 @@ const ProductApi = {
 		}),
 
 	// 물품 검색
-	searchProduct: async ({ category, keyword, page }) =>
+	searchProduct: async ({ category, keyword, page, filter = "등록순" }) =>
 		await axiosInstance.get(PATH + `/search`, {
-			params: { category, keyword, page },
+			params: { category, keyword, page, filter },
 		}),
 
 	// 물품 시세 검색
-	searchProduct: async ({ keyword, start, end }) =>
+	searchPriceProduct: async ({ keyword, start, end }) =>
 		await axiosInstance.get(PATH + `/quote`, {
 			params: { keyword, start, end },
 		}),

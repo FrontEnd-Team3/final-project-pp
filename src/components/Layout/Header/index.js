@@ -2,13 +2,15 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
 	const { accessToken, logout } = useAuth();
+	const searchInput = useRef();
+	const [filter, setFilter] = useState("등록순");
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -40,6 +42,16 @@ const Header = () => {
 		}
 	};
 
+	// 입력 검색어 params 설정하여 페이지 이동하는
+	const handleSearchResult = async e => {
+		e.preventDefault();
+		const searchValue = searchInput.current.value;
+		const keyword = searchValue.replace(/\s/g, ""); // 띄어쓰기 막기
+		if (keyword === "") return; // 빈값 막기
+		navigate(`/search/${keyword}?filter=${filter}`);
+		searchInput.current.value = "";
+	};
+
 	return (
 		<>
 			<S.Container>
@@ -61,13 +73,16 @@ const Header = () => {
 						</S.SideTitle>
 					</div>
 					<S.SearchWrapper>
-						<S.SearchBar></S.SearchBar>
-						<S.Searchicon
-							src="img/search.png"
-							onClick={() => {
-								navigate("/search");
-							}}
-						></S.Searchicon>
+						<form onSubmit={handleSearchResult}>
+							<S.SearchBar
+								placeholder="제목, 태그명을 입력해주세요"
+								ref={searchInput}
+							/>
+							<S.Searchicon
+								src="img/search.png"
+								onClick={handleSearchResult}
+							></S.Searchicon>
+						</form>
 					</S.SearchWrapper>
 					<div>
 						<S.NewChat>새로운 채팅 도착!</S.NewChat>
