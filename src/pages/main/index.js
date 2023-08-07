@@ -28,9 +28,9 @@ const Main = () => {
 		<>
 			<Banner />
 			<Slogan />
-			<UsedProduct region={data?.region} list={data?.usedProduct} />
+			<UsedProduct list={data?.usedProduct} />
 			<S.DivisionLine />
-			<FreeProduct region={data?.region} list={data?.freeProduct} />
+			<FreeProduct list={data?.freeProduct} />
 			<RecentlyClicked />
 		</>
 	);
