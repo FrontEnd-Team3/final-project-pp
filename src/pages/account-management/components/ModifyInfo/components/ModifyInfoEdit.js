@@ -96,9 +96,15 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 							name={field}
 							errors={errors}
 							type={field === "pw" ? "password" : "text"}
-							placeholder={"주소창을 클릭해주세요"}
-							address={field === "region" && address}
-							onClick={() => setAddressOpen(true)}
+							placeholder={
+								field === "region"
+									? "주소창을 클릭해주세요"
+									: "변경할 정보를 입력해주세요"
+							}
+							address={field === "region" ? address : undefined}
+							onClick={
+								field === "region" ? () => setAddressOpen(true) : undefined
+							}
 						/>
 						{addressOpen && (
 							<SearchAddress
