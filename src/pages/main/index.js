@@ -15,7 +15,7 @@ const Main = () => {
 
 	const { data, isLoading, error } = ProductQueryApi.getProductList();
 
-	// console.log("main", data);
+	console.log("main", data);
 
 	if (isLoading) return <Loading />;
 
