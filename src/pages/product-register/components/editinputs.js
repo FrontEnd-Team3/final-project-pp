@@ -32,12 +32,13 @@ const EditInputs = prevData => {
 	console.log("idx", editData.idx);
 	// 이미지 데이터 배열 만들기 => ProductImages에는 서브이미지, img_url에는 메인 이미지
 
-	const imageDataList = editData.ProductImages.map(v => v.img_url);
-
-	const AllimageList = editData.img_url.concat(imageDataList);
-	console.log(imageDataList);
-	const [imageArr, setImageArr] = useState(AllimageList); // 이미지 담을 배열
-	const [imageDBArr, setImageDBArr] = useState(AllimageList); // DB로 보낼 베열
+	const subImages = editData.ProductImages.map(v => v.img_url);
+	const imageDataList = [
+		editData.img_url,
+		...editData.ProductImages.map(v => v.img_url),
+	];
+	const [imageArr, setImageArr] = useState(imageDataList); // 이미지 담을 배열
+	const [imageDBArr, setImageDBArr] = useState(imageDataList); // DB로 보낼 베열
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
 	const queryClient = useQueryClient();
@@ -159,7 +160,7 @@ const EditInputs = prevData => {
 			formData.append("region", address);
 			formData.append("tag", taglist);
 			formData.append("img_url", editData.img_url);
-			formData.append("main_url", imageDataList);
+			formData.append("main_url", editData.img_url);
 			for (let i = 0; i < imageDBArr.length; i++) {
 				formData.append("images", imageDBArr[i]);
 			}

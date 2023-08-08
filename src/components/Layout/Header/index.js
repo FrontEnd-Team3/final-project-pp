@@ -25,6 +25,7 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
+
 	const handleLogout = async () => {
 		try {
 			await logout();
