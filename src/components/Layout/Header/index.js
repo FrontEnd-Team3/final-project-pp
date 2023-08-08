@@ -28,6 +28,8 @@ const Header = () => {
 
 	const handleLogout = async () => {
 		try {
+			window.localStorage.removeItem("targetChat");
+			window.localStorage.removeItem("isSell");
 			await logout();
 			navigate("/Signin");
 		} catch (error) {

@@ -7,7 +7,6 @@ import getUserData from "utils/getUserData";
 import { useEffect, useState } from "react";
 import OtherChat from "./otherChat";
 import ChatApi from "apis/chat.api";
-import { socket } from "Socket";
 
 const ChatMain = ({ targetChat }) => {
 	// 대화 내역 가져오기
@@ -82,34 +81,6 @@ const ChatMain = ({ targetChat }) => {
 		}
 	};
 
-	const [isConnected, setIsConnected] = useState(socket.connected);
-	const [fooEvents, setFooEvents] = useState([]);
-
-	useEffect(() => {
-		function onConnect() {
-			setIsConnected(true);
-		}
-
-		function onDisconnect() {
-			setIsConnected(false);
-		}
-
-		function onFooEvent(value) {
-			setFooEvents(previous => [...previous, value]);
-		}
-
-		socket.on("소켓연결", onConnect);
-		socket.on("소케연결끊김", onDisconnect);
-		socket.on("foo는 뭘까..?", onFooEvent);
-
-		return () => {
-			socket.off("소켓연결", onConnect);
-			socket.off("소케연결끊김", onDisconnect);
-			socket.off("foo는 뭘까..?", onFooEvent);
-		};
-	}, []);
-	// 채팅을 치면 계속 밖에만 생성돼요.... 왜 그럴까요... 하.........
-
 	return (
 		<S.ChatMainWrapper>
 			{filteredByUser &&
@@ -160,19 +131,19 @@ export default ChatMain;
 
 const ChatMainWrapper = styled.div`
 	width: 100%;
+	height: 450px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		width: 15px;
+		display: none;
+	}
 `;
 
 const Chat = styled.div`
 	width: 100%;
 	padding: 20px;
-	height: 450px;
-	overflow-x: hidden;
-	overflow-y: scroll;
 	float: left;
-	&::-webkit-scrollbar {
-		width: 15px;
-		display: none;
-	}
 `;
 
 const day = styled.div`

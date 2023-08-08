@@ -75,5 +75,6 @@
 	},
 	"msw": {
 		"workerDirectory": "public"
-	}
+	},
+	"proxy": "https://topdragon.co.kr/"
 }

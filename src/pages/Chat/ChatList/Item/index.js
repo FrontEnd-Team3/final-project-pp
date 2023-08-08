@@ -50,7 +50,7 @@ const ChatItem = ({ chat, setTargetChat, targetChat }) => {
 export default ChatItem;
 
 const Item = styled.div`
-	width: 449px;
+	width: 450px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
