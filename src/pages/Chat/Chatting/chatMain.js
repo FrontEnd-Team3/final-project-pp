@@ -7,6 +7,7 @@ import getUserData from "utils/getUserData";
 import { useEffect, useState } from "react";
 import OtherChat from "./otherChat";
 import ChatApi from "apis/chat.api";
+import { socket } from "Socket";
 
 const ChatMain = ({ targetChat }) => {
 	// 대화 내역 가져오기
@@ -80,6 +81,34 @@ const ChatMain = ({ targetChat }) => {
 			setInputVal("");
 		}
 	};
+
+	const [isConnected, setIsConnected] = useState(socket.connected);
+	const [fooEvents, setFooEvents] = useState([]);
+
+	useEffect(() => {
+		function onConnect() {
+			setIsConnected(true);
+		}
+
+		function onDisconnect() {
+			setIsConnected(false);
+		}
+
+		function onFooEvent(value) {
+			setFooEvents(previous => [...previous, value]);
+		}
+
+		socket.on("소켓연결", onConnect);
+		socket.on("소케연결끊김", onDisconnect);
+		socket.on("foo는 뭘까..?", onFooEvent);
+
+		return () => {
+			socket.off("소켓연결", onConnect);
+			socket.off("소케연결끊김", onDisconnect);
+			socket.off("foo는 뭘까..?", onFooEvent);
+		};
+	}, []);
+	// 채팅을 치면 계속 밖에만 생성돼요.... 왜 그럴까요... 하.........
 
 	return (
 		<S.ChatMainWrapper>
