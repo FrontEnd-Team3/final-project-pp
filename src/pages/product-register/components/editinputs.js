@@ -1,6 +1,6 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
@@ -14,7 +14,7 @@ import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import Images from "./Images";
-import BasicNavigateModal from "components/Modal/WithButton";
+import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 const EditInputs = prevData => {
 	const {
 		handleSubmit,
@@ -42,11 +42,11 @@ const EditInputs = prevData => {
 	console.log(imageDataList);
 	const [imageArr, setImageArr] = useState(imageDataList); // 이미지 담을 배열
 	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
-	
+
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
 	const queryClient = useQueryClient();
-
+	const imagesContainerRef = useRef(null);
 	// 태그 이전 데이터 가져와서 map 돌려줌 > 태그 데이터 형태 때문에
 	const EditTagList = editData.ProductsTags;
 	const EditTag = EditTagList.map(v => v.Tag.tag);
@@ -164,28 +164,28 @@ const EditInputs = prevData => {
 			formData.append("region", address);
 			formData.append("tag", taglist);
 			formData.append("img_url", editData.img_url);
-			formData.append("main_url", editData.img_url);
+			formData.append("main_url", imageDataList);
 			for (let i = 0; i < imageDBArr.length; i++) {
 				formData.append("images", imageDBArr[i]);
 			}
 			mutate(formData);
+			if (imageDBArr.length && address) {
+				setIsOpened(true);
+				setTimeout(() => {
+					setIsOpened(false);
+					navigate("/");
+				}, 1500);
+			}
 		} catch (error) {
 			console.error("데이터 저장에 실패했습니다:", error);
 		}
 	};
 
-	const resetData = () => {
-		setImageArr([]);
-		setTaglist([]);
-		setCategory(true);
-		setDescription("");
-		setAddress("");
-		setValue("title", "");
-	};
-
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Images
+				id="imagesSection"
+				imagesContainerRef={imagesContainerRef}
 				imageArr={imageArr}
 				setImageArr={setImageArr}
 				imageDBArr={imageDBArr}
@@ -311,36 +311,17 @@ const EditInputs = prevData => {
 				</S.Title>
 			</S.InputBox>
 			<S.MapBox>
-				<S.TitleAnother>
-					위치 설정 <S.Essential>*</S.Essential>
-				</S.TitleAnother>
 				<Map address={address} setAddress={setAddress} />
 			</S.MapBox>
 			<S.SubmitBtns>
-				<BasicButton
-					size={"medium"}
-					color={"primary"}
-					onClick={() => {
-						setIsMap(true);
-					}}
-				>
-					등록하기
+				<BasicButton size={"medium"} color={"primary"}>
+					수정하기
 				</BasicButton>
-				<BasicButton onClick={resetData} size={"medium"} color={"white"}>
+				<BasicButton size={"medium"} color={"white"}>
 					취소
 				</BasicButton>
 			</S.SubmitBtns>
-			{isOpened && (
-				<BasicNavigateModal
-					background={"gray"}
-					subtitle={"primary"}
-					title={"primary"}
-					container={"primary"}
-					position={"primary"}
-					titlement={"Welcome to TRIMM!"}
-					subtitlement={"물품 등록이 완료되었습니다!"}
-				/>
-			)}
+			{isOpened && <AlertModal message={"물품 등록이 완료되었습니다."} />}
 		</form>
 	);
 };

@@ -17,7 +17,7 @@ import Images from "./Images";
 import { useNavigate } from "react-router-dom";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 import { useLocation } from "react-router-dom";
-import  EditInputs  from "./editinputs";
+import EditInputs from "./editinputs";
 const Inputs = () => {
 	const {
 		handleSubmit,
