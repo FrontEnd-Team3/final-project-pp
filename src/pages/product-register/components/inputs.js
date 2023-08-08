@@ -14,8 +14,8 @@ import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import Images from "./Images";
-import BasicNavigateModal from "components/Modal/WithButton";
 import { useNavigate } from "react-router-dom";
+import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 const Inputs = () => {
 	const {
 		handleSubmit,
@@ -162,6 +162,13 @@ const Inputs = () => {
 				formData.append("images", imageDBArr[i]);
 			}
 			mutate(formData);
+			if (imageDBArr.length && address) {
+				setIsOpened(true);
+				setTimeout(() => {
+					setIsOpened(false);
+					navigate("/");
+				}, 1500);
+			}
 		} catch (error) {
 			console.error("데이터 저장에 실패했습니다:", error);
 		}
@@ -317,17 +324,7 @@ const Inputs = () => {
 					취소
 				</BasicButton>
 			</S.SubmitBtns>
-			{isOpened && (
-				<BasicNavigateModal
-					background={"gray"}
-					subtitle={"primary"}
-					title={"primary"}
-					container={"primary"}
-					position={"primary"}
-					titlement={"Welcome to TRIMM!"}
-					subtitlement={"물품 등록이 완료되었습니다!"}
-				/>
-			)}
+			{isOpened && <AlertModal message={"물품 등록이 완료되었습니다."} />}
 		</form>
 	);
 };
