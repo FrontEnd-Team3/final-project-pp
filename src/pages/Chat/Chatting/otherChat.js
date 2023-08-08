@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FakeProfile from "./bud.png";
+import FakeProfile from "./planting.png";
 
 const OtherChat = ({ createdAt, message, user }) => {
 	return (

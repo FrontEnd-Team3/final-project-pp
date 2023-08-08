@@ -1,60 +1,18 @@
 import BasicButton from "components/Button";
-import BasicNavigateModal from "components/Modal/WithButton";
 import ProductListWithoutPagination from "components/ProductList/withoutPagination";
-import SearchAddress from "components/SearchAddress";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter } from "styles/common";
 
-const UsedProduct = ({ region, list }) => {
+const UsedProduct = ({ list }) => {
 	const navigate = useNavigate();
-
-	// 주소 변경
-	const [isOpen, setIsOpen] = useState(false);
-	const [address, setAddress] = useState(region);
-
-	// 토큰 있을 때만 주소 변경 가능하게 하기
-	// 토큰 없으면 로그인 창으로 이동하는 모달 띄우기
-	const [hasToken, setHasToken] = useState(false);
-
-	// console.log("list", list);
 	return (
 		<>
-			{hasToken
-				? isOpen && (
-						<SearchAddress setAddress={setAddress} setIsOpen={setIsOpen} />
-				  )
-				: isOpen && (
-						<BasicNavigateModal
-							setOpen={setIsOpen}
-							background={"primary"}
-							container={"primary"}
-							closebtn={"primary"}
-							title={"primary"}
-							subtitle={"primary"}
-							button={"primary"}
-							titlement={"Please Join Us!"}
-							subtitlement={"로그인이 필요합니다."}
-							buttonment={"로그인 하러 가기 "}
-							moveaddress={"Signin"}
-						/>
-				  )}
 			<S.Container>
 				<div>
 					<S.Title>
 						우리 동네 <S.Used>중고</S.Used> 물품
 					</S.Title>
-					<S.Location>
-						{address}
-						<BasicButton
-							color={"primary"}
-							size={"xsmall"}
-							children={"변경"}
-							style={{ marginLeft: "15px" }}
-							onClick={() => setIsOpen(true)}
-						/>
-					</S.Location>
 				</div>
 				<ProductListWithoutPagination productList={list} />
 				<S.ButtonContainer>
@@ -80,9 +38,10 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-	font-size: 28px;
+	font-size: 40px;
 	color: #${({ theme }) => theme.PALETTE.darkPrimary};
 	text-align: center;
+	margin: 90px 0;
 `;
 
 const Used = styled.span`

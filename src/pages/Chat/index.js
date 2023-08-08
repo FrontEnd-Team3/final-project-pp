@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import ChatList from "./ChatList";
 import Chatting from "./Chatting";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Chat = () => {
-	const [targetChat, setTargetChat] = useState("");
-	// console.log("target", targetChat);
+	const [targetChat, setTargetChat] = useState(
+		localStorage.getItem("targetChat") || "",
+	);
+	useEffect(() => {
+		window.localStorage.setItem("targetChat", targetChat);
+	}, [targetChat]);
 
 	return (
 		<S.ChatRoom>
-			<ChatList setTargetChat={setTargetChat} />
+			<ChatList setTargetChat={setTargetChat} targetChat={targetChat} />
 			<Chatting targetChat={targetChat} />
 		</S.ChatRoom>
 	);

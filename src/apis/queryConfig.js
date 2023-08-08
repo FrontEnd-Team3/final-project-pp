@@ -1,6 +1,7 @@
 const QueryConfig = {
-	staleTime: 3000,
+	staleTime: 0,
 	cacheTime: 5000,
+	refetchOnMount: "always",
 };
 
 export default QueryConfig;

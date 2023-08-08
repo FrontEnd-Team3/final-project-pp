@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 
-const ChatItem = ({ chat, setTargetChat }) => {
+const ChatItem = ({ chat, setTargetChat, targetChat }) => {
 	const { idx, isRead, lastMessage, product } = chat;
 	// console.log("product", product);
 
@@ -15,7 +15,7 @@ const ChatItem = ({ chat, setTargetChat }) => {
 
 	return (
 		<>
-			<S.Item>
+			<S.Item isSelected={chat.idx === parseInt(targetChat)}>
 				<S.IimgContainer>
 					{!isRead && <S.New>New</S.New>}
 					<S.Iimg src={product.img_url} />
@@ -61,6 +61,7 @@ const Item = styled.div`
 	padding-top: 20px;
 	position: relative;
 	cursor: pointer;
+	background-color: ${({ isSelected }) => (isSelected ? "#AAC8A7" : "white")};
 `;
 
 const New = styled.div`
