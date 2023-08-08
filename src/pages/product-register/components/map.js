@@ -96,6 +96,7 @@ const MapAddress = styled.div`
 
 const Essential = styled.span`
 	color: ${({ theme }) => theme.PALETTE.primary};
+	margin-left: 4px;
 `;
 
 const TitleAnother = styled.p`

@@ -27,7 +27,7 @@ export default OneController;
 const ErrorBox = styled.div`
 	color: ${({ theme }) => theme.PALETTE.red};
 	margin-top: 10px;
-	font-weight: 400;
+	font-weight: bold;
 `;
 
 const S = { ErrorBox };

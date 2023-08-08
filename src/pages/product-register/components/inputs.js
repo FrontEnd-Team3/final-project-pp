@@ -1,6 +1,6 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
@@ -22,7 +22,6 @@ const Inputs = () => {
 		control,
 		watch,
 		setValue,
-		setError,
 		formState: { errors },
 	} = useForm({
 		resolver: yupResolver(RegisterSchema),
@@ -45,6 +44,7 @@ const Inputs = () => {
 	const [isOpened, setIsOpened] = useState();
 	const navigate = useNavigate();
 	const [isImage, setIsImage] = useState(false);
+	const imagesContainerRef = useRef(null);
 
 	const queryClient = useQueryClient();
 
@@ -53,9 +53,6 @@ const Inputs = () => {
 			await queryClient.invalidateQueries(["registers"]);
 		},
 	});
-
-	// 태그 유효성 검사
-	const watchTag = watch("tag");
 
 	// 입력값 enter로 태그 추가
 	const handleKeyPress = e => {
@@ -136,6 +133,11 @@ const Inputs = () => {
 		if (imageDBArr.length === 0 && address === "") {
 			setIsImage(true);
 			setIsMap(true);
+
+			imagesContainerRef.current.scrollIntoView({
+				behavior: "smooth",
+				block: "start",
+			});
 			return;
 		}
 
@@ -186,6 +188,8 @@ const Inputs = () => {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Images
+				id="imagesSection"
+				imagesContainerRef={imagesContainerRef}
 				imageArr={imageArr}
 				setImageArr={setImageArr}
 				imageDBArr={imageDBArr}
@@ -503,6 +507,7 @@ const Checkbox = styled.input`
 const ErrorMessage = styled.div`
 	color: ${({ theme }) => theme.PALETTE.red};
 	margin-bottom: 10px;
+	font-weight: bold;
 `;
 
 const S = {
