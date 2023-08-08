@@ -3,11 +3,17 @@ import { flexCenter } from "styles/common";
 import { AiFillCamera } from "react-icons/ai";
 import { useEffect, useRef } from "react";
 import { TiDelete } from "react-icons/ti";
-const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
+const Images = ({
+	imageArr,
+	setImageArr,
+	imageDBArr,
+	setImageDBArr,
+	imagesContainerRef,
+}) => {
 	const fileInput = useRef(null); // ref로 input 태그 참조
 
 	useEffect(() => {
-		// console.log(imageArr, imageDBArr);
+		console.log(imageArr, imageDBArr);
 	}, [imageArr, imageDBArr]);
 
 	// 이미지 상대 경로 저장
@@ -16,11 +22,13 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 
 		const updatedImages = [...imageArr];
 		const updatedDBImages = [...imageDBArr];
+
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
 			updatedImages.push(URL.createObjectURL(file)); // 미리보기
 			updatedDBImages.push(file); // DB용
 		}
+		console.log("test", updatedDBImages);
 
 		setImageArr(updatedImages.slice(0, 5));
 		setImageDBArr(updatedDBImages.slice(0, 5));
@@ -36,7 +44,7 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 
 	return (
 		<>
-			<div>
+			<div ref={imagesContainerRef}>
 				<S.TitleAnother style={{ marginBottom: "20px" }}>
 					상품 이미지 (0/5) <S.Essential>*</S.Essential>
 				</S.TitleAnother>

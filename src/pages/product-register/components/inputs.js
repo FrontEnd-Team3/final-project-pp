@@ -1,6 +1,6 @@
 import BasicButton from "components/Button";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 import { AiFillCaretDown } from "react-icons/ai";
 import OneController from "./OneController";
@@ -14,9 +14,10 @@ import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import Images from "./Images";
-import BasicNavigateModal from "components/Modal/WithButton";
+import { useNavigate } from "react-router-dom";
+import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 import { useLocation } from "react-router-dom";
-import EditInputs from "./editinputs";
+import  EditInputs  from "./editinputs";
 const Inputs = () => {
 	const {
 		handleSubmit,
@@ -32,30 +33,31 @@ const Inputs = () => {
 	const [imageArr, setImageArr] = useState([]); // 이미지 담을 배열
 	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 	const [description, setDescription] = useState("");
-	const [category, setCategory] = useState(true);
 	const [taglist, setTaglist] = useState([]);
 	const [price, setPrice] = useState("");
 	const [address, setAddress] = useState("");
 	const { isToggle, setIsToggle, Toggle } = useToggle();
+	const {
+		isToggle: category,
+		setIsToggle: setCategory,
+		Toggle: ToggleCategory,
+	} = useToggle(true);
 	const [isMap, setIsMap] = useState(false);
 	const [isOpened, setIsOpened] = useState();
+	const navigate = useNavigate();
+	const [isImage, setIsImage] = useState(false);
+	const imagesContainerRef = useRef(null);
+
 	const location = useLocation();
 	const prevData = location.state ? location.state.prevData : null;
 	console.log("현재 불러온 데이터", prevData);
-
 	const queryClient = useQueryClient();
 
-	const { data, mutate } = useMutation(data => ProductApi.addProduct(data), {
-		onSuccess: async data => {
+	const { mutate } = useMutation(data => ProductApi.addProduct(data), {
+		onSuccess: async () => {
 			await queryClient.invalidateQueries(["registers"]);
-			console.log(data);
 		},
 	});
-
-	// const { data, isLoading, error } = ProductQueryApi.getProductDetail(id);
-
-	// 태그 유효성 검사
-	const watchTag = watch("tag");
 
 	// 입력값 enter로 태그 추가
 	const handleKeyPress = e => {
@@ -109,11 +111,6 @@ const Inputs = () => {
 		setTaglist(updateTags);
 	};
 
-	// 체크 여부
-	const handleCheckedStatus = () => {
-		setCategory(!category);
-	};
-
 	// 가격 유효성 검사
 	const watchPrice = watch("price");
 	useEffect(() => {
@@ -128,16 +125,39 @@ const Inputs = () => {
 		}
 	}, [watchPrice, setValue, category]);
 
+	useEffect(() => {
+		if (imageDBArr.length > 0) {
+			setIsImage(false);
+		}
+		if (address) {
+			setIsMap(false);
+		}
+	}, [imageDBArr, address]);
+
 	const onSubmit = data => {
+		if (imageDBArr.length === 0 && address === "") {
+			setIsImage(true);
+			setIsMap(true);
+
+			imagesContainerRef.current.scrollIntoView({
+				behavior: "smooth",
+				block: "start",
+			});
+			return;
+		}
+
+		if (imageDBArr.length === 0) {
+			setIsImage(true);
+		}
+
+		if (address === "") {
+			setIsMap(true);
+		}
+
 		try {
 			const formData = new FormData();
 			formData.append("title", data.title);
-			if (address === "") {
-				setIsMap(true);
-			} else {
-				setIsMap(false);
-				formData.append("region", address);
-			}
+			formData.append("region", address);
 			formData.append(
 				"price",
 				category ? 0 : Number(price?.replace(",", "") || 0),
@@ -149,6 +169,13 @@ const Inputs = () => {
 				formData.append("images", imageDBArr[i]);
 			}
 			mutate(formData);
+			if (imageDBArr.length && address) {
+				setIsOpened(true);
+				setTimeout(() => {
+					setIsOpened(false);
+					navigate("/");
+				}, 1500);
+			}
 		} catch (error) {
 			console.error("데이터 저장에 실패했습니다:", error);
 		}
@@ -162,21 +189,23 @@ const Inputs = () => {
 		setAddress("");
 		setValue("title", "");
 	};
-
-	// if (data) {
-	// 	return <div>하하</div>;
-	// }
 	if (prevData) {
 		return <EditInputs prevData={prevData} />;
 	}
+
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Images
+				id="imagesSection"
+				imagesContainerRef={imagesContainerRef}
 				imageArr={imageArr}
 				setImageArr={setImageArr}
 				imageDBArr={imageDBArr}
 				setImageDBArr={setImageDBArr}
 			/>
+			{isImage && (
+				<S.ErrorMessage>이미지는 한 장 이상 등록해주세요</S.ErrorMessage>
+			)}
 			<S.InputBox>
 				<OneController
 					name="title"
@@ -256,7 +285,7 @@ const Inputs = () => {
 							id="freeCheckbox"
 							name="radio"
 							checked={category}
-							onChange={handleCheckedStatus}
+							onChange={ToggleCategory}
 						/>
 						<label htmlFor="freeCheckbox">무료나눔</label>
 					</S.Checking>
@@ -266,7 +295,7 @@ const Inputs = () => {
 							id="usedCheckbox"
 							name="radio"
 							checked={!category}
-							onChange={handleCheckedStatus}
+							onChange={ToggleCategory}
 						/>
 						<label htmlFor="usedCheckbox">중고거래</label>
 					</S.Checking>
@@ -296,47 +325,23 @@ const Inputs = () => {
 				</S.Title>
 			</S.InputBox>
 			<S.MapBox>
-				<S.TitleAnother>
-					위치 설정 <S.Essential>*</S.Essential>
-				</S.TitleAnother>
-				{isMap && <div>위치 설정해주세요</div>}
+				{isMap && <S.ErrorMessage>위치를 설정해주세요</S.ErrorMessage>}
 				<Map address={address} setAddress={setAddress} />
 			</S.MapBox>
 			<S.SubmitBtns>
-				<BasicButton
-					size={"medium"}
-					color={"primary"}
-					onClick={() => {
-						setIsMap(true);
-					}}
-				>
+				<BasicButton size={"medium"} color={"primary"}>
 					등록하기
 				</BasicButton>
 				<BasicButton onClick={resetData} size={"medium"} color={"white"}>
 					취소
 				</BasicButton>
 			</S.SubmitBtns>
-			{isOpened && (
-				<BasicNavigateModal
-					background={"gray"}
-					subtitle={"primary"}
-					title={"primary"}
-					container={"primary"}
-					position={"primary"}
-					titlement={"Welcome to TRIMM!"}
-					subtitlement={"물품 등록이 완료되었습니다!"}
-				/>
-			)}
+			{isOpened && <AlertModal message={"물품 등록이 완료되었습니다."} />}
 		</form>
 	);
 };
 
 export default Inputs;
-
-const TitleAnother = styled.p`
-	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
-	font-weight: bold;
-`;
 
 const SubmitBtns = styled.div`
 	display: flex;
@@ -507,10 +512,15 @@ const Checkbox = styled.input`
 	accent-color: ${({ theme }) => theme.PALETTE.darkPrimary};
 `;
 
+const ErrorMessage = styled.div`
+	color: ${({ theme }) => theme.PALETTE.red};
+	margin-bottom: 10px;
+	font-weight: bold;
+`;
+
 const S = {
 	SubmitBtns,
 	MapBox,
-	TitleAnother,
 	Won,
 	InputBox,
 	InputBoxAnother,
@@ -526,4 +536,5 @@ const S = {
 	ArrowDownIcon,
 	Icon,
 	TagCateroryUl,
+	ErrorMessage,
 };

@@ -37,8 +37,12 @@ const EditInputs = prevData => {
 		editData.img_url,
 		...editData.ProductImages.map(v => v.img_url),
 	];
+
+	const AllimageList = imageDataList.push(editData.img_url);
+	console.log(imageDataList);
 	const [imageArr, setImageArr] = useState(imageDataList); // 이미지 담을 배열
-	const [imageDBArr, setImageDBArr] = useState(imageDataList); // DB로 보낼 베열
+	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
+	
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
 	const queryClient = useQueryClient();
