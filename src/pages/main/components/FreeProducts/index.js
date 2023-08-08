@@ -13,16 +13,6 @@ const FreeProduct = ({ list }) => {
 					<S.Title>
 						우리 동네 <S.Free>무료</S.Free> 나눔
 					</S.Title>
-					{/* <S.Location>
-						{address}
-						<BasicButton
-							color={"primary"}
-							size={"xsmall"}
-							children={"변경"}
-							style={{ marginLeft: "15px" }}
-							onClick={() => setIsOpen(true)}
-						/>
-					</S.Location> */}
 				</div>
 				<ProductListWithoutPagination productList={list} />
 				<S.ButtonContainer>

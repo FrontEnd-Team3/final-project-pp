@@ -13,7 +13,6 @@ const BookmarkBtn = ({ bookmark }) => {
 	const { refetch } = ProductQueryApi.getProductDetail(id);
 
 	useEffect(() => {
-		// Check if the product is bookmarked in local storage on component mount
 		const bookmarkedProducts =
 			JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
 		setIsBookmarked(bookmarkedProducts.includes(id));
@@ -31,7 +30,6 @@ const BookmarkBtn = ({ bookmark }) => {
 	const likeProduct = async () => {
 		try {
 			const res = await bookmarkData.mutateAsync();
-			// console.log("Wish", res);
 			successFn(res);
 			const bookmarkedProducts =
 				JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];

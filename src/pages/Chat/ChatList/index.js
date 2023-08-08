@@ -29,15 +29,6 @@ const ChatList = ({ setTargetChat, targetChat }) => {
 		window.localStorage.setItem("isSell", isSell);
 	}, [isSell]);
 
-	// const [targetChat, setTargetChat] = useState(null);
-	// const navigate = useNavigate();
-
-	// const showChat = chatIdx => {
-	// 	ChatApi.getChatLogs(chatIdx).then(chat => {
-	// 		setTargetChat(chat); // 채팅 정보를 상태에 저장합니다.
-	// 	});
-	// };
-
 	return (
 		<S.Container>
 			<S.Header>
@@ -143,7 +134,6 @@ const Main = styled.div`
 const Chatlist = styled.div`
 	width: 450px;
 	height: 520px;
-	/* border-right: 1px solid #ebebeb; */
 	align-items: center;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {

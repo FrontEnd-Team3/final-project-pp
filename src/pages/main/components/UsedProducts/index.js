@@ -13,16 +13,6 @@ const UsedProduct = ({ list }) => {
 					<S.Title>
 						우리 동네 <S.Used>중고</S.Used> 물품
 					</S.Title>
-					{/* <S.Location>
-						{address}
-						<BasicButton
-							color={"primary"}
-							size={"xsmall"}
-							children={"변경"}
-							style={{ marginLeft: "15px" }}
-							onClick={() => setIsOpen(true)}
-						/>
-					</S.Location> */}
 				</div>
 				<ProductListWithoutPagination productList={list} />
 				<S.ButtonContainer>
