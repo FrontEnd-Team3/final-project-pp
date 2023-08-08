@@ -1,14 +1,13 @@
 import { createContext, useContext, useState } from "react";
-import { io } from "socket.io-client";
 
-export const socket = io.connect("/socket.io", {
-	cors: {
-		origin: "http://localhost:3000",
-		methods: ["GET", "POST"],
-		credentials: true,
-	},
-	withCredentials: true, // 추가
-});
+// export const socket = io.connect("/socket.io", {
+// 	cors: {
+// 		origin: "http://localhost:3000",
+// 		methods: ["GET", "POST"],
+// 		credentials: true,
+// 	},
+// 	withCredentials: true, // 추가
+// });
 
 const SocketContext = createContext();
 

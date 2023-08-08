@@ -2,7 +2,7 @@ import axios from "axios";
 import TokenRepository from "repositories/TokenRepository";
 
 export const axiosInstance = axios.create({
-	baseURL: "https://topdragon.co.kr",
+	baseURL: process.env.REACT_APP_BACKEND_URL,
 	withCredentials: true, // 쿠키생성
 });
 

@@ -7,15 +7,23 @@ const Chat = () => {
 	const [targetChat, setTargetChat] = useState(
 		localStorage.getItem("targetChat") || "",
 	);
-
+	const [chatData, setChatData] = useState("");
 	useEffect(() => {
 		window.localStorage.setItem("targetChat", targetChat);
 	}, [targetChat]);
 
 	return (
 		<S.ChatRoom>
-			<ChatList setTargetChat={setTargetChat} targetChat={targetChat} />
-			<Chatting targetChat={targetChat} />
+			<ChatList
+				setTargetChat={setTargetChat}
+				targetChat={targetChat}
+				setChatData={setChatData}
+			/>
+			<Chatting
+				targetChat={targetChat}
+				chatData={chatData}
+				setChatData={setChatData}
+			/>
 		</S.ChatRoom>
 	);
 };

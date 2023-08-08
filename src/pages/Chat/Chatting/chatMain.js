@@ -8,17 +8,23 @@ import OtherChat from "./otherChat";
 import ChatApi from "apis/chat.api";
 import getFilteredList from "./utils/getfilteredList";
 
-const ChatMain = ({ targetChat }) => {
+const ChatMain = ({ targetChat, chatData, setChatData }) => {
 	// 대화 내역 가져오기
-	console.log("chatMain", targetChat);
+	// console.log("chatMain", targetChat);
 	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
 
 	const filteredByUser = getFilteredList(data);
 
 	// 전송 시 input 값 전송
 	const [inputVal, setInputVal] = useState("");
+
 	const handleInput = e => {
 		setInputVal(e.target.value);
+		setChatData(prevChatData => ({
+			...prevChatData,
+			createdAt: new Date(),
+			message: inputVal,
+		}));
 	};
 
 	useEffect(() => {
@@ -39,6 +45,7 @@ const ChatMain = ({ targetChat }) => {
 				console.error(err);
 			}
 			setInputVal("");
+			// globalSocket.emit("sendMessage", chatData);
 		}
 	};
 

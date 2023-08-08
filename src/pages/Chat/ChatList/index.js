@@ -4,9 +4,9 @@ import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
 import getUserData from "utils/getUserData";
 
-const ChatList = ({ setTargetChat, targetChat }) => {
+const ChatList = ({ setTargetChat, targetChat, setChatData }) => {
 	const { data } = ChatQueryApi.getChatList();
-	console.log("chat", data);
+	// console.log("chat", data);
 
 	// 로그인한 User의 정보 가져옴
 	let nick_name;
@@ -49,6 +49,7 @@ const ChatList = ({ setTargetChat, targetChat }) => {
 									chat={chat}
 									setTargetChat={setTargetChat}
 									targetChat={targetChat}
+									setChatData={setChatData}
 								/>
 							))
 						) : (
@@ -66,6 +67,7 @@ const ChatList = ({ setTargetChat, targetChat }) => {
 									chat={chat}
 									setTargetChat={setTargetChat}
 									targetChat={targetChat}
+									setChatData={setChatData}
 								/>
 							))
 						) : (

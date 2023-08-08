@@ -6,7 +6,6 @@ import { ThemeProvider } from "styled-components";
 import theme from "styles/theme";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AuthProvider from "context/auth.ctx";
-import SocketContextProvider from "context/socket.ctx";
 
 const queryClient = new QueryClient();
 
@@ -16,10 +15,8 @@ function App() {
 			<AuthProvider>
 				<ThemeProvider theme={theme}>
 					<QueryClientProvider client={queryClient}>
-						<SocketContextProvider>
-							<GlobalStyles />
-							<RouterProvider router={router} />
-						</SocketContextProvider>
+						<GlobalStyles />
+						<RouterProvider router={router} />
 					</QueryClientProvider>
 				</ThemeProvider>
 			</AuthProvider>

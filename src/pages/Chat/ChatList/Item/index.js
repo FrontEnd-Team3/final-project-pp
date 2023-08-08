@@ -1,25 +1,42 @@
-import { useSocket } from "context/socket.ctx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
+import getUserData from "utils/getUserData";
+import { io } from "socket.io-client";
 
-const ChatItem = ({ chat, setTargetChat, targetChat }) => {
+const ChatItem = ({ chat, setTargetChat, targetChat, setChatData }) => {
 	const { idx, isRead, lastMessage, product } = chat;
-	// console.log("product", product);
 
+	let nick_name;
+	const DATA = getUserData();
+	if (DATA) nick_name = DATA.nick_name;
 	// 읽음
 	const [isOpen, setIsOpen] = useState(false);
 
 	// 페이지 이동
 	const navigate = useNavigate();
 
-	const [globalSocket] = useSocket();
 	// 채팅방 입장하기 + 이전 방 나가기
 	const handleEnterRoom = () => {
-		globalSocket.emit("leave", { targetChat });
-		globalSocket.emit("join", { idx });
+		const socket = io.connect("/socket.io", {
+			cors: {
+				origin: "http://localhost:3000",
+				methods: ["GET", "POST"],
+				credentials: true,
+			},
+			withCredentials: true, // 추가
+		});
+		// socket.emit("leave", { targetChat });
+		// socket.emit("join", { idx });
 		setTargetChat(idx);
+		setChatData({
+			title: product.title,
+			prod_idx: product.idx,
+			room_idx: idx,
+			nickname: product.User.nick_name,
+			isSeller: nick_name === product.User.nick_name,
+		});
 	};
 
 	return (
