@@ -78,8 +78,12 @@ const ProductQueryApi = {
 		),
 
 	// 검색 결과
-	searchProductList: () =>
-		useQueryData([QueryKey.searchData], ProductApi.searchProduct, QueryConfig),
+	searchProductList: (category, keyword, page, filter) =>
+		useQueryData(
+			[QueryKey.searchData, category, keyword, page],
+			() => ProductApi.searchProduct(category, keyword, page, filter),
+			QueryConfig,
+		),
 };
 
 export default ProductQueryApi;

@@ -4,7 +4,7 @@ import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
 import getUserData from "utils/getUserData";
 
-const ChatList = ({ setTargetChat }) => {
+const ChatList = ({ setTargetChat, targetChat }) => {
 	const { data } = ChatQueryApi.getChatList();
 	console.log("chat", data);
 
@@ -48,6 +48,7 @@ const ChatList = ({ setTargetChat }) => {
 									key={chat.idx}
 									chat={chat}
 									setTargetChat={setTargetChat}
+									targetChat={targetChat}
 								/>
 							))
 						) : (
@@ -64,6 +65,7 @@ const ChatList = ({ setTargetChat }) => {
 									key={chat.idx}
 									chat={chat}
 									setTargetChat={setTargetChat}
+									targetChat={targetChat}
 								/>
 							))
 						) : (
@@ -132,7 +134,6 @@ const Main = styled.div`
 const Chatlist = styled.div`
 	width: 450px;
 	height: 520px;
-	/* border-right: 1px solid #ebebeb; */
 	align-items: center;
 	overflow-y: scroll;
 	&::-webkit-scrollbar {
