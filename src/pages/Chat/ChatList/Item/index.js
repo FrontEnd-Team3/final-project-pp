@@ -1,3 +1,4 @@
+import { useSocket } from "context/socket.ctx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -13,6 +14,14 @@ const ChatItem = ({ chat, setTargetChat, targetChat }) => {
 	// 페이지 이동
 	const navigate = useNavigate();
 
+	const [globalSocket] = useSocket();
+	// 채팅방 입장하기 + 이전 방 나가기
+	const handleEnterRoom = () => {
+		globalSocket.emit("leave", { targetChat });
+		globalSocket.emit("join", { idx });
+		setTargetChat(idx);
+	};
+
 	return (
 		<>
 			<S.Item isSelected={chat.idx === parseInt(targetChat)}>
@@ -20,7 +29,7 @@ const ChatItem = ({ chat, setTargetChat, targetChat }) => {
 					{!isRead && <S.New>New</S.New>}
 					<S.Iimg src={product.img_url} />
 				</S.IimgContainer>
-				<S.TextContainer onClick={() => setTargetChat(idx)}>
+				<S.TextContainer onClick={() => handleEnterRoom()}>
 					<S.ChatContent onClick={() => setIsOpen(false)}>
 						<S.Iproduct>{product.title}</S.Iproduct>
 						<S.Ichat>{lastMessage || "대화 내역이 존재하지 않습니다."}</S.Ichat>

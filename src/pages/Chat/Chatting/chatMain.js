@@ -3,56 +3,17 @@ import BasicInput from "components/Input";
 import styled from "styled-components";
 import MyChat from "./myChat";
 import ChatQueryApi from "apis/chat.api.query";
-import getUserData from "utils/getUserData";
 import { useEffect, useState } from "react";
 import OtherChat from "./otherChat";
 import ChatApi from "apis/chat.api";
+import getFilteredList from "./utils/getfilteredList";
 
 const ChatMain = ({ targetChat }) => {
 	// 대화 내역 가져오기
 	console.log("chatMain", targetChat);
 	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
 
-	console.log("target", targetChat);
-	let nick_name;
-	const DATA = getUserData();
-	if (DATA) nick_name = DATA.nick_name;
-
-	// 날짜별로 채팅 목록 분류하기
-	const dateSet = new Set();
-	let fileteredDate = data
-		?.map(chat => chat.createdAt.split("T")[0])
-		.filter(date => {
-			if (!dateSet.has(date)) {
-				dateSet.add(date);
-				return true;
-			}
-			return false;
-		});
-	// console.log("date", fileteredDate);
-
-	fileteredDate = [...dateSet];
-	const filteredByDate = fileteredDate.map(date => {
-		return {
-			date: date,
-			logs: data?.filter(chat => chat.createdAt.split("T")[0] === date),
-		};
-	});
-	// console.log("filtered", filteredByDate);
-
-	// 상대방이 보낸 메세지와 내가 보낸 메세지 구분하기
-	const filteredByUser = filteredByDate.map(list => {
-		return {
-			date: list.date,
-			logs: list.logs.map(log => {
-				return {
-					...log,
-					isMine: log.User.nick_name === nick_name,
-				};
-			}),
-		};
-	});
-	// console.log("filtered", filteredByUser);
+	const filteredByUser = getFilteredList(data);
 
 	// 전송 시 input 값 전송
 	const [inputVal, setInputVal] = useState("");
