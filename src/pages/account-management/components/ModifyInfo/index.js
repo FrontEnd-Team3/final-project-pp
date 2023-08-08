@@ -16,9 +16,9 @@ const AccountPrivacy = () => {
 	const [imageSrc, setImageSrc] = useState(null);
 
 	const [emailValue, setEmailValue] = useState(userData?.email);
-	const [passwordValue, setPasswordValue] = useState("0000000a!");
 	const [phoneValue, setPhoneValue] = useState(userData?.phone);
 	const [regionValue, setRegionValue] = useState(userData?.region);
+
 	const onUpload = e => {
 		if (e.target.files && e.target.files[0]) {
 			const file = e.target.files[0];
@@ -45,14 +45,7 @@ const AccountPrivacy = () => {
 	};
 
 	const handleSave = async () => {
-		if (
-			emailValue ||
-			passwordValue ||
-			phoneValue ||
-			regionValue ||
-			imageSrc ||
-			nickNameValue
-		) {
+		if (emailValue || phoneValue || regionValue || imageSrc || nickNameValue) {
 			try {
 				setIsOpen(true);
 
@@ -68,18 +61,18 @@ const AccountPrivacy = () => {
 					region: regionValue,
 					nickName: nickNameValue,
 				};
+
 				const responseInfo = await AuthApi.userProfileInfo(newValue);
 				console.log("개인정보 수정사항 저장 성공:", responseInfo);
-
-				const pw = passwordValue;
-				const reponsePasswordInfo = await AuthApi.userPasswordInfo(pw);
+				// const reponsePasswordInfo = await AuthApi.userPasswordInfo(pw);
 				window.location.reload();
-				console.log("비밀번호 수정 저장 성공:", reponsePasswordInfo);
+				// console.log("비밀번호 수정 저장 성공:", reponsePasswordInfo);
 			} catch (error) {
 				console.error("개인정보 저장 실패:", error);
 			}
 		}
 	};
+	console.log("nickName", userData?.nick_name);
 
 	if (userData) {
 		return (
@@ -127,12 +120,7 @@ const AccountPrivacy = () => {
 						<S.Line />
 						<ModifyInfoEdit
 							userData={userData}
-							field={"pw"}
-							setFieldValue={setPasswordValue}
-						/>
-						<ModifyInfoEdit
-							userData={userData}
-							field={"Nickname"}
+							field={"nickName"}
 							setFieldValue={setNickNameValue}
 						/>
 						<S.Line />
@@ -155,11 +143,7 @@ const AccountPrivacy = () => {
 							style={{ marginTop: "60px", marginLeft: "400px" }}
 							onClick={handleSave}
 							disabled={
-								!emailValue &&
-								!passwordValue &&
-								!phoneValue &&
-								!regionValue &&
-								!nickNameValue
+								!emailValue && !phoneValue && !regionValue && !nickNameValue
 							}
 						/>
 					</S.PrivacyWrapper>

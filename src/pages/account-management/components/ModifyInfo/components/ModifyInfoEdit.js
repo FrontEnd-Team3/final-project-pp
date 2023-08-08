@@ -84,7 +84,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue }) => {
 			if (error.response.status === 400) {
 				alert("중복된 닉네임입니다.");
 				console.log(error);
-				setValue("nickName", "");
+				setValue(field, "");
 			}
 		}
 	};
