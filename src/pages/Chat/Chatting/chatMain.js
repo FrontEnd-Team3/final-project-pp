@@ -131,19 +131,19 @@ export default ChatMain;
 
 const ChatMainWrapper = styled.div`
 	width: 100%;
+	height: 450px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		width: 15px;
+		display: none;
+	}
 `;
 
 const Chat = styled.div`
 	width: 100%;
 	padding: 20px;
-	height: 450px;
-	overflow-x: hidden;
-	overflow-y: scroll;
 	float: left;
-	&::-webkit-scrollbar {
-		width: 15px;
-		display: none;
-	}
 `;
 
 const day = styled.div`
