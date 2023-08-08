@@ -38,10 +38,8 @@ const EditInputs = prevData => {
 		...editData.ProductImages.map(v => v.img_url),
 	];
 
-	const AllimageList = imageDataList.push(editData.img_url);
-	console.log(imageDataList);
 	const [imageArr, setImageArr] = useState(imageDataList); // 이미지 담을 배열
-	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
+	const [imageDBArr, setImageDBArr] = useState(imageDataList); // DB로 보낼 베열
 
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
@@ -169,13 +167,13 @@ const EditInputs = prevData => {
 				formData.append("images", imageDBArr[i]);
 			}
 			mutate(formData);
-			if (imageDBArr.length && address) {
-				setIsOpened(true);
-				setTimeout(() => {
-					setIsOpened(false);
-					navigate("/");
-				}, 1500);
-			}
+			// if (imageDBArr.length && address) {
+			// 	setIsOpened(true);
+			// 	setTimeout(() => {
+			// 		setIsOpened(false);
+			// 		Navigate("/");
+			// 	}, 1500);
+			// }
 		} catch (error) {
 			console.error("데이터 저장에 실패했습니다:", error);
 		}
