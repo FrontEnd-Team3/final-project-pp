@@ -9,6 +9,7 @@ import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import ValidateInput from "../components/OneValidate";
 import AuthApi from "apis/auth.api";
 import { useAuth } from "context/auth.ctx";
+import { useSocket } from "context/socket.ctx";
 
 const SignIn = () => {
 	const navigate = useNavigate();
@@ -25,8 +26,12 @@ const SignIn = () => {
 		mode: "onChange",
 	});
 
+	const [globalSocket] = useSocket();
+
 	const onSubmitSignin = handleSubmit(async data => {
 		const response = await AuthApi.login(data.email, data.pw);
+		console.log("로그인", response.data.user.token);
+		globalSocket.emit(`connect-user`, { socket: response.data.user.token });
 		login(response.data.tokenForHeader);
 		navigate("/");
 	});
