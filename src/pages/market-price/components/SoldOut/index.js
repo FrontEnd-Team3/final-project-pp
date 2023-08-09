@@ -4,12 +4,36 @@ import { useState } from "react";
 import Pagination from "components/Pagination";
 import { flexColumn } from "styles/common";
 import OneProduct from "./oneSoldOutProduct";
+import ProductQueryApi from "apis/product.query.api";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const Soldout = () => {
 	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * dataLimit;
+	const [searchParams, _] = useSearchParams();
+	const start = searchParams.get("start") || "2023-07-09";
+	const end = searchParams.get("end") || "2023-08-09";
+	const { keyword } = useParams();
 	const SoldoutList = productList.filter(v => v.status == "판매완료");
+
+	const { data, isLoading } = ProductQueryApi.searchMarketPriceList({
+		keyword,
+		start,
+		end,
+	});
+
+	console.log("result", data);
+	const prod = data?.products.product;
+	console.log("판매완료", prod);
+
+	const avg = data?.cumulativeAvgPrice;
+	console.log("기간 동안 팔린 물품 갯수 및 평균 값", avg);
+
+	if (isLoading) {
+		return <div>스켈레톤 UI 추가 예정 로딩</div>;
+	}
+
 	return (
 		<S.Container>
 			<S.Button>최근 거래 종료 품목</S.Button>

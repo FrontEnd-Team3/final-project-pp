@@ -52,6 +52,10 @@ const router = createBrowserRouter([
 				path: "/MarketPrice",
 				element: <MarketPrice />,
 			},
+			{
+				path: "/MarketPrice/:keyword",
+				element: <MarketPrice />,
+			},
 			{ path: "/productRegister", element: <ProductRegister /> },
 			{
 				path: "/used-transaction",
