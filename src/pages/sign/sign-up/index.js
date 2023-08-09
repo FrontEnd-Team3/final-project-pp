@@ -77,12 +77,12 @@ const Signup = () => {
 		try {
 			const email = getValues("email");
 			console.log(email);
-			const response = await AuthApi.emailCheck(email);
-			if (response.status === 200) {
+			const response = await AuthApi.emailDoubleCheck(email);
+			if (response?.status === 200) {
 				alert("사용 가능한 이메일 입니다.");
 			}
 		} catch (error) {
-			if (error.response.status === 400) {
+			if (error.response?.status === 400) {
 				alert("중복된 이메일 입니다.");
 				console.log(error);
 				setValue("email", "");
@@ -92,14 +92,14 @@ const Signup = () => {
 
 	const onNickNameCheck = async () => {
 		try {
-			const nickName = getValues("nickName");
-			console.log(nickName);
-			const response = await AuthApi.nickNameCheck(nickName);
-			if (response.status === 200) {
+			const nickname = getValues("nickName");
+			console.log(nickname);
+			const response = await AuthApi.nickNameDoubleCheck(nickname);
+			if (response?.status === 200) {
 				alert("사용 가능한 닉네임 입니다.");
 			}
 		} catch (error) {
-			if (error.response.status === 400) {
+			if (error.response?.status === 400) {
 				alert("중복된 닉네임 입니다.");
 				console.log(error);
 				setValue("nickName", "");
