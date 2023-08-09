@@ -1,17 +1,36 @@
 import styled from "styled-components";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import BasicButton from "components/Button";
-import ProductQueryApi from "apis/product.query.api";
+import ProductApi from "apis/product.api";
+import ChatQueryApi from "apis/chat.api.query";
+import { useState } from "react";
 
-const SelectListModal = ({ setIsModalOpen, chat, setIsDealClosed, idx }) => {
+const SelectListModal = ({ setIsModalOpen, idx }) => {
 	// 특정 상품 채팅방 목록 조회
 
-	const updateStatus = ProductQueryApi.updateProductStatus(idx);
+	const { data } = ChatQueryApi.getSpecificChatList(idx);
+	// console.log("data", data);
+	const UserList = data?.map(chat => chat.User);
+	// console.log("User", UserList);
+
+	// 선택된 유저의 socketId
+	const [selectedUser, setSelectedUser] = useState("");
+
+	// 선택 시 값 변화
+	const handleUserChange = e => {
+		// console.log("token", e.target.value);
+		setSelectedUser(e.target.value);
+	};
 
 	const handleDealClose = () => {
-		setIsModalOpen(false);
-		setIsDealClosed(true);
-		updateStatus.mutate();
+		if (selectedUser) {
+			ProductApi.updateProductStatus({
+				prod_idx: idx,
+				socket: selectedUser,
+			}).then(res => console.log("판매", res));
+			// setIsModalOpen(false);
+		}
+		// updateStatus.mutate();
 	};
 
 	return (
@@ -22,15 +41,16 @@ const SelectListModal = ({ setIsModalOpen, chat, setIsDealClosed, idx }) => {
 				</div>
 				<S.Title>판매할 유저를 선택해주세요!</S.Title>
 				<div>
-					{chat.map((chat, i) => (
+					{UserList?.map((user, i) => (
 						<S.User key={i}>
 							<S.Checkbox
 								type="radio"
-								id={User.nick_name}
+								id={user.nick_name}
 								name="user"
-								value={User.nick_name}
+								value={user.token}
+								onChange={handleUserChange}
 							/>
-							<label htmlFor={User.nick_name}>{chat.User.nick_name}</label>
+							<label htmlFor={user.nick_name}>{user.nick_name}</label>
 						</S.User>
 					))}
 				</div>

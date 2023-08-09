@@ -19,15 +19,10 @@ const UpdateProductStatusBtn = ({ chat }) => {
 				children={"판매중"}
 				onClick={onOpenModal}
 				style={{ fontSize: "20px", fontWeight: "bold" }}
-				disabled
 			/>
 			{isModalOpen &&
-				(chat.length ? (
-					<SelectListModal
-						setIsModalOpen={setIsModalOpen}
-						chat={chat}
-						idx={id}
-					/>
+				(chat?.length ? (
+					<SelectListModal setIsModalOpen={setIsModalOpen} idx={id} />
 				) : (
 					<NoListModal setIsModalOpen={setIsModalOpen} />
 				))}

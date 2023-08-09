@@ -3,7 +3,13 @@ import { flexCenter } from "styles/common";
 import { AiFillCamera } from "react-icons/ai";
 import { useEffect, useRef } from "react";
 import { TiDelete } from "react-icons/ti";
-const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
+const Images = ({
+	imageArr,
+	setImageArr,
+	imageDBArr,
+	setImageDBArr,
+	imagesContainerRef,
+}) => {
 	const fileInput = useRef(null); // ref로 input 태그 참조
 
 	useEffect(() => {
@@ -38,7 +44,7 @@ const Images = ({ imageArr, setImageArr, imageDBArr, setImageDBArr }) => {
 
 	return (
 		<>
-			<div>
+			<div ref={imagesContainerRef}>
 				<S.TitleAnother style={{ marginBottom: "20px" }}>
 					상품 이미지 (0/5) <S.Essential>*</S.Essential>
 				</S.TitleAnother>

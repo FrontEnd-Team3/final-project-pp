@@ -11,6 +11,7 @@ const QueryKey = {
 	chatLogs: "chatLogs",
 	productChat: "productChat",
 	searchData: "searchData",
+	marketPrice: "marketPrice",
 };
 
 export default QueryKey;

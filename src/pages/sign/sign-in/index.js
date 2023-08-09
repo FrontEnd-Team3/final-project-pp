@@ -32,6 +32,7 @@ const SignIn = () => {
 		const signInSocket = ConnectSocket();
 		signInSocket.emit(`connect-user`, { socket: response.data.user.token });
 		login(response.data.tokenForHeader);
+
 		navigate("/");
 		signInSocket.disconnect();
 	});

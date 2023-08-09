@@ -13,6 +13,7 @@ const ProductDetailPage = () => {
 	const { id } = useParams();
 
 	const { data, isLoading, isError } = ProductQueryApi.getProductDetail(id);
+	console.log("detail", data);
 
 	useEffect(() => {
 		ProductApi.addRecentlyViewedProducts({ prod_idx: parseInt(id) });

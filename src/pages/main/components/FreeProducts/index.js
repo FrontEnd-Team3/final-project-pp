@@ -37,8 +37,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-	font-size: 40px;
-	color: #${({ theme }) => theme.PALETTE.darkPrimary};
+	font-size: 28px;
 	text-align: center;
 	margin: 90px 0;
 `;
