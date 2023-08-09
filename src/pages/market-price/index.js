@@ -5,9 +5,6 @@ import Soldout from "./components/SoldOut";
 import LineGraphs from "./components/Graph";
 
 const MarketPrice = () => {
-
-	
-
 	return (
 		<>
 			<S.Container>
