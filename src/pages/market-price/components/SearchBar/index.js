@@ -1,15 +1,32 @@
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 
 const SearchBar = () => {
+	const searchInput = useRef();
+	const navigate = useNavigate();
+
+	const handleMarketPriceResult = e => {
+		e.preventDefault();
+		const searchValue = searchInput.current.value;
+		const keyword = searchValue.replace(/\s/g, ""); // 띄어쓰기 막기
+		if (keyword === "") return; // 빈값 막기
+		navigate(`/marketPrice/${keyword}`);
+		searchInput.current.value = "";
+	};
 	return (
 		<S.Container>
 			<S.Title>시세조회</S.Title>
 			<S.Subtitle>원하시는 상품이 얼마에 거래되고 있는지 알아보세요</S.Subtitle>
-			<div>
-				<S.Search placeholder="나이키 조던" autofocus></S.Search>
-				<S.SearchBtn>Search</S.SearchBtn>
-			</div>
+			<form onSubmit={handleMarketPriceResult}>
+				<S.Search
+					ref={searchInput}
+					placeholder="나이키 조던"
+					autofocus
+				></S.Search>
+				<S.SearchBtn onClick={handleMarketPriceResult}>Search</S.SearchBtn>
+			</form>
 		</S.Container>
 	);
 };
