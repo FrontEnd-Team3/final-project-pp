@@ -8,7 +8,6 @@ const SearchBar = () => {
 			<S.Subtitle>원하시는 상품이 얼마에 거래되고 있는지 알아보세요</S.Subtitle>
 			<div>
 				<S.Search placeholder="나이키 조던" autofocus></S.Search>
-
 				<S.SearchBtn>Search</S.SearchBtn>
 			</div>
 		</S.Container>
