@@ -84,6 +84,12 @@ const ProductQueryApi = {
 			() => ProductApi.searchProduct(category, keyword, page, filter),
 			QueryConfig,
 		),
+
+	// 시세 검색
+	searchMarketPriceList: (keyword, start, end) =>
+		useQueryData([QueryKey.marketPrice, keyword, start, end], () =>
+			ProductApi.searchPriceProduct(keyword, start, end),
+		),
 };
 
 export default ProductQueryApi;
