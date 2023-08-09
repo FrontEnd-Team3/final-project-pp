@@ -37,7 +37,7 @@ export const nickName = yup
 	.max(12, "12자 미만 입력해주세요.")
 	.required("닉네임을 입력해주세요.")
 	.matches(REGEX.nickName, {
-		message: "닉네임을 입력해주세요.",
+		message: "닉네임에 영문, 한글, 숫자만 사용하실 수 있습니다.",
 	});
 
 export const name = yup

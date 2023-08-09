@@ -14,10 +14,10 @@ const AccountPrivacy = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
 	const [imageSrc, setImageSrc] = useState(null);
-
 	const [emailValue, setEmailValue] = useState(userData?.email);
 	const [phoneValue, setPhoneValue] = useState(userData?.phone);
 	const [regionValue, setRegionValue] = useState(userData?.region);
+	const [uncomplete, setUncomplete] = useState(false);
 
 	const onUpload = e => {
 		if (e.target.files && e.target.files[0]) {
@@ -25,12 +25,30 @@ const AccountPrivacy = () => {
 			const reader = new FileReader();
 			reader.readAsDataURL(file);
 
-			return new Promise(resolve => {
-				reader.onload = () => {
-					setImageSrc(reader.result || null); // 파일의 컨텐츠
-					resolve();
-				};
-			});
+			reader.onload = () => {
+				setImageSrc(reader.result || null); // 파일의 컨텐츠
+				handleSaveImage(file); // 파일을 전송하는 함수 호출
+			};
+		}
+	};
+
+	const handleSaveImage = async imageFile => {
+		const userResponse = window.confirm("사진을 저장하시겠습니까?");
+
+		if (userResponse) {
+			try {
+				// 백엔드에 이미지 파일을 전송하는 코드
+				const response = await AuthApi.userProfileImage(imageFile);
+
+				if (response.status === 200) {
+					alert("사진이 성공적으로 저장되었습니다.");
+				}
+			} catch (error) {
+				alert("사진 저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+				console.error("Error saving image:", error);
+			}
+		} else {
+			alert("사진 저장이 취소되었습니다.");
 		}
 	};
 
@@ -45,15 +63,13 @@ const AccountPrivacy = () => {
 	};
 
 	const handleSave = async () => {
-		if (emailValue || phoneValue || regionValue || imageSrc || nickNameValue) {
+		console.log("handleSave 클릭중");
+		if (uncomplete === true) {
+			return alert("모든 수정 사항을 완료해 주세요.");
+		}
+		if (emailValue || phoneValue || regionValue || nickNameValue) {
 			try {
 				setIsOpen(true);
-
-				const inputImageFile = document.getElementById("fileInput").files[0];
-				if (inputImageFile) {
-					const responseImage = await AuthApi.userProfileImage(inputImageFile);
-					console.log("이미지 수정사항 저장 성공:", responseImage);
-				}
 
 				const newValue = {
 					email: emailValue,
@@ -116,35 +132,38 @@ const AccountPrivacy = () => {
 							userData={userData}
 							field={"email"}
 							setFieldValue={setEmailValue}
+							setUncomplete={setUncomplete}
 						/>
 						<S.Line />
 						<ModifyInfoEdit
 							userData={userData}
 							field={"nickName"}
 							setFieldValue={setNickNameValue}
+							setUncomplete={setUncomplete}
 						/>
 						<S.Line />
 						<ModifyInfoEdit
 							userData={userData}
 							field={"phone"}
 							setFieldValue={setPhoneValue}
+							setUncomplete={setUncomplete}
 						/>
 						<S.Line />
 						<ModifyInfoEdit
 							userData={userData}
 							field={"region"}
 							setFieldValue={setRegionValue}
+							setUncomplete={setUncomplete}
 						/>
 						<S.Line />
+						{/* <EditCompleteBtn handleSave={handleSave} /> */}
 						<BasicButton
 							size={"medium"}
 							color={"darkBlack"}
 							children={"변경사항 저장"}
 							style={{ marginTop: "60px", marginLeft: "400px" }}
 							onClick={handleSave}
-							disabled={
-								!emailValue && !phoneValue && !regionValue && !nickNameValue
-							}
+							// disabled={!emailValue && !phoneValue && !regionValue && !nickNameValue}
 						/>
 					</S.PrivacyWrapper>
 				</S.MasterWrapper>

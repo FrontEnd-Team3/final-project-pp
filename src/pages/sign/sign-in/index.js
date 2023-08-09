@@ -26,11 +26,14 @@ const SignIn = () => {
 	});
 
 	const onSubmitSignin = handleSubmit(async data => {
-		const response = await AuthApi.login(data.email, data.pw);
-		login(response.data.tokenForHeader);
-
-		navigate("/");
-		window.location.reload();
+		try {
+			const response = await AuthApi.login(data.email, data.pw);
+			login(response.data.tokenForHeader);
+			navigate("/");
+			window.location.reload();
+		} catch {
+			alert("이메일과 비밀번호를 확인해주세요");
+		}
 	});
 
 	return (
