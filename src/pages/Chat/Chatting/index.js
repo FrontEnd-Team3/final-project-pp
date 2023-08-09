@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import ChatMain from "./chatMain";
+import { useChatData } from "context/chatData.ctx";
 
-const Chatting = ({ targetChat, chatData, setChatData }) => {
+const Chatting = () => {
+	const { targetChat } = useChatData();
 	return (
 		<S.Container>
 			<S.Header>
 				<S.HChat>CHATTING</S.HChat>
 			</S.Header>
 			{targetChat ? (
-				<ChatMain
-					targetChat={targetChat}
-					chatData={chatData}
-					setChatData={setChatData}
-				/>
+				<ChatMain />
 			) : (
 				<S.noChatLogs>대화를 시작해보세요!</S.noChatLogs>
 			)}

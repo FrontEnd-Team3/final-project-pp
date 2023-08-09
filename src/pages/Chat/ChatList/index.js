@@ -4,8 +4,9 @@ import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
 import getUserData from "utils/getUserData";
 
-const ChatList = ({ setTargetChat, targetChat, setChatData }) => {
+const ChatList = () => {
 	const { data } = ChatQueryApi.getChatList();
+
 	// console.log("chat", data);
 
 	// 로그인한 User의 정보 가져옴
@@ -43,15 +44,7 @@ const ChatList = ({ setTargetChat, targetChat, setChatData }) => {
 				{isSell ? (
 					<S.Chatlist className="sell">
 						{sellChat?.length > 0 ? (
-							sellChat.map(chat => (
-								<ChatItem
-									key={chat.idx}
-									chat={chat}
-									setTargetChat={setTargetChat}
-									targetChat={targetChat}
-									setChatData={setChatData}
-								/>
-							))
+							sellChat.map(chat => <ChatItem key={chat.idx} chat={chat} />)
 						) : (
 							<S.NoChat>
 								채팅 내역이 없습니다. 새로운 거래를 시작해보세요!
@@ -61,15 +54,7 @@ const ChatList = ({ setTargetChat, targetChat, setChatData }) => {
 				) : (
 					<S.Chatlist className="buy">
 						{buyChat?.length > 0 ? (
-							buyChat.map(chat => (
-								<ChatItem
-									key={chat.idx}
-									chat={chat}
-									setTargetChat={setTargetChat}
-									targetChat={targetChat}
-									setChatData={setChatData}
-								/>
-							))
+							buyChat.map(chat => <ChatItem key={chat.idx} chat={chat} />)
 						) : (
 							<S.NoChat>
 								채팅 내역이 없습니다. 새로운 거래를 시작해보세요!

@@ -3,12 +3,17 @@ import BasicInput from "components/Input";
 import styled from "styled-components";
 import MyChat from "./myChat";
 import ChatQueryApi from "apis/chat.api.query";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import OtherChat from "./otherChat";
-import ChatApi from "apis/chat.api";
+// import ChatApi from "apis/chat.api";
 import getFilteredList from "./utils/getfilteredList";
+import { useChatData } from "context/chatData.ctx";
+import ChatApi from "apis/chat.api";
+import ConnectSocket from "../Socket/connect";
+// import { io } from "socket.io-client";
 
-const ChatMain = ({ targetChat, chatData, setChatData }) => {
+const ChatMain = () => {
+	const { chatInfo, targetChat } = useChatData();
 	// 대화 내역 가져오기
 	// console.log("chatMain", targetChat);
 	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
@@ -16,36 +21,43 @@ const ChatMain = ({ targetChat, chatData, setChatData }) => {
 	const filteredByUser = getFilteredList(data);
 
 	// 전송 시 input 값 전송
-	const [inputVal, setInputVal] = useState("");
+	const inputVal = useRef("");
 
 	const handleInput = e => {
 		setInputVal(e.target.value);
-		setChatData(prevChatData => ({
-			...prevChatData,
-			createdAt: new Date(),
-			message: inputVal,
-		}));
 	};
 
 	useEffect(() => {
 		refetch();
 	}, [targetChat]);
 
-	const handleChatContent = e => {
+	const newChatData = {
+		...chatInfo,
+		createdAt: new Date(),
+		message: inputVal.current,
+	};
+
+	const handleChatContent = async e => {
 		e.preventDefault();
-		if (inputVal) {
+		inputVal.current = e.target.input.value;
+		console.log("input", inputVal.current);
+		if (inputVal.current) {
+			// console.log("newchat", newChatData);
+
 			try {
-				ChatApi.saveMessages({
+				const sendChatSocket = ConnectSocket();
+				sendChatSocket.emit("sendMessage", newChatData);
+				sendChatSocket.disconnect();
+				// setChatData(newChatData);
+				await ChatApi.saveMessages({
 					room_idx: parseInt(targetChat),
-					message: inputVal,
-				}).then(() => {
-					refetch();
+					message: inputVal.current,
 				});
+				refetch();
+				// inputVal.current = "";
 			} catch (err) {
 				console.error(err);
 			}
-			setInputVal("");
-			// globalSocket.emit("sendMessage", chatData);
 		}
 	};
 
@@ -77,11 +89,13 @@ const ChatMain = ({ targetChat, chatData, setChatData }) => {
 				))}
 			<S.SendWrapper onSubmit={handleChatContent}>
 				<BasicInput
+					name="input"
+					ref={inputVal}
 					variant={"chat"}
 					size={"xsmall"}
 					placeholder="채팅치는곳"
-					onChange={handleInput}
-					value={inputVal}
+					// onChange={handleInput}
+					// value={inputVal}
 				/>
 				<BasicButton
 					type="submit"

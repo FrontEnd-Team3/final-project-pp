@@ -9,7 +9,7 @@ import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import ValidateInput from "../components/OneValidate";
 import AuthApi from "apis/auth.api";
 import { useAuth } from "context/auth.ctx";
-import { io } from "socket.io-client";
+import ConnectSocket from "pages/Chat/Socket/connect";
 
 const SignIn = () => {
 	const navigate = useNavigate();
@@ -28,18 +28,12 @@ const SignIn = () => {
 
 	const onSubmitSignin = handleSubmit(async data => {
 		const response = await AuthApi.login(data.email, data.pw);
-		// console.log("로그인", response.data.user.token);
-		const socket = io.connect("/socket.io", {
-			cors: {
-				origin: "http://localhost:3000",
-				methods: ["GET", "POST"],
-				credentials: true,
-			},
-			withCredentials: true, // 추가
-		});
-		socket.emit(`connect-user`, { socket: response.data.user.token });
+		console.log("로그인", response.data.user.token);
+		const signInSocket = ConnectSocket();
+		signInSocket.emit(`connect-user`, { socket: response.data.user.token });
 		login(response.data.tokenForHeader);
 		navigate("/");
+		signInSocket.disconnect();
 	});
 
 	return (

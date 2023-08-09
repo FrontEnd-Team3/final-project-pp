@@ -1,24 +1,31 @@
-import { createContext, useContext, useState } from "react";
-
-// export const socket = io.connect("/socket.io", {
-// 	cors: {
-// 		origin: "http://localhost:3000",
-// 		methods: ["GET", "POST"],
-// 		credentials: true,
-// 	},
-// 	withCredentials: true, // 추가
-// });
+import { createContext, useContext, useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
 const SocketContext = createContext();
 
 export const useSocket = () => useContext(SocketContext);
 
 const SocketContextProvider = ({ children }) => {
-	const [globalSocket, setGlobalSocket] = useState(socket);
+	const [socket, setSocket] = useState();
+
+	useEffect(() => {
+		const newSocket = io.connect("https://topdragon.co.kr", {
+			cors: {
+				origin: "http://localhost:3000",
+				methods: ["GET", "POST"],
+				credentials: true,
+			},
+			withCredentials: true,
+		});
+		setSocket(newSocket);
+
+		return () => {
+			newSocket.disconnect();
+		};
+	}, []);
+
 	return (
-		<SocketContext.Provider value={[globalSocket, setGlobalSocket]}>
-			{children}
-		</SocketContext.Provider>
+		<SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
 	);
 };
 

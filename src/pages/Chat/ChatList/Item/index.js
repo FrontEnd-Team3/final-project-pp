@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 import getUserData from "utils/getUserData";
-import { io } from "socket.io-client";
+import { useChatData } from "context/chatData.ctx";
+import ConnectSocket from "pages/Chat/Socket/connect";
 
-const ChatItem = ({ chat, setTargetChat, targetChat, setChatData }) => {
+const ChatItem = ({ chat }) => {
 	const { idx, isRead, lastMessage, product } = chat;
+	const { targetChat, setTargetChat, setChatInfo } = useChatData();
 
 	let nick_name;
 	const DATA = getUserData();
@@ -19,18 +21,12 @@ const ChatItem = ({ chat, setTargetChat, targetChat, setChatData }) => {
 
 	// 채팅방 입장하기 + 이전 방 나가기
 	const handleEnterRoom = () => {
-		const socket = io.connect("/socket.io", {
-			cors: {
-				origin: "http://localhost:3000",
-				methods: ["GET", "POST"],
-				credentials: true,
-			},
-			withCredentials: true, // 추가
-		});
-		// socket.emit("leave", { targetChat });
-		// socket.emit("join", { idx });
+		const enterRoomSocket = ConnectSocket();
+		enterRoomSocket.emit("leave", { targetChat });
+		enterRoomSocket.emit("join", { idx });
+		enterRoomSocket.disconnect();
 		setTargetChat(idx);
-		setChatData({
+		setChatInfo({
 			title: product.title,
 			prod_idx: product.idx,
 			room_idx: idx,

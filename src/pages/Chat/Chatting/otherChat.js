@@ -2,6 +2,17 @@ import styled from "styled-components";
 import FakeProfile from "./planting.png";
 
 const OtherChat = ({ createdAt, message, user }) => {
+	// const receiveChatSocket = io.connect("https://topdragon.co.kr", {
+	// 	cors: {
+	// 		origin: "http://localhost:3000",
+	// 		methods: ["GET", "POST"],
+	// 		credentials: true,
+	// 	},
+	// 	withCredentials: true,
+	// });
+	// receiveChatSocket.on("receiveMessage", res => console.log(res));
+	// receiveChatSocket.disconnect();
+
 	return (
 		<>
 			<S.OtherChatWrapper>
