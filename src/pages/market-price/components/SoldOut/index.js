@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
-import Pagination from "components/Pagination";
 import { flexColumn } from "styles/common";
 import OneProduct from "./oneSoldOutProduct";
 import ProductQueryApi from "apis/product.query.api";
@@ -8,9 +6,6 @@ import { useParams } from "react-router-dom";
 import { getPastDate, getTodayDate } from "utils/marketPriceData";
 
 const Soldout = () => {
-	const [dataLimit, setDataLimit] = useState(8);
-	const [page, setPage] = useState(1);
-	const offset = (page - 1) * dataLimit;
 	const { keyword } = useParams();
 
 	const { data, isLoading } = ProductQueryApi.searchMarketPriceList({
@@ -33,40 +28,25 @@ const Soldout = () => {
 	return (
 		<S.Container>
 			<S.Button>최근 거래 종료 품목</S.Button>
-			<S.GridContainer>
+			<div>
 				<S.Gridwrapper>
-					{prod?.slice(offset, offset + dataLimit).map(product => (
+					{prod?.map(product => (
 						<OneProduct product={product} />
 					))}
 				</S.Gridwrapper>
-			</S.GridContainer>
-			<Pagination
-				totalData={prod?.length}
-				dataLimit={dataLimit}
-				page={page}
-				setPage={setPage}
-			/>
+			</div>
 		</S.Container>
 	);
 };
 export default Soldout;
 
-const GridContainer = styled.div`
-	width: 1060px;
-	height: 940px;
-	${flexColumn}
-	align-items: center;
-	position: relative;
-	margin-top: -60px;
-`;
-
 const Gridwrapper = styled.div`
 	display: grid;
-	grid-template-columns: repeat(4, 253px);
-	grid-column-gap: 10px;
-	grid-row-gap: 30px;
-	position: relative;
-	top: 65px;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+	grid-gap: 20px;
 `;
 const Button = styled.button`
 	width: 260px;
@@ -78,17 +58,14 @@ const Button = styled.button`
 `;
 
 const Container = styled.div`
-	position: relative;
 	width: 100%;
-	top: 300px;
-	height: 1200px;
 	${flexColumn}
 	align-items: center;
+	margin-bottom: 100px;
 `;
 
 const S = {
 	Button,
 	Container,
 	Gridwrapper,
-	GridContainer,
 };

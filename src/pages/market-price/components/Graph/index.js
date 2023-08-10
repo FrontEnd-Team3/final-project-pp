@@ -42,7 +42,7 @@ function LineGraphs() {
 	];
 
 	return (
-		<Container>
+		<S.Container>
 			<ComposedChart
 				width={1000}
 				height={600}
@@ -66,7 +66,7 @@ function LineGraphs() {
 				{/* <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" /> */}
 				<Line type="monotone" dataKey="uv" stroke="#3cb371" />
 			</ComposedChart>
-		</Container>
+		</S.Container>
 	);
 }
 
@@ -75,8 +75,8 @@ export default LineGraphs;
 const Container = styled.div`
 	width: 1000px;
 	height: 600px;
-	/* border: 1px solid black; */
-	position: relative;
 	top: 100px;
-	padding-bottom: 200px;
+	margin-bottom: 100px;
 `;
+
+const S = { Container };
