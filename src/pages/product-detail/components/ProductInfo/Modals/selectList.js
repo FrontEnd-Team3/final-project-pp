@@ -4,11 +4,15 @@ import BasicButton from "components/Button";
 import ProductApi from "apis/product.api";
 import ChatQueryApi from "apis/chat.api.query";
 import { useState } from "react";
+import ProductQueryApi from "apis/product.query.api";
+import { useQueryClient } from "react-query";
+import QueryKey from "consts/queryKey";
 
-const SelectListModal = ({ setIsModalOpen, idx }) => {
+const SelectListModal = ({ idx, setIsModalOpen, setIsAlertModalOpen }) => {
 	// 특정 상품 채팅방 목록 조회
 
 	const { data } = ChatQueryApi.getSpecificChatList(idx);
+	const { data: productData, refetch } = ProductQueryApi.getProductDetail(idx);
 	// console.log("data", data);
 	const UserList = data?.map(chat => chat.User);
 	// console.log("User", UserList);
@@ -22,12 +26,25 @@ const SelectListModal = ({ setIsModalOpen, idx }) => {
 		setSelectedUser(e.target.value);
 	};
 
+	const queryClient = useQueryClient();
+
 	const handleDealClose = () => {
 		if (selectedUser) {
 			ProductApi.updateProductStatus({
 				prod_idx: idx,
 				socket: selectedUser,
-			}).then(res => console.log("판매", res));
+			}).then(res => {
+				console.log(res);
+				if (res.data.success) {
+					queryClient.invalidateQueries([QueryKey.productDetail, idx]);
+					refetch();
+					setIsModalOpen(false);
+					setIsAlertModalOpen(true);
+					setTimeout(() => {
+						setIsAlertModalOpen(false);
+					}, 1500);
+				}
+			});
 			// setIsModalOpen(false);
 		}
 		// updateStatus.mutate();
