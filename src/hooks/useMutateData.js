@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 
-const useMutateData = (mutateFn, queryKey) => {
+const useMutateData = (mutateFn, queryKey, successFn) => {
 	const queryClient = useQueryClient();
 
 	return useMutation(mutateFn, {
@@ -9,6 +9,7 @@ const useMutateData = (mutateFn, queryKey) => {
 			console.log("res", res);
 			// 함수 있을 때에만 실행
 			queryClient.invalidateQueries(queryKey);
+			successFn();
 		},
 		onError: () => {
 			console.error("error");

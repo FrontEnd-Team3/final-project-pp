@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import BasicButton from "components/Button";
-import ProductApi from "apis/product.api";
 import ChatQueryApi from "apis/chat.api.query";
 import { useState } from "react";
 import ProductQueryApi from "apis/product.query.api";
@@ -28,26 +27,33 @@ const SelectListModal = ({ idx, setIsModalOpen, setIsAlertModalOpen }) => {
 
 	const queryClient = useQueryClient();
 
+	const updateStatus = ProductQueryApi.updateProductStatus(
+		{
+			prod_idx: idx,
+			socket: selectedUser,
+		},
+		idx,
+		async () => {
+			setIsModalOpen(false);
+			setIsAlertModalOpen(true);
+			setTimeout(() => {
+				setIsAlertModalOpen(false);
+				refetch().then(() => console.log(productData));
+			}, 1500);
+		},
+	);
+
 	const handleDealClose = () => {
 		if (selectedUser) {
-			ProductApi.updateProductStatus({
-				prod_idx: idx,
-				socket: selectedUser,
-			}).then(res => {
-				console.log(res);
-				if (res.data.success) {
+			updateStatus
+				.mutateAsync()
+				.then(res => {
+					console.log("update", res);
 					queryClient.invalidateQueries([QueryKey.productDetail, idx]);
 					refetch();
-					setIsModalOpen(false);
-					setIsAlertModalOpen(true);
-					setTimeout(() => {
-						setIsAlertModalOpen(false);
-					}, 1500);
-				}
-			});
-			// setIsModalOpen(false);
+				})
+				.catch(err => console.error(err));
 		}
-		// updateStatus.mutate();
 	};
 
 	return (

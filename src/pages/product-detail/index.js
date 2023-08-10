@@ -12,9 +12,11 @@ import ProductApi from "apis/product.api";
 const ProductDetailPage = () => {
 	const { id } = useParams();
 
-	const { data, isLoading, isError } = ProductQueryApi.getProductDetail(id);
+	const { data, isLoading, isError, refetch } =
+		ProductQueryApi.getProductDetail(id);
 
 	useEffect(() => {
+		refetch();
 		ProductApi.addRecentlyViewedProducts({ prod_idx: parseInt(id) });
 	}, []);
 
