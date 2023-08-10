@@ -88,7 +88,6 @@ const AccountPrivacy = () => {
 			}
 		}
 	};
-	console.log("nickName", userData?.nick_name);
 
 	if (userData) {
 		return (

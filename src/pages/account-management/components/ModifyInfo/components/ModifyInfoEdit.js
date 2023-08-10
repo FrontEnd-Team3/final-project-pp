@@ -5,10 +5,11 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import * as SCHEMA from "../../../../../consts/schema";
 import * as yup from "yup";
-import ValidateInput from "pages/sign/components/OneValidate";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { replacePhone } from "utils/phoneNum";
 import SearchAddress from "components/SearchAddress";
+import ValidateInput from "../../OneValidate";
 
 const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 	const [openInput, setOpenInput] = useState(true);
@@ -25,6 +26,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 		getValues,
 		setValue,
 		watch,
+		clearErrors,
 	} = useForm({
 		resolver: yupResolver(schema),
 		mode: "onChange",
@@ -62,11 +64,34 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 			setOpenInput(true);
 			setFieldValue(fieldValue);
 			setUncomplete(false);
+		} else if (btnName === "취소") {
+			setValue(field, userData[field]);
+			setOpenInput(true);
+			setDuplicates(false);
+			clearErrors();
 		}
 	};
 
+	const emailValue = watch("email");
+
+	useEffect(() => {
+		console.log("이메일 값이 변경되었습니다:", emailValue);
+	}, [emailValue]);
+
+	const nickNameValue = watch("nickName");
+
+	useEffect(() => {
+		console.log("닉네임 값이 변경되었습니다:", nickNameValue);
+	}, [nickNameValue]);
+
 	const onEmailCheck = async () => {
+		// console.log("input값:", fieldValue);
+		// console.log("저장된 data값:", userData[field]);
+		if (fieldValue === userData[field]) {
+			return alert("현재 이메일과 다른 이메일로 변경 후 확인해 주세요. ");
+		}
 		if (!fieldValue) return;
+
 		const email = fieldValue;
 		try {
 			const response = await AuthApi.emailDoubleCheck(email);
@@ -86,6 +111,11 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 	};
 
 	const onNickNameCheck = async () => {
+		console.log("input값:", fieldValue);
+		console.log("저장된 data값:", userData["nick_name"]);
+		if (fieldValue === userData["nick_name"]) {
+			return alert("현재 닉네임과 다른 닉네임으로 변경 후 확인해 주세요.");
+		}
 		if (!fieldValue) return;
 		const nickname = fieldValue;
 		try {
@@ -122,6 +152,9 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 							children={"변경"}
 							onClick={() => {
 								handleEdit("변경");
+								if (field === "region") {
+									setAddressOpen(true);
+								}
 							}}
 						/>
 					</>
@@ -138,9 +171,6 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 									: "변경할 정보를 입력해주세요"
 							}
 							address={field === "region" ? address : undefined}
-							onClick={
-								field === "region" ? () => setAddressOpen(true) : undefined
-							}
 						/>
 						{addressOpen && (
 							<SearchAddress
@@ -155,8 +185,18 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 									<BasicButton
 										size={"account"}
 										color={"darkBlack"}
+										children={"취소"}
+										style={{ marginLeft: "5px" }}
+										onClick={() => {
+											handleEdit("취소");
+										}}
+									/>
+									<BasicButton
+										size={"account"}
+										color={"darkBlack"}
 										children={"중복 확인"}
 										onClick={onEmailCheck}
+										style={{ marginLeft: "5px" }}
 										disabled={errors[field] || !getValues("email")}
 									/>
 									<BasicButton
@@ -176,7 +216,17 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 									<BasicButton
 										size={"account"}
 										color={"darkBlack"}
+										children={"취소"}
+										style={{ marginLeft: "5px" }}
+										onClick={() => {
+											handleEdit("취소");
+										}}
+									/>
+									<BasicButton
+										size={"account"}
+										color={"darkBlack"}
 										children={"중복 확인"}
+										style={{ marginLeft: "5px" }}
 										onClick={onNickNameCheck}
 										disabled={errors[field] || !getValues("nickName")}
 									/>
@@ -191,18 +241,33 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 									/>
 								</>
 							)}
-
-							{field !== "email" && field !== "nickName" && (
+							{field === "region" && (
 								<BasicButton
 									size={"account"}
 									color={"darkBlack"}
-									children={"완료"}
+									children={"변경"}
 									style={{ marginLeft: "5px" }}
 									onClick={() => {
-										handleEdit("완료");
+										handleEdit("변경");
+										if (field === "region") {
+											setAddressOpen(true);
+										}
 									}}
 								/>
 							)}
+							{field !== "email" &&
+								field !== "nickName" &&
+								field !== "region" && (
+									<BasicButton
+										size={"account"}
+										color={"darkBlack"}
+										children={"완료"}
+										style={{ marginLeft: "5px" }}
+										onClick={() => {
+											handleEdit("완료");
+										}}
+									/>
+								)}
 						</div>
 					</>
 				)}
