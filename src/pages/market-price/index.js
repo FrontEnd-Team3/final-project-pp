@@ -2,14 +2,14 @@ import styled from "styled-components";
 import SearchBar from "./components/SearchBar";
 import { flexColumn } from "styles/common";
 import Soldout from "./components/SoldOut";
-import PriceGraph from "./components/Graph";
+import LineGraphs from "./components/Graph";
 
 const MarketPrice = () => {
 	return (
 		<>
 			<S.Container>
 				<SearchBar />
-				<PriceGraph />
+				<LineGraphs />
 				<Soldout />
 			</S.Container>
 		</>
