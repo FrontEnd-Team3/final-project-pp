@@ -1,26 +1,22 @@
 import styled from "styled-components";
-import { productList } from "mocks/data/products/productsList";
 import { useState } from "react";
 import Pagination from "components/Pagination";
 import { flexColumn } from "styles/common";
 import OneProduct from "./oneSoldOutProduct";
 import ProductQueryApi from "apis/product.query.api";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getPastDate, getTodayDate } from "utils/marketPriceData";
 
 const Soldout = () => {
 	const [dataLimit, setDataLimit] = useState(8);
 	const [page, setPage] = useState(1);
 	const offset = (page - 1) * dataLimit;
-	const [searchParams, _] = useSearchParams();
-	const start = searchParams.get("start") || "2023-07-09";
-	const end = searchParams.get("end") || "2023-08-09";
 	const { keyword } = useParams();
-	const SoldoutList = productList.filter(v => v.status == "판매완료");
 
 	const { data, isLoading } = ProductQueryApi.searchMarketPriceList({
 		keyword,
-		start,
-		end,
+		start: getPastDate(1),
+		end: getTodayDate(),
 	});
 
 	console.log("result", data);
@@ -39,13 +35,13 @@ const Soldout = () => {
 			<S.Button>최근 거래 종료 품목</S.Button>
 			<S.GridContainer>
 				<S.Gridwrapper>
-					{SoldoutList.slice(offset, offset + dataLimit).map(product => (
+					{prod?.slice(offset, offset + dataLimit).map(product => (
 						<OneProduct product={product} />
 					))}
 				</S.Gridwrapper>
 			</S.GridContainer>
 			<Pagination
-				totalData={SoldoutList.length}
+				totalData={prod?.length}
 				dataLimit={dataLimit}
 				page={page}
 				setPage={setPage}

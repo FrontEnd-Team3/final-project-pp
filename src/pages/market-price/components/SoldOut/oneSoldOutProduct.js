@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const OneProduct = ({ product }) => {
 	const url = product.img_url;
 	const futureDate = new Date("2023-07-21");
-	const today = product.created_at;
+	const today = product.createdAt;
 	const navigate = useNavigate();
 	const moveDetailPage = () => {
 		navigate(`/product/${product.idx}`);
@@ -24,19 +24,21 @@ const OneProduct = ({ product }) => {
 				<S.Name>{product.title}</S.Name>
 
 				<S.FirstLine>
-					<S.Location>{product.region}</S.Location>
+					{/* <S.Location>{product.region}</S.Location> */}
+					<S.Location>지역없음</S.Location>
 					<S.Iconwrapper>
 						<GoBookmark size="16" />
-						<div>{product.Liked}</div>
+						<div>{product.liked}</div>
 						<HiOutlineChatBubbleLeftRight
 							size="16"
 							style={{ marginLeft: "10px" }}
 						/>
-						<div>{product.chat.length}</div>
+						{/* 데이터가 아직 추가되지 않음 */}
+						{/* <div>{product.chat.length}</div> */}
 					</S.Iconwrapper>
 				</S.FirstLine>
 				<S.SecondLine>
-					<S.Price>{product.price.toLocaleString()}원</S.Price>
+					<S.Price>{product.price.toLocaleString()} 원</S.Price>
 					<S.AgoDate>{today - futureDate.getDate()}일 전</S.AgoDate>
 				</S.SecondLine>
 			</S.Container>
