@@ -14,6 +14,7 @@ import ConnectSocket from "../Socket/connect";
 
 const ChatMain = () => {
 	const { chatInfo, targetChat } = useChatData();
+	// const ChatMainRef = useRef();
 	// 대화 내역 가져오기
 	// console.log("chatMain", targetChat);
 	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
@@ -42,13 +43,13 @@ const ChatMain = () => {
 				const sendChatSocket = ConnectSocket();
 				sendChatSocket.emit("sendMessage", newChatData);
 				sendChatSocket.disconnect();
-
 				await ChatApi.saveMessages({
 					room_idx: parseInt(targetChat),
 					message: inputRef.current,
 				});
 				refetch();
 				e.target.input.value = "";
+				// window.scrollTo(450, ChatMainRef.scrollHeight);
 			} catch (err) {
 				console.error(err);
 			}

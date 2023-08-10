@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
-const ConnectSocket = () =>
-	io.connect("https://topdragon.co.kr", {
+const ConnectSocket = () => {
+	const socket = io.connect("https://topdragon.co.kr", {
 		cors: {
 			origin: "http://localhost:3000",
 			methods: ["GET", "POST"],
@@ -9,5 +9,7 @@ const ConnectSocket = () =>
 		},
 		withCredentials: true,
 	});
+	return socket;
+};
 
 export default ConnectSocket;

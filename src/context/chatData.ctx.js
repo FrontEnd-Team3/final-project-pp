@@ -1,8 +1,19 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-// import { io } from "socket.io-client";
+import { io } from "socket.io-client";
 
-// const socket = io(process.env.REACT_APP_BACKEND_URL || window.location.host);
-const socket = "";
+const socket = io("https://topdragon.co.kr", {
+	cors: {
+		origin: "http://localhost:3000",
+		methods: ["GET", "POST"],
+		credentials: true,
+	},
+	withCredentials: true,
+});
+export const initSocketConnection = () => {
+	if (socket) return;
+	socket.connect();
+};
+// const socket = "";
 
 const ChatDataContext = createContext();
 
