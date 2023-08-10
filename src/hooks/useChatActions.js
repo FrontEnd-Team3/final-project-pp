@@ -1,29 +1,28 @@
-import { useChatData } from "context/__chatData.ctx";
-
 const useChatActions = () => {
-	const { socket } = useChatData();
-
-	const cacheID = socketID => {
+	const cacheID = (socket, socketID) => {
 		socket.emit("connect-user", { socket: socketID });
 	};
 
-	const enterRoom = room_idx => {
+	const enterRoom = (socket, room_idx) => {
 		socket.emit("join", { room_idx });
 	};
 
-	const leaveRoom = room_idx => {
+	const leaveRoom = (socket, room_idx) => {
 		socket.emit("leave", { room_idx });
 	};
 
-	const sendMessage = ({
-		title,
-		createdAt,
-		prod_idx,
-		room_idx,
-		nickName,
-		message,
-	}) => {
-		if (!text) {
+	const sendMessage = (
+		socket,
+		{ title, createdAt, prod_idx, room_idx, nickName, message },
+	) => {
+		if (
+			!title ||
+			!createdAt ||
+			!prod_idx ||
+			!room_idx ||
+			!nickName ||
+			!message
+		) {
 			return;
 		}
 
@@ -38,18 +37,14 @@ const useChatActions = () => {
 		});
 	};
 
-	const receiveMessage = () => {
+	const receiveMessage = (socket, data) => {
 		socket.on("receiveMessage", data);
 	};
 
-	const alertNewMessage = ({
-		title,
-		createdAt,
-		prod_idx,
-		room_idx,
-		nickName,
-		message,
-	}) => {
+	const alertNewMessage = (
+		socket,
+		{ title, createdAt, prod_idx, room_idx, nickName, message },
+	) => {
 		socket.on("newMessage", {
 			title,
 			createdAt,

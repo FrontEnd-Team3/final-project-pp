@@ -21,11 +21,7 @@ const ChatMain = () => {
 	const filteredByUser = getFilteredList(data);
 
 	// 전송 시 input 값 전송
-	const inputVal = useRef("");
-
-	const handleInput = e => {
-		setInputVal(e.target.value);
-	};
+	const inputRef = useRef("");
 
 	useEffect(() => {
 		refetch();
@@ -34,27 +30,25 @@ const ChatMain = () => {
 	const newChatData = {
 		...chatInfo,
 		createdAt: new Date(),
-		message: inputVal.current,
+		message: inputRef.current,
 	};
 
 	const handleChatContent = async e => {
 		e.preventDefault();
-		inputVal.current = e.target.input.value;
-		console.log("input", inputVal.current);
-		if (inputVal.current) {
-			// console.log("newchat", newChatData);
-
+		inputRef.current = e.target.input.value;
+		console.log("input", inputRef.current);
+		if (inputRef.current) {
 			try {
 				const sendChatSocket = ConnectSocket();
 				sendChatSocket.emit("sendMessage", newChatData);
 				sendChatSocket.disconnect();
-				// setChatData(newChatData);
+
 				await ChatApi.saveMessages({
 					room_idx: parseInt(targetChat),
-					message: inputVal.current,
+					message: inputRef.current,
 				});
 				refetch();
-				// inputVal.current = "";
+				e.target.input.value = "";
 			} catch (err) {
 				console.error(err);
 			}
@@ -90,12 +84,12 @@ const ChatMain = () => {
 			<S.SendWrapper onSubmit={handleChatContent}>
 				<BasicInput
 					name="input"
-					ref={inputVal}
+					ref={inputRef}
 					variant={"chat"}
 					size={"xsmall"}
 					placeholder="채팅치는곳"
 					// onChange={handleInput}
-					// value={inputVal}
+					// value={inputRefue}
 				/>
 				<BasicButton
 					type="submit"
