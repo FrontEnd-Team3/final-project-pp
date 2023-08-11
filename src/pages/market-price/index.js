@@ -21,7 +21,7 @@ const MarketPrice = () => {
 		end: getTodayDate(),
 	});
 
-	const soldoutProd = { data, isLoading, keyword }
+	const soldoutProd = { data, isLoading, keyword };
 
 	return (
 		<>

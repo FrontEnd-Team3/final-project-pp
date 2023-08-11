@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { flexColumn } from "styles/common";
 import OneProduct from "./oneSoldOutProduct";
 import LineGraphs from "../Graph";
+import { ResponsiveContainer } from "recharts";
 
 const Soldout = ({ soldoutProd }) => {
 	const { keyword, data, isLoading } = soldoutProd;
@@ -27,21 +28,22 @@ const Soldout = ({ soldoutProd }) => {
 
 	return (
 		<S.Container>
-			<LineGraphs data={data} avg={avg}/>
+			<ResponsiveContainer width="100%" height="100%">
+				<LineGraphs data={data} avg={avg} />
+			</ResponsiveContainer>
 			<S.AvgPrice>
 				<S.Keyword>" {keyword} "</S.Keyword> 의 평균 거래 가격은{" "}
 				<S.Won>{won}</S.Won> 원 입니다
 			</S.AvgPrice>
 			<S.Line></S.Line>
-				<S.Button>최근 거래 종료 품목</S.Button>
-				<div>
-					<S.Gridwrapper>
-						{prod?.map(product => (
-							<OneProduct product={product} />
-						))}
-					</S.Gridwrapper>
-				</div>
-
+			<S.Button>최근 거래 종료 품목</S.Button>
+			<div>
+				<S.Gridwrapper>
+					{prod?.map(product => (
+						<OneProduct product={product} />
+					))}
+				</S.Gridwrapper>
+			</div>
 		</S.Container>
 	);
 };
