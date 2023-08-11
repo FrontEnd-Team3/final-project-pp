@@ -1,7 +1,7 @@
-import ConnectSocket from "pages/Chat/Socket/connect";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
-const socket = ConnectSocket();
+const socket = io("https://topdragon.co.kr");
 
 const ChatDataContext = createContext();
 
@@ -17,6 +17,12 @@ const ChatDataProvider = ({ children }) => {
 		window.localStorage.setItem("targetChat", targetChat);
 	}, [targetChat]);
 
+	useEffect(() => {
+		socket.connect();
+
+		// return () => socket.disconnect();
+	});
+
 	const value = {
 		socket,
 		chatInfo,
@@ -24,12 +30,6 @@ const ChatDataProvider = ({ children }) => {
 		targetChat,
 		setTargetChat,
 	};
-
-	useEffect(() => {
-		socket.connect();
-
-		return () => socket.disconnect();
-	});
 
 	return (
 		<ChatDataContext.Provider value={value}>

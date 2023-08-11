@@ -26,7 +26,7 @@ const OtherChat = ({ createdAt, message, user }) => {
 					</S.Other>
 				</S.OtherWrapper>
 				<S.ReceivedTime>
-					{createdAt.split("T")[1].split(":")[0]} :
+					{parseInt(createdAt.split("T")[1].split(":")[0]) + 9} :
 					{createdAt.split("T")[1].split(":")[1]}
 				</S.ReceivedTime>
 			</S.OtherChatWrapper>
@@ -49,12 +49,8 @@ const ReceivedTime = styled.div`
 `;
 
 const SendedByOther = styled.div`
-	width: auto;
 	max-width: 200px;
 	font-size: 16px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
 	padding: 10px;
 	background-color: #ffffff;
 	border: 1px solid #dddddd;

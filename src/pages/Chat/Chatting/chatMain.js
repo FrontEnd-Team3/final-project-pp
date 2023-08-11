@@ -10,7 +10,7 @@ import { useChatData } from "context/chatData.ctx";
 import ChatApi from "apis/chat.api";
 
 const ChatMain = () => {
-	const { socket, chatInfo, targetChat } = useChatData();
+	const { socket, chatInfo, targetChat, setChatInfo } = useChatData();
 	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
 	const filteredByUser = getFilteredList(data);
 	const inputRef = useRef("");
@@ -25,24 +25,25 @@ const ChatMain = () => {
 			chatMainWrapperRef.current.scrollHeight;
 	}, [targetChat, data]);
 
-	const newChatData = {
-		...chatInfo,
-		createdAt: new Date(),
-		message: inputRef.current,
-	};
-
 	const handleChatContent = async e => {
 		e.preventDefault();
 		inputRef.current = e.target.input.value;
 		console.log("input", inputRef.current);
 		if (inputRef.current) {
 			try {
+				const newChatData = {
+					...chatInfo,
+					createdAt: new Date(),
+					message: inputRef.current,
+				};
+				console.log("보내는 값", newChatData);
 				socket.emit("sendMessage", newChatData);
 				await ChatApi.saveMessages({
 					room_idx: parseInt(targetChat),
 					message: inputRef.current,
 				});
 				refetch();
+				setChatInfo(newChatData);
 				e.target.input.value = "";
 				chatMainWrapperRef.current.scrollTop =
 					chatMainWrapperRef.current.scrollHeight;
@@ -81,7 +82,6 @@ const ChatMain = () => {
 			<S.SendWrapper onSubmit={handleChatContent}>
 				<BasicInput
 					name="input"
-					ref={inputRef}
 					variant={"chat"}
 					size={"xsmall"}
 					placeholder="채팅치는곳"

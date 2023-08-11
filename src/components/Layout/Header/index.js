@@ -47,6 +47,15 @@ const Header = () => {
 		searchInput.current.value = "";
 	};
 
+	// const { socket, chatData } = useChatData();
+
+	let isNewChat;
+	// useEffect(() => {
+	// 	isNewChat = socket.on("newMessage", chatData);
+
+	// 	return () => (isNewChat = "");
+	// }, [socket]);
+
 	return (
 		<>
 			<S.Container>
@@ -80,7 +89,7 @@ const Header = () => {
 						</form>
 					</S.SearchWrapper>
 					<div>
-						{/* <S.NewChat>새로운 채팅 도착!</S.NewChat> */}
+						{isNewChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
 							{accessToken ? (
 								<div style={{ cursor: "pointer" }} onClick={handleLogout}>

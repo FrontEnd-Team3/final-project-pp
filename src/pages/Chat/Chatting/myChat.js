@@ -6,7 +6,7 @@ const MyChat = ({ createdAt, message, user }) => {
 		<S.MyChats>
 			<S.OneChat>
 				<S.SendedTime>
-					{createdAt.split("T")[1].split(":")[0]} :
+					{parseInt(createdAt.split("T")[1].split(":")[0]) + 9} :
 					{createdAt.split("T")[1].split(":")[1]}
 				</S.SendedTime>
 				<S.MyWrapper>

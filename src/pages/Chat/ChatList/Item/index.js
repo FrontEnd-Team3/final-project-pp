@@ -4,11 +4,10 @@ import styled from "styled-components";
 import { flexColumn } from "styles/common";
 import getUserData from "utils/getUserData";
 import { useChatData } from "context/chatData.ctx";
-import ConnectSocket from "pages/Chat/Socket/connect";
 
 const ChatItem = ({ chat }) => {
 	const { idx, isRead, lastMessage, product } = chat;
-	const { targetChat, setTargetChat, setChatInfo } = useChatData();
+	const { socket, targetChat, setTargetChat, setChatInfo } = useChatData();
 
 	let nick_name;
 	const DATA = getUserData();
@@ -21,11 +20,11 @@ const ChatItem = ({ chat }) => {
 
 	// 채팅방 입장하기 + 이전 방 나가기
 	const handleEnterRoom = () => {
-		const enterRoomSocket = ConnectSocket();
-		enterRoomSocket.emit("leave", { targetChat });
-		enterRoomSocket.emit("join", { idx });
-		enterRoomSocket.disconnect();
+		// const enterRoomSocket = ConnectSocket();
+		// socket.emit("leave", { targetChat });
 		setTargetChat(idx);
+		socket.emit("join", { room_idx: idx });
+		// enterRoomSocket.disconnect();
 		setChatInfo({
 			title: product.title,
 			prod_idx: product.idx,
@@ -169,6 +168,10 @@ const Iproduct = styled.div`
 `;
 
 const Ichat = styled.div`
+	overflow: hidden;
+	max-width: 200px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	padding-top: 5px;
 	font-size: 12px;
 	color: #575757;

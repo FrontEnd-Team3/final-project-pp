@@ -1,9 +1,17 @@
 import styled from "styled-components";
 import ChatMain from "./chatMain";
 import { useChatData } from "context/chatData.ctx";
+import { useEffect } from "react";
 
 const Chatting = () => {
-	const { targetChat } = useChatData();
+	const { socket, targetChat } = useChatData();
+
+	useEffect(() => {
+		socket.on("receiveMessage", data => {
+			console.log(data);
+		});
+	}, [socket, targetChat]);
+
 	return (
 		<S.Container>
 			<S.Header>
