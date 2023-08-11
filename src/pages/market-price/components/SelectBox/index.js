@@ -10,13 +10,15 @@ const options = [
 	{ value: "전체", label: "전체" },
 ];
 
-const SelectBox = () => {
+const SelectBox = ({ currensValue, setCurrentValue }) => {
 	return (
 		<S.SelectContainer>
 			<BasicSelect
 				variant={"primary"}
 				options={options}
 				selectedValue={"1개월"}
+				currensValue={currensValue}
+				setCurrentValue={setCurrentValue}
 			/>
 		</S.SelectContainer>
 	);

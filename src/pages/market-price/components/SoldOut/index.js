@@ -1,19 +1,12 @@
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 import OneProduct from "./oneSoldOutProduct";
-import ProductQueryApi from "apis/product.query.api";
-import { useParams } from "react-router-dom";
-import { getPastDate, getTodayDate } from "utils/marketPriceData";
+import LineGraphs from "../Graph";
 
-const Soldout = () => {
-	const { keyword } = useParams();
+const Soldout = ({ soldoutProd }) => {
 
-	const { data, isLoading } = ProductQueryApi.searchMarketPriceList({
-		keyword,
-		start: getPastDate(1),
-		end: getTodayDate(),
-	});
-
+	const { keyword, data, isLoading } = soldoutProd;
+	
 	console.log("result", data);
 	const prod = data?.products.product;
 	console.log("판매완료", prod);
@@ -26,16 +19,19 @@ const Soldout = () => {
 	}
 
 	return (
-		<S.Container>
-			<S.Button>최근 거래 종료 품목</S.Button>
-			<div>
-				<S.Gridwrapper>
-					{prod?.map(product => (
-						<OneProduct product={product} />
-					))}
-				</S.Gridwrapper>
-			</div>
-		</S.Container>
+		<>
+			<LineGraphs data={data} avg={avg} />
+			<S.Container>
+				<S.Button>최근 거래 종료 품목</S.Button>
+				<div>
+					<S.Gridwrapper>
+						{prod?.map(product => (
+							<OneProduct product={product} />
+						))}
+					</S.Gridwrapper>
+				</div>
+			</S.Container>
+		</>
 	);
 };
 export default Soldout;

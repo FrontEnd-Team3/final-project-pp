@@ -9,35 +9,37 @@ import {
 } from "recharts";
 import styled from "styled-components";
 
-function LineGraphs() {
-	const data = [
+function LineGraphs({ data }) {
+	const avg = data?.cumulativeAvgPrice;
+	// console.log("여기여기", avg);
+	const graphdata = [
 		{
-			name: "Page A",
-			uv: 4000,
+			name: "7월 1일",
+			uv: avg[0].avgPrice,
 		},
 		{
-			name: "Page B",
-			uv: 3000,
+			name: "7월 5일",
+			uv: avg[4].avgPrice,
 		},
 		{
-			name: "Page C",
-			uv: 2000,
+			name: "7월 10일",
+			uv: avg[9].avgPrice,
 		},
 		{
-			name: "Page D",
-			uv: 2780,
+			name: "7월 15일",
+			uv: avg[14].avgPrice,
 		},
 		{
-			name: "Page E",
-			uv: 1890,
+			name: "7월 20일",
+			uv: avg[19].avgPrice,
 		},
 		{
-			name: "Page F",
-			uv: 2390,
+			name: "7월 25일",
+			uv: avg[24].avgPrice,
 		},
 		{
-			name: "Page G",
-			uv: 3490,
+			name: "7월 30일",
+			uv: avg[30].avgPrice,
 		},
 	];
 
@@ -46,7 +48,7 @@ function LineGraphs() {
 			<ComposedChart
 				width={1000}
 				height={600}
-				data={data}
+				data={graphdata}
 				margin={{
 					top: 250,
 					right: 80,
