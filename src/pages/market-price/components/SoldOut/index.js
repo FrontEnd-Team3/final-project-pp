@@ -4,9 +4,12 @@ import OneProduct from "./oneSoldOutProduct";
 import LineGraphs from "../Graph";
 
 const Soldout = ({ soldoutProd }) => {
-
 	const { keyword, data, isLoading } = soldoutProd;
-	
+
+	if (isLoading) {
+		return <div>스켈레톤 UI 추가 예정 로딩</div>;
+	}
+
 	console.log("result", data);
 	const prod = data?.products.product;
 	console.log("판매완료", prod);
@@ -14,14 +17,22 @@ const Soldout = ({ soldoutProd }) => {
 	const avg = data?.cumulativeAvgPrice;
 	console.log("기간 동안 팔린 물품 갯수 및 평균 값", avg);
 
-	if (isLoading) {
-		return <div>스켈레톤 UI 추가 예정 로딩</div>;
-	}
+	const totalAvgPrice = avg.reduce((total, item) => {
+		return total + parseFloat(item.avgPrice);
+	}, 0);
+	const count = avg.length;
+	const averagePrice = totalAvgPrice / count;
+
+	const won = Math.floor(averagePrice).toLocaleString();
 
 	return (
-		<>
-			<LineGraphs data={data} avg={avg} />
-			<S.Container>
+		<S.Container>
+			<LineGraphs data={data} avg={avg}/>
+			<S.AvgPrice>
+				<S.Keyword>" {keyword} "</S.Keyword> 의 평균 거래 가격은{" "}
+				<S.Won>{won}</S.Won> 원 입니다
+			</S.AvgPrice>
+			<S.Line></S.Line>
 				<S.Button>최근 거래 종료 품목</S.Button>
 				<div>
 					<S.Gridwrapper>
@@ -30,11 +41,39 @@ const Soldout = ({ soldoutProd }) => {
 						))}
 					</S.Gridwrapper>
 				</div>
-			</S.Container>
-		</>
+
+		</S.Container>
 	);
 };
 export default Soldout;
+
+const Line = styled.div`
+	width: 1060px;
+	height: 1px;
+	background-color: ${({ theme }) => theme.PALETTE.gray};
+	margin-bottom: 80px;
+`;
+
+const AvgPrice = styled.p`
+	font-weight: 500;
+	font-size: ${({ theme }) => theme.FONT_SIZE.mmlarge};
+	color: ${({ theme }) => theme.PALETTE.darkBlack};
+	margin: 50px 0 80px 0;
+`;
+
+const Keyword = styled.span`
+	color: ${({ theme }) => theme.PALETTE.primary};
+	font-weight: 700;
+`;
+
+const Won = styled.span`
+	color: ${({ theme }) => theme.PALETTE.black};
+	font-size: 32px;
+	display: inline-block;
+	line-height: 40px;
+	border-bottom: 6px solid ${({ theme }) => theme.PALETTE.primary};
+	font-weight: 700;
+`;
 
 const Gridwrapper = styled.div`
 	display: grid;
@@ -61,6 +100,10 @@ const Container = styled.div`
 `;
 
 const S = {
+	Won,
+	Keyword,
+	Line,
+	AvgPrice,
 	Button,
 	Container,
 	Gridwrapper,

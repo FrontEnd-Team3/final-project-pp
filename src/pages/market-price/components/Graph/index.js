@@ -11,44 +11,24 @@ import styled from "styled-components";
 
 function LineGraphs({ data }) {
 	const avg = data?.cumulativeAvgPrice;
-	// console.log("여기여기", avg);
-	const graphdata = [
-		{
-			name: "7월 1일",
-			uv: avg[0].avgPrice,
-		},
-		{
-			name: "7월 5일",
-			uv: avg[4].avgPrice,
-		},
-		{
-			name: "7월 10일",
-			uv: avg[9].avgPrice,
-		},
-		{
-			name: "7월 15일",
-			uv: avg[14].avgPrice,
-		},
-		{
-			name: "7월 20일",
-			uv: avg[19].avgPrice,
-		},
-		{
-			name: "7월 25일",
-			uv: avg[24].avgPrice,
-		},
-		{
-			name: "7월 30일",
-			uv: avg[30].avgPrice,
-		},
-	];
+
+	// const arr = [];
+	// for (let i = 0; i < avg.length; i + 5) {
+	// 	arr.push({ name: avg[i].date, uv: avg[i].avgPrice });
+	// }
+	// console.log("여기여기", arr);
+	const arr = [];
+	for (let i = 0; i < avg.length; i++) {
+		arr.push({ name: avg[i].date, uv: avg[i].avgPrice });
+		// i+6;
+	}
 
 	return (
 		<S.Container>
 			<ComposedChart
 				width={1000}
 				height={600}
-				data={graphdata}
+				data={arr}
 				margin={{
 					top: 250,
 					right: 80,
