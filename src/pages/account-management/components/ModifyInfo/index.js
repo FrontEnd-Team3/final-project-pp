@@ -5,7 +5,7 @@ import BasicModal from "components/Modal/WithoutButton";
 import { useState } from "react";
 import styled from "styled-components";
 import ModifyInfoEdit from "./components/ModifyInfoEdit";
-import MyProfileImage from "../ManageProfile/components/MyprofileImage";
+import MyProfileImage from "./components/MyprofileImage";
 
 const AccountPrivacy = () => {
 	const userInfo = UserQueryApi.getUserInfo();
@@ -33,8 +33,7 @@ const AccountPrivacy = () => {
 	};
 
 	const handleSaveImage = async imageFile => {
-		const userResponse = window.confirm("사진을 저장하시겠습니까?");
-
+		const userResponse = window.confirm("변경된 사진으로 저장하시겠습니까?");
 		if (userResponse) {
 			try {
 				// 백엔드에 이미지 파일을 전송하는 코드
@@ -52,15 +51,51 @@ const AccountPrivacy = () => {
 		}
 	};
 
+	const fetchDefaultImageAsFile = async () => {
+		const response = await fetch(
+			`${process.env.PUBLIC_URL}/img/defaultImg.png`,
+		);
+
+		if (!response.ok) {
+			throw new Error("Failed to fetch default image.");
+		}
+
+		const blob = await response.blob();
+		const file = new File([blob], "defaultImg.png", { type: "image/png" });
+
+		return file;
+	};
+
+	const handleDeleteImage = async () => {
+		const userResponse = window.confirm("사진을 삭제하시겠습니까?");
+		if (userResponse) {
+			try {
+				const defaultImageFile = await fetchDefaultImageAsFile();
+				const response = await AuthApi.userProfileImage(defaultImageFile);
+
+				if (response.status === 200) {
+					setImageSrc(`${process.env.PUBLIC_URL}/img/defaultImg.png`);
+					alert("사진이 성공적으로 삭제되었습니다.");
+				}
+			} catch (error) {
+				alert("사진 삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
+				console.error("Error deleting image:", error);
+			}
+		} else {
+			alert("사진 삭제가 취소되었습니다.");
+		}
+	};
+
 	// 입력 파일 창을 숨기고, 이미지 변경 버튼 클릭 시 파일 업로드 창이 뜨도록 설정
 	const handleUploadClick = () => {
 		const fileInput = document.getElementById("fileInput");
 		fileInput.click();
 	};
 
-	const handleDeleteClick = () => {
-		setImageSrc("img/profile.png"); // 삭제 버튼으로 프로필 이미지 삭제시 기본 프로필 이미지가 나오도록 함
-	};
+	// const handleDeleteClick = () => {
+	// 	setImageSrc("img/defaultImg.png"); // 삭제 버튼으로 프로필 이미지 삭제시 기본 프로필 이미지가 나오도록 함
+
+	// };
 
 	const handleSave = async () => {
 		console.log("handleSave 클릭중");
@@ -120,7 +155,7 @@ const AccountPrivacy = () => {
 										size={"medium"}
 										color={"darkBlack"}
 										children={"이미지 삭제"}
-										onClick={handleDeleteClick}
+										onClick={handleDeleteImage}
 									/>
 								</S.ProfileImgBtnContainer>
 							</S.ProfileIntroductionContainer>
@@ -197,7 +232,7 @@ const ProfileImgContainer = styled.div`
 const PrivacyWrapper = styled.div`
 	width: 1060px;
 	padding: 60px;
-	margin: 0px 0px 50px 174px;
+	margin: 0px 0px 50px 0px;
 	button {
 		font-size: 16px;
 	}

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import * as SCHEMA from "../../../../../consts/schema";
 import * as yup from "yup";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import { replacePhone } from "utils/phoneNum";
 import SearchAddress from "components/SearchAddress";
