@@ -5,28 +5,25 @@ import MyChat from "./myChat";
 import ChatQueryApi from "apis/chat.api.query";
 import { useEffect, useRef } from "react";
 import OtherChat from "./otherChat";
-// import ChatApi from "apis/chat.api";
 import getFilteredList from "./utils/getfilteredList";
 import { useChatData } from "context/chatData.ctx";
 import ChatApi from "apis/chat.api";
-import ConnectSocket from "../Socket/connect";
-// import { io } from "socket.io-client";
 
 const ChatMain = () => {
-	const { chatInfo, targetChat } = useChatData();
-	// const ChatMainRef = useRef();
-	// 대화 내역 가져오기
-	// console.log("chatMain", targetChat);
+	const { socket, chatInfo, targetChat } = useChatData();
 	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
-
 	const filteredByUser = getFilteredList(data);
-
-	// 전송 시 input 값 전송
 	const inputRef = useRef("");
+	const chatMainWrapperRef = useRef();
 
 	useEffect(() => {
 		refetch();
 	}, [targetChat]);
+
+	useEffect(() => {
+		chatMainWrapperRef.current.scrollTop =
+			chatMainWrapperRef.current.scrollHeight;
+	}, [targetChat, data]);
 
 	const newChatData = {
 		...chatInfo,
@@ -40,16 +37,15 @@ const ChatMain = () => {
 		console.log("input", inputRef.current);
 		if (inputRef.current) {
 			try {
-				const sendChatSocket = ConnectSocket();
-				sendChatSocket.emit("sendMessage", newChatData);
-				sendChatSocket.disconnect();
+				socket.emit("sendMessage", newChatData);
 				await ChatApi.saveMessages({
 					room_idx: parseInt(targetChat),
 					message: inputRef.current,
 				});
 				refetch();
 				e.target.input.value = "";
-				// window.scrollTo(450, ChatMainRef.scrollHeight);
+				chatMainWrapperRef.current.scrollTop =
+					chatMainWrapperRef.current.scrollHeight;
 			} catch (err) {
 				console.error(err);
 			}
@@ -57,7 +53,7 @@ const ChatMain = () => {
 	};
 
 	return (
-		<S.ChatMainWrapper>
+		<S.ChatMainWrapper ref={chatMainWrapperRef}>
 			{filteredByUser &&
 				filteredByUser.map((list, i) => (
 					<S.Chat key={i}>
@@ -89,8 +85,6 @@ const ChatMain = () => {
 					variant={"chat"}
 					size={"xsmall"}
 					placeholder="채팅치는곳"
-					// onChange={handleInput}
-					// value={inputRefue}
 				/>
 				<BasicButton
 					type="submit"

@@ -37,14 +37,6 @@ const Header = () => {
 		}
 	};
 
-	const handleMypage = () => {
-		if (accessToken) {
-			navigate("/Signin");
-		} else {
-			n;
-		}
-	};
-
 	// 입력 검색어 params 설정하여 페이지 이동하는
 	const handleSearchResult = async e => {
 		e.preventDefault();
@@ -88,7 +80,7 @@ const Header = () => {
 						</form>
 					</S.SearchWrapper>
 					<div>
-						<S.NewChat>새로운 채팅 도착!</S.NewChat>
+						{/* <S.NewChat>새로운 채팅 도착!</S.NewChat> */}
 						<S.InfoWrapper>
 							{accessToken ? (
 								<div style={{ cursor: "pointer" }} onClick={handleLogout}>

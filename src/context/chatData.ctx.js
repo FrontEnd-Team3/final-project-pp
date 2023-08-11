@@ -1,19 +1,7 @@
+import ConnectSocket from "pages/Chat/Socket/connect";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { io } from "socket.io-client";
 
-const socket = io("https://topdragon.co.kr", {
-	cors: {
-		origin: "http://localhost:3000",
-		methods: ["GET", "POST"],
-		credentials: true,
-	},
-	withCredentials: true,
-});
-export const initSocketConnection = () => {
-	if (socket) return;
-	socket.connect();
-};
-// const socket = "";
+const socket = ConnectSocket();
 
 const ChatDataContext = createContext();
 
@@ -36,6 +24,12 @@ const ChatDataProvider = ({ children }) => {
 		targetChat,
 		setTargetChat,
 	};
+
+	useEffect(() => {
+		socket.connect();
+
+		return () => socket.disconnect();
+	});
 
 	return (
 		<ChatDataContext.Provider value={value}>
