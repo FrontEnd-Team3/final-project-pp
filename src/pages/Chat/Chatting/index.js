@@ -6,6 +6,7 @@ import { useEffect } from "react";
 const Chatting = () => {
 	const { socket, targetChat } = useChatData();
 
+	// 실시간 메시지 도착
 	useEffect(() => {
 		socket.on("receiveMessage", data => {
 			console.log(data);

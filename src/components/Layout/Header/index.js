@@ -2,8 +2,9 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
+import { useChatData } from "context/chatData.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -46,15 +47,16 @@ const Header = () => {
 		navigate(`/search/${keyword}?filter=${filter}`);
 		searchInput.current.value = "";
 	};
+	const { socket, targetChat } = useChatData();
 
-	// const { socket, chatData } = useChatData();
+	const [isNewChat, setIsNewChat] = useState(false);
 
-	let isNewChat;
-	// useEffect(() => {
-	// 	isNewChat = socket.on("newMessage", chatData);
-
-	// 	return () => (isNewChat = "");
-	// }, [socket]);
+	// 전역 메시지 알림
+	useEffect(() => {
+		socket.on("newMessage", data => {
+			setIsNewChat(data);
+		});
+	}, [socket, targetChat]);
 
 	return (
 		<>
