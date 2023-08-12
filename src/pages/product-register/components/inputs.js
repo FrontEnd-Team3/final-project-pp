@@ -148,12 +148,16 @@ const Inputs = () => {
 
 		if (imageDBArr.length === 0) {
 			setIsImage(true);
+			imagesContainerRef.current.scrollIntoView({
+				behavior: "smooth",
+				block: "start",
+			});
+			return;
 		}
 
-		if (address === "") {
-			setIsMap(true);
-		}
-
+		// if (address === "") {
+		// 	setIsMap(true);
+		// }
 		try {
 			const formData = new FormData();
 			formData.append("title", data.title);

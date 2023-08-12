@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { flexCenter } from "styles/common";
 import { AiFillCamera } from "react-icons/ai";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { TiDelete } from "react-icons/ti";
 const Images = ({
 	imageArr,
@@ -11,10 +11,6 @@ const Images = ({
 	imagesContainerRef,
 }) => {
 	const fileInput = useRef(null); // ref로 input 태그 참조
-
-	useEffect(() => {
-		console.log(imageArr, imageDBArr);
-	}, [imageArr, imageDBArr]);
 
 	// 이미지 상대 경로 저장
 	const onChangeImage = async e => {
@@ -45,9 +41,12 @@ const Images = ({
 	return (
 		<>
 			<div ref={imagesContainerRef}>
-				<S.TitleAnother style={{ marginBottom: "20px" }}>
-					상품 이미지 (0/5) <S.Essential>*</S.Essential>
-				</S.TitleAnother>
+				<S.TopBox>
+					<S.TitleAnother>
+						상품 이미지 ({imageArr.length}/5) <S.Essential>*</S.Essential>
+					</S.TitleAnother>
+					<S.EssentialDesc>*필수 기입 사항</S.EssentialDesc>
+				</S.TopBox>
 				<S.MainImg>
 					<AiFillCamera size={80} />
 					<div>
@@ -59,7 +58,6 @@ const Images = ({
 							accept="image/*"
 							multiple
 							id="registerImg"
-							// required
 						/>
 					</div>
 				</S.MainImg>
@@ -67,6 +65,7 @@ const Images = ({
 			<S.RealImageBox>
 				{imageArr.map((imageUrl, i) => (
 					<S.OneImage key={i} imageUrl={imageUrl}>
+						{i === 0 && <S.MainLabel>대표이미지</S.MainLabel>}
 						<S.DeleteIcons onClick={() => onDeleteImage(i)}>
 							<TiDelete size={20} />
 						</S.DeleteIcons>
@@ -77,6 +76,27 @@ const Images = ({
 	);
 };
 export default Images;
+
+const MainLabel = styled.div`
+	position: absolute;
+	padding: 4px;
+	font-weight: 500;
+	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
+	color: #fff;
+	background-color: ${({ theme }) => theme.PALETTE.primary};
+`;
+
+const TopBox = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+`;
+
+const EssentialDesc = styled.p`
+	font-weight: 700;
+	color: ${({ theme }) => theme.PALETTE.red};
+`;
 
 const TitleAnother = styled.p`
 	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
@@ -104,6 +124,7 @@ const RegisterLabel = styled.label`
 	cursor: pointer;
 	font-weight: bold;
 	color: #9b99a9;
+	padding: 202px 136px 124px;
 `;
 
 const RegisterInput = styled.input`
@@ -111,6 +132,7 @@ const RegisterInput = styled.input`
 `;
 
 const RealImageBox = styled.div`
+	position: relative;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-gap: 20px;
@@ -139,6 +161,9 @@ const DeleteIcons = styled.p`
 `;
 
 const S = {
+	MainLabel,
+	TopBox,
+	EssentialDesc,
 	TitleAnother,
 	Essential,
 	MainImg,
