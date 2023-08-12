@@ -57,8 +57,7 @@ const Nav = () => {
 			<S.NavAccountTitle onClick={() => handleNavigateClick("/account")}>
 				계정관리
 			</S.NavAccountTitle>
-			<div onClick={() => handleScrollClick1("/account")}>프로필 관리</div>
-			<div onClick={() => handleScrollClick2("/account")}>개인정보 수정</div>
+			<div onClick={() => handleNavigateClick("/account")}>개인정보 수정</div>
 		</S.MyPageNavWrapper>
 	);
 };

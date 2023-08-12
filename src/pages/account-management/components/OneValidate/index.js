@@ -14,7 +14,6 @@ const ValidateInput = ({
 }) => {
 	return (
 		<S.SignWrapper>
-			{label && <S.Title>{label}</S.Title>}
 			<Controller
 				name={name}
 				control={control}
@@ -42,7 +41,7 @@ export default ValidateInput;
 
 const Error = styled.div`
 	color: red;
-	font-size: 12px;
+	font-size: 14px;
 	margin-top: 10px;
 `;
 
@@ -55,21 +54,10 @@ const RowBox = styled.div`
 const SignWrapper = styled.div`
 	${flexColumn}
 	position: relative;
-	margin-bottom: 20px;
-`;
-
-const Title = styled.p`
-	font-size: 13px;
-	color: ${({ theme }) => theme.PALETTE.black};
-	position: relative;
-	bottom: 4px;
-	font-weight: bold;
-	${flexRow}
 `;
 
 const S = {
 	SignWrapper,
-	Title,
 	Error,
 	RowBox,
 };
