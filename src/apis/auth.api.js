@@ -107,6 +107,11 @@ const AuthApi = {
 			console.error(error);
 		}
 	},
+
+	userPurchasedProduct: async ({ page, category }) =>
+		await axiosInstance.get(PATH + `/search`, {
+			params: { page, category },
+		}),
 };
 
 export default AuthApi;

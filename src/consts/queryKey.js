@@ -5,6 +5,7 @@ const QueryKey = {
 	userData: "userData",
 	userDetail: "userDetail",
 	userProductData: "userProductData",
+	userPurchasedProduct: "userPurchasedProduct",
 	recentlyViewed: "recentlyViewed",
 	chatList: "chatList",
 	chatRoom: "chatRoom",

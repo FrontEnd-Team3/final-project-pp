@@ -1,5 +1,5 @@
 import BasicSelect from "components/Select";
-import { productList } from "mocks/data/products/productsList";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
@@ -12,16 +12,28 @@ import PurchasedButtons from "./PurchasedButtons";
  */
 
 const PurchasedItem = () => {
+	const [searchParams, setSearchParams] = useSearchParams();
+	const category = searchParams.get("category") || 0;
+	const page = searchParams.get("page") || 0;
+
+	const { productList, isLoading } = UserQueryApi.searchProductList({
+		category,
+		page,
+	});
+
 	const soldProducts = productList?.filter(
-		product =>
-			product.User &&
-			product.User.nick_name === "aaa123" &&
-			product.status === "판매완료",
+		product => product.status === "판매중",
 	);
+	console.log(soldProducts);
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
 	];
+
+	if (isLoading) {
+		return <div>스켈레톤 UI로 변경 예정</div>;
+	}
+
 	if (soldProducts && soldProducts.length > 0) {
 		return (
 			<S.Container>
