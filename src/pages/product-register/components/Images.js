@@ -3,6 +3,7 @@ import { flexCenter } from "styles/common";
 import { AiFillCamera } from "react-icons/ai";
 import { useRef } from "react";
 import { TiDelete } from "react-icons/ti";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 const Images = ({
 	imageArr,
 	setImageArr,
@@ -38,6 +39,26 @@ const Images = ({
 		setImageDBArr(_setImageDBArr);
 	};
 
+	const onDragEnd = res => {
+		console.log("드래그");
+		console.log(res);
+		//드래그 하는 sourced의 index
+		const sourceOrderNo = res.source.index;
+		//드래그 해서 내려놓은 destination의 index
+		const destinationOrderNo = res.destination.index;
+
+		// 새로운 배열 생성하여 순서 변경
+		const dragImageArr = [...imageArr];
+		const [draggedItem] = dragImageArr.splice(sourceOrderNo, 1);
+		dragImageArr.splice(destinationOrderNo, 0, draggedItem);
+		const dragImageDBArr = [...imageDBArr];
+		const [draggedDBItem] = dragImageDBArr.splice(sourceOrderNo, 1);
+		dragImageDBArr.splice(destinationOrderNo, 0, draggedDBItem);
+
+		setImageArr(dragImageArr);
+		setImageDBArr(dragImageDBArr);
+	};
+
 	return (
 		<>
 			<div ref={imagesContainerRef}>
@@ -47,35 +68,80 @@ const Images = ({
 					</S.TitleAnother>
 					<S.EssentialDesc>*필수 기입 사항</S.EssentialDesc>
 				</S.TopBox>
-				<S.MainImg>
-					<AiFillCamera size={80} />
-					<div>
-						<S.RegisterLabel htmlFor="registerImg">이미지 등록</S.RegisterLabel>
-						<S.RegisterInput
-							ref={fileInput}
-							onChange={e => onChangeImage(e)}
-							type="file"
-							accept="image/*"
-							multiple
-							id="registerImg"
-						/>
-					</div>
-				</S.MainImg>
+				<S.ImageContainer>
+					<S.MainImg>
+						<AiFillCamera size={80} />
+						<div>
+							<S.RegisterLabel htmlFor="registerImg">
+								이미지 등록
+							</S.RegisterLabel>
+							<S.RegisterInput
+								ref={fileInput}
+								onChange={e => onChangeImage(e)}
+								type="file"
+								accept="image/*"
+								multiple
+								id="registerImg"
+							/>
+						</div>
+					</S.MainImg>
+					<S.ImageDesc>
+						<p>* 상품 이미지는 600x600에 최적화 되어 있습니다.</p>
+						<p>- 이미지를 클릭 후 이동하여 등록순서를 변경할 수 있습니다.</p>
+						<p>- 이미지는 최대 5장까지 등록할 수 있습니다.</p>
+					</S.ImageDesc>
+				</S.ImageContainer>
 			</div>
-			<S.RealImageBox>
-				{imageArr.map((imageUrl, i) => (
-					<S.OneImage key={i} imageUrl={imageUrl}>
-						{i === 0 && <S.MainLabel>대표이미지</S.MainLabel>}
-						<S.DeleteIcons onClick={() => onDeleteImage(i)}>
-							<TiDelete size={20} />
-						</S.DeleteIcons>
-					</S.OneImage>
-				))}
-			</S.RealImageBox>
+			<DragDropContext onDragEnd={onDragEnd}>
+				<Droppable droppableId="Goal" direction="horizontal">
+					{provided => (
+						<S.RealImageBox
+							{...provided.droppableProps}
+							ref={provided.innerRef}
+						>
+							{imageArr.map((imageUrl, i) => (
+								<Draggable key={i} draggableId={String(i)} index={i}>
+									{provided => (
+										<div
+											ref={provided.innerRef}
+											{...provided.draggableProps}
+											{...provided.dragHandleProps}
+										>
+											<S.OneImage key={i} imageUrl={imageUrl}>
+												{i === 0 && <S.MainLabel>대표이미지</S.MainLabel>}
+												<S.DeleteIcons onClick={() => onDeleteImage(i)}>
+													<TiDelete size={20} />
+												</S.DeleteIcons>
+											</S.OneImage>
+										</div>
+									)}
+								</Draggable>
+							))}
+						</S.RealImageBox>
+					)}
+				</Droppable>
+			</DragDropContext>
 		</>
 	);
 };
 export default Images;
+
+const ImageContainer = styled.div`
+	display: flex;
+	align-items: flex-end;
+`;
+
+const ImageDesc = styled.div`
+	margin-left: 20px;
+	p {
+		color: ${({ theme }) => theme.PALETTE.primary};
+		margin-top: 4px;
+	}
+
+	p:first-of-type {
+		font-weight: 700;
+	}
+`;
 
 const MainLabel = styled.div`
 	position: absolute;
@@ -161,6 +227,8 @@ const DeleteIcons = styled.p`
 `;
 
 const S = {
+	ImageDesc,
+	ImageContainer,
 	MainLabel,
 	TopBox,
 	EssentialDesc,

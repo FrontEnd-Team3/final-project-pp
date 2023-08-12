@@ -155,9 +155,9 @@ const Inputs = () => {
 			return;
 		}
 
-		// if (address === "") {
-		// 	setIsMap(true);
-		// }
+		if (address === "") {
+			setIsMap(true);
+		}
 		try {
 			const formData = new FormData();
 			formData.append("title", data.title);

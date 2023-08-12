@@ -15,7 +15,7 @@ const SearchBar = () => {
 		navigate(`/marketPrice/${keyword}`);
 		searchInput.current.value = "";
 	};
-	
+
 	return (
 		<S.Container>
 			<S.Title>시세조회</S.Title>
