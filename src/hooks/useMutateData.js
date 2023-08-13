@@ -6,7 +6,7 @@ const useMutateData = (mutateFn, queryKey, successFn) => {
 	return useMutation(mutateFn, {
 		onMutate: () => {},
 		onSuccess: res => {
-			console.log("res", res);
+			// console.log("res", res);
 			// 함수 있을 때에만 실행
 			queryClient.invalidateQueries(queryKey);
 			successFn();
@@ -15,7 +15,7 @@ const useMutateData = (mutateFn, queryKey, successFn) => {
 			console.error("error");
 		},
 		onSettled: () => {
-			console.log("onSettled");
+			// console.log("onSettled");
 		},
 	});
 };

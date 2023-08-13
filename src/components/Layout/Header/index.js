@@ -49,7 +49,7 @@ const Header = () => {
 	};
 	const { socket, targetChat } = useChatData();
 
-	const [isNewChat, setIsNewChat] = useState(false);
+	const [isNewChat, setIsNewChat] = useState(true);
 
 	// 전역 메시지 알림
 	useEffect(() => {

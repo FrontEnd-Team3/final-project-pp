@@ -13,16 +13,16 @@ const StartChatBtn = ({ chat }) => {
 
 	const startChat = () => {
 		const bool = chat.some(el => {
-			console.log("닉네임", el.User.nick_name, nick_name);
+			// console.log("닉네임", el.User.nick_name, nick_name);
 			return el.User.nick_name !== nick_name;
 		});
-		console.log("chatlength", chat.length);
-		console.log("bool", bool);
+		// console.log("chatlength", chat.length);
+		// console.log("bool", bool);
 		if (!chat.length && !bool) {
 			console.log("hi");
 			try {
 				ChatApi.createChatRoom(parseInt(id)).then(res => {
-					console.log("start", res);
+					// console.log("start", res);
 					ChatApi.saveMessages({
 						room_idx: res.data?.idx,
 						message: "너 나한테 물건을 팔아라!",
