@@ -3,86 +3,61 @@ import BasicInput from "components/Input";
 import styled from "styled-components";
 import MyChat from "./myChat";
 import ChatQueryApi from "apis/chat.api.query";
-import getUserData from "utils/getUserData";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import OtherChat from "./otherChat";
+import getFilteredList from "./utils/getfilteredList";
+import { useChatData } from "context/chatData.ctx";
 import ChatApi from "apis/chat.api";
 
-const ChatMain = ({ targetChat }) => {
-	// 대화 내역 가져오기
-	console.log("chatMain", targetChat);
-	const { data, refetch } = ChatQueryApi.getChatLogs(parseInt(targetChat));
+const ChatMain = () => {
+	const { socket, chatInfo, targetChat, setChatInfo } = useChatData();
+	const { data, refetch, isError } = ChatQueryApi.getChatLogs(
+		parseInt(targetChat),
+	);
 
-	console.log("target", targetChat);
-	let nick_name;
-	const DATA = getUserData();
-	if (DATA) nick_name = DATA.nick_name;
-
-	// 날짜별로 채팅 목록 분류하기
-	const dateSet = new Set();
-	let fileteredDate = data
-		?.map(chat => chat.createdAt.split("T")[0])
-		.filter(date => {
-			if (!dateSet.has(date)) {
-				dateSet.add(date);
-				return true;
-			}
-			return false;
-		});
-	// console.log("date", fileteredDate);
-
-	fileteredDate = [...dateSet];
-	const filteredByDate = fileteredDate.map(date => {
-		return {
-			date: date,
-			logs: data?.filter(chat => chat.createdAt.split("T")[0] === date),
-		};
-	});
-	// console.log("filtered", filteredByDate);
-
-	// 상대방이 보낸 메세지와 내가 보낸 메세지 구분하기
-	const filteredByUser = filteredByDate.map(list => {
-		return {
-			date: list.date,
-			logs: list.logs.map(log => {
-				return {
-					...log,
-					isMine: log.User.nick_name === nick_name,
-				};
-			}),
-		};
-	});
-	// console.log("filtered", filteredByUser);
-
-	// 전송 시 input 값 전송
-	const [inputVal, setInputVal] = useState("");
-	const handleInput = e => {
-		setInputVal(e.target.value);
-	};
+	const filteredByUser = getFilteredList(data);
+	const inputRef = useRef("");
+	const chatMainWrapperRef = useRef();
 
 	useEffect(() => {
 		refetch();
 	}, [targetChat]);
 
-	const handleChatContent = e => {
+	useEffect(() => {
+		chatMainWrapperRef.current.scrollTop =
+			chatMainWrapperRef.current.scrollHeight;
+	}, [targetChat, data]);
+
+	const handleChatContent = async e => {
 		e.preventDefault();
-		if (inputVal) {
+		inputRef.current = e.target.input.value;
+		console.log("input", inputRef.current);
+		if (inputRef.current) {
 			try {
-				ChatApi.saveMessages({
+				const newChatData = {
+					...chatInfo,
+					createdAt: new Date(),
+					message: inputRef.current,
+				};
+				console.log("보내는 값", newChatData);
+				socket.emit("sendMessage", newChatData);
+				await ChatApi.saveMessages({
 					room_idx: parseInt(targetChat),
-					message: inputVal,
-				}).then(() => {
-					refetch();
+					message: inputRef.current,
 				});
+				refetch();
+				setChatInfo(newChatData);
+				e.target.input.value = "";
+				chatMainWrapperRef.current.scrollTop =
+					chatMainWrapperRef.current.scrollHeight;
 			} catch (err) {
 				console.error(err);
 			}
-			setInputVal("");
 		}
 	};
 
 	return (
-		<S.ChatMainWrapper>
+		<S.ChatMainWrapper ref={chatMainWrapperRef}>
 			{filteredByUser &&
 				filteredByUser.map((list, i) => (
 					<S.Chat key={i}>
@@ -109,11 +84,10 @@ const ChatMain = ({ targetChat }) => {
 				))}
 			<S.SendWrapper onSubmit={handleChatContent}>
 				<BasicInput
+					name="input"
 					variant={"chat"}
 					size={"xsmall"}
 					placeholder="채팅치는곳"
-					onChange={handleInput}
-					value={inputVal}
 				/>
 				<BasicButton
 					type="submit"
@@ -131,19 +105,19 @@ export default ChatMain;
 
 const ChatMainWrapper = styled.div`
 	width: 100%;
+	height: 450px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		width: 15px;
+		display: none;
+	}
 `;
 
 const Chat = styled.div`
 	width: 100%;
 	padding: 20px;
-	height: 450px;
-	overflow-x: hidden;
-	overflow-y: scroll;
 	float: left;
-	&::-webkit-scrollbar {
-		width: 15px;
-		display: none;
-	}
 `;
 
 const day = styled.div`

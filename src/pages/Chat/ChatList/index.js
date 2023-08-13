@@ -4,27 +4,21 @@ import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
 import getUserData from "utils/getUserData";
 
-const ChatList = ({ setTargetChat, targetChat }) => {
+const ChatList = () => {
 	const { data } = ChatQueryApi.getChatList();
-	console.log("chat", data);
-
-	// 로그인한 User의 정보 가져옴
 	let nick_name;
 	const DATA = getUserData();
 	if (DATA) nick_name = DATA.nick_name;
 
-	// 물품 판매자 데이터를 통해 비교
 	const sellChat = data?.chats.filter(
 		chat => chat.User.nick_name === nick_name,
 	);
 	const buyChat = data?.chats.filter(chat => chat.User.nick_name !== nick_name);
 
-	// localstorage에는 값이 string으로 저장됨
 	const [isSell, SetIsSell] = useState(
 		window.localStorage.getItem("isSell") === "true",
 	);
 
-	// 새로고침 시 탭 유지되도록 localstorage에 저장
 	useEffect(() => {
 		window.localStorage.setItem("isSell", isSell);
 	}, [isSell]);
@@ -43,14 +37,7 @@ const ChatList = ({ setTargetChat, targetChat }) => {
 				{isSell ? (
 					<S.Chatlist className="sell">
 						{sellChat?.length > 0 ? (
-							sellChat.map(chat => (
-								<ChatItem
-									key={chat.idx}
-									chat={chat}
-									setTargetChat={setTargetChat}
-									targetChat={targetChat}
-								/>
-							))
+							sellChat.map(chat => <ChatItem key={chat.idx} chat={chat} />)
 						) : (
 							<S.NoChat>
 								채팅 내역이 없습니다. 새로운 거래를 시작해보세요!
@@ -60,14 +47,7 @@ const ChatList = ({ setTargetChat, targetChat }) => {
 				) : (
 					<S.Chatlist className="buy">
 						{buyChat?.length > 0 ? (
-							buyChat.map(chat => (
-								<ChatItem
-									key={chat.idx}
-									chat={chat}
-									setTargetChat={setTargetChat}
-									targetChat={targetChat}
-								/>
-							))
+							buyChat.map(chat => <ChatItem key={chat.idx} chat={chat} />)
 						) : (
 							<S.NoChat>
 								채팅 내역이 없습니다. 새로운 거래를 시작해보세요!

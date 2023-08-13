@@ -2,12 +2,11 @@ import styled from "styled-components";
 import FakeProfile from "./planting.png";
 
 const MyChat = ({ createdAt, message, user }) => {
-	console.log("내 프로필 사진", user.profile_url);
 	return (
 		<S.MyChats>
 			<S.OneChat>
 				<S.SendedTime>
-					{createdAt.split("T")[1].split(":")[0]} :
+					{parseInt(createdAt.split("T")[1].split(":")[0]) + 9} :
 					{createdAt.split("T")[1].split(":")[1]}
 				</S.SendedTime>
 				<S.MyWrapper>

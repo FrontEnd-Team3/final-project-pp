@@ -18,6 +18,7 @@ import InterestProduct from "pages/my-page/components/InterestProduct";
 import Review from "pages/my-page/components/Review";
 import AccountManagement from "pages/account-management";
 import Chat from "pages/Chat";
+import ErrorPage from "pages/error-page";
 
 const router = createBrowserRouter([
 	{
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
 			{
 				path: "/search/:keyword",
 				element: <SearchPage />,
+			},
+			{
+				path: "/wrong-access",
+				element: <ErrorPage />,
 			},
 			{
 				path: "/mypage",
