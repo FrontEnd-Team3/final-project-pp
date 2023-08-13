@@ -9,64 +9,65 @@ import {
 } from "recharts";
 import styled from "styled-components";
 
-function LineGraphs() {
-	const data = [
-		{
-			name: "Page A",
-			uv: 4000,
-		},
-		{
-			name: "Page B",
-			uv: 3000,
-		},
-		{
-			name: "Page C",
-			uv: 2000,
-		},
-		{
-			name: "Page D",
-			uv: 2780,
-		},
-		{
-			name: "Page E",
-			uv: 1890,
-		},
-		{
-			name: "Page F",
-			uv: 2390,
-		},
-		{
-			name: "Page G",
-			uv: 3490,
-		},
-	];
+function LineGraphs({ data }) {
+	const avg = data?.cumulativeAvgPrice;
 
+	const arr = avg.map(item => ({
+		name: item.date.split("-").slice(1).join("/"),
+		일일평균거래가: item.avgPrice,
+	}));
+
+	const Pricearr = avg.map(item => item.avgPrice);
+	const MaxPrice = Math.max.apply(null, Pricearr);
+	const MinPrice = Math.min.apply(null, Pricearr);
+
+	const formatTicksAsIntegers = Pricearr => {
+		const test = Math.ceil(Pricearr / 1000) * 1000;
+		return test.toLocaleString();
+	};
 	return (
-		<Container>
+		<S.Container>
 			<ComposedChart
-				width={1000}
+				width={1060}
 				height={600}
-				data={data}
+				data={arr}
 				margin={{
-					top: 250,
+					top: 120,
 					right: 80,
-					bottom: -20,
-					left: 20,
+					bottom: 0,
+					left: 100,
 				}}
 			>
 				<CartesianGrid stroke="#f5f5f5" />
 				<XAxis
 					dataKey="name"
-					label={{ value: "Pages", position: "insideBottomRight", offset: 0 }}
-					// isAnimationActive={false}
+					label={{ value: "날짜", position: "insideBottomRight", offset: -10 }}
+					tick={{ fontSize: 13 }}
 				/>
-				<YAxis label={{ value: "Index", angle: -90, position: "insideLeft" }} />
+				<YAxis
+					label={{
+						value: "원",
+						angle: 0,
+						position: "top",
+						offset: 20,
+						dx: 18,
+					}}
+					tickFormatter={formatTicksAsIntegers}
+					domain={[MinPrice, MaxPrice]}
+					tickCount={10}
+					tick={{ fontSize: 13 }}
+				/>
+
 				<Tooltip />
 				<Legend />
-				{/* <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" /> */}
-				<Line type="monotone" dataKey="uv" stroke="#3cb371" />
+				<Line
+					type="monotone"
+					dataKey="일일평균거래가"
+					stroke="#3cb371"
+					dot={false}
+				/>
 			</ComposedChart>
-		</Container>
+		</S.Container>
 	);
 }
 
@@ -75,8 +76,8 @@ export default LineGraphs;
 const Container = styled.div`
 	width: 1000px;
 	height: 600px;
-	/* border: 1px solid black; */
-	position: relative;
 	top: 100px;
-	padding-bottom: 200px;
+	margin-bottom: 100px;
 `;
+
+const S = { Container };
