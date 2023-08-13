@@ -54,10 +54,13 @@ const Nav = () => {
 			</div>
 			<div onClick={() => handleClick("/mypage/house-keeping")}>가계부</div>
 			<div onClick={() => handleClick("/mypage/review")}>후기</div>
-			<S.NavAccountTitle onClick={() => handleNavigateClick("/account")}>
-				계정관리
-			</S.NavAccountTitle>
-			<div onClick={() => handleNavigateClick("/account")}>개인정보 수정</div>
+			<S.NavAccountTitle>계정관리</S.NavAccountTitle>
+			<div onClick={() => handleNavigateClick("/account/management")}>
+				개인정보 수정
+			</div>
+			<div onClick={() => handleNavigateClick("/account/pwchange")}>
+				비밀번호 변경
+			</div>
 		</S.MyPageNavWrapper>
 	);
 };
