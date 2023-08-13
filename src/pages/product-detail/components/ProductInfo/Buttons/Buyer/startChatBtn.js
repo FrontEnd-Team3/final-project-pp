@@ -13,11 +13,8 @@ const StartChatBtn = ({ chat }) => {
 
 	const startChat = () => {
 		const bool = chat.some(el => {
-			// console.log("닉네임", el.User.nick_name, nick_name);
 			return el.User.nick_name !== nick_name;
 		});
-		// console.log("chatlength", chat.length);
-		// console.log("bool", bool);
 		if (!chat.length && !bool) {
 			console.log("hi");
 			try {

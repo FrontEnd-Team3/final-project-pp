@@ -36,7 +36,6 @@ const SelectListModal = ({ idx, setIsModalOpen, setIsAlertModalOpen }) => {
 		async () => {
 			setIsModalOpen(false);
 			setIsAlertModalOpen(true);
-			queryClient.invalidateQueries([QueryKey.productDetail, idx]);
 			setTimeout(() => {
 				setIsAlertModalOpen(false);
 				refetch().then(() => console.log(productData));
