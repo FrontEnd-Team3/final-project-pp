@@ -1,6 +1,5 @@
 import ProductQueryApi from "apis/product.query.api";
 import BasicButton from "components/Button";
-import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 
@@ -11,69 +10,56 @@ import { flexCenter, flexColumn, flexRow } from "styles/common";
  *
  */
 const StatusEndProductList = ({ product }) => {
-	const sideOptions = [
-		{ value: "판매중", label: "판매중" },
-		{ value: "거래중", label: "거래중" },
-		{ value: "판매완료", label: "판매완료" },
-	];
-
 	const updateProduct = ProductQueryApi.updateProduct(product);
 	return (
 		<S.Container>
 			<S.ProductContainer key={product.idx}>
 				<img src={product.img_url} />
-				<div>
-					<div>
-						<S.Wrapper>
-							<S.TextP1>{product.title}</S.TextP1>
-							<div>
-								<BasicButton
-									color={"white"}
-									size={"xsmall"}
-									children={"수정"}
-									style={{
-										fontSize: "14px",
-										height: "28px",
-										borderRadius: "6px",
-										fontWeight: "600",
-										border: "1px solid #dddddd",
-									}}
-									onClick={() => {
-										updateProduct();
-									}}
-								/>
-								<BasicButton
-									color={"primary"}
-									size={"xsmall"}
-									children={"삭제"}
-									style={{
-										fontSize: "14px",
-										height: "28px",
-										borderRadius: "6px",
-										fontWeight: "600",
-										marginLeft: "10px",
-									}}
-								/>
-							</div>
-						</S.Wrapper>
-						<S.Wrapper2>
-							<S.ToggleBox2>
-								<BasicSelect
-									variant={"primary"}
-									options={sideOptions}
-									selectedValue={"판매완료"}
-									style={{ border: "1px solid #dddddd" }}
-								/>
-							</S.ToggleBox2>
-							<S.Wrapper2>
-								<S.TextP1>{product.price}won</S.TextP1>
-							</S.Wrapper2>
-						</S.Wrapper2>
-					</div>
-					<TextBox2>
-						<p>상품 보러가기 〉</p>
-					</TextBox2>
-				</div>
+
+				<S.MasterWrapper>
+					<S.Wrapper>
+						<p>{product.title}</p>
+						<div>
+							<BasicButton
+								color={"white"}
+								size={"xsmall"}
+								children={"수정"}
+								onClick={() => {
+									navigate("/productRegister");
+								}}
+								style={{
+									fontSize: "14px",
+									height: "28px",
+									borderRadius: "6px",
+									fontWeight: "600",
+									border: "1px solid #dddddd",
+								}}
+							/>
+							<BasicButton
+								color={"primary"}
+								size={"xsmall"}
+								children={"삭제"}
+								style={{
+									fontSize: "14px",
+									height: "28px",
+									borderRadius: "6px",
+									fontWeight: "600",
+									marginLeft: "10px",
+								}}
+							/>
+						</div>
+					</S.Wrapper>
+					<S.Wrapper2>
+						<S.Wrapper3>
+							<div>{product.status}</div>
+						</S.Wrapper3>
+						<S.Price>{product.price}</S.Price>
+						<S.PriceText>won</S.PriceText>
+					</S.Wrapper2>
+				</S.MasterWrapper>
+				<TextBox2>
+					<p>상품 보러가기 〉</p>
+				</TextBox2>
 			</S.ProductContainer>
 		</S.Container>
 	);
@@ -116,17 +102,47 @@ const Title = styled.div`
 	color: black;
 `;
 
-const Wrapper = styled.div`
+const MasterWrapper = styled.div`
+	${flexColumn};
 	margin-left: 30px;
+`;
+
+const Wrapper = styled.div`
 	${flexRow}
 	display: flex;
 	justify-content: space-between;
 	width: 660px;
+	p {
+		font-size: 18px;
+		text-decoration: line-through;
+	}
 `;
 const Wrapper2 = styled.div`
-	margin-left: 30px;
 	${flexRow}
 	width: 660px;
+	margin-top: 16px;
+`;
+
+const Wrapper3 = styled.div`
+	${flexRow}
+	align-items:center;
+	width: 105px;
+	height: 40px;
+	justify-content: center;
+	border: 1px solid rgb(221, 221, 221);
+	border-radius: 4px;
+	margin-right: 30px;
+`;
+
+const Price = styled.p`
+	font-size: 26px;
+	font-weight: 600;
+	text-decoration: line-through;
+`;
+
+const PriceText = styled.p`
+	font-size: 20px;
+	margin-left: 10px;
 `;
 
 const RowBox = styled.div`
@@ -151,13 +167,17 @@ const ToggleBox2 = styled.div`
 `;
 
 const S = {
+	Price,
+	PriceText,
 	Title,
 	TextP1,
 	Container,
 	ProductContainer,
+	MasterWrapper,
 	Wrapper,
 	Wrapper2,
 	RowBox,
 	ToggleBox,
 	ToggleBox2,
+	Wrapper3,
 };

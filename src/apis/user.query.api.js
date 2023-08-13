@@ -21,6 +21,13 @@ const UserQueryApi = {
 			QueryConfig,
 			{},
 		),
+
+	PurchasedProductList: ({ page, category }) =>
+		useQueryData(
+			[QueryKey.userPurchasedProduct, page, category],
+			() => AuthApi.userPurchasedProduct({ page, category }),
+			QueryConfig,
+		),
 };
 
 export default UserQueryApi;
