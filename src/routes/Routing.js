@@ -16,8 +16,10 @@ import HouseKeeping from "pages/my-page/components/HousekeepingBook";
 import PurchasedItem from "pages/my-page/components/PurchasedItem";
 import InterestProduct from "pages/my-page/components/InterestProduct";
 import Review from "pages/my-page/components/Review";
-import AccountManagement from "pages/account-management";
 import Chat from "pages/Chat";
+import PwChange from "pages/account-management/components/PwChange";
+import AccoutLayout from "pages/account-management/layout/account-layout";
+import AccountPrivacy from "pages/account-management/components/ModifyInfo";
 import ErrorPage from "pages/error-page";
 
 const router = createBrowserRouter([
@@ -35,8 +37,26 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/account",
-				element: <AccountManagement />,
+				element: <AccoutLayout />,
+				children: [
+					{
+						path: "management",
+						element: <AccountPrivacy />,
+					},
+					{
+						path: "pwchange",
+						element: <PwChange />,
+					},
+				],
 			},
+			// {
+			// 	path: "/account",
+			// 	element: <AccountManagement />,
+			// },
+			// {
+			// 	path: "/pwchange",
+			// 	element: <PwChange />,
+			// },
 			{
 				path: "/Signin",
 				element: <SignIn />,

@@ -13,8 +13,8 @@ import { RegisterSchema } from "consts/registerschema";
 import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
-import Images from "./Images";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
+import EditImages from "./editImages";
 const EditInputs = prevData => {
 	const {
 		handleSubmit,
@@ -29,7 +29,6 @@ const EditInputs = prevData => {
 
 	// 이전 데이터 불러와서 editData에 저장
 	const editData = prevData.prevData.searchProduct;
-	console.log("idx", editData.idx);
 	// 이미지 데이터 배열 만들기 => ProductImages에는 서브이미지, img_url에는 메인 이미지
 
 	const subImages = editData.ProductImages.map(v => v.img_url);
@@ -37,10 +36,12 @@ const EditInputs = prevData => {
 		editData.img_url,
 		...editData.ProductImages.map(v => v.img_url),
 	];
-
+	console.log("뭐야", subImages);
+	console.log("메인이미지", editData.img_url);
+	console.log("모든 이미지", imageDataList);
+	// console.log("서브 이미지", imageDataList.pop());
 	const [imageArr, setImageArr] = useState(imageDataList); // 이미지 담을 배열
-	const [imageDBArr, setImageDBArr] = useState(imageDataList); // DB로 보낼 베열
-
+	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
 	const queryClient = useQueryClient();
@@ -88,9 +89,6 @@ const EditInputs = prevData => {
 		}
 	};
 
-	const onChangeTitle = e => {
-		setTitle(e.target.value);
-	};
 	// 태그 카테고리 li 클릭 시 태그 추가
 	const handleAddTaglist = content => {
 		// 중복값 막기
@@ -136,19 +134,23 @@ const EditInputs = prevData => {
 			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; // 변환값이 0이면 빈값으로 초기화, 그렇지 않은 경우 입력값 사용(0,003원 이런식으로 입력되는 버그 수정해야함)
 			setValue("price", priceValue);
 			setPrice(priceValue);
-			console.log("price", price);
 		}
 	}, [watchPrice, setValue, category]);
 
 	const onSubmit = data => {
-		// formData.appent("idx", editData.idx);
-		// console.log("title: ", data.title);
-		// console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
-		// console.log("description: ", description);
-		// console.log("region: ", address);
-		// console.log("tag: ", taglist);
-		// console.log("images: ", imageDBArr);
-		// console.log("category: ", category ? 1 : 0);
+		console.log("idx", editData.idx);
+		console.log("title: ", data.title);
+		console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
+		console.log("description: ", description);
+		console.log("category: ", category ? 1 : 0);
+		console.log("region: ", address);
+		console.log("tag: ", taglist);
+		console.log("img_url: ", editData.img_url);
+		console.log("main_url", imageDataList);
+		// for (let i = 0; i < imageDBArr.length; i++) {
+		// 	console.log(formData.append("images", imageDBArr[i]));
+		// }
+
 		try {
 			const formData = new FormData();
 			formData.append("idx", editData.idx);
@@ -161,11 +163,22 @@ const EditInputs = prevData => {
 			formData.append("category", category ? 1 : 0);
 			formData.append("region", address);
 			formData.append("tag", taglist);
-			formData.append("img_url", editData.img_url);
-			formData.append("main_url", imageDataList);
-			for (let i = 0; i < imageDBArr.length; i++) {
-				formData.append("images", imageDBArr[i]);
+			// 데이터를 똑같은 형식으로 넘겨줘야 하는데 그러지 않아서 계속 오류가 남 => 중복 수정 해야됌
+			formData.append("img_url", imageDataList);
+			formData.append("main_url", editData.img_url);
+			if (imageDBArr !== []) {
+				for (let i = 0; i < imageDBArr.length; i++) {
+					formData.append("images", imageDBArr[i]);
+				}
+			} else {
+				formData.append("images", imageDataList);
 			}
+			// else {
+			// 	formData.append("images", []);
+			// }
+
+			// formData.append("images", imageDataList)
+
 			mutate(formData);
 			// if (imageDBArr.length && address) {
 			// 	setIsOpened(true);
@@ -181,7 +194,7 @@ const EditInputs = prevData => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Images
+			<EditImages
 				id="imagesSection"
 				imagesContainerRef={imagesContainerRef}
 				imageArr={imageArr}
