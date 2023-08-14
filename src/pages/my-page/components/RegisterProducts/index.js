@@ -1,14 +1,17 @@
 import BasicButton from "components/Button";
-import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import UserQueryApi from "apis/user.query.api";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import StatusEndProductList from "./StatusEndProductList";
+import EmptyData from "../EmptyData";
+import MyPageSelect from "../MyPageSelect";
 
 const RegisterProduct = () => {
 	const [selectedStatus, setSelectedStatus] = useState("전체");
+	const [selectedProductStatus, setSelectedProductStatus] =
+		useState("중고물품");
 	const [searchParams] = useSearchParams();
 	const category = searchParams.get("category") || 0; // 기본값을 0으로 설정
 	const page = searchParams.get("page") || 1;
@@ -18,13 +21,38 @@ const RegisterProduct = () => {
 		category,
 	});
 	const productList = productData?.products;
+	console.log("ProductList", productList);
+
+	const { data: freeProductData } = UserQueryApi.PurchasedProductList({
+		page,
+		category: 1,
+	});
+	const freeproductList = freeProductData?.products;
+	console.log("freeproductList", freeproductList);
 
 	const productPagination = productData?.pagination;
 
-	const sellingProducts =
-		productList?.filter(product => product.status === "판매중") || []; // <-- 기본값을 빈 배열로 설정
-	const soldProducts =
-		productList?.filter(product => product.status === "판매완료") || []; // <-- 기본값을 빈 배열로 설정
+	// const sellingProducts =
+	// 	productList?.filter(product => product.status === "판매중") || []; // <-- 기본값을 빈 배열로 설정
+	// const soldProducts =
+	// 	productList?.filter(product => product.status === "판매완료") || []; // <-- 기본값을 빈 배열로 설정
+
+	// const sellingFreeProducts =
+	// 	freeproductList?.filter(product => product.status === "판매중") || []; // <-- 기본값을 빈 배열로 설정
+	// const soldFreeProducts =
+	// 	freeproductList?.filter(product => product.status === "판매완료") || []; // <-- 기본값을 빈 배열로 설정
+
+	const filterProductsByStatus = (productList, status) => {
+		return productList?.filter(product => product.status === status) || [];
+	};
+
+	const sellingProducts = filterProductsByStatus(productList, "판매중");
+	const soldProducts = filterProductsByStatus(productList, "판매완료");
+	const sellingFreeProducts = filterProductsByStatus(freeproductList, "판매중");
+	const soldFreeProducts = filterProductsByStatus(freeproductList, "판매완료");
+
+	console.log("sellingFreeProducts", sellingFreeProducts);
+	console.log("soldFreeProducts", soldFreeProducts);
 
 	useEffect(() => {
 		// Whenever selectedStatus changes, you might want to fetch data again.
@@ -34,49 +62,53 @@ const RegisterProduct = () => {
 	const displayedProducts =
 		selectedStatus === "전체"
 			? [...sellingProducts, ...soldProducts]
-			: productList.filter(product => product.status === selectedStatus);
+			: productList?.filter(product => product.status === selectedStatus);
+
+	const displayedFreeProducts =
+		selectedStatus === "전체"
+			? [...sellingFreeProducts, ...soldFreeProducts]
+			: productList?.filter(product => product.status === selectedStatus);
+
+	console.log("displayedProducts", displayedProducts);
 
 	// const { curPage, startPage, endPage, totalPage, count } = productPagination;
 
-	const options = [
+	const stateOptions = [
 		{ value: "전체", label: "전체" },
 		{ value: "판매중", label: "판매중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
 
-	// const handleOptionChange = selectedValue => {
-	// 	if (selectedValue === "판매중") {
-	// 		return sellingProducts;
-	// 	} else if (selectedValue === "판매완료") {
-	// 		return soldProducts;
-	// 	} else {
-	// 		return allProduct;
-	// 	}
-	// };
+	const productOptions = [
+		{ value: "중고물품", label: "중고물품" },
+		{ value: "무료나눔", label: "무료나눔" },
+	];
 
 	const [dataLimit, setDataLimit] = useState(8);
 	const [pageState, setPageState] = useState(1);
 	const offset = (pageState - 1) * dataLimit;
 
-	// const { id } = useParams();
-
-	// const navigate = useNavigate();
-
-	// if (isLoading) {
-	// 	return <div>스켈레톤 UI로 변경 예정</div>;
-	// }
-	if (productList?.length > 0) {
+	if (!productList || productList.length === 0) {
+		return <EmptyData text={"등록된 상품이 없습니다."} />;
+	} else {
 		return (
 			<>
 				<S.Container>
 					<S.RowBox>
 						<S.Title>등록 상품</S.Title>
 						<S.ToggleBox>
-							<BasicSelect
+							<MyPageSelect
 								variant={"primary"}
-								options={options}
-								selectedValue={selectedStatus}
-								onChange={option => setSelectedStatus(option.value)}
+								options={stateOptions}
+								selectedStatus={selectedStatus}
+								setSelectedStatus={setSelectedStatus}
+								style={{ border: "1px solid #dddddd" }}
+							/>
+							<MyPageSelect
+								variant={"primary"}
+								options={productOptions}
+								selectedStatus={selectedProductStatus}
+								setSelectedStatus={setSelectedProductStatus}
 								style={{ border: "1px solid #dddddd" }}
 							/>
 						</S.ToggleBox>
@@ -238,6 +270,7 @@ const TextBox2 = styled.div`
 `;
 
 const ToggleBox = styled.div`
+	${flexRow}
 	margin-top: 50px;
 	margin-right: 16px;
 	width: 105px;
