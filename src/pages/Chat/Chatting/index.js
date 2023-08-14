@@ -2,16 +2,18 @@ import styled from "styled-components";
 import ChatMain from "./chatMain";
 import { useChatData } from "context/chatData.ctx";
 import { useEffect } from "react";
+import { useChatList } from "context/chatList.ctx";
 
 const Chatting = () => {
 	const { socket, targetChat } = useChatData();
+	const [setChatList] = useChatList();
 
 	// 실시간 메시지 도착
 	useEffect(() => {
 		socket.on("receiveMessage", data => {
-			console.log(data);
+			setChatList(prev => [...prev, data]);
 		});
-	}, [socket, targetChat]);
+	}, [socket]);
 
 	return (
 		<S.Container>

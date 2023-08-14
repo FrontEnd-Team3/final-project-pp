@@ -132,6 +132,7 @@ const Header = () => {
 					<S.Category>
 						{categoryArray.map((category, i) => (
 							<Onecategory
+								key={i}
 								category={category}
 								i={i}
 								state={state}

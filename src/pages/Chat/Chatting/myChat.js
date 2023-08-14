@@ -15,10 +15,10 @@ const MyChat = ({ createdAt, message, user }) => {
 				<S.MyWrapper>
 					<S.My>
 						<S.SendedByMe>{message}</S.SendedByMe>
-						<S.MyNickname>{user.nick_name}</S.MyNickname>
+						<S.MyNickname>{user?.nick_name}</S.MyNickname>
 					</S.My>
 					<S.MyImg>
-						<S.Mimg src={user.profile_url || FakeProfile} />
+						<S.Mimg src={user?.profile_url || FakeProfile} />
 					</S.MyImg>
 				</S.MyWrapper>
 			</S.OneChat>

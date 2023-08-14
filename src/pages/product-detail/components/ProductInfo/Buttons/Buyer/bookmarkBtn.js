@@ -7,17 +7,10 @@ import ProductQueryApi from "apis/product.query.api";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import QueryKey from "consts/queryKey";
-const BOOKMARK_KEY = "bookmarkedProducts";
 
 const BookmarkBtn = ({ bookmark }) => {
 	const { id } = useParams();
-	const [isBookmarked, setIsBookmarked] = useState(false);
-	const { refetch } = ProductQueryApi.getProductDetail(id);
-
-	// const successFn = () => {
-	// 	// setIsBookmarked(res?.data?.message);
-	// 	refetch();
-	// };
+	const [isBookmarked] = useState(false);
 
 	const queryClient = useQueryClient();
 	const bookmarkData = ProductQueryApi.updateLikeStatus(

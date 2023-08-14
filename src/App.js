@@ -7,7 +7,7 @@ import theme from "styles/theme";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AuthProvider from "context/auth.ctx";
 import ChatDataContextProvider from "context/chatData.ctx";
-// import SocketContextProvider from "context/socket.ctx";
+import ChatListProvider from "context/chatList.ctx";
 
 const queryClient = new QueryClient();
 
@@ -17,12 +17,12 @@ function App() {
 			<AuthProvider>
 				<ThemeProvider theme={theme}>
 					<QueryClientProvider client={queryClient}>
-						{/* <SocketContextProvider> */}
 						<ChatDataContextProvider>
-							<GlobalStyles />
-							<RouterProvider router={router} />
+							<ChatListProvider>
+								<GlobalStyles />
+								<RouterProvider router={router} />
+							</ChatListProvider>
 						</ChatDataContextProvider>
-						{/* </SocketContextProvider> */}
 					</QueryClientProvider>
 				</ThemeProvider>
 			</AuthProvider>

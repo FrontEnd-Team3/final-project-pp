@@ -28,7 +28,7 @@ const ChatItem = ({ chat }) => {
 			title: product.title,
 			prod_idx: product.idx,
 			room_idx: idx,
-			nickname: product.User.nick_name,
+			nickName: nick_name,
 			isSeller: nick_name === product.User.nick_name,
 		});
 	};
@@ -47,16 +47,6 @@ const ChatItem = ({ chat }) => {
 						<S.Iprice>{product.price}</S.Iprice>
 					</S.ChatContent>
 					<S.SettingContent>
-						{/* <S.Span>
-							<S.Setting onClick={() => setIsOpen(prev => !prev)}>
-								...
-							</S.Setting>
-						</S.Span>
-						{isOpen && (
-							<S.SettingBox>
-								<div className="read">삭제</div>
-							</S.SettingBox>
-						)} */}
 						<S.Imove onClick={() => navigate(`/product/${product.idx}`)}>
 							상품이동 ▶
 						</S.Imove>

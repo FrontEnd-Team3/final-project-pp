@@ -11,10 +11,10 @@ const OtherChat = ({ createdAt, message, user }) => {
 			<S.OtherChatWrapper>
 				<S.OtherWrapper>
 					<S.OtherImg>
-						<S.Oimg src={user.profile_url || FakeProfile} />
+						<S.Oimg src={user?.profile_url || FakeProfile} />
 					</S.OtherImg>
 					<S.Other>
-						<S.OtherNickname>{user.nick_name}</S.OtherNickname>
+						<S.OtherNickname>{user?.nick_name}</S.OtherNickname>
 						<S.SendedByOther>{message}</S.SendedByOther>
 					</S.Other>
 				</S.OtherWrapper>

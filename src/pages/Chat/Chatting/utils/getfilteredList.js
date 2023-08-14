@@ -1,6 +1,4 @@
-import getUserData from "utils/getUserData";
-
-const getFilteredList = data => {
+const getFilteredList = (data, nick_name) => {
 	// 날짜별로 채팅 목록 분류하기
 	const dateSet = new Set();
 	let fileteredDate = data
@@ -22,9 +20,6 @@ const getFilteredList = data => {
 	});
 
 	// 상대방이 보낸 메세지와 내가 보낸 메세지 구분하기
-	let nick_name;
-	const DATA = getUserData();
-	if (DATA) nick_name = DATA.nick_name;
 
 	const filteredByUser = filteredByDate.map(list => {
 		return {
@@ -32,7 +27,7 @@ const getFilteredList = data => {
 			logs: list.logs.map(log => {
 				return {
 					...log,
-					isMine: log.User.nick_name === nick_name,
+					isMine: log?.User?.nick_name === nick_name,
 				};
 			}),
 		};
