@@ -1,17 +1,10 @@
 import styled from "styled-components";
 import FakeProfile from "./planting.png";
+import { getChatTime, getDayOrNight } from "./utils/getTime";
 
 const OtherChat = ({ createdAt, message, user }) => {
-	// const receiveChatSocket = io.connect("https://topdragon.co.kr", {
-	// 	cors: {
-	// 		origin: "http://localhost:3000",
-	// 		methods: ["GET", "POST"],
-	// 		credentials: true,
-	// 	},
-	// 	withCredentials: true,
-	// });
-	// receiveChatSocket.on("receiveMessage", res => console.log(res));
-	// receiveChatSocket.disconnect();
+	const dayOrNight = getDayOrNight(createdAt);
+	const chatTime = getChatTime(createdAt);
 
 	return (
 		<>
@@ -26,8 +19,7 @@ const OtherChat = ({ createdAt, message, user }) => {
 					</S.Other>
 				</S.OtherWrapper>
 				<S.ReceivedTime>
-					{parseInt(createdAt.split("T")[1].split(":")[0]) + 9} :
-					{createdAt.split("T")[1].split(":")[1]}
+					{dayOrNight} {chatTime}
 				</S.ReceivedTime>
 			</S.OtherChatWrapper>
 		</>

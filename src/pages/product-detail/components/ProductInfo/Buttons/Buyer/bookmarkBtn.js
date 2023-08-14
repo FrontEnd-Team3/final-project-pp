@@ -2,9 +2,11 @@ import BasicButton from "components/Button";
 import bookmarkFill from "../@images/bookmarkfull.png";
 import bookmarkEmpty from "../@images/bookmark.png";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductQueryApi from "apis/product.query.api";
 import { useParams } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import QueryKey from "consts/queryKey";
 const BOOKMARK_KEY = "bookmarkedProducts";
 
 const BookmarkBtn = ({ bookmark }) => {
@@ -12,43 +14,25 @@ const BookmarkBtn = ({ bookmark }) => {
 	const [isBookmarked, setIsBookmarked] = useState(false);
 	const { refetch } = ProductQueryApi.getProductDetail(id);
 
-	useEffect(() => {
-		const bookmarkedProducts =
-			JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
-		setIsBookmarked(bookmarkedProducts.includes(id));
-	}, [id]);
+	// const successFn = () => {
+	// 	// setIsBookmarked(res?.data?.message);
+	// 	refetch();
+	// };
 
-	const successFn = res => {
-		setIsBookmarked(res?.data?.message);
-		refetch();
-	};
+	const queryClient = useQueryClient();
+	const bookmarkData = ProductQueryApi.updateLikeStatus(
+		id,
+		{
+			prod_idx: parseInt(id),
+		},
+		() => queryClient.invalidateQueries([QueryKey.productData]),
+	);
 
-	const bookmarkData = ProductQueryApi.updateLikeStatus(id, {
-		prod_idx: parseInt(id),
-	});
-
-	const likeProduct = async () => {
-		try {
-			const res = await bookmarkData.mutateAsync();
-			successFn(res);
-			const bookmarkedProducts =
-				JSON.parse(localStorage.getItem(BOOKMARK_KEY)) || [];
-			if (isBookmarked) {
-				localStorage.setItem(
-					BOOKMARK_KEY,
-					JSON.stringify(
-						bookmarkedProducts.filter(productId => productId !== id),
-					),
-				);
-			} else {
-				localStorage.setItem(
-					BOOKMARK_KEY,
-					JSON.stringify([...bookmarkedProducts, id]),
-				);
-			}
-		} catch (error) {
-			console.error("Save Error:", error);
-		}
+	const likeProduct = () => {
+		bookmarkData
+			.mutateAsync()
+			.then(res => console.log("like", res))
+			.catch(err => console.error(err));
 	};
 
 	return (

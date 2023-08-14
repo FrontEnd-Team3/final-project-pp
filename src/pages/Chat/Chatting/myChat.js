@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import FakeProfile from "./planting.png";
+import { getChatTime, getDayOrNight } from "./utils/getTime";
 
 const MyChat = ({ createdAt, message, user }) => {
+	const dayOrNight = getDayOrNight(createdAt);
+	const chatTime = getChatTime(createdAt);
+
 	return (
 		<S.MyChats>
 			<S.OneChat>
 				<S.SendedTime>
-					{parseInt(createdAt.split("T")[1].split(":")[0]) + 9} :
-					{createdAt.split("T")[1].split(":")[1]}
+					{dayOrNight} {chatTime}
 				</S.SendedTime>
 				<S.MyWrapper>
 					<S.My>
