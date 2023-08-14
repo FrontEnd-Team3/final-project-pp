@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const OneProduct = ({ product }) => {
 	const url = product.img_url;
 	const futureDate = new Date("2023-07-21");
-	const today = product.created_at;
+	const today = product.createdAt;
 	const navigate = useNavigate();
 	const moveDetailPage = () => {
 		navigate(`/product/${product.idx}`);
@@ -22,21 +22,22 @@ const OneProduct = ({ product }) => {
 				</S.SoldOut>
 				<S.Img src={url}></S.Img>
 				<S.Name>{product.title}</S.Name>
-
 				<S.FirstLine>
-					<S.Location>{product.region}</S.Location>
+					{/* <S.Location>{product.region}</S.Location> */}
+					<S.Location>지역 데이터 안와요..</S.Location>
 					<S.Iconwrapper>
 						<GoBookmark size="16" />
-						<div>{product.Liked}</div>
+						<div>{product.liked}</div>
 						<HiOutlineChatBubbleLeftRight
 							size="16"
 							style={{ marginLeft: "10px" }}
 						/>
-						<div>{product.chat.length}</div>
+						{/* 데이터가 아직 추가되지 않음 */}
+						{/* <div>{product.chat.length}</div> */}
 					</S.Iconwrapper>
 				</S.FirstLine>
 				<S.SecondLine>
-					<S.Price>{product.price.toLocaleString()}원</S.Price>
+					<S.Price>{product.price.toLocaleString()} 원</S.Price>
 					<S.AgoDate>{today - futureDate.getDate()}일 전</S.AgoDate>
 				</S.SecondLine>
 			</S.Container>
@@ -65,11 +66,12 @@ const SoldOut = styled.div`
 	z-index: 1;
 	${flexColumn}
 	align-items: center;
+	cursor: pointer;
 `;
 const AgoDate = styled.div`
 	font-size: 12px;
 	color: #788394;
-	position: relative;
+	/* position: relative; */
 	top: 4px;
 	left: 115px;
 `;
@@ -82,19 +84,22 @@ const Price = styled.div`
 `;
 const SecondLine = styled.div`
 	display: flex;
-	position: relative;
+	/* position: relative; */
 	top: 28px;
+	justify-content: space-between;
+	align-items: center;
 `;
 const Iconwrapper = styled.div`
 	display: flex;
-	position: relative;
-	left: 50px;
+	/* position: relative; */
+	/* left: 50px; */
 	font-size: 13px;
 `;
 const FirstLine = styled.div`
 	display: flex;
-	position: relative;
-	top: 26px;
+	justify-content: space-between;
+	/* position: relative; */
+	/* top: 26px; */
 `;
 const Location = styled.div`
 	font-size: 13px;
@@ -104,7 +109,7 @@ const Location = styled.div`
 const Name = styled.div`
 	font-size: 16px;
 	font-weight: bold;
-	position: relative;
+	/* position: relative; */
 	top: 10px;
 	height: 30px;
 `;
@@ -114,10 +119,10 @@ const Img = styled.img`
 	height: 250px;
 	filter: brightness(40%);
 	border-radius: 4px;
+	cursor: pointer;
 `;
 const Container = styled.div`
-	width: 252px;
-	height: 360px;
+	/* height: 360px; */
 	background-color: ${({ theme }) => theme.PALETTE.white};
 `;
 const S = {

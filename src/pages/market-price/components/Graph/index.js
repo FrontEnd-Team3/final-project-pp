@@ -1,23 +1,83 @@
+import {
+	ComposedChart,
+	Line,
+	XAxis,
+	YAxis,
+	CartesianGrid,
+	Tooltip,
+	Legend,
+} from "recharts";
 import styled from "styled-components";
 
-const PriceGraph = () => {
+function LineGraphs({ data }) {
+	const avg = data?.cumulativeAvgPrice;
+
+	const arr = avg.map(item => ({
+		name: item.date.split("-").slice(1).join("/"),
+		일일평균거래가: item.avgPrice,
+	}));
+
+	const Pricearr = avg.map(item => item.avgPrice);
+	const MaxPrice = Math.max.apply(null, Pricearr);
+	const MinPrice = Math.min.apply(null, Pricearr);
+
+	const formatTicksAsIntegers = Pricearr => {
+		const test = Math.ceil(Pricearr / 1000) * 1000;
+		return test.toLocaleString();
+	};
 	return (
 		<S.Container>
-			<div>그래프 자리</div>
+			<ComposedChart
+				width={1060}
+				height={600}
+				data={arr}
+				margin={{
+					top: 120,
+					right: 80,
+					bottom: 0,
+					left: 100,
+				}}
+			>
+				<CartesianGrid stroke="#f5f5f5" />
+				<XAxis
+					dataKey="name"
+					label={{ value: "날짜", position: "insideBottomRight", offset: -10 }}
+					tick={{ fontSize: 13 }}
+				/>
+				<YAxis
+					label={{
+						value: "원",
+						angle: 0,
+						position: "top",
+						offset: 20,
+						dx: 18,
+					}}
+					tickFormatter={formatTicksAsIntegers}
+					domain={[MinPrice, MaxPrice]}
+					tickCount={10}
+					tick={{ fontSize: 13 }}
+				/>
+
+				<Tooltip />
+				<Legend />
+				<Line
+					type="monotone"
+					dataKey="일일평균거래가"
+					stroke="#3cb371"
+					dot={false}
+				/>
+			</ComposedChart>
 		</S.Container>
 	);
-};
+}
+
+export default LineGraphs;
 
 const Container = styled.div`
-	width: 1060px;
+	width: 1000px;
 	height: 600px;
-	background-color: aliceblue;
-	position: relative;
-	top: 200px;
+	top: 100px;
+	margin-bottom: 100px;
 `;
 
-const S = {
-	Container,
-};
-
-export default PriceGraph;
+const S = { Container };

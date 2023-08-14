@@ -53,7 +53,7 @@ const Container = styled.div`
 	justify-content: center;
 	align-items: center;
 	gap: 4px;
-	margin: 16px;
+	margin-top: 40px;
 `;
 
 const ControlBtn = styled.button`

@@ -1,52 +1,89 @@
 import styled from "styled-components";
-import { productList } from "mocks/data/products/productsList";
-import { useState } from "react";
-import Pagination from "components/Pagination";
 import { flexColumn } from "styles/common";
 import OneProduct from "./oneSoldOutProduct";
+import LineGraphs from "../Graph";
+import { ResponsiveContainer } from "recharts";
 
-const Soldout = () => {
-	const [dataLimit, setDataLimit] = useState(8);
-	const [page, setPage] = useState(1);
-	const offset = (page - 1) * dataLimit;
-	const SoldoutList = productList.filter(v => v.status == "판매완료");
+const Soldout = ({ soldoutProd }) => {
+	const { keyword, data, isLoading } = soldoutProd;
+
+	if (isLoading) {
+		return <div>스켈레톤 UI 추가 예정 로딩</div>;
+	}
+
+	console.log("result", data);
+	const prod = data?.products.product;
+	console.log("판매완료", prod);
+
+	const avg = data?.cumulativeAvgPrice;
+	console.log("기간 동안 팔린 물품 갯수 및 평균 값", avg);
+
+	const totalAvgPrice = avg.reduce((total, item) => {
+		return total + parseFloat(item.avgPrice);
+	}, 0);
+	const count = avg.length;
+	const averagePrice = totalAvgPrice / count;
+
+	const won = Math.floor(averagePrice).toLocaleString();
+
 	return (
 		<S.Container>
+			<ResponsiveContainer width="100%" height="100%">
+				<LineGraphs data={data} avg={avg} />
+			</ResponsiveContainer>
+			<S.AvgPrice>
+				<S.Keyword>" {keyword} "</S.Keyword> 의 평균 거래 가격은{" "}
+				<S.Won>{won}</S.Won> 원 입니다
+			</S.AvgPrice>
+			<S.Line></S.Line>
 			<S.Button>최근 거래 종료 품목</S.Button>
-			<S.GridContainer>
+			<div>
 				<S.Gridwrapper>
-					{SoldoutList.slice(offset, offset + dataLimit).map(product => (
+					{prod?.map(product => (
 						<OneProduct product={product} />
 					))}
 				</S.Gridwrapper>
-			</S.GridContainer>
-			<Pagination
-				totalData={SoldoutList.length}
-				dataLimit={dataLimit}
-				page={page}
-				setPage={setPage}
-			/>
+			</div>
 		</S.Container>
 	);
 };
 export default Soldout;
 
-const GridContainer = styled.div`
+const Line = styled.div`
 	width: 1060px;
-	height: 940px;
-	${flexColumn}
-	align-items: center;
-	position: relative;
-	margin-top: -60px;
+	height: 1px;
+	background-color: ${({ theme }) => theme.PALETTE.gray};
+	margin-bottom: 80px;
+`;
+
+const AvgPrice = styled.p`
+	font-weight: 500;
+	font-size: ${({ theme }) => theme.FONT_SIZE.mmlarge};
+	color: ${({ theme }) => theme.PALETTE.darkBlack};
+	margin: 50px 0 80px 0;
+`;
+
+const Keyword = styled.span`
+	color: ${({ theme }) => theme.PALETTE.primary};
+	font-weight: 700;
+`;
+
+const Won = styled.span`
+	color: ${({ theme }) => theme.PALETTE.black};
+	font-size: 32px;
+	display: inline-block;
+	line-height: 40px;
+	border-bottom: 6px solid ${({ theme }) => theme.PALETTE.primary};
+	font-weight: 700;
 `;
 
 const Gridwrapper = styled.div`
 	display: grid;
-	grid-template-columns: repeat(4, 253px);
-	grid-column-gap: 10px;
-	grid-row-gap: 30px;
-	position: relative;
-	top: 65px;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+	grid-gap: 20px;
 `;
 const Button = styled.button`
 	width: 260px;
@@ -58,17 +95,18 @@ const Button = styled.button`
 `;
 
 const Container = styled.div`
-	position: relative;
 	width: 100%;
-	top: 300px;
-	height: 1200px;
 	${flexColumn}
 	align-items: center;
+	margin-bottom: 100px;
 `;
 
 const S = {
+	Won,
+	Keyword,
+	Line,
+	AvgPrice,
 	Button,
 	Container,
 	Gridwrapper,
-	GridContainer,
 };
