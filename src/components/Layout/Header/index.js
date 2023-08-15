@@ -2,9 +2,10 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
+import { useChatList } from "context/chatList.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -49,14 +50,14 @@ const Header = () => {
 	};
 	const { socket, targetChat } = useChatData();
 
-	const [isNewChat, setIsNewChat] = useState(true);
+	const [chatList] = useChatList();
 
 	// 전역 메시지 알림
-	useEffect(() => {
-		socket.on("newMessage", data => {
-			setIsNewChat(data);
-		});
-	}, [socket, targetChat]);
+	// useEffect(() => {
+	// 	socket.on("newMessage", data => {
+	// 		setIsNewChat(data);
+	// 	});
+	// }, [socket, targetChat]);
 
 	return (
 		<>
@@ -91,7 +92,7 @@ const Header = () => {
 						</form>
 					</S.SearchWrapper>
 					<div>
-						{isNewChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
+						{chatList.length > 0 && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
 							{accessToken ? (
 								<div style={{ cursor: "pointer" }} onClick={handleLogout}>
