@@ -16,25 +16,44 @@ const ChatMain = () => {
 	const { data, refetch, isError } = ChatQueryApi.getChatLogs(
 		parseInt(targetChat),
 	);
-	const [chatList, setChatList] = useChatList(data);
+	const [chatList, setChatList] = useChatList();
+	// console.log("chatlist", chatList);
 	let nick_name;
 	const DATA = getUserData();
 	if (DATA) nick_name = DATA.nick_name;
 
-	useEffect(() => {
-		setChatList(data);
-	}, []);
+	const filteredByUser = getFilteredList(data, nick_name);
+	// console.log("filtered", filteredByUser);
 
-	const filteredByUser = getFilteredList(chatList, nick_name);
+	// 실시간 메시지 날짜 찾기
+	if (chatList) {
+		const targetIdx = filteredByUser.findIndex(
+			log => log.date === chatList?.createdAt?.split("T")[0],
+		);
+		// console.log("idx", targetIdx);
+
+		// 메시지 형태 변환해서 맨 뒤에 붙이기
+		filteredByUser[targetIdx]?.logs.push({
+			createdAt: chatList.createdAt,
+			message: chatList.message,
+			User: { nick_name: chatList.nickName, profile_url: null },
+			isMine: false,
+		});
+	}
+
 	const inputRef = useRef("");
 	const chatMainWrapperRef = useRef();
+
+	useEffect(() => {
+		setChatList("");
+	}, [data]);
 
 	useEffect(() => {
 		refetch();
 	}, [targetChat]);
 
 	useEffect(() => {
-		setChatList(data);
+		// setChatList(data);
 		chatMainWrapperRef.current.scrollTop =
 			chatMainWrapperRef.current.scrollHeight;
 	}, [targetChat, data]);
@@ -46,9 +65,13 @@ const ChatMain = () => {
 			try {
 				const newChatData = {
 					...chatInfo,
-					createdAt: new Date().toISOString(),
+					createdAt: new Date(),
 					message: inputRef.current,
 				};
+				const myChat = {
+					...newChatData,
+				};
+				myChat.createdAt = myChat.createdAt.toISOString();
 				console.log("보내는 값", newChatData);
 				socket.emit("sendMessage", newChatData);
 				await ChatApi.saveMessages({
@@ -57,7 +80,7 @@ const ChatMain = () => {
 				});
 				refetch();
 				setChatInfo(newChatData);
-				setChatList(prev => [...prev, newChatData]);
+				// setChatList(prev => [...prev, newChatData]);
 				e.target.input.value = "";
 				chatMainWrapperRef.current.scrollTop =
 					chatMainWrapperRef.current.scrollHeight;
@@ -69,50 +92,49 @@ const ChatMain = () => {
 
 	if (isError) return console.error("error");
 
-	if (filteredByUser)
-		return (
-			<S.ChatMainWrapper ref={chatMainWrapperRef}>
-				{filteredByUser &&
-					filteredByUser.map((list, i) => (
-						<S.Chat key={i}>
-							<S.day>{list?.date}</S.day>
-							<S.hr />
-							{list?.logs?.map((content, i) =>
-								content.isMine ? (
-									<MyChat
-										key={i}
-										createdAt={content?.createdAt}
-										message={content?.message}
-										user={content?.User}
-									/>
-								) : (
-									<OtherChat
-										key={i}
-										createdAt={content?.createdAt}
-										message={content?.message}
-										user={content?.User}
-									/>
-								),
-							)}
-						</S.Chat>
-					))}
-				<S.SendWrapper onSubmit={handleChatContent}>
-					<BasicInput
-						name="input"
-						variant={"chat"}
-						size={"xsmall"}
-						placeholder="채팅치는곳"
-					/>
-					<BasicButton
-						type="submit"
-						color={"primary"}
-						size={"xmedium"}
-						children="전송"
-						style={{ borderRadius: "4px" }}
-					/>
-				</S.SendWrapper>
-			</S.ChatMainWrapper>
-		);
+	return (
+		<S.ChatMainWrapper ref={chatMainWrapperRef}>
+			{filteredByUser &&
+				filteredByUser.map((list, i) => (
+					<S.Chat key={i}>
+						<S.day>{list?.date}</S.day>
+						<S.hr />
+						{list?.logs?.map((content, i) =>
+							content.isMine ? (
+								<MyChat
+									key={i}
+									createdAt={content?.createdAt}
+									message={content?.message}
+									user={content?.User}
+								/>
+							) : (
+								<OtherChat
+									key={i}
+									createdAt={content?.createdAt}
+									message={content?.message}
+									user={content?.User}
+								/>
+							),
+						)}
+					</S.Chat>
+				))}
+			<S.SendWrapper onSubmit={handleChatContent}>
+				<BasicInput
+					name="input"
+					variant={"chat"}
+					size={"xsmall"}
+					placeholder="채팅치는곳"
+				/>
+				<BasicButton
+					type="submit"
+					color={"primary"}
+					size={"xmedium"}
+					children="전송"
+					style={{ borderRadius: "4px" }}
+				/>
+			</S.SendWrapper>
+		</S.ChatMainWrapper>
+	);
 };
 
 export default ChatMain;
