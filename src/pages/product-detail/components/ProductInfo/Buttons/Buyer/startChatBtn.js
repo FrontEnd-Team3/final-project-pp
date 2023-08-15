@@ -16,7 +16,6 @@ const StartChatBtn = ({ chat }) => {
 			return el.User.nick_name !== nick_name;
 		});
 		if (!chat.length && !bool) {
-			console.log("hi");
 			try {
 				ChatApi.createChatRoom(parseInt(id)).then(res => {
 					// console.log("start", res);
