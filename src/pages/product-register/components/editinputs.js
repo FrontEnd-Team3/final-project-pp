@@ -15,6 +15,8 @@ import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 import EditImages from "./editImages";
+import { useNavigate } from "react-router-dom";
+import { replace } from "lodash";
 const EditInputs = prevData => {
 	const {
 		handleSubmit,
@@ -25,27 +27,36 @@ const EditInputs = prevData => {
 	} = useForm({
 		resolver: yupResolver(RegisterSchema),
 		mode: "onChange",
+		defaultValues: {
+			title: prevData.prevData.searchProduct.title,
+			price: replace(prevData.prevData.searchProduct.price),
+		},
 	});
 
 	// 이전 데이터 불러와서 editData에 저장
 	const editData = prevData.prevData.searchProduct;
 	// 이미지 데이터 배열 만들기 => ProductImages에는 서브이미지, img_url에는 메인 이미지
 
-	const subImages = editData.ProductImages.map(v => v.img_url);
-	const imageDataList = [
+	// const subImages = editData.ProductImages.map(v => v.img_url);
+	// const imageDataList = [
+	// 	editData.img_url,
+	// 	...editData.ProductImages.map(v => v.img_url),
+	// ];
+
+	const subImages = [...editData.ProductImages.map(v => v.img_url)];
+	const allDataList = [
 		editData.img_url,
 		...editData.ProductImages.map(v => v.img_url),
 	];
-	console.log("뭐야", subImages);
-	console.log("메인이미지", editData.img_url);
-	console.log("모든 이미지", imageDataList);
+
 	// console.log("서브 이미지", imageDataList.pop());
-	const [imageArr, setImageArr] = useState(imageDataList); // 이미지 담을 배열
+	const [imageArr, setImageArr] = useState(allDataList); // 이미지 담을 배열
 	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
 	const queryClient = useQueryClient();
 	const imagesContainerRef = useRef(null);
+
 	// 태그 이전 데이터 가져와서 map 돌려줌 > 태그 데이터 형태 때문에
 	const EditTagList = editData.ProductsTags;
 	const EditTag = EditTagList.map(v => v.Tag.tag);
@@ -55,14 +66,22 @@ const EditInputs = prevData => {
 	const [address, setAddress] = useState(editData.region);
 	const { isToggle, setIsToggle, Toggle } = useToggle();
 	const [isMap, setIsMap] = useState(false);
-	const [isOpened, setIsOpened] = useState();
-
+	const [isOpened, setIsOpened] = useState(false);
+	const navigate = useNavigate();
 	const { mutate } = useMutation(data => ProductApi.updateProduct(data), {
 		onSuccess: async data => {
 			await queryClient.invalidateQueries(["registers"]);
 			console.log("data", data);
 		},
 	});
+
+	console.log("뭐야", subImages);
+	console.log("메인이미지", editData.img_url);
+	console.log("서브 이미지", subImages);
+	console.log("제목", editData.title);
+	console.log("description", editData.description);
+	console.log("지역", editData.region);
+	console.log("태그", EditTag);
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
@@ -138,19 +157,6 @@ const EditInputs = prevData => {
 	}, [watchPrice, setValue, category]);
 
 	const onSubmit = data => {
-		console.log("idx", editData.idx);
-		console.log("title: ", data.title);
-		console.log("price: ", category ? 0 : Number(price?.replace(",", "") || 0));
-		console.log("description: ", description);
-		console.log("category: ", category ? 1 : 0);
-		console.log("region: ", address);
-		console.log("tag: ", taglist);
-		console.log("img_url: ", editData.img_url);
-		console.log("main_url", imageDataList);
-		// for (let i = 0; i < imageDBArr.length; i++) {
-		// 	console.log(formData.append("images", imageDBArr[i]));
-		// }
-
 		try {
 			const formData = new FormData();
 			formData.append("idx", editData.idx);
@@ -164,29 +170,26 @@ const EditInputs = prevData => {
 			formData.append("region", address);
 			formData.append("tag", taglist);
 			// 데이터를 똑같은 형식으로 넘겨줘야 하는데 그러지 않아서 계속 오류가 남 => 중복 수정 해야됌
-			formData.append("img_url", imageDataList);
+			formData.append("img_url", subImages);
 			formData.append("main_url", editData.img_url);
 			if (imageDBArr !== []) {
 				for (let i = 0; i < imageDBArr.length; i++) {
 					formData.append("images", imageDBArr[i]);
 				}
-			} else {
-				formData.append("images", imageDataList);
 			}
-			// else {
-			// 	formData.append("images", []);
-			// }
-
-			// formData.append("images", imageDataList)
+			//이미지 추가 안하고 수정
+			else {
+				formData.append("images", "");
+			}
 
 			mutate(formData);
-			// if (imageDBArr.length && address) {
-			// 	setIsOpened(true);
-			// 	setTimeout(() => {
-			// 		setIsOpened(false);
-			// 		Navigate("/");
-			// 	}, 1500);
-			// }
+			if (editData.img_url && address) {
+				setIsOpened(true);
+				setTimeout(() => {
+					setIsOpened(false);
+					navigate("/");
+				}, 1500);
+			}
 		} catch (error) {
 			console.error("데이터 저장에 실패했습니다:", error);
 		}
