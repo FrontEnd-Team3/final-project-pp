@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { flexCenter } from "styles/common";
 import { AiFillCamera } from "react-icons/ai";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { TiDelete } from "react-icons/ti";
 const Images = ({
 	imageArr,
@@ -11,10 +11,6 @@ const Images = ({
 	imagesContainerRef,
 }) => {
 	const fileInput = useRef(null); // ref로 input 태그 참조
-
-	useEffect(() => {
-		console.log(imageArr, imageDBArr);
-	}, [imageArr, imageDBArr]);
 
 	// 이미지 상대 경로 저장
 	const onChangeImage = async e => {
@@ -45,28 +41,40 @@ const Images = ({
 	return (
 		<>
 			<div ref={imagesContainerRef}>
-				<S.TitleAnother style={{ marginBottom: "20px" }}>
-					상품 이미지 (0/5) <S.Essential>*</S.Essential>
-				</S.TitleAnother>
-				<S.MainImg>
-					<AiFillCamera size={80} />
-					<div>
-						<S.RegisterLabel htmlFor="registerImg">이미지 등록</S.RegisterLabel>
-						<S.RegisterInput
-							ref={fileInput}
-							onChange={e => onChangeImage(e)}
-							type="file"
-							accept="image/*"
-							multiple
-							id="registerImg"
-							// required
-						/>
-					</div>
-				</S.MainImg>
+				<S.TopBox>
+					<S.Title>
+						상품 이미지 ({imageArr.length}/5) <S.Essential>*</S.Essential>
+					</S.Title>
+					<S.EssentialDesc>*필수 기입 사항</S.EssentialDesc>
+				</S.TopBox>
+				<S.ImageContainer>
+					<S.MainImg>
+						<AiFillCamera size={80} />
+						<div>
+							<S.RegisterLabel htmlFor="registerImg">
+								이미지 등록
+							</S.RegisterLabel>
+							<S.RegisterInput
+								ref={fileInput}
+								onChange={e => onChangeImage(e)}
+								type="file"
+								accept="image/*"
+								multiple
+								id="registerImg"
+							/>
+						</div>
+					</S.MainImg>
+					<S.ImageDesc>
+						<p>* 상품 이미지는 600x600에 최적화 되어 있습니다.</p>
+						<p>- 이미지를 클릭 후 이동하여 등록순서를 변경할 수 있습니다.</p>
+						<p>- 이미지는 최대 5장까지 등록할 수 있습니다.</p>
+					</S.ImageDesc>
+				</S.ImageContainer>
 			</div>
 			<S.RealImageBox>
 				{imageArr.map((imageUrl, i) => (
 					<S.OneImage key={i} imageUrl={imageUrl}>
+						{i === 0 && <S.MainLabel>대표이미지</S.MainLabel>}
 						<S.DeleteIcons onClick={() => onDeleteImage(i)}>
 							<TiDelete size={20} />
 						</S.DeleteIcons>
@@ -78,9 +86,78 @@ const Images = ({
 };
 export default Images;
 
-const TitleAnother = styled.p`
+const ImageContainer = styled.div`
+	display: flex;
+	align-items: flex-end;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		align-items: center;
+		flex-direction: column;
+	}
+`;
+
+const ImageDesc = styled.div`
+	margin-left: 20px;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		margin-left: 16px;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin: 0;
+	}
+
+	p:first-of-type {
+		font-weight: 700;
+	}
+
+	p {
+		color: ${({ theme }) => theme.PALETTE.primary};
+		margin-top: 4px;
+
+		@media ${({ theme }) => theme.DEVICE.pc} {
+			font-size: 15px;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			margin: 0;
+			padding: 2px;
+			font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+		}
+	}
+`;
+
+const MainLabel = styled.div`
+	position: absolute;
+	padding: 4px;
+	font-weight: 500;
+	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
+	color: #fff;
+	background-color: ${({ theme }) => theme.PALETTE.primary};
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		padding: 2px;
+		font-size: ${({ theme }) => theme.FONT_SIZE.xxxsmall};
+	}
+`;
+
+const TopBox = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+`;
+
+const EssentialDesc = styled.p`
+	font-weight: 700;
+	color: ${({ theme }) => theme.PALETTE.red};
+`;
+
+const Title = styled.p`
 	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
 	font-weight: bold;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmedium};
+	}
 `;
 
 const Essential = styled.span`
@@ -97,6 +174,18 @@ const MainImg = styled.div`
 
 	& svg {
 		fill: ${({ theme }) => theme.PALETTE.gray};
+	}
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 260px;
+		height: 260px;
+		margin: 30px 0;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 200px;
+		height: 200px;
+		margin: 16px 0;
 	}
 `;
 
@@ -115,12 +204,20 @@ const RealImageBox = styled.div`
 	grid-template-columns: repeat(5, 1fr);
 	grid-gap: 20px;
 	margin: 20px 0;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		grid-gap: 16px;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		grid-gap: 8px;
+	}
 `;
 
 const OneImage = styled.div`
 	position: relative;
-	width: 164px;
-	height: 164px;
+	width: 100%;
+	aspect-ratio: 1;
 	border: 1px solid #ddd;
 	background: url(${props => props.imageUrl}) no-repeat center center / contain;
 `;
@@ -139,7 +236,12 @@ const DeleteIcons = styled.p`
 `;
 
 const S = {
-	TitleAnother,
+	ImageDesc,
+	ImageContainer,
+	MainLabel,
+	TopBox,
+	EssentialDesc,
+	Title,
 	Essential,
 	MainImg,
 	RegisterLabel,
