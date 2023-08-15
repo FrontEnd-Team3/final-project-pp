@@ -55,7 +55,6 @@ const ChatMain = () => {
 	}, [targetChat]);
 
 	useEffect(() => {
-		// setChatList(data);
 		chatMainWrapperRef.current.scrollTop =
 			chatMainWrapperRef.current.scrollHeight;
 	}, [targetChat, data]);
@@ -150,6 +149,7 @@ const ChatMainWrapper = styled.div`
 		width: 15px;
 		display: none;
 	}
+	scroll-behavior: smooth;
 `;
 
 const Chat = styled.div`
