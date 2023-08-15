@@ -29,9 +29,10 @@ const ChatMain = () => {
 	if (chatList) {
 		chatList.map(chat => {
 			const targetIdx = filteredByUser.findIndex(
-				log => log.date === chat?.createdAt?.split("T")[0],
+				log =>
+					chat.room_idx === targetChat &&
+					log.date === chat?.createdAt?.split("T")[0],
 			);
-			// console.log("idx", targetIdx);
 
 			// 메시지 형태 변환해서 맨 뒤에 붙이기
 			filteredByUser[targetIdx]?.logs.push({

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ChatMain from "./chatMain";
 import { useChatData } from "context/chatData.ctx";
 import { useChatList } from "context/chatList.ctx";
-import useDebounce from "hooks/useDebounce";
+import { useEffect } from "react";
 
 const Chatting = () => {
 	const { socket, targetChat } = useChatData();
@@ -10,16 +10,12 @@ const Chatting = () => {
 	console.log("chatlist", chatList);
 
 	// 실시간 메시지 도착
-	useDebounce(
-		() => {
-			socket.on("receiveMessage", data => {
-				// console.log(data);
-				if (chatList) setChatList(prev => [...prev, data]);
-			});
-		},
-		1500,
-		[socket, targetChat],
-	);
+	useEffect(() => {
+		socket.on("receiveMessage", data => {
+			console.log("new!", data);
+			if (chatList) setChatList(prev => [...prev, data]);
+		});
+	}, [socket, targetChat]);
 
 	return (
 		<S.Container>
