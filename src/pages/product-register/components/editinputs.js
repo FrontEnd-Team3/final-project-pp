@@ -335,7 +335,7 @@ const EditInputs = prevData => {
 					취소
 				</BasicButton>
 			</S.SubmitBtns>
-			{isOpened && <AlertModal message={"물품 등록이 완료되었습니다."} />}
+			{isOpened && <AlertModal message={"물품 수정이 완료되었습니다."} />}
 		</form>
 	);
 };
