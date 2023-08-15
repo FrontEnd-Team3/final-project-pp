@@ -101,6 +101,17 @@ const AuthApi = {
 			console.error(error);
 		}
 	},
+	userPurchasedProduct: async ({ page, category }) => {
+		try {
+			const response = await axiosInstance.get(PATH + "/my-page/product-list", {
+				params: { page, category },
+			});
+			console.log("API Response:", response.data);
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	},
 };
 
 export default AuthApi;
