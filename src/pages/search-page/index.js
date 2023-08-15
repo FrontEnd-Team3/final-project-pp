@@ -12,6 +12,7 @@ const SearchPage = () => {
 	const page = searchParams.get("page") || 1;
 	const filter = searchParams.get("filter") || "등록순";
 	const [searchResults, setSearchResults] = useState([]);
+	const [currensValue, setCurrentValue] = useState("등록순");
 
 	const { data, isLoading } = ProductQueryApi.searchProductList(
 		category,
@@ -76,6 +77,8 @@ const SearchPage = () => {
 						options={options}
 						selectedValue={filter}
 						onChange={onFiltering}
+						currensValue={filter}
+						setCurrentValue={setCurrentValue}
 					/>
 				</S.ResultandFilter>
 				{/* 검색 결과가 onFiltering 이벤트 발생시에 searchResults 적용되도록 */}
