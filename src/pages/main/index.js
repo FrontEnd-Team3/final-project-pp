@@ -3,11 +3,10 @@ import Banner from "./components/Banner";
 import Slogan from "./components/Slogan";
 import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked";
-import UsedProduct from "./components/UsedProducts";
-import FreeProduct from "./components/FreeProducts";
 import ProductQueryApi from "apis/product.query.api";
 import { useQueryClient } from "react-query";
 import Loading from "components/Loading";
+import Products from "./components/Products";
 
 const Main = () => {
 	const queryClient = useQueryClient();
@@ -25,9 +24,17 @@ const Main = () => {
 		<>
 			<Banner />
 			<Slogan />
-			<UsedProduct list={data?.usedProduct} />
+			<Products
+				list={data?.usedProduct}
+				title={"중고"}
+				route={"/used-transaction"}
+			/>
 			<S.DivisionLine />
-			<FreeProduct list={data?.freeProduct} />
+			<Products
+				list={data?.freeProduct}
+				title={"무료"}
+				route={"/free-transaction"}
+			/>
 			<RecentlyClicked />
 		</>
 	);

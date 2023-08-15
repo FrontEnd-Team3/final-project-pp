@@ -12,10 +12,9 @@ const ChatApi = {
 	getChatLogs: async room_idx =>
 		await axiosInstance.get(PATH + `/chat-log?room_idx=${room_idx}`),
 	getChatList: async () => await axiosInstance.get(PATH + `/chat-room-list`),
-	getSpecificChatList: async (prod_idx, params) =>
+	getSpecificChatList: async prod_idx =>
 		await axiosInstance.get(
-			PATH + `/product-chat-list?prod_idx=${prod_idx}`,
-			(params = { ...params }),
+			PATH + `/product-chat-list?prod_idx=${parseInt(prod_idx)}`,
 		),
 };
 

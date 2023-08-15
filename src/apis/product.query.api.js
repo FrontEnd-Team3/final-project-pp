@@ -24,15 +24,17 @@ const ProductQueryApi = {
 			[QueryKey.productDetail, id],
 			successFn,
 		),
-	updateProductStatus: id =>
+	updateProductStatus: (params, id, successFn) =>
 		useMutateData(
-			() => ProductApi.updateProductStatus(id),
+			() => ProductApi.updateProductStatus(params),
 			[QueryKey.productDetail, id],
+			successFn,
 		),
-	updateLikeStatus: (id, params) =>
+	updateLikeStatus: (id, params, successFn) =>
 		useMutateData(
 			() => ProductApi.updateLikeStatus(params),
 			[QueryKey.productDetail, id],
+			successFn,
 		),
 	getRecentlyViewedProducts: () =>
 		useQueryData(

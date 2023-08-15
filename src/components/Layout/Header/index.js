@@ -2,8 +2,9 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
+import { useChatData } from "context/chatData.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -28,18 +29,12 @@ const Header = () => {
 
 	const handleLogout = async () => {
 		try {
+			window.localStorage.removeItem("targetChat");
+			window.localStorage.removeItem("isSell");
 			await logout();
 			navigate("/Signin");
 		} catch (error) {
 			console.log(error);
-		}
-	};
-
-	const handleMypage = () => {
-		if (accessToken) {
-			navigate("/Signin");
-		} else {
-			n;
 		}
 	};
 
@@ -52,6 +47,16 @@ const Header = () => {
 		navigate(`/search/${keyword}?filter=${filter}`);
 		searchInput.current.value = "";
 	};
+	const { socket, targetChat } = useChatData();
+
+	const [isNewChat, setIsNewChat] = useState(true);
+
+	// 전역 메시지 알림
+	useEffect(() => {
+		socket.on("newMessage", data => {
+			setIsNewChat(data);
+		});
+	}, [socket, targetChat]);
 
 	return (
 		<>
@@ -86,7 +91,7 @@ const Header = () => {
 						</form>
 					</S.SearchWrapper>
 					<div>
-						<S.NewChat>새로운 채팅 도착!</S.NewChat>
+						{isNewChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
 							{accessToken ? (
 								<div style={{ cursor: "pointer" }} onClick={handleLogout}>
@@ -127,6 +132,7 @@ const Header = () => {
 					<S.Category>
 						{categoryArray.map((category, i) => (
 							<Onecategory
+								key={i}
 								category={category}
 								i={i}
 								state={state}

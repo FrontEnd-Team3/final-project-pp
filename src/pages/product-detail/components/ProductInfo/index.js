@@ -6,11 +6,9 @@ import UserInfo from "./userInfo";
 import getUserData from "utils/getUserData";
 
 const ProductInfo = ({ product }) => {
-	// console.log("상세", product);
 	const { searchProduct, isSeller, chat } = product;
 	const localPrice = searchProduct?.price.toLocaleString("ko-KR");
 
-	// console.log("productInfo", product?.searchProduct);
 	const DATA = getUserData();
 	const location = {};
 	if (DATA) {
