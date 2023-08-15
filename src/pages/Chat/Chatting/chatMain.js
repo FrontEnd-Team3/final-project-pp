@@ -27,17 +27,19 @@ const ChatMain = () => {
 
 	// 실시간 메시지 날짜 찾기
 	if (chatList) {
-		const targetIdx = filteredByUser.findIndex(
-			log => log.date === chatList?.createdAt?.split("T")[0],
-		);
-		// console.log("idx", targetIdx);
+		chatList.map(chat => {
+			const targetIdx = filteredByUser.findIndex(
+				log => log.date === chat?.createdAt?.split("T")[0],
+			);
+			// console.log("idx", targetIdx);
 
-		// 메시지 형태 변환해서 맨 뒤에 붙이기
-		filteredByUser[targetIdx]?.logs.push({
-			createdAt: chatList.createdAt,
-			message: chatList.message,
-			User: { nick_name: chatList.nickName, profile_url: null },
-			isMine: false,
+			// 메시지 형태 변환해서 맨 뒤에 붙이기
+			filteredByUser[targetIdx]?.logs.push({
+				createdAt: chat.createdAt,
+				message: chat.message,
+				User: { nick_name: chat.nickName, profile_url: null },
+				isMine: false,
+			});
 		});
 	}
 

@@ -7,12 +7,13 @@ import { useChatList } from "context/chatList.ctx";
 const Chatting = () => {
 	const { socket, targetChat } = useChatData();
 	const [chatList, setChatList] = useChatList();
+	console.log("chatlist", chatList);
 
 	// 실시간 메시지 도착
 	useEffect(() => {
 		socket.on("receiveMessage", data => {
-			console.log(data);
-			if (chatList) setChatList(data);
+			// console.log(data);
+			if (chatList) setChatList(prev => [...prev, data]);
 		});
 	}, [socket, targetChat]);
 
