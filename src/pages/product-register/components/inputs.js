@@ -424,6 +424,18 @@ const Won = styled.span`
 	position: absolute;
 	left: 360px;
 	top: 10px;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		position: inherit;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		position: relative;
+		left: 266px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		position: relative;
+		left: 230px;
+	}
 `;
 
 const TagsBox = styled.div`
@@ -469,10 +481,10 @@ const InputPrice = styled.div`
 		margin: 60px 10px 60px 130px;
 
 		@media ${({ theme }) => theme.DEVICE.tablet} {
-			margin: 0 0 0 40px;
+			margin: 0 0 0 20px;
 		}
 		@media ${({ theme }) => theme.DEVICE.mobile} {
-			margin: 0 0 0 20px;
+			margin: 0 0 0 6px;
 			padding: 12px 0 12px 12px;
 		}
 	}
