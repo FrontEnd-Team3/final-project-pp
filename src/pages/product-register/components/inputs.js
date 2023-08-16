@@ -96,8 +96,6 @@ const Inputs = () => {
 		}
 	};
 
-	const watchTitle = watch("title");
-
 	// 상품 설명 글자수
 	const handleDescription = e => {
 		const inputValue = e.target.value;
@@ -223,7 +221,7 @@ const Inputs = () => {
 					maxLength={40}
 				/>
 			</S.InputTitle>
-			<S.InputBoxAnother>
+			<S.InputBoxTags>
 				<S.Title style={{ position: "initial", margin: "0" }}>
 					태그{" "}
 					<S.Essential style={{ fontSize: "14px" }}>
@@ -271,7 +269,7 @@ const Inputs = () => {
 						</BasicButton>
 					))}
 				</S.TagsBox>
-			</S.InputBoxAnother>
+			</S.InputBoxTags>
 			<S.DescBox>
 				<S.Title style={{ position: "inherit", margin: "0" }}>상품설명</S.Title>
 				<S.Textarea
@@ -440,14 +438,11 @@ const Won = styled.span`
 
 const TagsBox = styled.div`
 	display: flex;
+	gap: 20px;
 	margin-top: 20px;
-
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		margin: 0;
-	}
+	flex-wrap: wrap;
 
 	button {
-		margin-right: 10px;
 		padding: 10px;
 		color: ${({ theme }) => theme.PALETTE.primary};
 		display: flex;
@@ -490,7 +485,7 @@ const InputPrice = styled.div`
 	}
 `;
 
-const InputBoxAnother = styled.div`
+const InputBoxTags = styled.div`
 	display: flex;
 	flex-direction: column;
 	max-width: 1060px;
@@ -653,7 +648,7 @@ const S = {
 	MapBox,
 	Won,
 	InputPrice,
-	InputBoxAnother,
+	InputBoxTags,
 	InputTop,
 	Title,
 	Essential,
