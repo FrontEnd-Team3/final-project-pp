@@ -98,7 +98,7 @@ const router = createBrowserRouter([
 				element: <MypageLayout />,
 				children: [
 					{
-						path: "",
+						path: "/mypage/:category",
 						element: <RegisterProduct />,
 					},
 					{

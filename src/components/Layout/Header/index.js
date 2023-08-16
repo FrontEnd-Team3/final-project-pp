@@ -106,7 +106,9 @@ const Header = () => {
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => {
-									accessToken ? navigate("/mypage") : navigate("/Signin");
+									accessToken
+										? navigate("/mypage/:category")
+										: navigate("/Signin");
 								}}
 							>
 								MYPAGE

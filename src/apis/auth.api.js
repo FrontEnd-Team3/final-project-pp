@@ -112,6 +112,20 @@ const AuthApi = {
 			console.error(error);
 		}
 	},
+	userLikeProduct: async ({ page }) => {
+		try {
+			const response = await axiosInstance.get(
+				PATH + "/my-page/like-product-list",
+				{
+					params: { page },
+				},
+			);
+			console.log("API Response:", response.data);
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	},
 };
 
 export default AuthApi;
