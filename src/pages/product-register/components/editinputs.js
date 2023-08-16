@@ -14,9 +14,9 @@ import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
-import EditImages from "./editImages";
 import { useNavigate } from "react-router-dom";
 import { replace } from "lodash";
+import Images from "./Images";
 const EditInputs = prevData => {
 	const {
 		handleSubmit,
@@ -197,7 +197,7 @@ const EditInputs = prevData => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<EditImages
+			<Images
 				id="imagesSection"
 				imagesContainerRef={imagesContainerRef}
 				imageArr={imageArr}
