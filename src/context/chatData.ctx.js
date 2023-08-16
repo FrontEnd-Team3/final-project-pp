@@ -1,7 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("https://topdragon.co.kr");
+const socket = io("https://topdragon.co.kr", {
+	cors: {
+		origin: "http://localhost:3000",
+		methods: ["GET", "POST"],
+		credentials: true,
+	},
+	withCredentials: true, // 추가
+});
 
 const ChatDataContext = createContext();
 
@@ -12,6 +19,7 @@ const ChatDataProvider = ({ children }) => {
 	const [targetChat, setTargetChat] = useState(
 		localStorage.getItem("targetChat") || "",
 	);
+	const [socketID, setSocketID] = useState("");
 
 	useEffect(() => {
 		window.localStorage.setItem("targetChat", targetChat);
@@ -19,8 +27,6 @@ const ChatDataProvider = ({ children }) => {
 
 	useEffect(() => {
 		socket.connect();
-
-		// return () => socket.disconnect();
 	});
 
 	const value = {
@@ -29,6 +35,8 @@ const ChatDataProvider = ({ children }) => {
 		setChatInfo,
 		targetChat,
 		setTargetChat,
+		socketID,
+		setSocketID,
 	};
 
 	return (

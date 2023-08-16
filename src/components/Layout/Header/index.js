@@ -2,10 +2,9 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
-import { useChatList } from "context/chatList.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -48,16 +47,21 @@ const Header = () => {
 		navigate(`/search/${keyword}?filter=${filter}`);
 		searchInput.current.value = "";
 	};
-	const { socket, targetChat } = useChatData();
+	const { socket, socketID } = useChatData();
 
-	const [chatList] = useChatList();
+	const [newChat, setNewChat] = useState(false);
 
-	// 전역 메시지 알림
-	// useEffect(() => {
-	// 	socket.on("newMessage", data => {
-	// 		setIsNewChat(data);
-	// 	});
-	// }, [socket, targetChat]);
+	//전역 메시지
+	console.log("socket", socket);
+	console.log("id", socketID);
+
+	useEffect(() => {
+		console.log("rendered");
+		socket.emit(`connect-user`, { token: socketID });
+		socket.on("newMessage", data => {
+			console.log("전역메시지", data);
+		});
+	}, [socket]);
 
 	return (
 		<>
@@ -92,7 +96,7 @@ const Header = () => {
 						</form>
 					</S.SearchWrapper>
 					<div>
-						{chatList.length > 0 && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
+						{newChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
 							{accessToken ? (
 								<div style={{ cursor: "pointer" }} onClick={handleLogout}>

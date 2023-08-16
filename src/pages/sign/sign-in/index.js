@@ -9,7 +9,7 @@ import { LogoFont, color, flexCenter, flexColumn } from "styles/common";
 import ValidateInput from "../components/OneValidate";
 import AuthApi from "apis/auth.api";
 import { useAuth } from "context/auth.ctx";
-import { io } from "socket.io-client";
+import { useChatData } from "context/chatData.ctx";
 
 const SignIn = () => {
 	const navigate = useNavigate();
@@ -26,15 +26,13 @@ const SignIn = () => {
 		mode: "onChange",
 	});
 
+	const { setSocketID } = useChatData();
 	const onSubmitSignin = handleSubmit(async data => {
 		try {
 			const response = await AuthApi.login(data.email, data.pw);
-			console.log("로그인", response.data.user.token);
-			const signInSocket = io("https://topdragon.co.kr");
-			signInSocket.emit(`connect-user`, { socket: response.data.user.token });
+			setSocketID(response.data.user.token);
 			login(response.data.tokenForHeader);
 			navigate("/");
-			signInSocket.disconnect();
 		} catch {
 			alert("이메일과 비밀번호를 확인해주세요");
 		}
