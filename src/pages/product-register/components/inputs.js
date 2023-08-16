@@ -448,6 +448,10 @@ const TagsBox = styled.div`
 		display: flex;
 		align-items: center;
 		font-size: 16px;
+
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+		}
 		svg {
 			margin-left: 20px;
 		}
