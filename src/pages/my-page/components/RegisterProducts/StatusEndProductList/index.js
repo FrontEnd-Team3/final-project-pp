@@ -1,5 +1,5 @@
 import ProductQueryApi from "apis/product.query.api";
-import BasicButton from "components/Button";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 
@@ -10,6 +10,8 @@ import { flexCenter, flexColumn, flexRow } from "styles/common";
  *
  */
 const StatusEndProductList = ({ product }) => {
+	const navigate = useNavigate();
+
 	const updateProduct = ProductQueryApi.updateProduct(product);
 	return (
 		<S.Container>
@@ -20,7 +22,7 @@ const StatusEndProductList = ({ product }) => {
 					<S.Wrapper>
 						<p>{product.title}</p>
 						<div>
-							<BasicButton
+							{/* <BasicButton
 								color={"white"}
 								size={"xsmall"}
 								children={"수정"}
@@ -46,7 +48,7 @@ const StatusEndProductList = ({ product }) => {
 									fontWeight: "600",
 									marginLeft: "10px",
 								}}
-							/>
+							/> */}
 						</div>
 					</S.Wrapper>
 					<S.Wrapper2>
@@ -58,7 +60,9 @@ const StatusEndProductList = ({ product }) => {
 					</S.Wrapper2>
 				</S.MasterWrapper>
 				<TextBox2>
-					<p>상품 보러가기 〉</p>
+					<p onClick={() => navigate(`/product/${product.idx}`)}>
+						상품 보러가기 〉
+					</p>
 				</TextBox2>
 			</S.ProductContainer>
 		</S.Container>
