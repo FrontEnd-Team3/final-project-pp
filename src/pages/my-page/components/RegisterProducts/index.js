@@ -1,23 +1,33 @@
-import BasicButton from "components/Button";
-import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
 import UserQueryApi from "apis/user.query.api";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import StatusEndProductList from "./StatusEndProductList";
+import EmptyData from "../EmptyData";
+import MyPageSelect from "../MyPageSelect";
+import { useSearchParams } from "react-router-dom";
 
 const RegisterProduct = () => {
-	const [selectedStatus, setSelectedStatus] = useState("전체");
-	const [searchParams] = useSearchParams();
-	const category = searchParams.get("category") || 0; // 기본값을 0으로 설정
+	const navigate = useNavigate();
+	const { category } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [categoryState, setCategory] = useState(category);
+	console.log("categoryState", categoryState);
 	const page = searchParams.get("page") || 1;
+
+	const [selectedStatus, setSelectedStatus] = useState("전체");
+	const [selectedProductStatus, setSelectedProductStatus] =
+		useState("중고물품");
+
+	// const category = searchParams.get("category") || 0; // 기본값을 0으로 설정
 
 	const { data: productData } = UserQueryApi.PurchasedProductList({
 		page,
-		category,
+		category: categoryState,
 	});
 	const productList = productData?.products;
+	console.log("ProductList", productList);
 
 	const productPagination = productData?.pagination;
 
@@ -27,61 +37,70 @@ const RegisterProduct = () => {
 		productList?.filter(product => product.status === "판매완료") || []; // <-- 기본값을 빈 배열로 설정
 
 	useEffect(() => {
-		// Whenever selectedStatus changes, you might want to fetch data again.
-		// You can make API call here if needed.
-	}, [selectedStatus]);
+		setCategory(category);
+	}, [category]);
 
 	const displayedProducts =
 		selectedStatus === "전체"
 			? [...sellingProducts, ...soldProducts]
-			: productList.filter(product => product.status === selectedStatus);
+			: productList?.filter(product => product.status === selectedStatus);
+
+	console.log("displayedProducts", displayedProducts);
 
 	// const { curPage, startPage, endPage, totalPage, count } = productPagination;
 
-	const options = [
+	const stateOptions = [
 		{ value: "전체", label: "전체" },
 		{ value: "판매중", label: "판매중" },
 		{ value: "판매완료", label: "판매완료" },
 	];
 
-	// const handleOptionChange = selectedValue => {
-	// 	if (selectedValue === "판매중") {
-	// 		return sellingProducts;
-	// 	} else if (selectedValue === "판매완료") {
-	// 		return soldProducts;
-	// 	} else {
-	// 		return allProduct;
-	// 	}
-	// };
+	const productOptions = [
+		{ value: "중고물품", label: "중고물품" },
+		{ value: "무료나눔", label: "무료나눔" },
+	];
 
 	const [dataLimit, setDataLimit] = useState(8);
 	const [pageState, setPageState] = useState(1);
 	const offset = (pageState - 1) * dataLimit;
 
-	// const { id } = useParams();
-
-	// const navigate = useNavigate();
-
-	// if (isLoading) {
-	// 	return <div>스켈레톤 UI로 변경 예정</div>;
-	// }
-	if (productList?.length > 0) {
-		return (
-			<>
-				<S.Container>
-					<S.RowBox>
-						<S.Title>등록 상품</S.Title>
-						<S.ToggleBox>
-							<BasicSelect
+	return (
+		<>
+			<S.Container>
+				<S.RowBox>
+					<S.Title>등록 상품</S.Title>
+					<S.ToggleBox>
+						<div>
+							<MyPageSelect
 								variant={"primary"}
-								options={options}
-								selectedValue={selectedStatus}
-								onChange={option => setSelectedStatus(option.value)}
+								options={stateOptions}
+								selectedStatus={selectedStatus}
+								setSelectedStatus={setSelectedStatus}
 								style={{ border: "1px solid #dddddd" }}
 							/>
-						</S.ToggleBox>
-					</S.RowBox>
-					{displayedProducts.map(product =>
+						</div>
+						<div>
+							<MyPageSelect
+								variant={"primary"}
+								options={productOptions}
+								selectedStatus={selectedProductStatus}
+								setSelectedStatus={value => {
+									setSelectedProductStatus(value);
+									if (value === "무료나눔") {
+										navigate("/mypage/1");
+									} else {
+										navigate("/mypage/0");
+									}
+								}}
+								style={{ border: "1px solid #dddddd" }}
+							/>
+						</div>
+					</S.ToggleBox>
+				</S.RowBox>
+				{!displayedProducts || displayedProducts.length === 0 ? (
+					<EmptyData text={"등록된 상품이 없습니다."} />
+				) : (
+					displayedProducts.map(product =>
 						product.status === "판매완료" ? (
 							<StatusEndProductList product={product} />
 						) : (
@@ -90,35 +109,6 @@ const RegisterProduct = () => {
 								<S.MasterWrapper>
 									<S.Wrapper>
 										<p>{product.title}</p>
-										<div>
-											<BasicButton
-												color={"white"}
-												size={"xsmall"}
-												children={"수정"}
-												// onClick={() => {
-												//     navigate("/productRegister");
-												// }}
-												style={{
-													fontSize: "14px",
-													height: "28px",
-													borderRadius: "6px",
-													fontWeight: "600",
-													border: "1px solid #dddddd",
-												}}
-											/>
-											<BasicButton
-												color={"primary"}
-												size={"xsmall"}
-												children={"삭제"}
-												style={{
-													fontSize: "14px",
-													height: "28px",
-													borderRadius: "6px",
-													fontWeight: "600",
-													marginLeft: "10px",
-												}}
-											/>
-										</div>
 									</S.Wrapper>
 									<S.Wrapper2>
 										<S.Wrapper3>
@@ -129,15 +119,17 @@ const RegisterProduct = () => {
 									</S.Wrapper2>
 								</S.MasterWrapper>
 								<TextBox2>
-									<p>상품 보러가기 〉</p>
+									<p onClick={() => navigate(`/product/${product.idx}`)}>
+										상품 보러가기 〉
+									</p>
 								</TextBox2>
 							</S.ProductContainer>
 						),
-					)}
-				</S.Container>
-			</>
-		);
-	}
+					)
+				)}
+			</S.Container>
+		</>
+	);
 };
 export default RegisterProduct;
 
@@ -235,18 +227,18 @@ const TextBox2 = styled.div`
 	position: absolute;
 	left: 825px;
 	top: 214px;
+	cursor: pointer;
 `;
 
 const ToggleBox = styled.div`
+	${flexRow}
 	margin-top: 50px;
-	margin-right: 16px;
+	margin-right: 150px;
 	width: 105px;
 	height: 32px;
-`;
-
-const ToggleBox2 = styled.div`
-	width: 105px;
-	height: 32px;
+	div {
+		margin-right: 4px;
+	}
 `;
 
 const S = {
@@ -262,5 +254,4 @@ const S = {
 	Wrapper3,
 	RowBox,
 	ToggleBox,
-	ToggleBox2,
 };

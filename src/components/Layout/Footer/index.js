@@ -65,6 +65,12 @@ const Wrapper = styled.div`
 	height: 200px;
 	border-top: 1px solid ${({ theme }) => theme.PALETTE.darkBlack};
 	border-bottom: 1px solid ${({ theme }) => theme.PALETTE.darkBlack};
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		height: auto;
+	}
 `;
 
 const Container = styled.div`
@@ -74,12 +80,22 @@ const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin: 30px auto;
+		align-items: flex-start;
+		flex-direction: column;
+		height: auto;
+	}
 `;
 const FooterLeft = styled.div`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 100%;
+	}
 `;
 
 const LogoBox = styled.div`
@@ -94,6 +110,10 @@ const Logo = styled.p`
 	font-style: italic;
 	margin-right: 6px;
 	${LogoFont}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 28px;
+		margin-left: -2px;
+	}
 `;
 
 const Registered = styled.p`
@@ -106,6 +126,12 @@ const InfoLink = styled.ul`
 	display: flex;
 	font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
 	margin-bottom: 16px;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		flex-direction: column;
+		border-bottom: 1px solid ${({ theme }) => theme.PALETTE.gray};
+		margin-bottom: 20px;
+	}
 	li {
 		display: flex;
 		align-items: center;
@@ -113,10 +139,17 @@ const InfoLink = styled.ul`
 		cursor: pointer;
 		color: ${({ theme }) => theme.PALETTE.darkBlack};
 		font-weight: 400;
+
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			margin: 0 0 8px 0;
+		}
 	}
 
 	li:last-of-type {
 		font-weight: bold;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			margin: 0 0 20px 0;
+		}
 	}
 `;
 
@@ -132,11 +165,21 @@ const CompanyInfo = styled.ul`
 	display: flex;
 	font-size: 13px;
 	margin-bottom: 10px;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		flex-direction: column;
+		margin: 0;
+	}
+
 	li {
 		display: flex;
 		align-items: center;
 		margin-right: 16px;
 		color: #909090;
+
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			margin: 0 0 8px 0;
+		}
 	}
 `;
 
@@ -144,9 +187,23 @@ const CompanyInfo2 = styled.div`
 	display: flex;
 	color: #909090;
 	font-size: 13px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		flex-direction: column;
+		border-bottom: 1px solid ${({ theme }) => theme.PALETTE.gray};
+	}
 
 	li {
 		margin-right: 16px;
+
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			margin: 0 0 8px 0;
+		}
+	}
+
+	li:last-of-type {
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			margin: 0 0 20px 0;
+		}
 	}
 `;
 
@@ -156,6 +213,11 @@ const FooterRight = styled.div`
 	flex-direction: column;
 	align-items: flex-end;
 	justify-content: space-between;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		align-items: flex-start;
+		margin-top: 20px;
+	}
 `;
 const Icons = styled.div`
 	display: flex;
@@ -165,9 +227,18 @@ const Icon = styled.div`
 	height: 30px;
 	margin-left: 10px;
 
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin: 0 4px 0 0;
+	}
+
 	& img {
 		width: 30px;
 		height: 30px;
+
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 22px;
+			height: 22px;
+		}
 	}
 `;
 
@@ -176,17 +247,27 @@ const CSBox = styled.div`
 	flex-direction: column;
 	align-items: flex-end;
 	line-height: 1.5rem;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		align-items: flex-start;
+	}
 `;
 
 const CsCenter = styled.p`
 	font-weight: bold;
 	font-size: ${({ theme }) => theme.FONT_SIZE.small};
 	color: ${({ theme }) => theme.PALETTE.black};
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-bottom: 4px;
+	}
 `;
 
 const CsCenterInfo = styled.p`
 	color: #909090;
 	font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-bottom: 4px;
+	}
 `;
 
 const Copyright = styled.p`

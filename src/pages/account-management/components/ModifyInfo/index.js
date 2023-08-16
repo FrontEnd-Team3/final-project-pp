@@ -180,7 +180,7 @@ const AccountPrivacy = () => {
 							userData={userData}
 							field={"phone"}
 							setFieldValue={setPhoneValue}
-							setUncomplete={setUncomplete}
+							// setUncomplete={setUncomplete}
 						/>
 						<S.Line />
 						<ModifyInfoEdit

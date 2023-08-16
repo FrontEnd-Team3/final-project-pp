@@ -7,18 +7,17 @@ import styled from "styled-components";
 
 const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const category = searchParams.get("category") || 0;
 	const { keyword } = useParams();
 	const page = searchParams.get("page") || 1;
 	const filter = searchParams.get("filter") || "등록순";
 	const [searchResults, setSearchResults] = useState([]);
+	const [currensValue, setCurrentValue] = useState("등록순");
 
-	const { data, isLoading } = ProductQueryApi.searchProductList(
-		category,
+	const { data, isLoading } = ProductQueryApi.searchProductList({
 		keyword,
 		page,
 		filter,
-	);
+	});
 
 	console.log("result", data);
 	const prod = data?.product;
@@ -43,7 +42,7 @@ const SearchPage = () => {
 		let filteredList = [...filteredSearchResults];
 
 		if (value === "등록순") {
-			filteredList.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 		} else if (value === "인기순") {
 			filteredList.sort((a, b) => b.liked - a.liked);
 		} else if (value === "저가순") {
@@ -76,6 +75,8 @@ const SearchPage = () => {
 						options={options}
 						selectedValue={filter}
 						onChange={onFiltering}
+						currensValue={filter}
+						setCurrentValue={setCurrentValue}
 					/>
 				</S.ResultandFilter>
 				{/* 검색 결과가 onFiltering 이벤트 발생시에 searchResults 적용되도록 */}
