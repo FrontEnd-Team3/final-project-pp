@@ -17,6 +17,7 @@ const SearchPage = () => {
 		keyword,
 		page,
 		filter,
+		status: "판매중"
 	});
 
 	console.log("result", data);
