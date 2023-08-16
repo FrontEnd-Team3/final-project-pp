@@ -17,7 +17,7 @@ const SearchPage = () => {
 		keyword,
 		page,
 		filter,
-		status: "판매중"
+		status: "판매중",
 	});
 
 	console.log("result", data);
@@ -27,9 +27,6 @@ const SearchPage = () => {
 		return <div>스켈레톤 UI로 변경 예정</div>;
 	}
 
-	// title, description, tag 값 포함되는 결과만 보여주는 로직(객체분해할당)
-	// " " 공백 join하여 문자열 합쳐 검색
-	// toLocaleLowerCase -> 영문 검색시 소문자로 변환하여 모두 검색 가능하도록
 	const filteredSearchResults =
 		prod?.filter(product => {
 			const { title, description, ProductsTags } = product;
@@ -80,7 +77,6 @@ const SearchPage = () => {
 						setCurrentValue={setCurrentValue}
 					/>
 				</S.ResultandFilter>
-				{/* 검색 결과가 onFiltering 이벤트 발생시에 searchResults 적용되도록 */}
 				{searchResults.length > 0 ? (
 					<ProductList productList={searchResults} />
 				) : (
@@ -98,8 +94,11 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 1060px;
+	max-width: 1060px;
 	margin: 50px auto;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 `;
 
 const ResultandFilter = styled.div`
@@ -122,6 +121,14 @@ const SearchText = styled.p`
 	font-weight: bold;
 	span {
 		color: ${({ theme }) => theme.PALETTE.primary};
+	}
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.smedium};
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmedium};
 	}
 `;
 

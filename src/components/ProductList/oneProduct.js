@@ -76,20 +76,23 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-	width: 250px;
-	height: 250px;
+	width: 100%;
+	aspect-ratio: 1;
 	border-radius: 4px;
 `;
 
 const ProductInfo = styled.div`
-	width: 250px;
+	width: 100%;
 	.infoTop {
 		.name {
 			font-size: 16px;
 			font-weight: 700;
-			width: 250px;
+			width: 100%;
 			height: 40px;
 			margin-top: 4px;
+			@media ${({ theme }) => theme.DEVICE.mobile} {
+				font-size: 15px;
+			}
 			span {
 				display: inline-block;
 				border-radius: 2px;
@@ -101,11 +104,15 @@ const ProductInfo = styled.div`
 				font-weight: 500;
 				color: ${({ theme }) => theme.PALETTE.white};
 				padding: 5px 10px;
+
+				@media ${({ theme }) => theme.DEVICE.mobile} {
+					font-size: 11px;
+					padding: 4px 6px;
+				}
 			}
 		}
 	}
 	.infoMiddle {
-		/* margin-top: 28px; */
 		display: flex;
 		justify-content: space-between;
 		font-size: 13px;
@@ -129,6 +136,9 @@ const ProductInfo = styled.div`
 		.price {
 			font-size: 16px;
 			font-weight: 600;
+			@media ${({ theme }) => theme.DEVICE.mobile} {
+				font-size: 15px;
+			}
 		}
 		.date {
 			font-size: 12px;
