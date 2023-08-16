@@ -12,8 +12,7 @@ const DeleteProductBtn = () => {
 	const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
 
 	const queryClient = useQueryClient();
-	const deleteData = ProductQueryApi.deleteProduct(
-		id,
+	const deleteData = ProductQueryApi.deleteProduct(id, () =>
 		queryClient.invalidateQueries([QueryKey.productData]),
 	);
 

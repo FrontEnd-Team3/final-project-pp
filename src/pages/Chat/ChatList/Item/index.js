@@ -1,17 +1,37 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
+import getUserData from "utils/getUserData";
+import { useChatData } from "context/chatData.ctx";
 
-const ChatItem = ({ chat, setTargetChat, targetChat }) => {
+const ChatItem = ({ chat }) => {
 	const { idx, isRead, lastMessage, product } = chat;
-	// console.log("product", product);
+	const { socket, targetChat, setTargetChat, setChatInfo } = useChatData();
 
+	let nick_name;
+	const DATA = getUserData();
+	if (DATA) nick_name = DATA.nick_name;
 	// 읽음
-	const [isOpen, setIsOpen] = useState(false);
+	// const [isOpen, setIsOpen] = useState(false);
 
 	// 페이지 이동
 	const navigate = useNavigate();
+
+	// 채팅방 입장하기 + 이전 방 나가기
+	const handleEnterRoom = () => {
+		// const enterRoomSocket = ConnectSocket();
+		// socket.emit("leave", { targetChat });
+		setTargetChat(idx);
+		socket.emit("join", { room_idx: idx });
+		// enterRoomSocket.disconnect();
+		setChatInfo({
+			title: product.title,
+			prod_idx: product.idx,
+			room_idx: idx,
+			nickName: nick_name,
+			isSeller: nick_name === product.User.nick_name,
+		});
+	};
 
 	return (
 		<>
@@ -20,23 +40,13 @@ const ChatItem = ({ chat, setTargetChat, targetChat }) => {
 					{!isRead && <S.New>New</S.New>}
 					<S.Iimg src={product.img_url} />
 				</S.IimgContainer>
-				<S.TextContainer onClick={() => setTargetChat(idx)}>
-					<S.ChatContent onClick={() => setIsOpen(false)}>
+				<S.TextContainer onClick={() => handleEnterRoom()}>
+					<S.ChatContent>
 						<S.Iproduct>{product.title}</S.Iproduct>
 						<S.Ichat>{lastMessage || "대화 내역이 존재하지 않습니다."}</S.Ichat>
 						<S.Iprice>{product.price}</S.Iprice>
 					</S.ChatContent>
 					<S.SettingContent>
-						<S.Span>
-							<S.Setting onClick={() => setIsOpen(prev => !prev)}>
-								...
-							</S.Setting>
-						</S.Span>
-						{isOpen && (
-							<S.SettingBox>
-								<div className="read">읽음</div>
-							</S.SettingBox>
-						)}
 						<S.Imove onClick={() => navigate(`/product/${product.idx}`)}>
 							상품이동 ▶
 						</S.Imove>
@@ -50,7 +60,7 @@ const ChatItem = ({ chat, setTargetChat, targetChat }) => {
 export default ChatItem;
 
 const Item = styled.div`
-	width: 449px;
+	width: 450px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -90,9 +100,7 @@ const ChatContent = styled.div`
 `;
 
 const SettingContent = styled.div`
-	position: relative;
-	${flexColumn}
-	justify-content: space-between;
+	margin-top: 40px;
 `;
 
 const IimgContainer = styled.div`
@@ -147,6 +155,10 @@ const Iproduct = styled.div`
 `;
 
 const Ichat = styled.div`
+	overflow: hidden;
+	max-width: 200px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	padding-top: 5px;
 	font-size: 12px;
 	color: #575757;
@@ -163,9 +175,6 @@ const Imove = styled.div`
 	color: ${({ theme }) => theme.PALETTE.darkBlack};
 	font-weight: 500;
 	cursor: pointer;
-	/* position: absolute; */
-	/* left: 83%;
-	top: 80%; */
 `;
 
 const S = {

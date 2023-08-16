@@ -33,6 +33,10 @@ const Wrapper = styled.div`
 const Container = styled.div`
 	margin: 50px auto;
 	max-width: 900px;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 `;
 
 const S = {

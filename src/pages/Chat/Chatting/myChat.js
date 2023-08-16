@@ -1,22 +1,24 @@
 import styled from "styled-components";
 import FakeProfile from "./planting.png";
+import { getChatTime, getDayOrNight } from "./utils/getTime";
 
 const MyChat = ({ createdAt, message, user }) => {
-	console.log("내 프로필 사진", user.profile_url);
+	const dayOrNight = getDayOrNight(createdAt);
+	const chatTime = getChatTime(createdAt);
+
 	return (
 		<S.MyChats>
 			<S.OneChat>
 				<S.SendedTime>
-					{createdAt.split("T")[1].split(":")[0]} :
-					{createdAt.split("T")[1].split(":")[1]}
+					{dayOrNight} {chatTime}
 				</S.SendedTime>
 				<S.MyWrapper>
 					<S.My>
 						<S.SendedByMe>{message}</S.SendedByMe>
-						<S.MyNickname>{user.nick_name}</S.MyNickname>
+						<S.MyNickname>{user?.nick_name}</S.MyNickname>
 					</S.My>
 					<S.MyImg>
-						<S.Mimg src={user.profile_url || FakeProfile} />
+						<S.Mimg src={user?.profile_url || FakeProfile} />
 					</S.MyImg>
 				</S.MyWrapper>
 			</S.OneChat>

@@ -1,14 +1,29 @@
 import styled from "styled-components";
 import ChatMain from "./chatMain";
+import { useChatData } from "context/chatData.ctx";
+import { useEffect } from "react";
+import { useChatList } from "context/chatList.ctx";
 
-const Chatting = ({ targetChat }) => {
+const Chatting = () => {
+	const { socket, targetChat } = useChatData();
+	const [chatList, setChatList] = useChatList();
+	console.log("chatlist", chatList);
+
+	// 실시간 메시지 도착
+	useEffect(() => {
+		socket.on("receiveMessage", data => {
+			// console.log(data);
+			if (chatList) setChatList(prev => [...prev, data]);
+		});
+	}, [socket, targetChat]);
+
 	return (
 		<S.Container>
 			<S.Header>
 				<S.HChat>CHATTING</S.HChat>
 			</S.Header>
 			{targetChat ? (
-				<ChatMain targetChat={targetChat} />
+				<ChatMain />
 			) : (
 				<S.noChatLogs>대화를 시작해보세요!</S.noChatLogs>
 			)}

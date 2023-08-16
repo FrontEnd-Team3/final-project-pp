@@ -1,22 +1,25 @@
 import styled from "styled-components";
 import FakeProfile from "./planting.png";
+import { getChatTime, getDayOrNight } from "./utils/getTime";
 
 const OtherChat = ({ createdAt, message, user }) => {
+	const dayOrNight = getDayOrNight(createdAt);
+	const chatTime = getChatTime(createdAt);
+
 	return (
 		<>
 			<S.OtherChatWrapper>
 				<S.OtherWrapper>
 					<S.OtherImg>
-						<S.Oimg src={user.profile_url || FakeProfile} />
+						<S.Oimg src={user?.profile_url || FakeProfile} />
 					</S.OtherImg>
 					<S.Other>
-						<S.OtherNickname>{user.nick_name}</S.OtherNickname>
+						<S.OtherNickname>{user?.nick_name}</S.OtherNickname>
 						<S.SendedByOther>{message}</S.SendedByOther>
 					</S.Other>
 				</S.OtherWrapper>
 				<S.ReceivedTime>
-					{createdAt.split("T")[1].split(":")[0]} :
-					{createdAt.split("T")[1].split(":")[1]}
+					{dayOrNight} {chatTime}
 				</S.ReceivedTime>
 			</S.OtherChatWrapper>
 		</>
@@ -38,12 +41,8 @@ const ReceivedTime = styled.div`
 `;
 
 const SendedByOther = styled.div`
-	width: auto;
 	max-width: 200px;
 	font-size: 16px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
 	padding: 10px;
 	background-color: #ffffff;
 	border: 1px solid #dddddd;

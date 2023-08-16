@@ -76,7 +76,6 @@ const ButtonsForSeller = ({ chat, status }) => {
 				(chat.length ? (
 					<SelectListModal
 						setIsModalOpen={setIsModalOpen}
-						chat={chat}
 						setIsDealClosed={setIsDealClosed}
 						idx={id}
 					/>

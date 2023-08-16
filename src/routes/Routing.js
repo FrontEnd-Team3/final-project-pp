@@ -20,6 +20,7 @@ import Chat from "pages/Chat";
 import PwChange from "pages/account-management/components/PwChange";
 import AccoutLayout from "pages/account-management/layout/account-layout";
 import AccountPrivacy from "pages/account-management/components/ModifyInfo";
+import ErrorPage from "pages/error-page";
 
 const router = createBrowserRouter([
 	{
@@ -94,11 +95,15 @@ const router = createBrowserRouter([
 				element: <SearchPage />,
 			},
 			{
+				path: "/wrong-access",
+				element: <ErrorPage />,
+			},
+			{
 				path: "/mypage",
 				element: <MypageLayout />,
 				children: [
 					{
-						path: "",
+						path: "/mypage/:category",
 						element: <RegisterProduct />,
 					},
 					{

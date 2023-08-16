@@ -79,10 +79,9 @@ const ImageSlide = ({ productList }) => {
 						<>
 							<li>
 								{InfiniteArr.map((image, i) => (
-									<div>
+									<div key={i}>
 										<S.SlideImage
 											src={image}
-											key={i}
 											onClick={() => {
 												navigate(
 													`/product/${

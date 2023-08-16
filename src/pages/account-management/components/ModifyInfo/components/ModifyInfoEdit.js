@@ -52,7 +52,12 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 				alert("값을 입력해주세요.");
 				return;
 			}
-			if (fieldValue !== userData[field] && !duplicates) {
+			if (
+				fieldValue !== userData[field] &&
+				!duplicates &&
+				field !== "phone" &&
+				field !== "region"
+			) {
 				alert("중복 검사를 해주세요.");
 				return;
 			}
@@ -254,19 +259,17 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 									}}
 								/>
 							)}
-							{field !== "email" &&
-								field !== "nickName" &&
-								field !== "region" && (
-									<BasicButton
-										size={"account"}
-										color={"darkBlack"}
-										children={"완료"}
-										style={{ marginLeft: "5px" }}
-										onClick={() => {
-											handleEdit("완료");
-										}}
-									/>
-								)}
+							{field !== "email" && field !== "nickName" && (
+								<BasicButton
+									size={"account"}
+									color={"darkBlack"}
+									children={"완료"}
+									style={{ marginLeft: "5px" }}
+									onClick={() => {
+										handleEdit("완료");
+									}}
+								/>
+							)}
 						</div>
 					</>
 				)}

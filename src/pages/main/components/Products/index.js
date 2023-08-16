@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexCenter } from "styles/common";
 
-const FreeProduct = ({ list }) => {
+const Products = ({ list, title, route }) => {
 	const navigate = useNavigate();
 	return (
 		<>
 			<S.Container>
 				<div>
 					<S.Title>
-						우리 동네 <S.Free>무료</S.Free> 나눔
+						우리 동네 <S.Free>{title}</S.Free> 나눔
 					</S.Title>
 				</div>
 				<ProductListWithoutPagination productList={list} />
@@ -21,7 +21,7 @@ const FreeProduct = ({ list }) => {
 						size={"small"}
 						children={"MORE +"}
 						style={{ fontSize: "14px", height: "28px" }}
-						onClick={() => navigate("/free-transaction")}
+						onClick={() => navigate(route)}
 					/>
 				</S.ButtonContainer>
 			</S.Container>
@@ -29,7 +29,7 @@ const FreeProduct = ({ list }) => {
 	);
 };
 
-export default FreeProduct;
+export default Products;
 
 const Container = styled.div`
 	width: 1060px;

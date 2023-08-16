@@ -24,15 +24,17 @@ const ProductQueryApi = {
 			[QueryKey.productDetail, id],
 			successFn,
 		),
-	updateProductStatus: id =>
+	updateProductStatus: (params, id, successFn) =>
 		useMutateData(
-			() => ProductApi.updateProductStatus(id),
+			() => ProductApi.updateProductStatus(params),
 			[QueryKey.productDetail, id],
+			successFn,
 		),
-	updateLikeStatus: (id, params) =>
+	updateLikeStatus: (id, params, successFn) =>
 		useMutateData(
 			() => ProductApi.updateLikeStatus(params),
 			[QueryKey.productDetail, id],
+			successFn,
 		),
 	getRecentlyViewedProducts: () =>
 		useQueryData(
@@ -78,10 +80,10 @@ const ProductQueryApi = {
 		),
 
 	// 검색 결과
-	searchProductList: (category, keyword, page, filter) =>
+	searchProductList: (keyword, page, filter) =>
 		useQueryData(
-			[QueryKey.searchData, category, keyword, page],
-			() => ProductApi.searchProduct(category, keyword, page, filter),
+			[QueryKey.searchData, keyword, page],
+			() => ProductApi.searchProduct(keyword, page, filter),
 			QueryConfig,
 		),
 

@@ -23,7 +23,7 @@ const MyProfile = () => {
 							{userData?.profile_url ? (
 								<img src={userData?.profile_url} alt="User Profile" />
 							) : (
-								<img src="/img/Profile.png" alt="Default Profile" />
+								<img src="/img/defaultImg.png" alt="Default Profile" />
 							)}
 						</S.MyImage>
 						<S.TextBox>
