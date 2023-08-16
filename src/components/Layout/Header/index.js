@@ -5,7 +5,6 @@ import Onecategory from "./oneCategory";
 import { useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
-import { useChatList } from "context/chatList.ctx";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -27,6 +26,7 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
+	const { socket, socketID } = useChatData();
 
 	const handleLogout = async () => {
 		try {
@@ -48,16 +48,8 @@ const Header = () => {
 		navigate(`/search/${keyword}?filter=${filter}`);
 		searchInput.current.value = "";
 	};
-	const { socket, targetChat } = useChatData();
 
-	const [chatList] = useChatList();
-
-	// 전역 메시지 알림
-	// useEffect(() => {
-	// 	socket.on("newMessage", data => {
-	// 		setIsNewChat(data);
-	// 	});
-	// }, [socket, targetChat]);
+	const [newChat, setNewChat] = useState(false);
 
 	return (
 		<>
@@ -92,7 +84,7 @@ const Header = () => {
 						</form>
 					</S.SearchWrapper>
 					<div>
-						{chatList.length > 0 && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
+						{newChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
 							{accessToken ? (
 								<div style={{ cursor: "pointer" }} onClick={handleLogout}>
@@ -112,7 +104,9 @@ const Header = () => {
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => {
-									accessToken ? navigate("/mypage") : navigate("/Signin");
+									accessToken
+										? navigate("/mypage/:category")
+										: navigate("/Signin");
 								}}
 							>
 								MYPAGE

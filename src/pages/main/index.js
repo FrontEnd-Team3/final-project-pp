@@ -7,6 +7,7 @@ import ProductQueryApi from "apis/product.query.api";
 import { useQueryClient } from "react-query";
 import Loading from "components/Loading";
 import Products from "./components/Products";
+import QueryKey from "consts/queryKey";
 
 const Main = () => {
 	const queryClient = useQueryClient();

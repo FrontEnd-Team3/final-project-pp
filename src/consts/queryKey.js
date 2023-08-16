@@ -13,6 +13,7 @@ const QueryKey = {
 	searchData: "searchData",
 	userPurchasedProduct: "userPurchasedProduct",
 	marketPrice: "marketPrice",
+	userLikeProduct: "userLikeProduct",
 };
 
 export default QueryKey;
