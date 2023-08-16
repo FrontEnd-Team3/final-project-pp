@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
 
@@ -50,18 +50,6 @@ const Header = () => {
 	};
 
 	const [newChat, setNewChat] = useState(false);
-
-	// //전역 메시지
-	// console.log("socket", socket);
-	// console.log("id", socketID);
-
-	useEffect(() => {
-		console.log("rendered");
-		socket.emit(`connect-user`, { socket: socketID });
-		socket.on("newMessage", data => {
-			console.log("전역메시지", data);
-		});
-	}, [socket]);
 
 	return (
 		<>

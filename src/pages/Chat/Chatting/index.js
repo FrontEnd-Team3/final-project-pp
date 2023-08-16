@@ -12,7 +12,7 @@ const Chatting = () => {
 	// 실시간 메시지 도착
 	useEffect(() => {
 		socket.on("receiveMessage", data => {
-			console.log("new!", data);
+			// console.log("new!", data);
 			if (chatList) setChatList(prev => new Set([...prev, data]));
 		});
 	}, [socket, targetChat]);
