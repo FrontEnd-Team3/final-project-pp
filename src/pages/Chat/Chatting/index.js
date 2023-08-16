@@ -13,7 +13,7 @@ const Chatting = () => {
 	useEffect(() => {
 		socket.on("receiveMessage", data => {
 			console.log("new!", data);
-			if (chatList) setChatList(prev => [...prev, data]);
+			if (chatList) setChatList(prev => new Set([...prev, data]));
 		});
 	}, [socket, targetChat]);
 

@@ -33,6 +33,7 @@ const SignIn = () => {
 			setSocketID(response.data.user.token);
 			login(response.data.tokenForHeader);
 			navigate("/");
+			// signInSocket.disconnect();
 		} catch {
 			alert("이메일과 비밀번호를 확인해주세요");
 		}

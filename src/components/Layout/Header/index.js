@@ -26,6 +26,7 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
+	const { socket, socketID } = useChatData();
 
 	const handleLogout = async () => {
 		try {
@@ -47,17 +48,16 @@ const Header = () => {
 		navigate(`/search/${keyword}?filter=${filter}`);
 		searchInput.current.value = "";
 	};
-	const { socket, socketID } = useChatData();
 
 	const [newChat, setNewChat] = useState(false);
 
-	//전역 메시지
-	console.log("socket", socket);
-	console.log("id", socketID);
+	// //전역 메시지
+	// console.log("socket", socket);
+	// console.log("id", socketID);
 
 	useEffect(() => {
 		console.log("rendered");
-		socket.emit(`connect-user`, { token: socketID });
+		socket.emit(`connect-user`, { socket: socketID });
 		socket.on("newMessage", data => {
 			console.log("전역메시지", data);
 		});

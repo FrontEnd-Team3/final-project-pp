@@ -27,7 +27,7 @@ const ChatMain = () => {
 
 	// 실시간 메시지 날짜 찾기
 	if (chatList) {
-		chatList.map(chat => {
+		[...chatList].map(chat => {
 			const targetIdx = filteredByUser.findIndex(
 				log =>
 					chat.room_idx === targetChat &&
