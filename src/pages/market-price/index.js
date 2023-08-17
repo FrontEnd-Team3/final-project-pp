@@ -31,7 +31,6 @@ const MarketPrice = () => {
 					currensValue={currensValue}
 					setCurrentValue={setCurrentValue}
 				/>
-				{/* <LineGraphs /> */}
 				<Soldout soldoutProd={soldoutProd} />
 			</S.Container>
 		</>
@@ -41,9 +40,10 @@ const MarketPrice = () => {
 export default MarketPrice;
 const Container = styled.div`
 	margin: 0 auto;
-	width: 1060px;
+	max-width: 1060px;
 	${flexColumn}
 	align-items: center;
+
 `;
 
 const S = {

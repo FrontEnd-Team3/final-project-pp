@@ -5,6 +5,7 @@ import Onecategory from "./oneCategory";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
+import SearchModal from "./SearchModal";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -13,6 +14,8 @@ const Header = () => {
 	const { accessToken, logout } = useAuth();
 	const searchInput = useRef();
 	const [filter, setFilter] = useState("등록순");
+	const PlaceHolder = "제목, 태그명을 입력해 주세요";
+
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -162,19 +165,12 @@ const Header = () => {
 						판매하기
 					</S.Sellbutton>
 					{isOpen && (
-						<S.BackGround>
-							<S.Form onSubmit={handleSearchResult}>
-								<S.ModalSearchBar
-									placeholder="제목, 태그명을 입력해주세요"
-									ref={searchInput}
-								/>
-								<S.ModalSearchicon
-									src="img/search.png"
-									onClick={handleSearchResult}
-								></S.ModalSearchicon>
-							</S.Form>
-							<S.closeButton onClick={() => setIsOpen(false)}>x</S.closeButton>
-						</S.BackGround>
+						<SearchModal
+							PlaceHolder={PlaceHolder}
+							setIsOpen={setIsOpen}
+							handleSearchResult={handleSearchResult}
+							searchInput={searchInput}
+						/>
 					)}
 				</S.CategoryWrapper>
 			</S.Container>
@@ -192,7 +188,6 @@ const Form = styled.form`
 `;
 const closeButton = styled.button`
 	font-size: 25px;
-	font-weight: bold;
 	cursor: pointer;
 	position: absolute;
 	top: 2%;
