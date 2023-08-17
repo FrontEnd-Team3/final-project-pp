@@ -21,13 +21,17 @@ import PwChange from "pages/account-management/components/PwChange";
 import AccoutLayout from "pages/account-management/layout/account-layout";
 import AccountPrivacy from "pages/account-management/components/ModifyInfo";
 import ErrorPage from "pages/error-page";
+import Intro from "pages/Intro";
+import PrivateRouter from "./PrivateRoute";
 
 const router = createBrowserRouter([
 	{
 		element: (
 			<>
 				<Layout />
-				<MakeScrollToTop />
+				<PrivateRouter>
+					<MakeScrollToTop />
+				</PrivateRouter>
 			</>
 		),
 		children: [
@@ -57,14 +61,7 @@ const router = createBrowserRouter([
 			// 	path: "/pwchange",
 			// 	element: <PwChange />,
 			// },
-			{
-				path: "/Signin",
-				element: <SignIn />,
-			},
-			{
-				path: "/Signup",
-				element: <Signup />,
-			},
+
 			{
 				path: "/product/:id",
 				element: <ProductDetailPage />,
@@ -125,6 +122,18 @@ const router = createBrowserRouter([
 				],
 			},
 		],
+	},
+	{
+		path: "intro",
+		element: <Intro />,
+	},
+	{
+		path: "/Signin",
+		element: <SignIn />,
+	},
+	{
+		path: "/Signup",
+		element: <Signup />,
 	},
 ]);
 

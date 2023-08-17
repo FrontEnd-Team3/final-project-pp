@@ -262,7 +262,6 @@ const LogoMent = styled.div`
 const LogoWrapper = styled.div`
 	margin-right: 80px;
 	height: 150px;
-	position: relative;
 `;
 const SideTitle = styled.div`
 	font-style: italic;
@@ -339,11 +338,10 @@ const Subtitle = styled.p`
 
 const Container = styled.div`
 	margin: 0 auto;
-	margin-bottom: 130px;
-	margin-top: 120px;
-	width: 100%;
-	width: 1000px;
+	height: 100vh;
+	max-width: 1000px;
 	${flexCenter}
+	justify-content: space-between;
 `;
 const S = {
 	Container,
