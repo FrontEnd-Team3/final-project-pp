@@ -32,14 +32,26 @@ const Products = ({ list, title, route }) => {
 export default Products;
 
 const Container = styled.div`
-	width: 1060px;
+	max-width: 1060px;
 	margin: 0 auto;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 `;
 
 const Title = styled.div`
 	font-size: 28px;
+	font-weight: 500;
 	text-align: center;
 	margin: 90px 0;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 26px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 24px;
+	}
 `;
 
 const Free = styled.span`
