@@ -58,7 +58,7 @@ const ChatMain = () => {
 	useEffect(() => {
 		chatMainWrapperRef.current.scrollTop =
 			chatMainWrapperRef.current.scrollHeight;
-	}, [targetChat, data]);
+	}, [targetChat, data, chatList]);
 
 	const handleChatContent = async e => {
 		e.preventDefault();
