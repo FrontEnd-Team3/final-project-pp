@@ -1,21 +1,19 @@
 import ProductQueryApi from "apis/product.query.api";
-import BasicButton from "components/Button";
 import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
 import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { useState } from "react";
+import QueryKey from "consts/queryKey";
 
 const FreeTransaction = () => {
 	const { data, isLoading, error } = ProductQueryApi.getProductList();
-
-	// console.log("main", data);
+	const [currensValue, setCurrentValue] = useState("등록순");
 
 	const [filteredProducts, setFilteredProducts] = useState(data?.freeProduct);
 
 	const onFiltering = value => {
-		console.log("value", value);
 		let filteredList = [...data?.freeProduct];
 
 		if (value === "등록순") {
@@ -23,7 +21,6 @@ const FreeTransaction = () => {
 		} else if (value === "인기순") {
 			filteredList.sort((a, b) => b.liked - a.liked);
 		}
-
 		setFilteredProducts(filteredList);
 	};
 
@@ -45,18 +42,16 @@ const FreeTransaction = () => {
 				<S.Title>
 					우리 동네 <span>무료</span> 나눔
 				</S.Title>
-				<S.Address>
-					<div>
-						서울시 성동구 성수동
-						<BasicButton color={"primary"} size={"xsmall"} children={"변경"} />
-					</div>
+				<S.Filter>
 					<BasicSelect
 						variant={"primary"}
 						options={options}
 						selectedValue={"등록순"}
 						onChange={onFiltering}
+						currensValue={"등록순"}
+						setCurrentValue={setCurrentValue}
 					/>
-				</S.Address>
+				</S.Filter>
 				<ProductList productList={filteredProducts || data?.freeProduct} />
 				<RecentlyClicked />
 			</S.Wrapper>
@@ -72,6 +67,9 @@ const Container = styled.div`
 const Wrapper = styled.div`
 	margin: 50px auto;
 	max-width: 1060px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 `;
 
 const Title = styled.p`
@@ -82,12 +80,15 @@ const Title = styled.p`
 	& span {
 		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.medium};
+	}
 `;
 
-const Address = styled.div`
+const Filter = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 	font-size: 13px;
 	color: #788394;
 	margin: 12px 0;
@@ -102,5 +103,5 @@ const S = {
 	Container,
 	Wrapper,
 	Title,
-	Address,
+	Filter,
 };
