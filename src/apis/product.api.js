@@ -38,9 +38,15 @@ const ProductApi = {
 		}),
 
 	// 물품 검색
-	searchProduct: async ({ keyword, page, filter = "등록순", status }) =>
+	searchProduct: async ({
+		category,
+		keyword,
+		page,
+		filter = "등록순",
+		status,
+	}) =>
 		await axiosInstance.get(PATH + `/search`, {
-			params: { keyword, page, filter, status },
+			params: { category, keyword, page, filter, status },
 		}),
 
 	// 물품 시세 검색

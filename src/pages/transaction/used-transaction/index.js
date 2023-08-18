@@ -4,17 +4,32 @@ import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
 import BasicSelect from "components/Select";
 import QueryKey from "consts/queryKey";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
 
 const UsedTransaction = () => {
-	const { data, isLoading, error } = ProductQueryApi.getProductList();
+	const [page, setPage] = useState(1);
+	const { data, isLoading, error, refetch } = ProductQueryApi.searchProductList(
+		{
+			category: 0,
+			page,
+			status: "판매중",
+		},
+	);
+
+	const queryClient = useQueryClient();
+	const [productList, setProductList] = useState([]);
+	useEffect(() => {
+		refetch();
+		setProductList(data?.productList);
+	}, [page]);
 	const [currensValue, setCurrentValue] = useState("등록순");
 
-	const [filteredProducts, setFilteredProducts] = useState(data?.usedProduct);
+	const [filteredProducts, setFilteredProducts] = useState(data?.product);
 
 	const onFiltering = value => {
-		let filteredList = [...data?.usedProduct];
+		let filteredList = [...data?.product];
 
 		if (value === "등록순") {
 			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
@@ -58,7 +73,12 @@ const UsedTransaction = () => {
 						setCurrentValue={setCurrentValue}
 					/>
 				</S.Filter>
-				<ProductList productList={filteredProducts || data?.usedProduct} />
+				<ProductList
+					productList={filteredProducts || data?.product}
+					pagination={data?.pagination}
+					page={page}
+					setPage={setPage}
+				/>
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>
