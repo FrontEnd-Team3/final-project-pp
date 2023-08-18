@@ -10,19 +10,16 @@ import { useQueryClient } from "react-query";
 
 const FreeTransaction = () => {
 	const [page, setPage] = useState(1);
-	const { data, isLoading, error, refetch } = ProductQueryApi.searchProductList(
-		{
-			category: 1,
-			page,
-			status: "판매중",
-		},
-	);
+	const { data, isLoading, error, refetch } = ProductQueryApi.getFreeProduct({
+		category: 1,
+		page,
+		status: "판매중",
+	});
 
 	const queryClient = useQueryClient();
-	const [productList, setProductList] = useState([]);
+
 	useEffect(() => {
 		refetch();
-		setProductList(data?.productList);
 	}, [page]);
 
 	const [currensValue, setCurrentValue] = useState("등록순");
@@ -35,7 +32,7 @@ const FreeTransaction = () => {
 		if (value === "등록순") {
 			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.liked - a.liked);
+			filteredList.sort((a, b) => b.likeConut - a.likeConut);
 		}
 		setFilteredProducts(filteredList);
 	};

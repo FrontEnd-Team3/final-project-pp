@@ -15,8 +15,6 @@ const ProductDetailPage = () => {
 	const { data, isLoading, isError, refetch } =
 		ProductQueryApi.getProductDetail(id);
 
-	console.log("data", data);
-
 	useEffect(() => {
 		refetch();
 		ProductApi.addRecentlyViewedProducts({ prod_idx: parseInt(id) });
