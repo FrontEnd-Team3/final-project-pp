@@ -14,9 +14,9 @@ import Map from "./map";
 import { useMutation, useQueryClient } from "react-query";
 import ProductApi from "apis/product.api";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
-import EditImages from "./editImages";
 import { useNavigate } from "react-router-dom";
 import { replace } from "lodash";
+import Images from "./Images";
 const EditInputs = prevData => {
 	const {
 		handleSubmit,
@@ -197,7 +197,7 @@ const EditInputs = prevData => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<EditImages
+			<Images
 				id="imagesSection"
 				imagesContainerRef={imagesContainerRef}
 				imageArr={imageArr}
@@ -205,7 +205,10 @@ const EditInputs = prevData => {
 				imageDBArr={imageDBArr}
 				setImageDBArr={setImageDBArr}
 			/>
-			<S.InputBox>
+			<S.InputTitle>
+				<S.Title>
+					물품명 <S.Essential>*</S.Essential>
+				</S.Title>
 				<OneController
 					name="title"
 					control={control}
@@ -213,16 +216,17 @@ const EditInputs = prevData => {
 					variant={"primary"}
 					color={"primary"}
 					size={"full"}
-					style={{ padding: "60px 30px 40px 136px" }}
 					maxLength={40}
 					defaultValue={editData.title}
 				/>
-				<S.Title>
-					물품명 <S.Essential>*</S.Essential>
+			</S.InputTitle>
+			<S.InputBoxTags>
+				<S.Title style={{ position: "initial", margin: "0" }}>
+					태그{" "}
+					<S.Essential style={{ fontSize: "14px" }}>
+						(최대 5개, 6자 이하 작성)
+					</S.Essential>
 				</S.Title>
-			</S.InputBox>
-			<S.InputBoxAnother>
-				<S.Title style={{ position: "initial", margin: "0" }}>태그</S.Title>
 				<S.InputTop>
 					<OneController
 						name="tag"
@@ -232,22 +236,24 @@ const EditInputs = prevData => {
 						color={"primary"}
 						size={"primary"}
 						style={{ padding: "18px", width: "100%", marginTop: "20px" }}
-						placeholder="태그를 선택하거나 입력할 수 있습니다. 태그 개수 최대 5개까지 가능, 6자 이하로 작성해주세요"
+						placeholder="태그를 선택하거나 입력할 수 있습니다."
 						onKeyPress={handleKeyPress}
 						maxLength={6}
 					/>
 					<S.ArrowDownIcon>
 						<S.Icon onClick={Toggle} isopen={isToggle} />
 					</S.ArrowDownIcon>
-					{isToggle && (
-						<S.TagCateroryUl>
-							{tagCategory.map(onetag => (
-								<li onClick={() => handleAddTaglist(onetag.content)}>
-									{onetag.content}
-								</li>
-							))}
-						</S.TagCateroryUl>
-					)}
+					<S.CategoryBox>
+						{isToggle && (
+							<S.TagCateroryUl>
+								{tagCategory.map(onetag => (
+									<li onClick={() => handleAddTaglist(onetag.content)}>
+										{onetag.content}
+									</li>
+								))}
+							</S.TagCateroryUl>
+						)}
+					</S.CategoryBox>
 				</S.InputTop>
 				<S.TagsBox>
 					{taglist.map(tagItem => (
@@ -262,7 +268,7 @@ const EditInputs = prevData => {
 						</BasicButton>
 					))}
 				</S.TagsBox>
-			</S.InputBoxAnother>
+			</S.InputBoxTags>
 			<S.DescBox>
 				<S.Title style={{ position: "inherit", margin: "0" }}>상품설명</S.Title>
 				<S.Textarea
@@ -273,7 +279,7 @@ const EditInputs = prevData => {
 				/>
 				<span>{description.length}/1000</span>
 			</S.DescBox>
-			<S.InputBox>
+			<S.InputCheck>
 				<S.Title style={{ top: "-4px" }}>
 					구분 <S.Essential>*</S.Essential>
 				</S.Title>
@@ -299,8 +305,12 @@ const EditInputs = prevData => {
 						<label htmlFor="usedCheckbox">중고거래</label>
 					</S.Checking>
 				</S.CheckContainer>
-			</S.InputBox>
-			<S.InputBox style={{ borderBottom: "1.3px solid #d9d9d9" }}>
+			</S.InputCheck>
+			<S.InputPrice>
+				<S.Title style={{ top: "68px" }}>
+					가격 <S.Essential>*</S.Essential>
+					<S.Won>원</S.Won>
+				</S.Title>
 				<OneController
 					name="price"
 					control={control}
@@ -312,18 +322,11 @@ const EditInputs = prevData => {
 					placeholder="숫자만 입력해주세요"
 					type={"text"}
 					style={{
-						padding: "16px",
-						height: "3rem",
-						margin: "60px 10px 60px 130px",
 						backgroundColor: category ? "#ddd" : "initial",
 					}}
 					defaultValue={editData.price}
 				/>
-				<S.Title style={{ top: "68px" }}>
-					가격 <S.Essential>*</S.Essential>
-					<S.Won>원</S.Won>
-				</S.Title>
-			</S.InputBox>
+			</S.InputPrice>
 			<S.MapBox>
 				<Map address={address} setAddress={setAddress} />
 			</S.MapBox>
@@ -342,19 +345,55 @@ const EditInputs = prevData => {
 
 export default EditInputs;
 
-const TitleAnother = styled.p`
-	font-size: ${({ theme }) => theme.FONT_SIZE.semimedium};
+const InputCheck = styled.div`
+	position: relative;
 	font-weight: bold;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
+		display: flex;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		display: flex;
+		padding-bottom: 30px;
+	}
+`;
+
+const InputTitle = styled.div`
+	position: relative;
+	font-weight: bold;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		position: inherit;
+	}
+
+	input {
+		padding: 60px 30px 40px 136px;
+
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			padding: 20px 0;
+		}
+	}
 `;
 
 const SubmitBtns = styled.div`
 	display: flex;
 	justify-content: flex-end;
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		justify-content: center;
+	}
+
 	button {
 		margin-left: 20px;
 		font-weight: bold;
 		transition: background 0.1s;
 		font-size: ${({ theme }) => theme.FONT_SIZE.small};
+
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			margin: 0;
+		}
 	}
 	button:hover {
 		background: rgba(60, 179, 113, 0.9);
@@ -363,6 +402,9 @@ const SubmitBtns = styled.div`
 	button:last-of-type {
 		color: ${({ theme }) => theme.PALETTE.primary};
 		transition: background 0.1s;
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			margin-left: 20px;
+		}
 	}
 	button:last-of-type:hover {
 		background: transparent;
@@ -379,19 +421,36 @@ const Won = styled.span`
 	position: absolute;
 	left: 360px;
 	top: 10px;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		position: inherit;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		position: relative;
+		left: 266px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		position: relative;
+		left: 230px;
+	}
 `;
 
 const TagsBox = styled.div`
 	display: flex;
+	gap: 20px;
 	margin-top: 20px;
+	flex-wrap: wrap;
 
 	button {
-		margin-right: 10px;
 		padding: 10px;
 		color: ${({ theme }) => theme.PALETTE.primary};
 		display: flex;
 		align-items: center;
 		font-size: 16px;
+
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+		}
 		svg {
 			margin-left: 20px;
 		}
@@ -401,17 +460,44 @@ const TagsBox = styled.div`
 	}
 `;
 
-const InputBox = styled.div`
+const InputPrice = styled.div`
 	position: relative;
 	font-weight: bold;
+	border-bottom: 1.3px solid #d9d9d9;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		position: inherit;
+		display: flex;
+		align-items: center;
+		margin-top: 30px;
+		padding-bottom: 30px;
+	}
+
+	input {
+		padding: 16px;
+		height: 3rem;
+		margin: 60px 10px 60px 130px;
+
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			margin: 0 0 0 20px;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			margin: 0 0 0 6px;
+			padding: 12px 0 12px 12px;
+		}
+	}
 `;
 
-const InputBoxAnother = styled.div`
+const InputBoxTags = styled.div`
 	display: flex;
 	flex-direction: column;
 	max-width: 1060px;
 	padding: 60px 0px;
 	border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		padding: 30px 0px;
+	}
 `;
 
 const InputTop = styled.div`
@@ -432,15 +518,23 @@ const Icon = styled(AiFillCaretDown)`
 	transform: ${({ isopen }) => (isopen ? "rotate(180deg)" : "rotate(0deg)")};
 `;
 
+const CategoryBox = styled.div`
+	max-width: 900px;
+	z-index: 10;
+`;
+
 const TagCateroryUl = styled.ul`
 	background-color: #ddd;
-	width: 900px;
+	width: 100%;
 	height: 170px;
 	overflow: auto;
 	position: absolute;
-	z-index: 10;
 	background-color: #f1f1f1;
 	font-weight: 500;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		height: 140px;
+	}
 
 	li {
 		cursor: pointer;
@@ -468,6 +562,14 @@ const Title = styled.p`
 	position: absolute;
 	top: 50px;
 	z-index: 1;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		position: inherit;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmedium};
+	}
 `;
 
 const Essential = styled.span`
@@ -484,6 +586,10 @@ const DescBox = styled.div`
 		justify-content: flex-end;
 		margin-top: 8px;
 	}
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin: 30px 0;
+	}
 `;
 
 const Textarea = styled.textarea`
@@ -493,12 +599,24 @@ const Textarea = styled.textarea`
 	border-radius: 12px;
 	padding: 40px 30px;
 	margin-top: 30px;
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		padding: 30px 30px 50px;
+	}
 `;
 
 const CheckContainer = styled.div`
 	display: flex;
 	border-bottom: 1.3px solid ${({ theme }) => theme.PALETTE.gray};
 	padding: 0 0 60px 90px;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		border: none;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		border: none;
+		padding: 0;
+	}
 `;
 
 const Checking = styled.div`
@@ -507,6 +625,10 @@ const Checking = styled.div`
 	margin-left: 40px;
 	label {
 		margin-left: 6px;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-left: 20px;
 	}
 `;
 
@@ -517,12 +639,13 @@ const Checkbox = styled.input`
 `;
 
 const S = {
+	InputCheck,
+	InputTitle,
 	SubmitBtns,
 	MapBox,
-	TitleAnother,
 	Won,
-	InputBox,
-	InputBoxAnother,
+	InputPrice,
+	InputBoxTags,
 	InputTop,
 	Title,
 	Essential,
@@ -534,5 +657,6 @@ const S = {
 	TagsBox,
 	ArrowDownIcon,
 	Icon,
+	CategoryBox,
 	TagCateroryUl,
 };

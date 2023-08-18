@@ -137,6 +137,7 @@ const MainLabel = styled.div`
 	@media ${({ theme }) => theme.DEVICE.mobile} {
 		padding: 2px;
 		font-size: ${({ theme }) => theme.FONT_SIZE.xxxsmall};
+		bottom: 0;
 	}
 `;
 
@@ -229,6 +230,11 @@ const DeleteIcons = styled.p`
 	position: absolute;
 	right: 0;
 	color: ${({ theme }) => theme.PALETTE.white};
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		padding: 0;
+	}
+
 	cursor: pointer;
 	svg {
 		color: #797979;
