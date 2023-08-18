@@ -20,7 +20,7 @@ const Main = () => {
 		window.location.reload();
 		queryClient.refetchQueries(QueryKey.productData);
 	}
-	console.log("전역메시지", data);
+
 	return (
 		<>
 			<Banner />

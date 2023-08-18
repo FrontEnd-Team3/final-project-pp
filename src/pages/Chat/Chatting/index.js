@@ -15,9 +15,6 @@ const Chatting = () => {
 			console.log("new!", data);
 			if (chatList) setChatList(prev => new Set([...prev, data]));
 		});
-		socket.on("newMessage", data => {
-			console.log("전역메시지", data);
-		});
 	}, [socket, targetChat]);
 
 	return (

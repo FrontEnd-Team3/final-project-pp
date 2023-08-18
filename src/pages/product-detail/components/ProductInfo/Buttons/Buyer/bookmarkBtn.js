@@ -10,7 +10,7 @@ import QueryKey from "consts/queryKey";
 
 const BookmarkBtn = ({ bookmark }) => {
 	const { id } = useParams();
-	const [isBookmarked] = useState(false);
+	const [isBookmarked, setIsBookmarked] = useState(false);
 
 	const queryClient = useQueryClient();
 	const bookmarkData = ProductQueryApi.updateLikeStatus(
@@ -24,7 +24,10 @@ const BookmarkBtn = ({ bookmark }) => {
 	const likeProduct = () => {
 		bookmarkData
 			.mutateAsync()
-			.then(res => console.log("like", res))
+			.then(res => {
+				console.log("like", res);
+				setIsBookmarked(res.data.message);
+			})
 			.catch(err => console.error(err));
 	};
 
