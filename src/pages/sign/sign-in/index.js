@@ -70,7 +70,7 @@ const SignIn = () => {
 					errors={errors}
 					type={"password"}
 				/>
-				<ButtonWrapper>
+				<S.ButtonWrapper>
 					<BasicButton
 						size={"mediumfourth"}
 						variant={"primary"}
@@ -79,7 +79,7 @@ const SignIn = () => {
 					>
 						로그인
 					</BasicButton>
-				</ButtonWrapper>
+				</S.ButtonWrapper>
 				<S.Ment
 					onClick={() => {
 						navigate("/Signup");
@@ -96,16 +96,35 @@ export default SignIn;
 const LogoMent = styled.div`
 	position: relative;
 	top: 30px;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		top: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		top: 16px;
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	}
 `;
 const LogoWrapper = styled.div`
 	margin-right: 80px;
 	height: 150px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin: 0 0 30px 0;
+		text-align: center;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin: 0;
+	}
 `;
 const SideTitle = styled.div`
 	font-style: italic;
 	font-weight: bold;
 	font-size: 16px;
 	${LogoFont}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	}
 `;
 
 const LogoTitle = styled.div`
@@ -114,11 +133,18 @@ const LogoTitle = styled.div`
 	cursor: pointer;
 	font-style: italic;
 	${LogoFont}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 42px;
+	}
 `;
 const Ment = styled.div`
 	font-size: 14px;
 	font-weight: 600;
 	cursor: pointer;
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		text-align: center;
+	}
 `;
 const SignWrapper = styled.form`
 	border: 1px solid #e8e8e8;
@@ -128,6 +154,22 @@ const SignWrapper = styled.form`
 	align-items: center;
 	position: relative;
 	padding: 40px;
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: calc(100% - 40px);
+	}
+
+	div {
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100%;
+		}
+
+		input {
+			@media ${({ theme }) => theme.DEVICE.mobile} {
+				width: 100%;
+			}
+		}
+	}
 `;
 
 const Wrapper = styled.div`
@@ -141,6 +183,9 @@ const ButtonWrapper = styled.div`
 	button {
 		font-size: 15px;
 		font-weight: 600;
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100%;
+		}
 		:hover {
 			background-color: ${({ theme }) => theme.PALETTE.gray};
 		}
@@ -179,6 +224,15 @@ const Container = styled.div`
 	border-radius: 12px;
 	${flexCenter}
 	justify-content: space-between;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		flex-direction: column;
+		justify-content: center;
+	}
 `;
 const S = {
 	Container,
@@ -192,4 +246,5 @@ const S = {
 	SideTitle,
 	LogoWrapper,
 	LogoMent,
+	ButtonWrapper,
 };

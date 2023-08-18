@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "components/Layout";
 import Main from "pages/main";
 import MakeScrollToTop from "components/MakeScrollToTop";
 import SignIn from "pages/sign/sign-in";
@@ -28,7 +27,6 @@ const router = createBrowserRouter([
 	{
 		element: (
 			<>
-				<Layout />
 				<PrivateRouter>
 					<MakeScrollToTop />
 				</PrivateRouter>
