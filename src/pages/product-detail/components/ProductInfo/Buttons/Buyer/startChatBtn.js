@@ -36,7 +36,7 @@ const StartChatBtn = ({ chat }) => {
 
 	return (
 		<BasicButton
-			color={"black"}
+			color={"primary"}
 			size={"mediumThird"}
 			children={"채팅하기"}
 			style={{
@@ -44,6 +44,7 @@ const StartChatBtn = ({ chat }) => {
 				letterSpacing: "5px",
 				height: "50px",
 				fontWeight: "bold",
+				color: "white",
 			}}
 			onClick={startChat}
 		/>

@@ -1,19 +1,20 @@
 import ProductQueryApi from "apis/product.query.api";
 import ProductList from "components/ProductList/withPagination";
 import BasicSelect from "components/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { keyword } = useParams();
-	const page = searchParams.get("page") || 1;
+	// const page = searchParams.get("page") || 1;
+	const [page, setPage] = useState(1);
 	const filter = searchParams.get("filter") || "등록순";
 	const [searchResults, setSearchResults] = useState([]);
 	const [currensValue, setCurrentValue] = useState("등록순");
 
-	const { data, isLoading } = ProductQueryApi.searchProductList({
+	const { data, isLoading, refetch } = ProductQueryApi.searchProductList({
 		keyword,
 		page,
 		filter,
@@ -22,6 +23,10 @@ const SearchPage = () => {
 
 	console.log("result", data);
 	const prod = data?.product;
+
+	useEffect(() => {
+		refetch();
+	}, [page]);
 
 	if (isLoading) {
 		return <div>스켈레톤 UI로 변경 예정</div>;
@@ -66,7 +71,7 @@ const SearchPage = () => {
 			<S.Wrapper>
 				<S.ResultandFilter>
 					<S.SearchText>
-						<span>"{keyword}"</span>의 검색결과 {filteredSearchResults.length}개
+						<span>"{keyword}"</span>의 검색결과 {data?.pagination?.count}개
 					</S.SearchText>
 					<BasicSelect
 						variant={"primary"}
@@ -78,9 +83,19 @@ const SearchPage = () => {
 					/>
 				</S.ResultandFilter>
 				{searchResults.length > 0 ? (
-					<ProductList productList={searchResults} />
+					<ProductList
+						productList={searchResults}
+						pagination={data?.pagination}
+						page={page}
+						setPage={setPage}
+					/>
 				) : (
-					<ProductList productList={filteredSearchResults} />
+					<ProductList
+						productList={filteredSearchResults}
+						pagination={data?.pagination}
+						page={page}
+						setPage={setPage}
+					/>
 				)}
 			</S.Wrapper>
 		</S.Container>

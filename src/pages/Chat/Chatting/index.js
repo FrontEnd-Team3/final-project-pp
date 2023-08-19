@@ -1,19 +1,19 @@
 import styled from "styled-components";
 import ChatMain from "./chatMain";
 import { useChatData } from "context/chatData.ctx";
-import { useEffect } from "react";
 import { useChatList } from "context/chatList.ctx";
+import { useEffect } from "react";
 
 const Chatting = () => {
-	const { socket, targetChat } = useChatData();
+	const { socket, targetChat, socketID } = useChatData();
 	const [chatList, setChatList] = useChatList();
 	console.log("chatlist", chatList);
 
 	// 실시간 메시지 도착
 	useEffect(() => {
 		socket.on("receiveMessage", data => {
-			// console.log(data);
-			if (chatList) setChatList(prev => [...prev, data]);
+			console.log("new!", data);
+			if (chatList) setChatList(prev => new Set([...prev, data]));
 		});
 	}, [socket, targetChat]);
 

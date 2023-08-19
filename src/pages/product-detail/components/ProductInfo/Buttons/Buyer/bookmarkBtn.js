@@ -1,16 +1,15 @@
 import BasicButton from "components/Button";
-import bookmarkFill from "../@images/bookmarkfull.png";
-import bookmarkEmpty from "../@images/bookmark.png";
 import styled from "styled-components";
 import { useState } from "react";
 import ProductQueryApi from "apis/product.query.api";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import QueryKey from "consts/queryKey";
+import { RxBookmarkFilled, RxBookmark } from "react-icons/rx";
 
 const BookmarkBtn = ({ bookmark }) => {
 	const { id } = useParams();
-	const [isBookmarked] = useState(false);
+	const [isBookmarked, setIsBookmarked] = useState(!!bookmark);
 
 	const queryClient = useQueryClient();
 	const bookmarkData = ProductQueryApi.updateLikeStatus(
@@ -24,36 +23,35 @@ const BookmarkBtn = ({ bookmark }) => {
 	const likeProduct = () => {
 		bookmarkData
 			.mutateAsync()
-			.then(res => console.log("like", res))
+			.then(res => {
+				console.log("like", res);
+				setIsBookmarked(res.data.message);
+			})
 			.catch(err => console.error(err));
 	};
 
 	return (
 		<BasicButton
 			color={"gray"}
-			size={"xxsmall"}
+			size={"bookmark"}
 			children={
 				<>
 					{isBookmarked ? (
-						<S.BookmarkIcon src={bookmarkFill} />
+						<RxBookmarkFilled size={24} style={{ color: "#333" }} />
 					) : (
-						<S.BookmarkIcon src={bookmarkEmpty} />
+						<RxBookmark size={24} style={{ color: "#333" }} />
 					)}
-					<span
-						style={{
-							fontSize: "25px",
-							marginLeft: "5px",
-							fontWeight: "bold",
-						}}
-					>
-						{bookmark}
-					</span>
 				</>
 			}
 			onClick={() => {
 				likeProduct();
 			}}
-			style={{ display: "flex", alignItems: "center", padding: "0 22px" }}
+			style={{
+				display: "flex",
+				alignItems: "center",
+				padding: "0 22px",
+				justifyContent: "center",
+			}}
 		/>
 	);
 };

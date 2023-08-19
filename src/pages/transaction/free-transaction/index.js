@@ -4,22 +4,35 @@ import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
 import BasicSelect from "components/Select";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QueryKey from "consts/queryKey";
+import { useQueryClient } from "react-query";
 
 const FreeTransaction = () => {
-	const { data, isLoading, error } = ProductQueryApi.getProductList();
+	const [page, setPage] = useState(1);
+	const { data, isLoading, error, refetch } = ProductQueryApi.getFreeProduct({
+		category: 1,
+		page,
+		status: "판매중",
+	});
+
+	const queryClient = useQueryClient();
+
+	useEffect(() => {
+		refetch();
+	}, [page]);
+
 	const [currensValue, setCurrentValue] = useState("등록순");
 
-	const [filteredProducts, setFilteredProducts] = useState(data?.freeProduct);
+	const [filteredProducts, setFilteredProducts] = useState(data?.product);
 
 	const onFiltering = value => {
-		let filteredList = [...data?.freeProduct];
+		let filteredList = [...data?.product];
 
 		if (value === "등록순") {
 			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.liked - a.liked);
+			filteredList.sort((a, b) => b.likeConut - a.likeConut);
 		}
 		setFilteredProducts(filteredList);
 	};
@@ -52,7 +65,12 @@ const FreeTransaction = () => {
 						setCurrentValue={setCurrentValue}
 					/>
 				</S.Filter>
-				<ProductList productList={filteredProducts || data?.freeProduct} />
+				<ProductList
+					productList={filteredProducts || data?.product}
+					pagination={data?.pagination}
+					page={page}
+					setPage={setPage}
+				/>
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>
