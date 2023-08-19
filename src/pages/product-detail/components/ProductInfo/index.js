@@ -53,11 +53,23 @@ const Container = styled.div`
 	justify-content: space-between;
 	margin-bottom: 100px;
 	padding-top: 25px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 768px;
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 
 const InfoContainer = styled.div`
 	width: 432px;
-	${flexColumn}/* justify-content: space-between; */
+	${flexColumn}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-top: 48px;
+		width: 560px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-left: 10px; // 나중에 header 수정 후 수정하기
+	}
 `;
 
 const ProductName = styled.div`
@@ -69,6 +81,9 @@ const ProductLocation = styled.div`
 	padding-top: 10px;
 	font-size: 14px;
 	color: #767676;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-top: 12px;
+	}
 `;
 
 const Introduction = styled.div`

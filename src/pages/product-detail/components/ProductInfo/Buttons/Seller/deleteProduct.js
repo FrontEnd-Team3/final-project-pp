@@ -34,7 +34,7 @@ const DeleteProductBtn = () => {
 		<>
 			<BasicButton
 				color={"black"}
-				size={"xxmedium"}
+				size={"seller"}
 				children={"삭제"}
 				onClick={() => deleteProduct()}
 				style={{ fontSize: "20px", fontWeight: "bold" }}
