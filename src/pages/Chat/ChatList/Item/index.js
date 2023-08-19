@@ -72,6 +72,12 @@ const Item = styled.div`
 	position: relative;
 	cursor: pointer;
 	background-color: ${({ isSelected }) => (isSelected ? "#AAC8A7" : "white")};
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 350px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const New = styled.div`
@@ -91,6 +97,9 @@ const New = styled.div`
 
 const TextContainer = styled.div`
 	display: flex;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-left: 5px;
+	}
 `;
 
 const ChatContent = styled.div`

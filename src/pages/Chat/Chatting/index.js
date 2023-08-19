@@ -39,6 +39,12 @@ const Container = styled.div`
 	height: 581px;
 	width: 448px;
 	position: relative;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 350px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const Header = styled.div`

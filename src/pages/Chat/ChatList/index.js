@@ -71,6 +71,12 @@ const Container = styled.div`
 	border-bottom: 1px solid #ebebeb;
 	border-top: 1px solid #ebebeb;
 	margin: 100px auto;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 350px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const Header = styled.div`
@@ -83,6 +89,12 @@ const Header = styled.div`
 			opacity: 0.6;
 		}
 	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 350px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 const Sell = styled.div`
 	background-color: ${({ theme, isSell }) =>
@@ -94,6 +106,12 @@ const Sell = styled.div`
 	align-items: center;
 	justify-content: center;
 	font-weight: bold;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 175px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const Buy = styled.div`
@@ -106,6 +124,12 @@ const Buy = styled.div`
 	align-items: center;
 	justify-content: center;
 	font-weight: bold;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 175px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const Main = styled.div`
