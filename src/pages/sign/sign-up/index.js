@@ -142,7 +142,6 @@ const Signup = () => {
 								top: "4px",
 								fontSize: "12px",
 								fontWeight: "500",
-								marginRight: "16px",
 							}}
 							onClick={onEmailCheck}
 							disabled={errors.email || !getValues("email")}
@@ -185,7 +184,6 @@ const Signup = () => {
 								top: "4px",
 								fontSize: "12px",
 								fontWeight: "500",
-								marginRight: "16px",
 							}}
 							onClick={onNickNameCheck}
 							disabled={errors.nickName || !getValues("nickName")}
@@ -258,16 +256,36 @@ const Addresswrapper = styled.div`
 const LogoMent = styled.div`
 	position: relative;
 	top: 30px;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		top: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		top: 16px;
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	}
 `;
 const LogoWrapper = styled.div`
 	margin-right: 80px;
 	height: 150px;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin: 0 0 30px 0;
+		text-align: center;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin: 0 0 30px 0;
+	}
 `;
 const SideTitle = styled.div`
 	font-style: italic;
 	font-weight: bold;
 	font-size: 16px;
 	${LogoFont}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	}
 `;
 
 const LogoTitle = styled.div`
@@ -276,6 +294,9 @@ const LogoTitle = styled.div`
 	cursor: pointer;
 	font-style: italic;
 	${LogoFont}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 42px;
+	}
 `;
 const Ment = styled.div`
 	font-size: 13px;
@@ -283,6 +304,10 @@ const Ment = styled.div`
 	position: relative;
 	top: 90px;
 	cursor: pointer;
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		text-align: center;
+	}
 `;
 const SignWrapper = styled.form`
 	border: 1px solid #e8e8e8;
@@ -291,6 +316,23 @@ const SignWrapper = styled.form`
 	${flexColumn}
 	align-items: center;
 	padding: 40px;
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: calc(100% - 40px);
+		padding: 32px 28px;
+	}
+
+	div {
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100%;
+		}
+
+		input {
+			@media ${({ theme }) => theme.DEVICE.mobile} {
+				width: 100%;
+			}
+		}
+	}
 `;
 
 const Wrapper = styled.div`
@@ -302,12 +344,21 @@ const Wrapper = styled.div`
 
 const CheckBtnWrapper = styled.div`
 	position: relative;
+
+	button {
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			margin-right: 0;
+		}
+	}
 `;
 
 const ButtonWrapper = styled.div`
 	margin-top: 20px;
 	button {
 		font-size: 15px;
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100%;
+		}
 		:hover {
 			background-color: ${({ theme }) => theme.PALETTE.gray};
 		}
@@ -342,6 +393,16 @@ const Container = styled.div`
 	max-width: 1000px;
 	${flexCenter}
 	justify-content: space-between;
+
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		flex-direction: column;
+		justify-content: center;
+		margin: 70px 0;
+	}
 `;
 const S = {
 	Container,
