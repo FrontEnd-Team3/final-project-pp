@@ -43,7 +43,6 @@ const Container = styled.div`
 	max-width: 1060px;
 	${flexColumn}
 	align-items: center;
-
 `;
 
 const S = {
