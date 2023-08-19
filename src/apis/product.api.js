@@ -38,15 +38,26 @@ const ProductApi = {
 		}),
 
 	// 물품 검색
-	searchProduct: async ({ keyword, page, filter = "등록순" }) =>
+	searchProduct: async ({ keyword, page, filter = "등록순", status }) =>
 		await axiosInstance.get(PATH + `/search`, {
-			params: { keyword, page, filter },
+			params: { keyword, page, filter, status },
 		}),
 
 	// 물품 시세 검색
 	searchPriceProduct: async ({ keyword, start, end }) =>
 		await axiosInstance.get(PATH + `/quote`, {
 			params: { keyword, start, end },
+		}),
+
+	// 중고물품
+	getUsedProduct: async ({ category = 0, page, status }) =>
+		await axiosInstance.get(PATH + `/search`, {
+			params: { category, page, status },
+		}),
+	// 무료나눔
+	getFreeProduct: async ({ category = 1, page, status }) =>
+		await axiosInstance.get(PATH + `/search`, {
+			params: { category, page, status },
 		}),
 };
 

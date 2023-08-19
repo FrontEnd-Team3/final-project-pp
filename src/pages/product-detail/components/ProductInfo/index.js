@@ -29,9 +29,10 @@ const ProductInfo = ({ product }) => {
 					<UserInfo targetUser={searchProduct?.User} />
 					<S.Introduction>{searchProduct?.description}</S.Introduction>
 					<div>
-						{searchProduct?.ProductsTags.map((tag, i) => (
-							<S.Tag key={i}># {tag.Tag["tag"]}</S.Tag>
-						))}
+						{searchProduct?.ProductsTags.map((tag, i) => {
+							if (tag.Tag["tag"])
+								return <S.Tag key={i}># {tag.Tag["tag"]}</S.Tag>;
+						})}
 					</div>
 					<S.ProductPrice>{localPrice} 원</S.ProductPrice>
 					<ButtonContainer

@@ -13,9 +13,9 @@ const Layout = () => {
 
 	useEffect(() => {
 		console.log("rendered");
-		socket.on("receiveMessage", data => {
-			console.log("header!", data);
-		});
+		// socket.on("receiveMessage", data => {
+		// 	console.log("header!", data);
+		// });
 		if (data) {
 			data?.chats?.map(el => {
 				console.log("joined");

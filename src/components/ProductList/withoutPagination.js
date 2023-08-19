@@ -21,20 +21,17 @@ const ProductListWithoutPagination = ({ productList }) => {
 export default ProductListWithoutPagination;
 
 const Container = styled.div`
-	/* display: flex;
-	width: 1060px;
-	margin: 20px auto;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: 20px 0; */
 	margin-bottom: 70px;
-	width: 1060px;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(2, 1fr);
 	grid-column-gap: 0px;
 	grid-row-gap: 0px;
 	grid-gap: 20px;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		grid-template-columns: repeat(2, 1fr);
+	}
 `;
 
 const S = { Container };

@@ -27,6 +27,10 @@ export const Container = styled.div`
 	cursor: pointer;
 	border-radius: 4px;
 	${({ variant }) => variantCSS[variant]}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 90px;
+	}
 `;
 
 export const Select = styled.ul`
