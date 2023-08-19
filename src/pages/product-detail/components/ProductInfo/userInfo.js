@@ -22,6 +22,9 @@ const Container = styled.div`
 	margin-top: 10px;
 	display: flex;
 	align-items: center;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-top: 20px;
+	}
 `;
 
 const ProfileImg = styled.img`

@@ -84,6 +84,28 @@ const sizeCSS = {
 	bookmark: css`
 		width: 70px;
 		height: 50px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 84px;
+			height: 60px;
+		}
+	`,
+	chat: css`
+		width: 344px;
+		height: 50px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 440px;
+			height: 60px;
+			font-size: 24px;
+			font-weight: bold;
+		}
+	`,
+	seller: css`
+		width: 120px;
+		height: 50px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 160px;
+			height: 60px;
+		}
 	`,
 };
 

@@ -20,6 +20,12 @@ const OtherProductTitle = styled.div`
 	font-size: 20px;
 	margin: 25px auto;
 	text-align: center;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		margin: 25px 360px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin: 100px 144px;
+	}
 `;
 
 const S = { OtherProductTitle };
