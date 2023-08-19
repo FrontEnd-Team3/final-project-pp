@@ -5,6 +5,7 @@ import Onecategory from "./oneCategory";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
+import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Header = () => {
 	const { accessToken, logout } = useAuth();
 	const searchInput = useRef();
 	const [filter, setFilter] = useState("등록순");
+	const [isOpened, setIsOpened] = useState(false);
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -44,6 +46,13 @@ const Header = () => {
 		const searchValue = searchInput.current.value;
 		const keyword = searchValue.replace(/\s/g, ""); // 띄어쓰기 막기
 		if (keyword === "") return; // 빈값 막기
+		if (keyword.includes("?") || keyword.includes("#")) {
+			setIsOpened(true);
+			setTimeout(() => {
+				setIsOpened(false);
+			}, 1000);
+			return;
+		}
 		navigate(`/search/${keyword}?filter=${filter}`);
 		searchInput.current.value = "";
 	};
@@ -152,6 +161,11 @@ const Header = () => {
 					</S.Sellbutton>
 				</S.CategoryWrapper>
 			</S.Container>
+			{isOpened && (
+				<AlertModal
+					message={`"?"나 "#"을 포함한 특수문자는 검색이 불가합니다.`}
+				/>
+			)}
 		</>
 	);
 };

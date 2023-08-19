@@ -1,9 +1,12 @@
 import ProductQueryApi from "apis/product.query.api";
+import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import BasicSelect from "components/Select";
 import { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { RiEmotionSadLine } from "react-icons/ri";
+import { flexCenter } from "styles/common";
 
 const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -24,7 +27,7 @@ const SearchPage = () => {
 	const prod = data?.product;
 
 	if (isLoading) {
-		return <div>스켈레톤 UI로 변경 예정</div>;
+		return <Loading />;
 	}
 
 	const filteredSearchResults =
@@ -77,6 +80,12 @@ const SearchPage = () => {
 						setCurrentValue={setCurrentValue}
 					/>
 				</S.ResultandFilter>
+				{filteredSearchResults.length === 0 && (
+					<S.NoSearchResult>
+						검색 결과가 없습니다
+						<RiEmotionSadLine size={40} />
+					</S.NoSearchResult>
+				)}
 				{searchResults.length > 0 ? (
 					<ProductList productList={searchResults} />
 				) : (
@@ -88,6 +97,27 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
+
+const NoSearchResult = styled.div`
+	${flexCenter}
+	color: ${({ theme }) => theme.PALETTE.black};
+	font-size: 36px;
+	font-weight: 700;
+	margin: 70px 0 10px 0;
+
+	svg {
+		margin-left: 10px;
+
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 28px;
+			margin-left: 4px;
+		}
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.medium};
+	}
+`;
 
 const Container = styled.div`
 	width: 100%;
@@ -138,4 +168,5 @@ const S = {
 	ResultandFilter,
 	SearchText,
 	AllButton,
+	NoSearchResult,
 };
