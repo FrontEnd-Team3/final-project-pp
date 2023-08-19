@@ -1,12 +1,16 @@
-import { useRef } from "react";
+import SearchModal from "components/Layout/Header/SearchModal";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
 
 const SearchBar = () => {
 	const searchInput = useRef();
+	const modalSearchInput = useRef();
 	const navigate = useNavigate();
 
+	const [isOpen, setIsOpen] = useState(false);
+	const PlaceHolder = "나이키 조던";
 	const handleMarketPriceResult = e => {
 		e.preventDefault();
 		const searchValue = searchInput.current.value;
@@ -14,6 +18,16 @@ const SearchBar = () => {
 		if (keyword === "") return; // 빈값 막기
 		navigate(`/marketPrice/${keyword}`);
 		searchInput.current.value = "";
+	};
+
+	const handleSearchResult = e => {
+		e.preventDefault();
+		const searchValue = modalSearchInput.current.value;
+		const keyword = searchValue.replace(/\s/g, ""); // 띄어쓰기 막기
+		if (keyword === "") return; // 빈값 막기
+		navigate(`/marketPrice/${keyword}`);
+		modalSearchInput.current.value = "";
+		setIsOpen(false);
 	};
 
 	return (
@@ -28,21 +42,65 @@ const SearchBar = () => {
 				></S.Search>
 				<S.SearchBtn onClick={handleMarketPriceResult}>Search</S.SearchBtn>
 			</S.Form>
+			<ModalSearchBtn onClick={() => setIsOpen(true)}>Search</ModalSearchBtn>
+			{isOpen && (
+				<SearchModal
+					PlaceHolder={PlaceHolder}
+					setIsOpen={setIsOpen}
+					handleSearchResult={handleSearchResult}
+					searchInput={modalSearchInput}
+				/>
+			)}
 		</S.Container>
 	);
 };
 export default SearchBar;
+
+const ModalSearchBtn = styled.div`
+	color: ${({ theme }) => theme.PALETTE.primary};
+	font-weight: 600;
+	margin-right: 4px;
+	margin-top: 15px;
+	border: 2px solid ${({ theme }) => theme.PALETTE.primary};
+	border-radius: 10px;
+	padding: 5px 8px 5px 8px;
+	font-size: 25px;
+	cursor: pointer;
+	display: none;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: block;
+	}
+`;
+
 const Subtitle = styled.div`
 	font-size: 18px;
 	color: #5a5a5a;
 	font-weight: 500;
 	margin-bottom: 20px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		font-size: 17px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 16px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 15px;
+	}
 `;
 const Title = styled.div`
 	font-size: 26px;
 	font-weight: 700;
 	color: ${({ theme }) => theme.PALETTE.black};
 	margin-bottom: 20px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		font-size: 25px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 24px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 23px;
+	}
 `;
 const SearchBtn = styled.div`
 	z-index: 1;
@@ -52,6 +110,9 @@ const SearchBtn = styled.div`
 	color: ${({ theme }) => theme.PALETTE.primary};
 	font-weight: 600;
 	cursor: pointer;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: none;
+	}
 `;
 const MentWrapper = styled.div`
 	font-size: 19px;
@@ -69,7 +130,7 @@ const MentWrapper = styled.div`
 `;
 
 const Container = styled.div`
-	width: 553px;
+	max-width: 553px;
 	${flexColumn}
 	align-items: center;
 	margin: 150px 0 50px 0;
@@ -92,6 +153,15 @@ const Search = styled.input`
 	::placeholder {
 		font-size: 17px;
 		color: #858585;
+	}
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 480px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 400px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: none;
 	}
 `;
 

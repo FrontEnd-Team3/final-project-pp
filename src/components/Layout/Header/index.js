@@ -5,13 +5,17 @@ import Onecategory from "./oneCategory";
 import { useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
+import SearchModal from "./SearchModal";
 
 const Header = () => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
+	const [isOpen, setIsOpen] = useState(false);
 	const { accessToken, logout } = useAuth();
 	const searchInput = useRef();
 	const [filter, setFilter] = useState("등록순");
+	const PlaceHolder = "제목, 태그명을 입력해 주세요";
+
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -47,10 +51,14 @@ const Header = () => {
 		if (keyword === "") return; // 빈값 막기
 		navigate(`/search/${keyword}?filter=${filter}`);
 		searchInput.current.value = "";
+		setIsOpen(false);
 	};
 
 	const [newChat, setNewChat] = useState(false);
 
+	const closeModal = () => {
+		setIsOpen(true);
+	};
 	return (
 		<>
 			<S.Container>
@@ -83,9 +91,14 @@ const Header = () => {
 							></S.Searchicon>
 						</form>
 					</S.SearchWrapper>
+
 					<div>
 						{newChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
+							<S.MediaSearchIcon
+								src="img/search.png"
+								onClick={(handleSearchResult, closeModal)}
+							></S.MediaSearchIcon>
 							{accessToken ? (
 								<div style={{ cursor: "pointer" }} onClick={handleLogout}>
 									LOGOUT
@@ -135,6 +148,7 @@ const Header = () => {
 							/>
 						))}
 					</S.Category>
+
 					<S.Sellbutton
 						onClick={() => {
 							navigate(`/productRegister`);
@@ -143,6 +157,14 @@ const Header = () => {
 					>
 						판매하기
 					</S.Sellbutton>
+					{isOpen && (
+						<SearchModal
+							PlaceHolder={PlaceHolder}
+							setIsOpen={setIsOpen}
+							handleSearchResult={handleSearchResult}
+							searchInput={searchInput}
+						/>
+					)}
 				</S.CategoryWrapper>
 			</S.Container>
 		</>
@@ -150,16 +172,71 @@ const Header = () => {
 };
 
 export default Header;
+const Form = styled.form`
+	position: relative;
+	margin-top: 200px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 400px;
+`;
+const closeButton = styled.button`
+	font-size: 25px;
+	cursor: pointer;
+	position: absolute;
+	top: 2%;
+	right: 0;
+	transform: translate(-50%, -50%);
+	border: none;
+	color: white;
+	background-color: transparent;
+`;
+const ModalSearchicon = styled.img`
+	width: 18px;
+	cursor: pointer;
+	position: absolute;
+	bottom: 23px;
+	right: 0;
+	transform: translate(-50%, -50%);
+`;
+const ModalSearchBar = styled.input`
+	padding: 13px 0px 13px 5px;
+	padding-left: 13px;
+	width: 400px;
+	position: relative;
+	margin-top: 200px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: none;
+	border-radius: 10px;
+	:focus {
+		outline: none;
+	}
+	border-bottom: 1.5px solid ${({ theme }) => theme.PALETTE.black};
+	::placeholder {
+		color: black;
+		font-size: 14px;
+		font-weight: bold;
+	}
+`;
+const BackGround = styled.div`
+	background-color: rgba(80, 80, 80, 0.5);
+	position: fixed;
+	left: 0%;
+	max-width: 100%;
+	width: 100%;
+	top: 0%;
+	height: 100vh;
+	z-index: 1;
+`;
+
 const NewChat = styled.div`
 	border: 1.8px solid ${({ theme }) => theme.PALETTE.darkPrimary};
 	text-align: center;
-	width: 104px;
 	font-size: 12px;
 	font-weight: bold;
-	padding-top: 6px;
+	padding: 6px 8px 6px 8px;
 	height: 30px;
-	position: relative;
-	left: 140px;
+	width: 110px;
 	color: ${({ theme }) => theme.PALETTE.darkPrimary};
 `;
 const Sellbutton = styled.button`
@@ -171,13 +248,24 @@ const Sellbutton = styled.button`
 	color: white;
 	font-weight: bold;
 	background-color: ${({ theme }) => theme.PALETTE.primary};
-	position: relative;
-	bottom: 5px;
 	cursor: pointer;
 	transition: background 0.1s;
-
 	:hover {
 		background: rgba(60, 179, 113, 0.9);
+	}
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 100px;
+		font-size: 14px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 90px;
+		height: 42px;
+		font-size: 13px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 80px;
+		height: 40px;
+		font-size: 12px;
 	}
 `;
 const Chaticon = styled.img`
@@ -186,6 +274,7 @@ const Chaticon = styled.img`
 	top: 4px;
 	left: 4px;
 `;
+
 const InfoWrapper = styled.div`
 	display: flex;
 	width: 230px;
@@ -193,33 +282,34 @@ const InfoWrapper = styled.div`
 	font-weight: bold;
 	font-size: 16px;
 	margin-top: 20px;
-	div:nth-child(3) {
+	div:nth-child(4) {
 		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 		position: relative;
 		bottom: 7px;
 	}
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		width: 150px;
-		margin-right: 40px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 210px;
+		font-size: 15px;
+		div:nth-child(4) {
+			position: relative;
+			bottom: 8px;
+		}
 	}
-`;
-const Container = styled.div`
-	width: 1060px;
-	margin: 0 auto;
-	border-bottom: 1px solid #dddddd;
-	padding-bottom: 20px;
 	@media ${({ theme }) => theme.DEVICE.tablet} {
-		width: 780px;
+		width: 210px;
+		font-size: 15px;
+		div:nth-child(4) {
+			position: relative;
+			bottom: 8px;
+		}
 	}
-`;
-
-const SideTitle = styled.div`
-	${LogoFont}
-	font-style: italic;
-	font-weight: bold;
-	font-size: 11px;
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		padding-left: 10px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 200px;
+		font-size: 14px;
+		div:nth-child(4) {
+			position: relative;
+			bottom: 8px;
+		}
 	}
 `;
 
@@ -236,20 +326,48 @@ const Category = styled.div`
 	font-weight: bold;
 	width: 270px;
 	justify-content: space-between;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 230px;
+		font-size: 14px;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-left: 5px;
+		width: 200px;
+		font-size: 12px;
+	}
 `;
+
 const Searchicon = styled.img`
 	width: 18px;
 	z-index: 1;
 	cursor: pointer;
 	margin-left: -20px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		margin-left: -30px;
+	}
+`;
+
+const MediaSearchIcon = styled.img`
+	width: 27px;
+	z-index: 1;
+	cursor: pointer;
+	margin-left: -30px;
+	margin-bottom: 10px;
+	margin-top: -9px;
+	padding: 4px 4px;
+	display: none;
 	@media ${({ theme }) => theme.DEVICE.tablet} {
-		width: 15px;
+		display: block;
 	}
 `;
 const SearchWrapper = styled.div`
 	display: flex;
 	margin-top: 30px;
 	margin-left: 10px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		display: none;
+	}
 `;
 
 const SearchBar = styled.input`
@@ -257,18 +375,18 @@ const SearchBar = styled.input`
 	padding-bottom: 6px;
 	width: 450px;
 	border: none;
+	padding-left: 5px;
 	:focus {
 		outline: none;
 	}
 	border-bottom: 1.5px solid ${({ theme }) => theme.PALETTE.black};
 	::placeholder {
 		color: black;
-		font-size: 13px;
+		font-size: 14px;
 	}
-	@media ${({ theme }) => theme.DEVICE.tablet} {
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		margin-right: 10px;
 		width: 320px;
-		margin-right: 30px;
-		margin-bottom: 10px;
 	}
 `;
 
@@ -278,18 +396,42 @@ const Title = styled.div`
 	cursor: pointer;
 	font-style: italic;
 	${LogoFont}
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		font-size: 45px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 42px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-top: 31px;
+		font-size: 38px;
+	}
+`;
+
+const SideTitle = styled.div`
+	${LogoFont}
+	font-style: italic;
+	font-weight: bold;
+	font-size: 11px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		font-size: 8px;
+		margin-left: 3px;
+	}
+	/* @media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 6px;
+	} */
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: none;
+	}
 `;
 
 const LogoWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 30px;
-	width: 1060px;
+	margin-top: 20px;
+	max-width: 1060px;
 	margin-bottom: -20px;
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		width: 780px;
-	}
 `;
 
 const CategoryWrapper = styled.div`
@@ -297,12 +439,22 @@ const CategoryWrapper = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 auto;
-	width: 1060px;
+	max-width: 1060px;
 	height: 30px;
 	position: relative;
 	top: 80px;
 	margin-bottom: 60px;
 	padding-bottom: 40px;
+`;
+
+const Container = styled.div`
+	max-width: 1060px;
+	margin: 0 auto;
+	border-bottom: 1px solid #dddddd;
+	padding-bottom: 20px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0px 5px 20px 5px;
+	}
 `;
 
 const S = {
@@ -320,4 +472,10 @@ const S = {
 	Searchicon,
 	Sellbutton,
 	NewChat,
+	MediaSearchIcon,
+	BackGround,
+	ModalSearchBar,
+	ModalSearchicon,
+	closeButton,
+	Form,
 };
