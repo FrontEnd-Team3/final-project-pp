@@ -92,6 +92,21 @@ const ProductQueryApi = {
 		useQueryData([QueryKey.marketPrice, keyword, start, end], () =>
 			ProductApi.searchPriceProduct(keyword, start, end),
 		),
+
+	// 중고물품
+	getUsedProduct: (category, page, status) =>
+		useQueryData(
+			[QueryKey.usedProduct, page],
+			() => ProductApi.getUsedProduct(category, page, status),
+			QueryConfig,
+		),
+	// 무료나눔
+	getFreeProduct: (category, page, status) =>
+		useQueryData(
+			[QueryKey.freeProduct, page],
+			() => ProductApi.getFreeProduct(category, page, status),
+			QueryConfig,
+		),
 };
 
 export default ProductQueryApi;

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { GoBookmark } from "react-icons/go";
+import { RxBookmarkFilled, RxBookmark } from "react-icons/rx";
 
 const OneProduct = ({ product, grid }) => {
-	// console.log(product);
+	// console.log("상품", product);
 	const localPrice = product.price?.toLocaleString("ko-KR");
 	const ImageURL = product?.img_url;
 
@@ -17,22 +17,27 @@ const OneProduct = ({ product, grid }) => {
 	};
 	return (
 		<S.Container onClick={HandlePageMove} className={grid}>
-			<div>
+			<S.ImgBox>
 				<S.Image src={ImageURL}></S.Image>
-			</div>
+				<S.Icon>
+					{product.liked ? (
+						<RxBookmarkFilled size={24} style={{ color: "#333" }} />
+					) : (
+						<RxBookmark size={24} style={{ color: "#333" }} />
+					)}
+				</S.Icon>
+			</S.ImgBox>
 			<S.ProductInfo status={product.status}>
 				<div className="infoTop">
 					<p className="name">
 						{product.title}&nbsp;&nbsp;
 						<span className="status">{product.status}</span>
 					</p>
-				</div>
-				<div className="infoMiddle">
-					<p className="location">{product.region}</p>
-					<p className="icons">
-						<GoBookmark size="16" />
-						{product.liked}
-					</p>
+					<div className="infoMiddle">
+						{product.ProductsTags[0].Tag.tag && (
+							<S.Tag>#{product.ProductsTags[0].Tag.tag}</S.Tag>
+						)}
+					</div>
 				</div>
 				<div className="infoBottom">
 					<p className="price">{localPrice} 원</p>
@@ -73,6 +78,10 @@ const Container = styled.div`
 	.box8 {
 		grid-area: 2 / 4 / 3 / 5;
 	}
+`;
+
+const ImgBox = styled.div`
+	position: relative;
 `;
 
 const Image = styled.img`
@@ -120,13 +129,6 @@ const ProductInfo = styled.div`
 			margin-right: 5px;
 			color: #788394;
 		}
-		.icons {
-			display: inline-block;
-			vertical-align: middle;
-			svg {
-				vertical-align: middle;
-			}
-		}
 	}
 	.infoBottom {
 		margin-top: 10px;
@@ -146,4 +148,21 @@ const ProductInfo = styled.div`
 	}
 `;
 
-const S = { Container, Image, ProductInfo };
+const Icon = styled.span`
+	position: absolute;
+	right: 10px;
+	top: 10px;
+`;
+
+const Tag = styled.span`
+	display: inline-block;
+	padding: 8px;
+	border-radius: 20px;
+	border: 1px solid;
+	background: ${({ theme }) => theme.PALETTE.white};
+	border-color: ${({ theme }) => theme.PALETTE.primary};
+	color: ${({ theme }) => theme.PALETTE.primary};
+	text-align: center;
+	line-height: 16.5px;
+`;
+const S = { Container, ImgBox, Image, ProductInfo, Tag, Icon };

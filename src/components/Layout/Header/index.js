@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
 import SearchModal from "./SearchModal";
@@ -30,6 +30,7 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
+	const { socket, socketID } = useChatData();
 
 	const handleLogout = async () => {
 		try {
@@ -52,16 +53,8 @@ const Header = () => {
 		searchInput.current.value = "";
 		setIsOpen(false);
 	};
-	const { socket, targetChat } = useChatData();
 
-	const [isNewChat, setIsNewChat] = useState(true);
-
-	// 전역 메시지 알림
-	useEffect(() => {
-		socket.on("newMessage", data => {
-			setIsNewChat(data);
-		});
-	}, [socket, targetChat]);
+	const [newChat, setNewChat] = useState(false);
 
 	const closeModal = () => {
 		setIsOpen(true);
@@ -100,7 +93,7 @@ const Header = () => {
 					</S.SearchWrapper>
 
 					<div>
-						{isNewChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
+						{newChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
 							<S.MediaSearchIcon
 								src="img/search.png"
