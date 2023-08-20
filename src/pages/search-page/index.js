@@ -3,7 +3,7 @@ import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import BasicSelect from "components/Select";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { flexCenter } from "styles/common";
@@ -12,15 +12,16 @@ const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { keyword } = useParams();
 	const [page, setPage] = useState(1);
-	// const pages = searchParams.get("pages") || 1;
+	// const pages = searchParams.get("page") || 1;
 	const filter = searchParams.get("filter") || "등록순";
 	const [searchResults, setSearchResults] = useState([]);
 	const [currensValue, setCurrentValue] = useState("등록순");
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (!prod) return;
 		onFiltering(filter);
-		// setSearchParams({ filter, page: data?.pagination?.curPage });
+		setSearchParams({ filter: currensValue, page: data?.pagination?.curPage });
 	}, [filter]);
 
 	const { data, isLoading, refetch } = ProductQueryApi.searchProductList({
@@ -33,10 +34,10 @@ const SearchPage = () => {
 	console.log("result", data);
 	const prod = data?.product;
 
-	// useEffect(() => {
-	// 	refetch();
-	// 	// setSearchParams({ filter: currensValue, page: data?.pagination?.curPage });
-	// }, [page]);
+	useEffect(() => {
+		refetch();
+		// setSearchParams({ pages: data?.pagination?.curPage });
+	}, [page]);
 
 	if (isLoading) {
 		return <Loading />;
@@ -67,10 +68,11 @@ const SearchPage = () => {
 		}
 		setSearchResults(filteredList);
 		// filter params만 업데이트하는 로직
-		setSearchParams({
-			filter: value,
-			page: data?.pagination?.curPage,
-		});
+		// setSearchParams({
+		// 	filter: value,
+		// 	page: data?.pagination.curPage,
+		// });
+		// setSearchParams(new URLSearchParams({ ...searchParams, filter: value }));
 	};
 	const options = [
 		{ value: "등록순", label: "등록순" },

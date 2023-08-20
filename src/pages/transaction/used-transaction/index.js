@@ -6,10 +6,13 @@ import BasicSelect from "components/Select";
 import QueryKey from "consts/queryKey";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const UsedTransaction = () => {
 	const [page, setPage] = useState(1);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const test = searchParams.get("page") || 1;
 	const { data, isLoading, error, refetch } = ProductQueryApi.getUsedProduct({
 		category: 0,
 		page,
@@ -20,7 +23,14 @@ const UsedTransaction = () => {
 
 	useEffect(() => {
 		refetch();
+		setSearchParams({ page });
+		console.log("page", page);
 	}, [page]);
+
+	useEffect(() => {
+		setPage(test);
+	}, [test]);
+
 	const [currensValue, setCurrentValue] = useState("등록순");
 
 	const [filteredProducts, setFilteredProducts] = useState(data?.product);
@@ -51,7 +61,7 @@ const UsedTransaction = () => {
 
 	if (error) {
 		window.location.reload();
-		queryClient.refetchQueries(QueryKey.productData);
+		queryClient.refetchQueries(QueryKey.usedProduct);
 	}
 
 	return (
