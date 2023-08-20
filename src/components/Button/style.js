@@ -92,6 +92,8 @@ const sizeCSS = {
 	chat: css`
 		width: 344px;
 		height: 50px;
+		font-size: 24px;
+		font-weight: bold;
 		@media ${({ theme }) => theme.DEVICE.tablet} {
 			width: 440px;
 			height: 60px;
