@@ -45,6 +45,12 @@ const Container = styled.div`
 	width: 1060px;
 	margin: 0 auto;
 	padding: 20px 0;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 768px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 580px;
+	}
 `;
 
 const S = {

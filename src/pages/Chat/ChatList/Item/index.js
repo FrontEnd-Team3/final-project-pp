@@ -4,7 +4,7 @@ import { flexColumn } from "styles/common";
 import getUserData from "utils/getUserData";
 import { useChatData } from "context/chatData.ctx";
 
-const ChatItem = ({ chat }) => {
+const ChatItem = ({ chat, setIsTop }) => {
 	const { idx, isRead, lastMessage, product } = chat;
 	const { socket, targetChat, setTargetChat, setChatInfo } = useChatData();
 
@@ -35,7 +35,10 @@ const ChatItem = ({ chat }) => {
 
 	return (
 		<>
-			<S.Item isSelected={chat.idx === parseInt(targetChat)}>
+			<S.Item
+				isSelected={chat.idx === parseInt(targetChat)}
+				onClick={() => setIsTop(false)}
+			>
 				<S.IimgContainer>
 					{!isRead && <S.New>New</S.New>}
 					<S.Iimg src={product.img_url} />
@@ -63,7 +66,7 @@ const Item = styled.div`
 	width: 450px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	border-bottom: 1px solid #ebebeb;
 	height: 150px;
 	background-color: white;
@@ -72,6 +75,14 @@ const Item = styled.div`
 	position: relative;
 	cursor: pointer;
 	background-color: ${({ isSelected }) => (isSelected ? "#AAC8A7" : "white")};
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 350px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+		z-index: ${({ isTop }) => (isTop ? 2 : 1)};
+		display: ${({ isTop }) => (isTop ? "block" : "hidden")};
+	}
 `;
 
 const New = styled.div`
@@ -96,7 +107,10 @@ const TextContainer = styled.div`
 const ChatContent = styled.div`
 	${flexColumn}
 	width: 200px;
-	margin-right: 35px;
+	margin-left: 10px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 150px;
+	}
 `;
 
 const SettingContent = styled.div`
@@ -112,8 +126,8 @@ const IimgContainer = styled.div`
 `;
 
 const Iimg = styled.img`
-	width: 100%;
-	height: 100%;
+	width: 90px;
+	height: 90px;
 `;
 
 const Setting = styled.div`
@@ -175,6 +189,9 @@ const Imove = styled.div`
 	color: ${({ theme }) => theme.PALETTE.darkBlack};
 	font-weight: 500;
 	cursor: pointer;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-left: 50px;
+	}
 `;
 
 const S = {
