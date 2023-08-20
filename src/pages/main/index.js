@@ -13,7 +13,6 @@ const Main = () => {
 	const queryClient = useQueryClient();
 
 	const { data, isLoading, error } = ProductQueryApi.getProductList();
-	console.log("main", data);
 
 	if (isLoading) return <Loading />;
 

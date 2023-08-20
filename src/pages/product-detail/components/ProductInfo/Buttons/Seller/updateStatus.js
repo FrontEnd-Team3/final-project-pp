@@ -17,7 +17,7 @@ const UpdateProductStatusBtn = ({ chat }) => {
 		<>
 			<BasicButton
 				color={"primary"}
-				size={"xxmedium"}
+				size={"seller"}
 				children={"판매중"}
 				onClick={onOpenModal}
 				style={{ fontSize: "20px", fontWeight: "bold" }}

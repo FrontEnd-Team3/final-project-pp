@@ -37,6 +37,19 @@ const sizeCSS = {
 	full: css`
 		width: 100%;
 	`,
+	chat: css`
+		width: 300px;
+		padding: 8px;
+		height: 40px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 240px;
+			height: 40px;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 270px;
+			height: 40px;
+		}
+	`,
 };
 
 const colorCSS = {

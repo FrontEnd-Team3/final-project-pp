@@ -54,6 +54,9 @@ const Container = styled.div`
 	text-align: center;
 	font-size: 16px;
 	background-color: ${({ theme }) => theme.PALETTE.white};
+	@media screen and (max-width: 1340px) {
+		display: none;
+	}
 `;
 
 const Top = styled.div`
