@@ -2,7 +2,7 @@ import ProductQueryApi from "apis/product.query.api";
 import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import BasicSelect from "components/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { RiEmotionSadLine } from "react-icons/ri";
@@ -15,6 +15,11 @@ const SearchPage = () => {
 	const filter = searchParams.get("filter") || "등록순";
 	const [searchResults, setSearchResults] = useState([]);
 	const [currensValue, setCurrentValue] = useState("등록순");
+
+	useEffect(() => {
+		if (!prod) return;
+		onFiltering(filter);
+	}, [filter]);
 
 	const { data, isLoading } = ProductQueryApi.searchProductList({
 		keyword,
@@ -38,7 +43,9 @@ const SearchPage = () => {
 			const filterValue = [title, description, ...tags].join(" ").toLowerCase();
 			return filterValue.includes(keyword.toLowerCase());
 		}) || [];
+	console.log("필터", filter);
 
+	// util 로 뺀 후
 	const onFiltering = value => {
 		let filteredList = [...filteredSearchResults];
 
@@ -51,12 +58,10 @@ const SearchPage = () => {
 		} else if (value === "고가순") {
 			filteredList.sort((a, b) => b.price - a.price);
 		}
-
 		setSearchResults(filteredList);
 		// filter params만 업데이트하는 로직
 		setSearchParams(new URLSearchParams({ ...searchParams, filter: value }));
 	};
-
 	const options = [
 		{ value: "등록순", label: "등록순" },
 		{ value: "인기순", label: "인기순" },
