@@ -59,6 +59,14 @@ const BannerWrapper = styled.div`
 	margin: 50px auto;
 	position: relative;
 	overflow: hidden;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		display: block;
+		max-width: 750px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: block;
+		max-width: 560px;
+	}
 `;
 
 const BannerContainer = styled.div`
@@ -91,7 +99,11 @@ const StaticImg = styled.img`
 	display: none;
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		display: block;
-		width: 750px;
+		max-width: 750px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: block;
+		max-width: 560px;
 	}
 `;
 
