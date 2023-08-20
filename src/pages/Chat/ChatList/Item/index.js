@@ -4,7 +4,7 @@ import { flexColumn } from "styles/common";
 import getUserData from "utils/getUserData";
 import { useChatData } from "context/chatData.ctx";
 
-const ChatItem = ({ chat }) => {
+const ChatItem = ({ chat, setIsTop }) => {
 	const { idx, isRead, lastMessage, product } = chat;
 	const { socket, targetChat, setTargetChat, setChatInfo } = useChatData();
 
@@ -35,7 +35,10 @@ const ChatItem = ({ chat }) => {
 
 	return (
 		<>
-			<S.Item isSelected={chat.idx === parseInt(targetChat)}>
+			<S.Item
+				isSelected={chat.idx === parseInt(targetChat)}
+				onClick={() => setIsTop(false)}
+			>
 				<S.IimgContainer>
 					{!isRead && <S.New>New</S.New>}
 					<S.Iimg src={product.img_url} />
@@ -77,6 +80,8 @@ const Item = styled.div`
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
 		width: 400px;
+		z-index: ${({ isTop }) => (isTop ? 2 : 1)};
+		display: ${({ isTop }) => (isTop ? "block" : "hidden")};
 	}
 `;
 

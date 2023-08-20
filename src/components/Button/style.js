@@ -98,6 +98,12 @@ const sizeCSS = {
 			font-size: 24px;
 			font-weight: bold;
 		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 500px;
+			height: 60px;
+			font-size: 24px;
+			font-weight: bold;
+		}
 	`,
 	seller: css`
 		width: 120px;
@@ -105,6 +111,19 @@ const sizeCSS = {
 		@media ${({ theme }) => theme.DEVICE.tablet} {
 			width: 160px;
 			height: 60px;
+		}
+	`,
+	sendChat: css`
+		width: 100px;
+		padding: 8px;
+		height: 40px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 50px;
+			height: 40px;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 70px;
+			height: 40px;
 		}
 	`,
 };

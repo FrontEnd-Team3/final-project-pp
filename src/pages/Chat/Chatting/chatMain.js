@@ -124,13 +124,13 @@ const ChatMain = () => {
 				<BasicInput
 					name="input"
 					variant={"chat"}
-					size={"xsmall"}
+					size={"chat"}
 					placeholder="채팅치는곳"
 				/>
 				<BasicButton
 					type="submit"
 					color={"primary"}
-					size={"xmedium"}
+					size={"sendChat"}
 					children="전송"
 					style={{ borderRadius: "4px" }}
 				/>
@@ -146,6 +146,7 @@ const ChatMainWrapper = styled.div`
 	height: 450px;
 	overflow-x: hidden;
 	overflow-y: scroll;
+	background-color: white;
 	&::-webkit-scrollbar {
 		width: 15px;
 		display: none;
@@ -179,6 +180,13 @@ const SendWrapper = styled.form`
 	padding: 10px;
 	position: absolute;
 	top: 510px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 348px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		top: 530px;
+		width: 399px;
+	}
 `;
 
 const S = {
