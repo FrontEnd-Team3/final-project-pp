@@ -184,7 +184,8 @@ const Imove = styled.div`
 	color: ${({ theme }) => theme.PALETTE.darkBlack};
 	font-weight: 500;
 	cursor: pointer;
-	@media ${({ theme }) => theme.DEVICE.tablet} {
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-left: 50px;
 	}
 `;
 

@@ -30,7 +30,7 @@ const ImageContainer = styled.div`
 		width: 768px;
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		width: 480px;
+		width: 500px;
 	}
 `;
 
@@ -43,12 +43,12 @@ const MainImage = styled.div`
 		border-radius: 16px;
 		border: 3px solid #f9f9f9;
 		background: #fff;
-		@media ${({ theme }) => theme.DEVICE.tablet} {
-			width: 600px;
-		}
-		@media ${({ theme }) => theme.DEVICE.mobile} {
-			width: 480px;
-		}
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 600px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 460px;
 	}
 `;
 
