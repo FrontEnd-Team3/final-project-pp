@@ -1,18 +1,15 @@
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AuthApi from "apis/auth.api";
 import UserQueryApi from "apis/user.query.api";
-import BasicButton from "components/Button";
 import { useState } from "react";
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
-import ValidateInput from "./OneValidate";
-import * as SCHEMA from "../../../../consts/schema";
+import * as SCHEMA from "../../../../../consts/schema";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const Review = ({ productIndex, reviewData }) => {
+const ReviewDetail = ({ productIndex, reviewData }) => {
 	const page = 1;
 	const { data: PayProductData } = UserQueryApi?.PayProductList({
 		page,
@@ -74,35 +71,11 @@ const Review = ({ productIndex, reviewData }) => {
 		setOndo(ondoChange);
 	};
 
-	const handleSave = handleSubmit(async () => {
-		try {
-			// 선택된 항목만 찾기
-			const selectedReview = reviewData.find(
-				item => item.Product.idx === productIndex,
-			);
-			if (selectedReview) {
-				const payList_idx = selectedReview.idx;
-				const newValue = {
-					title: reviewValue,
-					content: reviewInfoValue,
-					ondo: ondo,
-					images: images,
-				};
-				const response = await AuthApi.userReview(payList_idx, newValue);
-				if (response && response.status === 200) {
-					console.log(`리뷰 저장 성공`, response);
-				}
-			}
-		} catch (error) {
-			console.error("리뷰 저장에 실패하였습니다.", error);
-		}
-	});
-
 	const reviewValue = getValues("review");
 	const reviewInfoValue = getValues("reviewInfo");
 
 	return (
-		<S.Container onSubmit={handleSave}>
+		<S.Container>
 			<div>
 				<S.ImgWrapper>
 					<img src={PayProductList[0].Product.img_url} />
@@ -112,11 +85,11 @@ const Review = ({ productIndex, reviewData }) => {
 				</div>
 			</div>
 			<S.RowBox>
-				<S.Title>후기 작성</S.Title>
+				<S.Title>후기 내용</S.Title>
 			</S.RowBox>
 			<S.DivisionLine />
 			<S.RowBox>
-				<S.Title1>거래는 어떠셨나요? 별점을 매겨주세요</S.Title1>
+				<S.Title1>별점</S.Title1>
 			</S.RowBox>
 			<S.StarRowBox>
 				<div>
@@ -133,43 +106,17 @@ const Review = ({ productIndex, reviewData }) => {
 			</S.StarRowBox>
 			<S.DivisionLine2 />
 			<S.RowBox>
-				<ValidateInput
-					control={control}
-					name={"review"}
-					errors={errors}
-					type={"text"}
-					placeholder={"제목을 입력해주세요"}
-				/>
+				<p>후기 제목</p>
 			</S.RowBox>
 			<S.RowBox>
-				<ValidateInput
-					control={control}
-					name={"reviewInfo"}
-					errors={errors}
-					type={"text"}
-					placeholder={"내용"}
-				/>
+				<p>후기 내용</p>
 			</S.RowBox>
 			<S.DivisionLine2 />
-			<S.RowBox>
-				<BasicButton
-					color={"black"}
-					size={"xmedium"}
-					children={"저장하기"}
-					style={{
-						width: "124px",
-						fontSize: "16px",
-						borderRadius: "6px",
-						fontWeight: "600",
-						border: "1px solid #dddddd",
-					}}
-				/>
-			</S.RowBox>
 		</S.Container>
 	);
 };
 
-export default Review;
+export default ReviewDetail;
 
 const DivisionLine = styled.hr`
 	width: 962px;

@@ -14,6 +14,8 @@ const QueryKey = {
 	userPurchasedProduct: "userPurchasedProduct",
 	marketPrice: "marketPrice",
 	userLikeProduct: "userLikeProduct",
+	PayProductList: "PayProductList",
+	AccountBookList: "AccountBookList",
 };
 
 export default QueryKey;

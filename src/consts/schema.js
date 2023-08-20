@@ -77,3 +77,15 @@ export const phone = yup
 		},
 	)
 	.default(""); // 입력이 없을 때 사용할 기본값
+
+export const review = yup
+	.string()
+	.min(2, "2자 이상 입력해주세요.")
+	.max(20, "20자 미만 입력해주세요.")
+	.required("제목을 입력해주세요.");
+
+export const reviewInfo = yup
+	.string()
+	.min(2, "2자 이상 입력해주세요.")
+	.max(50, "50자 미만 입력해주세요.")
+	.required("후기 내용을 입력해주세요.");

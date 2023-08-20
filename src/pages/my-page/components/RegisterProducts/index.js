@@ -26,6 +26,7 @@ const RegisterProduct = () => {
 		page,
 		category: categoryState,
 	});
+
 	const productList = productData?.products;
 	console.log("ProductList", productList);
 
