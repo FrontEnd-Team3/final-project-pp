@@ -31,8 +31,8 @@ const MarketPrice = () => {
 					currensValue={currensValue}
 					setCurrentValue={setCurrentValue}
 				/>
-				<Soldout soldoutProd={soldoutProd} />
 			</S.Container>
+			<Soldout soldoutProd={soldoutProd} />
 		</>
 	);
 };
@@ -40,7 +40,7 @@ const MarketPrice = () => {
 export default MarketPrice;
 const Container = styled.div`
 	margin: 0 auto;
-	max-width: 1060px;
+	width: 100%;
 	${flexColumn}
 	align-items: center;
 `;

@@ -36,17 +36,26 @@ const Soldout = ({ soldoutProd }) => {
 			</S.AvgPrice>
 			<S.Line></S.Line>
 			<S.Button>최근 거래 종료 품목</S.Button>
-			<div>
-				<S.Gridwrapper>
-					{prod?.map(product => (
-						<OneProduct product={product} />
-					))}
-				</S.Gridwrapper>
-			</div>
+			<S.Gridwrapper>
+				{prod?.map(product => (
+					<OneProduct product={product} />
+				))}
+			</S.Gridwrapper>
 		</S.Container>
 	);
 };
 export default Soldout;
+const Gridwrapper = styled.div`
+	margin-top: 80px;
+	margin-bottom: 20px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	grid-gap: 30px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		grid-template-columns: repeat(2, 1fr);
+	}
+`;
 
 const Line = styled.div`
 	width: 1060px;
@@ -79,14 +88,6 @@ const Won = styled.span`
 	font-weight: 700;
 `;
 
-const Gridwrapper = styled.div`
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(2, 1fr);
-	grid-column-gap: 0px;
-	grid-row-gap: 0px;
-	grid-gap: 20px;
-`;
 const Button = styled.button`
 	width: 260px;
 	height: 52px;
@@ -102,7 +103,7 @@ const Button = styled.button`
 `;
 
 const Container = styled.div`
-	width: 100%;
+	max-width: 100%;
 	${flexColumn}
 	align-items: center;
 	margin-bottom: 100px;

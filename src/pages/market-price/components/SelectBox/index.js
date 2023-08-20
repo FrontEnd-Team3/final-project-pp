@@ -27,10 +27,18 @@ const SelectBox = ({ currensValue, setCurrentValue }) => {
 export default SelectBox;
 
 const SelectContainer = styled.div`
-	width: 1060px;
+	/* width: 1060px;
 	display: flex;
 	justify-content: flex-end;
-	z-index: 10;
+	z-index: 10; */
+	/* width: 100%; */
+	/* position: relative;
+	left: 400px; */
+	max-width: 1060px;
+	margin: 50px auto;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 `;
 
 const S = { SelectContainer };

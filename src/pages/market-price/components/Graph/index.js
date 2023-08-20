@@ -74,7 +74,7 @@ function LineGraphs({ data }) {
 export default LineGraphs;
 
 const Container = styled.div`
-	width: 1000px;
+	max-width: 1000px;
 	height: 600px;
 	top: 100px;
 	margin-bottom: 100px;
