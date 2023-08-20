@@ -2,10 +2,11 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
 import SearchModal from "./SearchModal";
+import TokenRepository from "repositories/TokenRepository";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -59,6 +60,14 @@ const Header = () => {
 	const closeModal = () => {
 		setIsOpen(true);
 	};
+
+	useEffect(() => {
+		socket.emit(`connect-user`, { token: TokenRepository.getToken() });
+		socket.on("newMessage", data => {
+			console.log("전역메시지", data);
+		});
+	}, [socket]);
+
 	return (
 		<>
 			<S.Container>
