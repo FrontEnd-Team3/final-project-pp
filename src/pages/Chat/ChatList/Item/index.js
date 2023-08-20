@@ -63,7 +63,7 @@ const Item = styled.div`
 	width: 450px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	border-bottom: 1px solid #ebebeb;
 	height: 150px;
 	background-color: white;
@@ -97,15 +97,15 @@ const New = styled.div`
 
 const TextContainer = styled.div`
 	display: flex;
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		margin-left: 5px;
-	}
 `;
 
 const ChatContent = styled.div`
 	${flexColumn}
 	width: 200px;
-	margin-right: 35px;
+	margin-left: 10px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 150px;
+	}
 `;
 
 const SettingContent = styled.div`
@@ -121,8 +121,8 @@ const IimgContainer = styled.div`
 `;
 
 const Iimg = styled.img`
-	width: 100%;
-	height: 100%;
+	width: 90px;
+	height: 90px;
 `;
 
 const Setting = styled.div`
@@ -184,6 +184,8 @@ const Imove = styled.div`
 	color: ${({ theme }) => theme.PALETTE.darkBlack};
 	font-weight: 500;
 	cursor: pointer;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+	}
 `;
 
 const S = {
