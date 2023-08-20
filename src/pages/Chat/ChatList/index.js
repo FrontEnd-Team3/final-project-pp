@@ -4,7 +4,7 @@ import ChatItem from "./Item";
 import ChatQueryApi from "apis/chat.api.query";
 import getUserData from "utils/getUserData";
 
-const ChatList = () => {
+const ChatList = ({ isTop, setIsTop }) => {
 	const { data } = ChatQueryApi.getChatList();
 	// console.log("chat", data?.chats);
 
@@ -26,7 +26,7 @@ const ChatList = () => {
 	}, [isSell]);
 
 	return (
-		<S.Container>
+		<S.Container isTop={isTop}>
 			<S.Header>
 				<S.Sell isSell={isSell} onClick={() => SetIsSell(true)}>
 					판매 내역
@@ -39,7 +39,9 @@ const ChatList = () => {
 				{isSell ? (
 					<S.Chatlist className="sell">
 						{sellChat?.length > 0 ? (
-							sellChat.map(chat => <ChatItem key={chat.idx} chat={chat} />)
+							sellChat.map(chat => (
+								<ChatItem key={chat.idx} chat={chat} setIsTop={setIsTop} />
+							))
 						) : (
 							<S.NoChat>
 								채팅 내역이 없습니다. 새로운 거래를 시작해보세요!
@@ -49,7 +51,9 @@ const ChatList = () => {
 				) : (
 					<S.Chatlist className="buy">
 						{buyChat?.length > 0 ? (
-							buyChat.map(chat => <ChatItem key={chat.idx} chat={chat} />)
+							buyChat.map(chat => (
+								<ChatItem key={chat.idx} chat={chat} setIsTop={setIsTop} />
+							))
 						) : (
 							<S.NoChat>
 								채팅 내역이 없습니다. 새로운 거래를 시작해보세요!
@@ -71,6 +75,19 @@ const Container = styled.div`
 	border-bottom: 1px solid #ebebeb;
 	border-top: 1px solid #ebebeb;
 	margin: 100px auto;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 350px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 399px;
+		border-right: 1px solid #ebebeb;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: ${({ isTop }) => (isTop ? 2 : 1)};
+		display: ${({ isTop }) => (isTop ? "block" : "hidden")};
+	}
 `;
 
 const Header = styled.div`
@@ -79,9 +96,12 @@ const Header = styled.div`
 	display: flex;
 	div {
 		cursor: pointer;
-		:hover {
-			opacity: 0.6;
-		}
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 350px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
 	}
 `;
 const Sell = styled.div`
@@ -94,6 +114,12 @@ const Sell = styled.div`
 	align-items: center;
 	justify-content: center;
 	font-weight: bold;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 175px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const Buy = styled.div`
@@ -106,11 +132,23 @@ const Buy = styled.div`
 	align-items: center;
 	justify-content: center;
 	font-weight: bold;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 175px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const Main = styled.div`
 	width: 900px;
 	display: flex;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 350px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const Chatlist = styled.div`
