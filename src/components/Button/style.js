@@ -57,7 +57,7 @@ const sizeCSS = {
 		height: 42px;
 	`,
 	mediumThird: css`
-		width: 310px;
+		width: 344px;
 		height: 50px;
 	`,
 	mediumfourth: css`
@@ -80,6 +80,10 @@ const sizeCSS = {
 	account: css`
 		width: 70px;
 		height: 30px;
+	`,
+	bookmark: css`
+		width: 70px;
+		height: 50px;
 	`,
 };
 

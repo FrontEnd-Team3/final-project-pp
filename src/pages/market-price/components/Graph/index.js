@@ -1,11 +1,11 @@
 import {
-	ComposedChart,
 	Line,
 	XAxis,
 	YAxis,
 	CartesianGrid,
 	Tooltip,
 	Legend,
+	ComposedChart,
 } from "recharts";
 import styled from "styled-components";
 
@@ -33,9 +33,9 @@ function LineGraphs({ data }) {
 				data={arr}
 				margin={{
 					top: 120,
-					right: 80,
+					right: 120,
 					bottom: 0,
-					left: 100,
+					left: 60,
 				}}
 			>
 				<CartesianGrid stroke="#f5f5f5" />

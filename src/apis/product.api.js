@@ -48,6 +48,17 @@ const ProductApi = {
 		await axiosInstance.get(PATH + `/quote`, {
 			params: { keyword, start, end },
 		}),
+
+	// 중고물품
+	getUsedProduct: async ({ category = 0, page, status }) =>
+		await axiosInstance.get(PATH + `/search`, {
+			params: { category, page, status },
+		}),
+	// 무료나눔
+	getFreeProduct: async ({ category = 1, page, status }) =>
+		await axiosInstance.get(PATH + `/search`, {
+			params: { category, page, status },
+		}),
 };
 
 export default ProductApi;

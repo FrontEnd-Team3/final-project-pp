@@ -11,7 +11,8 @@ import { flexCenter } from "styles/common";
 const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { keyword } = useParams();
-	const page = searchParams.get("page") || 1;
+	const [page, setPage] = useState(1);
+	// const pages = searchParams.get("pages") || 1;
 	const filter = searchParams.get("filter") || "등록순";
 	const [searchResults, setSearchResults] = useState([]);
 	const [currensValue, setCurrentValue] = useState("등록순");
@@ -19,9 +20,10 @@ const SearchPage = () => {
 	useEffect(() => {
 		if (!prod) return;
 		onFiltering(filter);
+		// setSearchParams({ filter, page: data?.pagination?.curPage });
 	}, [filter]);
 
-	const { data, isLoading } = ProductQueryApi.searchProductList({
+	const { data, isLoading, refetch } = ProductQueryApi.searchProductList({
 		keyword,
 		page,
 		filter,
@@ -30,6 +32,11 @@ const SearchPage = () => {
 
 	console.log("result", data);
 	const prod = data?.product;
+
+	// useEffect(() => {
+	// 	refetch();
+	// 	// setSearchParams({ filter: currensValue, page: data?.pagination?.curPage });
+	// }, [page]);
 
 	if (isLoading) {
 		return <Loading />;
@@ -43,7 +50,7 @@ const SearchPage = () => {
 			const filterValue = [title, description, ...tags].join(" ").toLowerCase();
 			return filterValue.includes(keyword.toLowerCase());
 		}) || [];
-	console.log("필터", filter);
+	// console.log("필터", filter);
 
 	// util 로 뺀 후
 	const onFiltering = value => {
@@ -60,7 +67,10 @@ const SearchPage = () => {
 		}
 		setSearchResults(filteredList);
 		// filter params만 업데이트하는 로직
-		setSearchParams(new URLSearchParams({ ...searchParams, filter: value }));
+		setSearchParams({
+			filter: value,
+			page: data?.pagination?.curPage,
+		});
 	};
 	const options = [
 		{ value: "등록순", label: "등록순" },
@@ -74,7 +84,7 @@ const SearchPage = () => {
 			<S.Wrapper>
 				<S.ResultandFilter>
 					<S.SearchText>
-						<span>"{keyword}"</span>의 검색결과 {filteredSearchResults.length}개
+						<span>"{keyword}"</span>의 검색결과 {data?.pagination?.count}개
 					</S.SearchText>
 					<BasicSelect
 						variant={"primary"}
@@ -92,9 +102,19 @@ const SearchPage = () => {
 					</S.NoSearchResult>
 				)}
 				{searchResults.length > 0 ? (
-					<ProductList productList={searchResults} />
+					<ProductList
+						productList={searchResults}
+						pagination={data?.pagination}
+						page={page}
+						setPage={setPage}
+					/>
 				) : (
-					<ProductList productList={filteredSearchResults} />
+					<ProductList
+						productList={filteredSearchResults}
+						pagination={data?.pagination}
+						page={page}
+						setPage={setPage}
+					/>
 				)}
 			</S.Wrapper>
 		</S.Container>

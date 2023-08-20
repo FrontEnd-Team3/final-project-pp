@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { flexColumn } from "styles/common";
 import OneProduct from "./oneSoldOutProduct";
 import LineGraphs from "../Graph";
-import { ResponsiveContainer } from "recharts";
 
 const Soldout = ({ soldoutProd }) => {
 	const { keyword, data, isLoading } = soldoutProd;
@@ -28,9 +27,9 @@ const Soldout = ({ soldoutProd }) => {
 
 	return (
 		<S.Container>
-			<ResponsiveContainer width="100%" height="100%">
-				<LineGraphs data={data} avg={avg} />
-			</ResponsiveContainer>
+			{/* <ResponsiveContainer width="100%" height="100%"> */}
+			<LineGraphs data={data} avg={avg} />
+			{/* </ResponsiveContainer> */}
 			<S.AvgPrice>
 				<S.Keyword>" {keyword} "</S.Keyword> 의 평균 거래 가격은{" "}
 				<S.Won>{won}</S.Won> 원 입니다
@@ -61,6 +60,9 @@ const AvgPrice = styled.p`
 	font-size: ${({ theme }) => theme.FONT_SIZE.mmlarge};
 	color: ${({ theme }) => theme.PALETTE.darkBlack};
 	margin: 50px 0 80px 0;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.medium};
+	}
 `;
 
 const Keyword = styled.span`
@@ -92,6 +94,11 @@ const Button = styled.button`
 	background-color: ${({ theme }) => theme.PALETTE.darkBlack};
 	color: ${({ theme }) => theme.PALETTE.white};
 	position: relative;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 240px;
+		height: 48px;
+		font-size: 16px;
+	}
 `;
 
 const Container = styled.div`
