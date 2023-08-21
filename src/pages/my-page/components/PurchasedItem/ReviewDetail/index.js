@@ -25,7 +25,7 @@ const ReviewDetail = ({ productIndex, reviewData }) => {
 	const OndoData = PayProductList[0].Product.User.Ondo.ondo;
 
 	const [starState, setStarState] = useState(-1);
-	const starArr = ["*", "*", "*", "*", "*"];
+	const starArr = ["*", "*", "*", "*", "5"];
 	const [ondo, setOndo] = useState(OndoData);
 	console.log("OndoData", OndoData);
 	console.log("ondo", ondo);
