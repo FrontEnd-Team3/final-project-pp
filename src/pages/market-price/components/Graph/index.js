@@ -39,7 +39,6 @@ function LineGraphs({ data }) {
 					left: 60,
 				}}
 			>
-				
 				<CartesianGrid stroke="#f5f5f5" />
 				<XAxis
 					dataKey="name"
