@@ -29,42 +29,41 @@ const RegisterProduct = () => {
 	console.log("likeProductList", likeProductList);
 
 	useEffect(() => {
-		setDisplayProducts(likeProductList || []);
-	}, [likeProductList]);
+		handleCombinedFilter();
+	}, [likeProductList, selectedProductStatus, selectedStatus]);
 
-	const handleProductDisplay = value => {
-		if (value === "무료나눔") {
-			setSelectedStatus("전체");
-			const filteredProducts = likeProductList?.filter(
+	const handleCombinedFilter = () => {
+		let filteredProducts = likeProductList;
+
+		// 제품 유형별 필터링
+		if (selectedProductStatus === "무료나눔") {
+			filteredProducts = filteredProducts?.filter(
 				product => product.Product.price === 0,
 			);
-			setDisplayProducts(filteredProducts);
-		}
-		if (value === "중고물품") {
-			setSelectedStatus("전체");
-			const filteredProducts = likeProductList?.filter(
+		} else if (selectedProductStatus === "중고물품") {
+			filteredProducts = filteredProducts?.filter(
 				product => product.Product.price > 0,
 			);
-			setDisplayProducts(filteredProducts);
 		}
+
+		// 제품 상태별 필터링
+		if (selectedStatus !== "전체") {
+			filteredProducts = filteredProducts?.filter(
+				product => product.Product.status === selectedStatus,
+			);
+		}
+
+		setDisplayProducts(filteredProducts);
+	};
+
+	const handleProductDisplay = value => {
+		setSelectedProductStatus(value);
+		handleCombinedFilter();
 	};
 
 	const handleProductStateDisplay = value => {
-		if (value === "판매중") {
-			const filteredProducts = likeProductList?.filter(
-				product => product.Product.status === "판매중",
-			);
-			setDisplayProducts(filteredProducts);
-		}
-		if (value === "판매완료") {
-			const filteredProducts = likeProductList?.filter(
-				product => product.Product.status === "판매완료",
-			);
-			setDisplayProducts(filteredProducts);
-		}
-		if (value === "전체") {
-			setDisplayProducts(likeProductList);
-		}
+		setSelectedStatus(value);
+		handleCombinedFilter();
 	};
 
 	// const displayedProducts =
@@ -104,10 +103,7 @@ const RegisterProduct = () => {
 								variant={"primary"}
 								options={stateOptions}
 								selectedStatus={selectedStatus}
-								setSelectedStatus={value => {
-									setSelectedStatus(value);
-									handleProductStateDisplay(value);
-								}}
+								setSelectedStatus={handleProductStateDisplay}
 								style={{ border: "1px solid #dddddd" }}
 							/>
 						</div>
@@ -116,17 +112,14 @@ const RegisterProduct = () => {
 								variant={"primary"}
 								options={productOptions}
 								selectedStatus={selectedProductStatus}
-								setSelectedStatus={value => {
-									setSelectedProductStatus(value);
-									handleProductDisplay(value);
-								}}
+								setSelectedStatus={handleProductDisplay}
 								style={{ border: "1px solid #dddddd" }}
 							/>
 						</div>
 					</S.ToggleBox>
 				</S.RowBox>
 				{!displayedProducts || displayedProducts.length === 0 ? (
-					<EmptyData text={"등록된 상품이 없습니다."} />
+					<EmptyData text={"관심 상품이 없습니다."} field={"like"} />
 				) : (
 					displayedProducts.map(product =>
 						product.Product.status === "판매완료" ? (
