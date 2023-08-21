@@ -46,12 +46,11 @@ const Soldout = ({ soldoutProd }) => {
 };
 export default Soldout;
 const Gridwrapper = styled.div`
-	margin-top: 80px;
-	margin-bottom: 20px;
+	max-width: 1060px;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(2, 1fr);
-	grid-gap: 30px;
+	grid-gap: 20px;
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		grid-template-columns: repeat(2, 1fr);
 	}
