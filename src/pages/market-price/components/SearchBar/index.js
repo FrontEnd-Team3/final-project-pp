@@ -69,6 +69,7 @@ const ModalSearchBtn = styled.div`
 	display: none;
 	@media ${({ theme }) => theme.DEVICE.mobile} {
 		display: block;
+		font-size: 18px;
 	}
 `;
 
@@ -130,10 +131,10 @@ const MentWrapper = styled.div`
 `;
 
 const Container = styled.div`
-	max-width: 553px;
+	width: 100%;
 	${flexColumn}
 	align-items: center;
-	margin: 150px 0 50px 0;
+	margin: 70px auto;
 `;
 
 const Form = styled.form`

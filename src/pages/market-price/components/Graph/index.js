@@ -25,6 +25,7 @@ function LineGraphs({ data }) {
 		const test = Math.ceil(Pricearr / 1000) * 1000;
 		return test.toLocaleString();
 	};
+
 	return (
 		<S.Container>
 			<ComposedChart
@@ -74,10 +75,15 @@ function LineGraphs({ data }) {
 export default LineGraphs;
 
 const Container = styled.div`
-	width: 1000px;
+	max-width: 1000px;
 	height: 600px;
 	top: 100px;
 	margin-bottom: 100px;
+
+	/* svg {
+		width: 100%;
+		height: 600px;
+	} */
 `;
 
 const S = { Container };
