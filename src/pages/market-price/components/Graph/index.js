@@ -25,6 +25,7 @@ function LineGraphs({ data }) {
 		const test = Math.ceil(Pricearr / 1000) * 1000;
 		return test.toLocaleString();
 	};
+
 	return (
 		<S.Container>
 			<ComposedChart
@@ -38,6 +39,7 @@ function LineGraphs({ data }) {
 					left: 60,
 				}}
 			>
+				
 				<CartesianGrid stroke="#f5f5f5" />
 				<XAxis
 					dataKey="name"
@@ -78,6 +80,11 @@ const Container = styled.div`
 	height: 600px;
 	top: 100px;
 	margin-bottom: 100px;
+
+	/* svg {
+		width: 100%;
+		height: 600px;
+	} */
 `;
 
 const S = { Container };

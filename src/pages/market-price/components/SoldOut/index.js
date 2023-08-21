@@ -1,15 +1,19 @@
 import styled from "styled-components";
-import { flexColumn } from "styles/common";
+import { flexCenter, flexColumn } from "styles/common";
 import OneProduct from "./oneSoldOutProduct";
 import LineGraphs from "../Graph";
+import Loading from "components/Loading";
+import { RiEmotionSadLine } from "react-icons/ri";
+import { ResponsiveContainer } from "recharts";
 
 const Soldout = ({ soldoutProd }) => {
 	const { keyword, data, isLoading } = soldoutProd;
 
+	console.log("keyword", keyword);
+	console.log("data", data);
 	if (isLoading) {
-		return <div>스켈레톤 UI 추가 예정 로딩</div>;
+		return <Loading />;
 	}
-
 	console.log("result", data);
 	const prod = data?.products.product;
 	console.log("판매완료", prod);
@@ -24,27 +28,71 @@ const Soldout = ({ soldoutProd }) => {
 	const averagePrice = totalAvgPrice / count;
 
 	const won = Math.floor(averagePrice).toLocaleString();
+	const titleLogic = prod.filter(prod => prod.title.includes(keyword));
+	const tagLogic = prod.filter(prod =>
+		prod.ProductsTags.map(tags => tags.Tag.tag).includes(keyword),
+	);
+	const allLogic = titleLogic.length > 0 || tagLogic.length > 0;
+	console.log("logictest", titleLogic);
+	console.log("tagLogic", tagLogic);
 
 	return (
-		<S.Container>
-			{/* <ResponsiveContainer width="100%" height="100%"> */}
-			<LineGraphs data={data} avg={avg} />
-			{/* </ResponsiveContainer> */}
-			<S.AvgPrice>
-				<S.Keyword>" {keyword} "</S.Keyword> 의 평균 거래 가격은{" "}
-				<S.Won>{won}</S.Won> 원 입니다
-			</S.AvgPrice>
-			<S.Line></S.Line>
-			<S.Button>최근 거래 종료 품목</S.Button>
-			<S.Gridwrapper>
-				{prod?.map(product => (
-					<OneProduct product={product} />
-				))}
-			</S.Gridwrapper>
-		</S.Container>
+		<>
+			<S.Container>
+				{allLogic ? (
+					<>
+						<ResponsiveContainer width={1000}>
+							<LineGraphs data={data} avg={avg} />
+						</ResponsiveContainer>
+						<S.AvgPrice>
+							<S.Keyword>" {keyword} "</S.Keyword> 의 평균 거래 가격은{" "}
+							<S.Won>{won}</S.Won> 원 입니다
+						</S.AvgPrice>
+					</>
+				) : (
+					<S.NoSearchResult>
+						해당 검색어는 판매 완료된 상품이 없습니다
+						<RiEmotionSadLine size={40} />
+					</S.NoSearchResult>
+				)}
+				<S.Line></S.Line>
+				<S.Button>최근 거래 종료 품목</S.Button>
+				<S.Gridwrapper>
+					{prod?.map(product => (
+						<OneProduct product={product} />
+					))}
+				</S.Gridwrapper>
+			</S.Container>
+		</>
 	);
 };
 export default Soldout;
+
+const NoSearchResult = styled.div`
+	${flexCenter}
+	color: ${({ theme }) => theme.PALETTE.black};
+	font-size: 36px;
+	font-weight: 700;
+	margin: 70px 0;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 28px;
+	}
+
+	svg {
+		margin-left: 10px;
+
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 28px;
+			margin-left: 4px;
+		}
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.medium};
+	}
+`;
+
 const Gridwrapper = styled.div`
 	max-width: 1060px;
 	display: grid;
@@ -116,4 +164,5 @@ const S = {
 	Button,
 	Container,
 	Gridwrapper,
+	NoSearchResult,
 };

@@ -11,8 +11,6 @@ const OneProduct = ({ product }) => {
 	// 이전 날짜
 	const soldDate = product.createdAt;
 	const soldDataObject = new Date(soldDate);
-	console.log("날짜", soldDataObject);
-	console.log("예전날짜", soldDataObject.getDate() - todayDate.getDate());
 	const navigate = useNavigate();
 	const moveDetailPage = () => {
 		navigate(`/product/${product.idx}`);
@@ -86,6 +84,7 @@ const Out = styled.div`
 		font-size: 80px;
 	}
 `;
+
 const SoldOut = styled.div`
 	position: relative;
 	top: 180px;
@@ -105,6 +104,7 @@ const SoldOut = styled.div`
 		top: 250px;
 	}
 `;
+
 const AgoDate = styled.div`
 	font-size: 12px;
 	color: #788394;

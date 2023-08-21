@@ -5,9 +5,6 @@ const options = [
 	{ value: "1개월", label: "1개월" },
 	{ value: "3개월", label: "3개월" },
 	{ value: "6개월", label: "6개월" },
-	{ value: "9개월", label: "9개월" },
-	{ value: "12개월", label: "12개월" },
-	{ value: "전체", label: "전체" },
 ];
 
 const SelectBox = ({ currensValue, setCurrentValue }) => {
@@ -27,15 +24,10 @@ const SelectBox = ({ currensValue, setCurrentValue }) => {
 export default SelectBox;
 
 const SelectContainer = styled.div`
-	/* width: 1060px;
+	width: 100%;
+	margin: 0 auto;
 	display: flex;
 	justify-content: flex-end;
-	z-index: 10; */
-	/* width: 100%; */
-	/* position: relative;
-	left: 400px; */
-	max-width: 1060px;
-	margin: 50px auto;
 	@media ${({ theme }) => theme.DEVICE.pc} {
 		padding: 0 20px;
 	}

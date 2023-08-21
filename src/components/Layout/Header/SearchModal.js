@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import search from "assets/images/search.png";
 const SearchModal = ({
 	PlaceHolder,
 	setIsOpen,
@@ -11,7 +11,7 @@ const SearchModal = ({
 			<S.Form onSubmit={handleSearchResult}>
 				<S.ModalSearchBar placeholder={PlaceHolder} ref={searchInput} />
 				<S.ModalSearchicon
-					src="img/search.png"
+					src={search}
 					onClick={handleSearchResult}
 				></S.ModalSearchicon>
 			</S.Form>
