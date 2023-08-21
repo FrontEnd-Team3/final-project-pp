@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import getDate from "utils/getDate";
 
 const OneProduct = ({ product, grid }) => {
 	// console.log("상품", product);
@@ -7,7 +8,7 @@ const OneProduct = ({ product, grid }) => {
 	const ImageURL = product?.img_url;
 
 	// 날짜 구하는 로직
-	// const Today = new Date("2023-07-22");
+	const productDate = getDate(product.createdAt);
 
 	// 상품 상세 페이지로 이동
 	const navigate = useNavigate();
@@ -28,7 +29,7 @@ const OneProduct = ({ product, grid }) => {
 				</div>
 				<div className="infoBottom">
 					<p className="price">{localPrice} 원</p>
-					<p className="date">1일 전</p> {/* new Date 관련 로직 만든 후 수정 */}
+					<p className="date">{productDate}</p>
 				</div>
 			</S.ProductInfo>
 		</S.Container>
