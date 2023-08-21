@@ -2,10 +2,11 @@ import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
 import SearchModal from "./SearchModal";
+import TokenRepository from "repositories/TokenRepository";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 
 const Header = () => {
@@ -68,6 +69,16 @@ const Header = () => {
 	const closeModal = () => {
 		setIsOpen(true);
 	};
+
+	useEffect(() => {
+		console.log("여기다!!!");
+		socket.emit(`connect-user`, { token: TokenRepository.getToken() });
+		socket.on("newMessage", data => {
+			console.log("전역메시지", data);
+			setNewChat(true);
+		});
+	}, [socket]);
+
 	return (
 		<>
 			<S.Container>
@@ -137,6 +148,7 @@ const Header = () => {
 								style={{ cursor: "pointer" }}
 								onClick={() => {
 									navigate(`/Chat`);
+									setNewChat(false);
 								}}
 							>
 								CHAT
@@ -186,6 +198,7 @@ const Header = () => {
 };
 
 export default Header;
+
 const Form = styled.form`
 	position: relative;
 	margin-top: 200px;
@@ -245,6 +258,9 @@ const BackGround = styled.div`
 
 const NewChat = styled.div`
 	border: 1.8px solid ${({ theme }) => theme.PALETTE.darkPrimary};
+	position: absolute;
+	margin-left: 130px;
+	margin-top: 10px;
 	text-align: center;
 	font-size: 12px;
 	font-weight: bold;
@@ -252,6 +268,12 @@ const NewChat = styled.div`
 	height: 30px;
 	width: 110px;
 	color: ${({ theme }) => theme.PALETTE.darkPrimary};
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-left: 100px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-left: 90px;
+	}
 `;
 const Sellbutton = styled.button`
 	width: 110px;
@@ -295,7 +317,7 @@ const InfoWrapper = styled.div`
 	justify-content: space-between;
 	font-weight: bold;
 	font-size: 16px;
-	margin-top: 20px;
+	margin-top: 50px;
 	div:nth-child(4) {
 		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 		position: relative;
