@@ -14,7 +14,7 @@ const EditProductBtn = () => {
 	return (
 		<BasicButton
 			color={"white"}
-			size={"xxmedium"}
+			size={"seller"}
 			children={"수정"}
 			onClick={() => handleEdit()}
 			style={{ fontSize: "20px", fontWeight: "bold" }}

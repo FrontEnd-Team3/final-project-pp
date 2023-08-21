@@ -57,7 +57,7 @@ const sizeCSS = {
 		height: 42px;
 	`,
 	mediumThird: css`
-		width: 310px;
+		width: 344px;
 		height: 50px;
 	`,
 	mediumfourth: css`
@@ -80,6 +80,53 @@ const sizeCSS = {
 	account: css`
 		width: 70px;
 		height: 30px;
+	`,
+	bookmark: css`
+		width: 70px;
+		height: 50px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 84px;
+			height: 60px;
+		}
+	`,
+	chat: css`
+		width: 344px;
+		height: 50px;
+		font-size: 24px;
+		font-weight: bold;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 440px;
+			height: 60px;
+			font-size: 24px;
+			font-weight: bold;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 500px;
+			height: 60px;
+			font-size: 24px;
+			font-weight: bold;
+		}
+	`,
+	seller: css`
+		width: 120px;
+		height: 50px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 160px;
+			height: 60px;
+		}
+	`,
+	sendChat: css`
+		width: 100px;
+		padding: 8px;
+		height: 40px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 50px;
+			height: 40px;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 70px;
+			height: 40px;
+		}
 	`,
 };
 

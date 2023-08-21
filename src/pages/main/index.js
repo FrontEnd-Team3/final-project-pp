@@ -7,6 +7,7 @@ import ProductQueryApi from "apis/product.query.api";
 import { useQueryClient } from "react-query";
 import Loading from "components/Loading";
 import Products from "./components/Products";
+import QueryKey from "consts/queryKey";
 
 const Main = () => {
 	const queryClient = useQueryClient();
@@ -47,6 +48,9 @@ const DivisionLine = styled.hr`
 	height: 1px;
 	background-color: #cccccc;
 	margin: 0 auto;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 500px;
+	}
 `;
 
 const S = { DivisionLine };

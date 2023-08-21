@@ -45,6 +45,9 @@ const Banner = () => {
 					className="bannerBtn"
 				/>
 			</S.BannerButtons>
+			<div>
+				<S.StaticImg src={FAKEIMG} />
+			</div>
 		</S.BannerWrapper>
 	);
 };
@@ -56,11 +59,22 @@ const BannerWrapper = styled.div`
 	margin: 50px auto;
 	position: relative;
 	overflow: hidden;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		display: block;
+		max-width: 750px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: block;
+		max-width: 560px;
+	}
 `;
 
 const BannerContainer = styled.div`
 	width: 860px;
 	display: flex;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		display: none;
+	}
 `;
 
 const BannerImg = styled.img`
@@ -76,6 +90,27 @@ const BannerButtons = styled.div`
 	position: absolute;
 	top: 90%;
 	left: 45%;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		display: none;
+	}
 `;
 
-const S = { BannerWrapper, BannerContainer, BannerImg, BannerButtons };
+const StaticImg = styled.img`
+	display: none;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		display: block;
+		max-width: 750px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: block;
+		max-width: 560px;
+	}
+`;
+
+const S = {
+	BannerWrapper,
+	BannerContainer,
+	BannerImg,
+	BannerButtons,
+	StaticImg,
+};

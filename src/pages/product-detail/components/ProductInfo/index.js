@@ -21,17 +21,21 @@ const ProductInfo = ({ product }) => {
 			<S.Container>
 				<ProductImages product={searchProduct} />
 				<S.InfoContainer>
-					<S.ProductName>{searchProduct?.title}</S.ProductName>
-					<S.ProductLocation>
-						{searchProduct?.region}({parseFloat(location?.x).toFixed(3)},{" "}
-						{parseFloat(location?.y).toFixed(3)})
-					</S.ProductLocation>
-					<UserInfo targetUser={searchProduct?.User} />
-					<S.Introduction>{searchProduct?.description}</S.Introduction>
+					<S.UserWrapper>
+						<S.ProductName>{searchProduct?.title}</S.ProductName>
+						<S.ProductLocation>
+							{searchProduct?.region}({parseFloat(location?.x).toFixed(3)},{" "}
+							{parseFloat(location?.y).toFixed(3)})
+						</S.ProductLocation>
+						<UserInfo targetUser={searchProduct?.User} />
+						<S.Introduction>{searchProduct?.description}</S.Introduction>
+					</S.UserWrapper>
+					<S.Hr></S.Hr>
 					<div>
-						{searchProduct?.ProductsTags.map(tag => (
-							<S.Tag># {tag.Tag["tag"]}</S.Tag>
-						))}
+						{searchProduct?.ProductsTags.map((tag, i) => {
+							if (tag.Tag["tag"])
+								return <S.Tag key={i}># {tag.Tag["tag"]}</S.Tag>;
+						})}
 					</div>
 					<S.ProductPrice>{localPrice} 원</S.ProductPrice>
 					<ButtonContainer
@@ -52,11 +56,27 @@ const Container = styled.div`
 	justify-content: space-between;
 	margin-bottom: 100px;
 	padding-top: 25px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 768px;
+		flex-direction: column;
+		align-items: center;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 580px;
+	}
 `;
 
 const InfoContainer = styled.div`
 	width: 432px;
-	${flexColumn}/* justify-content: space-between; */
+	${flexColumn}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-top: 48px;
+		width: 560px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-top: 20px;
+		width: 520px;
+	}
 `;
 
 const ProductName = styled.div`
@@ -68,12 +88,14 @@ const ProductLocation = styled.div`
 	padding-top: 10px;
 	font-size: 14px;
 	color: #767676;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-top: 12px;
+	}
 `;
 
 const Introduction = styled.div`
 	height: 310px;
 	padding-top: 20px;
-	border-bottom: 1px solid #b6b6b6;
 	padding-bottom: 10px;
 	line-height: 23px;
 	font-size: 16px;
@@ -104,6 +126,16 @@ const Tag = styled.span`
 	line-height: 16.5px;
 `;
 
+const UserWrapper = styled.div`
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-left: 30px;
+	}
+`;
+
+const Hr = styled.hr`
+	border-bottom: 1px solid #b6b6b6;
+`;
+
 const S = {
 	Container,
 	InfoContainer,
@@ -112,4 +144,6 @@ const S = {
 	Introduction,
 	ProductPrice,
 	Tag,
+	UserWrapper,
+	Hr,
 };

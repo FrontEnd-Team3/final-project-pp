@@ -1,31 +1,41 @@
 import ProductQueryApi from "apis/product.query.api";
-import BasicButton from "components/Button";
 import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
 import BasicSelect from "components/Select";
-import { useState } from "react";
+import QueryKey from "consts/queryKey";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import styled from "styled-components";
 
 const UsedTransaction = () => {
-	const { data, isLoading } = ProductQueryApi.getProductList();
-	// console.log("중고물품", data?.usedProduct);
+	const [page, setPage] = useState(1);
+	const { data, isLoading, error, refetch } = ProductQueryApi.getUsedProduct({
+		category: 0,
+		page,
+		status: "판매중",
+	});
 
-	const [filteredProducts, setFilteredProducts] = useState(data?.usedProduct);
+	const queryClient = useQueryClient();
+
+	useEffect(() => {
+		refetch();
+	}, [page]);
+	const [currensValue, setCurrentValue] = useState("등록순");
+
+	const [filteredProducts, setFilteredProducts] = useState(data?.product);
 
 	const onFiltering = value => {
-		let filteredList = [...data?.usedProduct];
+		let filteredList = [...data?.product];
 
 		if (value === "등록순") {
 			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.liked - a.liked);
+			filteredList.sort((a, b) => b.likeConut - a.likeConut);
 		} else if (value === "저가순") {
 			filteredList.sort((a, b) => a.price - b.price);
-			// console.log("저가순", filteredList);
 		} else if (value === "고가순") {
 			filteredList.sort((a, b) => b.price - a.price);
-			// console.log("고가순", filteredList);
 		}
 		setFilteredProducts(filteredList);
 	};
@@ -39,30 +49,33 @@ const UsedTransaction = () => {
 
 	if (isLoading) return <Loading />;
 
+	if (error) {
+		window.location.reload();
+		queryClient.refetchQueries(QueryKey.productData);
+	}
+
 	return (
 		<S.Container>
 			<S.Wrapper>
 				<S.Title>
 					우리 동네 <span>중고</span> 물품
 				</S.Title>
-				<S.Address>
-					<div>
-						서울시 성동구 성수동
-						<BasicButton
-							color={"primary"}
-							shape={"primary"}
-							size={"xsmall"}
-							children={"변경"}
-						/>
-					</div>
+				<S.Filter>
 					<BasicSelect
 						variant={"primary"}
 						options={options}
 						selectedValue={"등록순"}
 						onChange={onFiltering}
+						currensValue={"등록순"}
+						setCurrentValue={setCurrentValue}
 					/>
-				</S.Address>
-				<ProductList productList={filteredProducts || data?.usedProduct} />
+				</S.Filter>
+				<ProductList
+					productList={filteredProducts || data?.product}
+					pagination={data?.pagination}
+					page={page}
+					setPage={setPage}
+				/>
 				<RecentlyClicked />
 			</S.Wrapper>
 		</S.Container>
@@ -87,12 +100,15 @@ const Title = styled.p`
 	& span {
 		color: ${({ theme }) => theme.PALETTE.darkPrimary};
 	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.medium};
+	}
 `;
 
-const Address = styled.div`
+const Filter = styled.div`
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
 	font-size: 13px;
 	color: #788394;
@@ -108,5 +124,5 @@ const S = {
 	Container,
 	Wrapper,
 	Title,
-	Address,
+	Filter,
 };

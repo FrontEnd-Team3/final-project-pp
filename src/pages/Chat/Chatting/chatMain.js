@@ -27,11 +27,12 @@ const ChatMain = () => {
 
 	// 실시간 메시지 날짜 찾기
 	if (chatList) {
-		chatList.map(chat => {
+		[...chatList].map(chat => {
 			const targetIdx = filteredByUser.findIndex(
-				log => log.date === chat?.createdAt?.split("T")[0],
+				log =>
+					chat.room_idx === targetChat &&
+					log.date === chat?.createdAt?.split("T")[0],
 			);
-			// console.log("idx", targetIdx);
 
 			// 메시지 형태 변환해서 맨 뒤에 붙이기
 			filteredByUser[targetIdx]?.logs.push({
@@ -55,10 +56,9 @@ const ChatMain = () => {
 	}, [targetChat]);
 
 	useEffect(() => {
-		// setChatList(data);
 		chatMainWrapperRef.current.scrollTop =
 			chatMainWrapperRef.current.scrollHeight;
-	}, [targetChat, data]);
+	}, [targetChat, data, chatList]);
 
 	const handleChatContent = async e => {
 		e.preventDefault();
@@ -124,13 +124,13 @@ const ChatMain = () => {
 				<BasicInput
 					name="input"
 					variant={"chat"}
-					size={"xsmall"}
+					size={"chat"}
 					placeholder="채팅치는곳"
 				/>
 				<BasicButton
 					type="submit"
 					color={"primary"}
-					size={"xmedium"}
+					size={"sendChat"}
 					children="전송"
 					style={{ borderRadius: "4px" }}
 				/>
@@ -146,10 +146,12 @@ const ChatMainWrapper = styled.div`
 	height: 450px;
 	overflow-x: hidden;
 	overflow-y: scroll;
+	background-color: white;
 	&::-webkit-scrollbar {
 		width: 15px;
 		display: none;
 	}
+	scroll-behavior: smooth;
 `;
 
 const Chat = styled.div`
@@ -178,6 +180,13 @@ const SendWrapper = styled.form`
 	padding: 10px;
 	position: absolute;
 	top: 510px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 348px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		top: 530px;
+		width: 399px;
+	}
 `;
 
 const S = {
