@@ -34,6 +34,15 @@ const UserQueryApi = {
 			() => AuthApi.userLikeProduct({ page }),
 			QueryConfig,
 		),
+	PayProductList: ({ page }) =>
+		useQueryData(
+			[QueryKey.PayProductList, page],
+			() => AuthApi.userPayProduct({ page }),
+			QueryConfig,
+		),
+	AccountBookList: ({ page, category, start, end }) =>
+		useQueryData([QueryKey.AccountBookList, page, category, start, end], () =>
+			AuthApi.userAccountBook({ page, category, start, end }),
+		),
 };
-
 export default UserQueryApi;

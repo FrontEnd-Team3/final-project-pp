@@ -10,6 +10,8 @@ import EmptyData from "../EmptyData";
  */
 
 const TransactionHistory = ({ MyuserList }) => {
+	// const {data: accountBookData} =
+
 	const options = [
 		{ value: "중고거래", label: "중고거래" },
 		{ value: "무료나눔", label: "무료나눔" },
