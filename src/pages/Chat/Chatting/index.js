@@ -6,14 +6,10 @@ import { useEffect } from "react";
 import { BsBoxArrowInLeft } from "react-icons/bs";
 
 const Chatting = ({ isTop, setIsTop }) => {
-	const { socket, targetChat, socketID } = useChatData();
+	const { socket, targetChat } = useChatData();
 	const [chatList, setChatList] = useChatList();
-	console.log("chatlist", chatList);
-
-	// 실시간 메시지 도착
 	useEffect(() => {
 		socket.on("receiveMessage", data => {
-			console.log("new!", data);
 			if (chatList) setChatList(prev => new Set([...prev, data]));
 		});
 	}, [socket, targetChat]);

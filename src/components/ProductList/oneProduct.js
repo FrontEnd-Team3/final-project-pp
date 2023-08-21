@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { RxBookmarkFilled, RxBookmark } from "react-icons/rx";
 
 const OneProduct = ({ product, grid }) => {
 	// console.log("상품", product);
@@ -19,13 +18,6 @@ const OneProduct = ({ product, grid }) => {
 		<S.Container onClick={HandlePageMove} className={grid}>
 			<S.ImgBox>
 				<S.Image src={ImageURL}></S.Image>
-				<S.Icon>
-					{product.liked ? (
-						<RxBookmarkFilled size={24} style={{ color: "#333" }} />
-					) : (
-						<RxBookmark size={24} style={{ color: "#333" }} />
-					)}
-				</S.Icon>
 			</S.ImgBox>
 			<S.ProductInfo status={product.status}>
 				<div className="infoTop">
@@ -33,11 +25,6 @@ const OneProduct = ({ product, grid }) => {
 						{product.title}&nbsp;&nbsp;
 						<span className="status">{product.status}</span>
 					</p>
-					<div className="infoMiddle">
-						{product.ProductsTags[0].Tag.tag && (
-							<S.Tag>#{product.ProductsTags[0].Tag.tag}</S.Tag>
-						)}
-					</div>
 				</div>
 				<div className="infoBottom">
 					<p className="price">{localPrice} 원</p>
@@ -82,12 +69,17 @@ const Container = styled.div`
 
 const ImgBox = styled.div`
 	position: relative;
+	overflow: hidden;
 `;
 
 const Image = styled.img`
 	width: 100%;
 	aspect-ratio: 1;
 	border-radius: 4px;
+	transition: all 0.2s linear;
+	:hover {
+		transform: scale(1.05);
+	}
 `;
 
 const ProductInfo = styled.div`
@@ -121,15 +113,6 @@ const ProductInfo = styled.div`
 			}
 		}
 	}
-	.infoMiddle {
-		display: flex;
-		justify-content: space-between;
-		font-size: 13px;
-		.location {
-			margin-right: 5px;
-			color: #788394;
-		}
-	}
 	.infoBottom {
 		margin-top: 10px;
 		display: flex;
@@ -148,12 +131,6 @@ const ProductInfo = styled.div`
 	}
 `;
 
-const Icon = styled.span`
-	position: absolute;
-	right: 10px;
-	top: 10px;
-`;
-
 const Tag = styled.span`
 	display: inline-block;
 	padding: 8px;
@@ -165,4 +142,4 @@ const Tag = styled.span`
 	text-align: center;
 	line-height: 16.5px;
 `;
-const S = { Container, ImgBox, Image, ProductInfo, Tag, Icon };
+const S = { Container, ImgBox, Image, ProductInfo, Tag };

@@ -4,11 +4,10 @@ import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
-import { useChatData } from "context/chatData.ctx";
 import SearchModal from "./SearchModal";
 import TokenRepository from "repositories/TokenRepository";
 
-const Header = () => {
+const Header = ({ socket }) => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
 	const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +30,6 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
-	const { socket, socketID } = useChatData();
 
 	const handleLogout = async () => {
 		try {
