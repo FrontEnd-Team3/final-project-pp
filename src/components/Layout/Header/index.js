@@ -7,6 +7,8 @@ import { useAuth } from "context/auth.ctx";
 import { useChatData } from "context/chatData.ctx";
 import SearchModal from "./SearchModal";
 import TokenRepository from "repositories/TokenRepository";
+import search from "assets/images/search.png";
+import chat from "assets/images/chat.png";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 
 const Header = () => {
@@ -106,7 +108,7 @@ const Header = () => {
 								ref={searchInput}
 							/>
 							<S.Searchicon
-								src="img/search.png"
+								src={search}
 								onClick={handleSearchResult}
 							></S.Searchicon>
 						</form>
@@ -116,7 +118,7 @@ const Header = () => {
 						{newChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
 							<S.MediaSearchIcon
-								src="img/search.png"
+								src={search}
 								onClick={(handleSearchResult, closeModal)}
 							></S.MediaSearchIcon>
 							{accessToken ? (
@@ -152,7 +154,7 @@ const Header = () => {
 								}}
 							>
 								CHAT
-								<S.Chaticon src="img/chat.png"></S.Chaticon>
+								<S.Chaticon src={chat}></S.Chaticon>
 							</div>
 						</S.InfoWrapper>
 					</div>

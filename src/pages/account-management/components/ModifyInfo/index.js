@@ -11,7 +11,7 @@ const AccountPrivacy = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
 
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(true);
 	const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
 	const [imageSrc, setImageSrc] = useState(null);
 	const [emailValue, setEmailValue] = useState(userData?.email);
@@ -180,7 +180,7 @@ const AccountPrivacy = () => {
 							userData={userData}
 							field={"phone"}
 							setFieldValue={setPhoneValue}
-							// setUncomplete={setUncomplete}
+							setUncomplete={setUncomplete}
 						/>
 						<S.Line />
 						<ModifyInfoEdit

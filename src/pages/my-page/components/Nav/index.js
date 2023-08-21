@@ -44,7 +44,9 @@ const Nav = () => {
 
 	return (
 		<S.MyPageNavWrapper>
-			<S.NavMyPageTitle onClick={() => handleNavigateClick("/mypage")}>
+			<S.NavMyPageTitle
+				onClick={() => handleNavigateClick("/mypage/:category")}
+			>
 				마이페이지
 			</S.NavMyPageTitle>
 			<div onClick={() => handleClick("/mypage/:category")}>등록 물품</div>
@@ -53,7 +55,6 @@ const Nav = () => {
 				관심 상품
 			</div>
 			<div onClick={() => handleClick("/mypage/house-keeping")}>가계부</div>
-			<div onClick={() => handleClick("/mypage/review")}>후기</div>
 			<S.NavAccountTitle>계정관리</S.NavAccountTitle>
 			<div onClick={() => handleNavigateClick("/account/management")}>
 				개인정보 수정

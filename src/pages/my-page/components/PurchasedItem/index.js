@@ -1,9 +1,12 @@
-import BasicSelect from "components/Select";
-import { productList } from "mocks/data/products/productsList";
 import styled from "styled-components";
 import { flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
 import PurchasedButtons from "./PurchasedButtons";
+import UserQueryApi from "apis/user.query.api";
+import { useState } from "react";
+import Review from "../Review";
+import BasicButton from "components/Button";
+import ReviewDetail from "./ReviewDetail";
 
 /**
  *
@@ -12,51 +15,84 @@ import PurchasedButtons from "./PurchasedButtons";
  */
 
 const PurchasedItem = () => {
-	const soldProducts = productList?.filter(
-		product =>
-			product.User &&
-			product.User.nick_name === "aaa123" &&
-			product.status === "판매완료",
-	);
-	const options = [
-		{ value: "중고거래", label: "중고거래" },
-		{ value: "무료나눔", label: "무료나눔" },
-	];
-	if (soldProducts && soldProducts.length > 0) {
-		return (
-			<S.Container>
-				<S.RowBox>
-					<S.Title>구매 물품</S.Title>
-					<S.ToggleBox>
-						<BasicSelect
-							variant={"primary"}
-							options={options}
-							selectedValue={"중고거래"}
-							style={{ border: "1px solid #dddddd" }}
-						/>
-					</S.ToggleBox>
-				</S.RowBox>
-				<Wrapper>
-					{soldProducts.map(product => (
-						<S.ProductContainer key={product.idx}>
-							<p>{product.title}</p>
+	const page = 1;
+	const [openReview, setOpenReview] = useState(false);
+	const [productIndex, setProductIndex] = useState("");
+	const [openOnReview, setOpenOnReview] = useState(false);
+
+	const { data: PayProductData } = UserQueryApi?.PayProductList({
+		page,
+	});
+
+	const PayProductList = PayProductData?.reviewList;
+
+	return (
+		<S.Container>
+			{openReview ? (
+				<Review productIndex={productIndex} reviewData={PayProductList} />
+			) : null}
+			{openOnReview ? (
+				<ReviewDetail
+					productIndex={productIndex}
+					reviewData={PayProductList}
+					fe
+				/>
+			) : null}
+			<S.RowBox>
+				<S.Title>구매 물품</S.Title>
+			</S.RowBox>
+			<Wrapper>
+				{!PayProductList || PayProductList?.length === 0 ? (
+					<EmptyData
+						text={"등록된 상품이 없습니다."}
+						productIndex={productIndex}
+					/>
+				) : (
+					PayProductList?.map(product => (
+						<S.ProductContainer
+							key={product.Product.idx}
+							onClick={() => {
+								setProductIndex(product.Product.idx);
+							}}
+						>
+							<p>{product.Product.title}</p>
+
 							<S.RowBox>
-								<p>{product.region}</p>
-								<p>{product.price}원</p>
+								<p>{product.Product.region}</p>
+								<p>{product.Product.price}원</p>
 							</S.RowBox>
 							<DivisionLine2 />
 							<S.RowBox>
-								<img src={product.img_url} />
-								<PurchasedButtons />
+								<img src={product.Product.img_url} />
+								{product.Review?.idx ? (
+									<BasicButton
+										color={"white"}
+										size={"xmedium"}
+										children={"리뷰 보러가기"}
+										style={{
+											width: "124px",
+											border: "1px solid #dddddd",
+											fontSize: "16px",
+											borderRadius: "6px",
+											fontWeight: "500",
+										}}
+										onClick={() => setOpenOnReview(true)}
+									/>
+								) : (
+									<PurchasedButtons
+										openReview={openReview}
+										setOpenReview={setOpenReview}
+										reviewExists={!!product.Review}
+										poductIdx={product.Product.idx}
+									/>
+								)}
 							</S.RowBox>
 						</S.ProductContainer>
-					))}
-				</Wrapper>
-			</S.Container>
-		);
-	} else {
-		<EmptyData />;
-	}
+					))
+				)}
+			</Wrapper>
+		</S.Container>
+	);
 };
 export default PurchasedItem;
 
@@ -121,18 +157,10 @@ const RowBox = styled.div`
 	${flexRow}
 `;
 
-const ToggleBox = styled.div`
-	margin-top: 50px;
-	margin-right: 16px;
-	width: 105px;
-	height: 32px;
-`;
-
 const S = {
 	DivisionLine,
 	Title,
 	Container,
 	ProductContainer,
 	RowBox,
-	ToggleBox,
 };
