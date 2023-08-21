@@ -13,7 +13,6 @@ const Main = () => {
 	const queryClient = useQueryClient();
 
 	const { data, isLoading, error } = ProductQueryApi.getProductList();
-	console.log("main", data);
 
 	if (isLoading) return <Loading />;
 
@@ -49,6 +48,9 @@ const DivisionLine = styled.hr`
 	height: 1px;
 	background-color: #cccccc;
 	margin: 0 auto;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 500px;
+	}
 `;
 
 const S = { DivisionLine };
