@@ -7,6 +7,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { flexCenter } from "styles/common";
+import RecentlyClicked from "components/RecentlyClicked";
 
 const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -119,6 +120,7 @@ const SearchPage = () => {
 					/>
 				)}
 			</S.Wrapper>
+			<RecentlyClicked />
 		</S.Container>
 	);
 };

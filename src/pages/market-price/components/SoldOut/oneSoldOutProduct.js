@@ -42,8 +42,6 @@ const OneProduct = ({ product }) => {
 							size="16"
 							style={{ marginLeft: "-70px" }}
 						/>
-						{/* 데이터가 아직 추가되지 않음 */}
-						{/* <div>{product.chat.length}</div> */}
 					</S.Iconwrapper>
 				</S.FirstLine>
 				<S.SecondLine>
