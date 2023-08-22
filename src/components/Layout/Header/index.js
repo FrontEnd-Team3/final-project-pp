@@ -6,6 +6,9 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
 import SearchModal from "./SearchModal";
 import TokenRepository from "repositories/TokenRepository";
+import search from "assets/images/search.png";
+import chat from "assets/images/chat.png";
+import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 
 const Header = ({ socket }) => {
 	const navigate = useNavigate();
@@ -16,6 +19,7 @@ const Header = ({ socket }) => {
 	const [filter, setFilter] = useState("등록순");
 	const PlaceHolder = "제목, 태그명을 입력해 주세요";
 
+	const [isOpened, setIsOpened] = useState(false);
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -48,7 +52,14 @@ const Header = ({ socket }) => {
 		const searchValue = searchInput.current.value;
 		const keyword = searchValue.replace(/\s/g, ""); // 띄어쓰기 막기
 		if (keyword === "") return; // 빈값 막기
-		navigate(`/search/${keyword}?filter=${filter}`);
+		if (keyword.includes("?") || keyword.includes("#")) {
+			setIsOpened(true);
+			setTimeout(() => {
+				setIsOpened(false);
+			}, 1000);
+			return;
+		}
+		navigate(`/search/${keyword}`);
 		searchInput.current.value = "";
 		setIsOpen(false);
 	};
@@ -95,7 +106,7 @@ const Header = ({ socket }) => {
 								ref={searchInput}
 							/>
 							<S.Searchicon
-								src="img/search.png"
+								src={search}
 								onClick={handleSearchResult}
 							></S.Searchicon>
 						</form>
@@ -105,7 +116,7 @@ const Header = ({ socket }) => {
 						{newChat && <S.NewChat>새로운 채팅 도착!</S.NewChat>}
 						<S.InfoWrapper>
 							<S.MediaSearchIcon
-								src="img/search.png"
+								src={search}
 								onClick={(handleSearchResult, closeModal)}
 							></S.MediaSearchIcon>
 							{accessToken ? (
@@ -141,7 +152,7 @@ const Header = ({ socket }) => {
 								}}
 							>
 								CHAT
-								<S.Chaticon src="img/chat.png"></S.Chaticon>
+								<S.Chaticon src={chat}></S.Chaticon>
 							</div>
 						</S.InfoWrapper>
 					</div>
@@ -177,6 +188,11 @@ const Header = ({ socket }) => {
 					)}
 				</S.CategoryWrapper>
 			</S.Container>
+			{isOpened && (
+				<AlertModal
+					message={`"?"나 "#"을 포함한 특수문자는 검색이 불가합니다.`}
+				/>
+			)}
 		</>
 	);
 };
