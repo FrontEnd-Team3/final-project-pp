@@ -4,22 +4,14 @@ import OneProduct from "./oneSoldOutProduct";
 import LineGraphs from "../Graph";
 import Loading from "components/Loading";
 import { RiEmotionSadLine } from "react-icons/ri";
-import { ResponsiveContainer } from "recharts";
 
 const Soldout = ({ soldoutProd }) => {
 	const { keyword, data, isLoading } = soldoutProd;
-
-	console.log("keyword", keyword);
-	console.log("data", data);
 	if (isLoading) {
 		return <Loading />;
 	}
-	console.log("result", data);
 	const prod = data?.products.product;
-	console.log("판매완료", prod);
-
 	const avg = data?.cumulativeAvgPrice;
-	console.log("기간 동안 팔린 물품 갯수 및 평균 값", avg);
 
 	const totalAvgPrice = avg.reduce((total, item) => {
 		return total + parseFloat(item.avgPrice);
@@ -33,17 +25,17 @@ const Soldout = ({ soldoutProd }) => {
 		prod.ProductsTags.map(tags => tags.Tag.tag).includes(keyword),
 	);
 	const allLogic = titleLogic.length > 0 || tagLogic.length > 0;
-	console.log("logictest", titleLogic);
-	console.log("tagLogic", tagLogic);
+
+	if (!keyword) {
+		return <S.NoSearchResult>검색어를 입력해주세요</S.NoSearchResult>;
+	}
 
 	return (
 		<>
 			<S.Container>
 				{allLogic ? (
 					<>
-						<ResponsiveContainer width={1000}>
-							<LineGraphs data={data} avg={avg} />
-						</ResponsiveContainer>
+						<LineGraphs data={data} avg={avg} />
 						<S.AvgPrice>
 							<S.Keyword>" {keyword} "</S.Keyword> 의 평균 거래 가격은{" "}
 							<S.Won>{won}</S.Won> 원 입니다
@@ -71,9 +63,9 @@ export default Soldout;
 const NoSearchResult = styled.div`
 	${flexCenter}
 	color: ${({ theme }) => theme.PALETTE.black};
-	font-size: 36px;
+	font-size: 32px;
 	font-weight: 700;
-	margin: 70px 0;
+	margin: 190px 0 430px 0;
 
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		font-size: 28px;
@@ -115,7 +107,7 @@ const AvgPrice = styled.p`
 	font-weight: 500;
 	font-size: ${({ theme }) => theme.FONT_SIZE.mmlarge};
 	color: ${({ theme }) => theme.PALETTE.darkBlack};
-	margin: 50px 0 80px 0;
+	margin-bottom: 80px;
 	@media ${({ theme }) => theme.DEVICE.mobile} {
 		font-size: ${({ theme }) => theme.FONT_SIZE.medium};
 	}
