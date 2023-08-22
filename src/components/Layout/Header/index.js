@@ -9,6 +9,7 @@ import SearchModal from "./SearchModal";
 import TokenRepository from "repositories/TokenRepository";
 import search from "assets/images/search.png";
 import chat from "assets/images/chat.png";
+import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 
 const Header = () => {
 	const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Header = () => {
 	const [filter, setFilter] = useState("등록순");
 	const PlaceHolder = "제목, 태그명을 입력해 주세요";
 
+	const [isOpened, setIsOpened] = useState(false);
 	const categoryArray = [
 		{
 			name: "중고거래",
@@ -52,7 +54,14 @@ const Header = () => {
 		const searchValue = searchInput.current.value;
 		const keyword = searchValue.replace(/\s/g, ""); // 띄어쓰기 막기
 		if (keyword === "") return; // 빈값 막기
-		navigate(`/search/${keyword}?filter=${filter}`);
+		if (keyword.includes("?") || keyword.includes("#")) {
+			setIsOpened(true);
+			setTimeout(() => {
+				setIsOpened(false);
+			}, 1000);
+			return;
+		}
+		navigate(`/search/${keyword}`);
 		searchInput.current.value = "";
 		setIsOpen(false);
 	};
@@ -181,6 +190,11 @@ const Header = () => {
 					)}
 				</S.CategoryWrapper>
 			</S.Container>
+			{isOpened && (
+				<AlertModal
+					message={`"?"나 "#"을 포함한 특수문자는 검색이 불가합니다.`}
+				/>
+			)}
 		</>
 	);
 };

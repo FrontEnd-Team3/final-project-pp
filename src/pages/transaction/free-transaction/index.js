@@ -7,20 +7,44 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import QueryKey from "consts/queryKey";
 import { useQueryClient } from "react-query";
+import { useSearchParams, useLocation } from "react-router-dom";
 
 const FreeTransaction = () => {
 	const [page, setPage] = useState(1);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const test = searchParams.get("page") || 1;
 	const { data, isLoading, error, refetch } = ProductQueryApi.getFreeProduct({
 		category: 1,
 		page,
 		status: "판매중",
 	});
 
+	const location = useLocation();
+	const SearchParams = new URLSearchParams(location.search);
+	const PAGE = SearchParams.get("page");
 	const queryClient = useQueryClient();
 
 	useEffect(() => {
+		console.log("location", location, PAGE);
+		if (PAGE) setPage(PAGE);
+	}, [PAGE]);
+
+	// useEffect(() => {
+	// 	setPage(test);
+	// }, [test]);
+
+	/*
+	1. 페이지네이션 클릭해서 page 상태 변화
+	2. page 상태 변화로 useEffect 동작 > refetch, params 바꾸고
+	3. params 바뀌면 위에 useEffect 동작하면서 page 상태 변화
+	*/
+	useEffect(() => {
 		refetch();
+		setSearchParams({ page });
+		console.log("page", page);
 	}, [page]);
+
+	console.log("data", data);
 
 	const [currensValue, setCurrentValue] = useState("등록순");
 
@@ -46,7 +70,7 @@ const FreeTransaction = () => {
 
 	if (error) {
 		window.location.reload();
-		queryClient.refetchQueries(QueryKey.productData);
+		queryClient.refetchQueries(QueryKey.freeProduct);
 	}
 
 	return (
