@@ -9,7 +9,7 @@ import { flexCenter, flexColumn, flexRow } from "styles/common";
  * 호버시 쉐도우 주는거 적용해야함
  *
  */
-const StatusEndProductList = ({ product }) => {
+const StatusEndProductList = ({ product, formatNumber }) => {
 	const navigate = useNavigate();
 
 	const updateProduct = ProductQueryApi.updateProduct(product);
@@ -55,7 +55,7 @@ const StatusEndProductList = ({ product }) => {
 						<S.Wrapper3>
 							<div>{product.status}</div>
 						</S.Wrapper3>
-						<S.Price>{product.price}</S.Price>
+						<S.Price>{formatNumber(product.price)}</S.Price>
 						<S.PriceText>won</S.PriceText>
 					</S.Wrapper2>
 				</S.MasterWrapper>

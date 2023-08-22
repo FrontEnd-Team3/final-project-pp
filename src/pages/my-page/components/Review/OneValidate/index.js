@@ -19,6 +19,7 @@ const ValidateInput = ({ control, placeholder, name, type, onClick }) => {
 								value={value}
 								placeholder={placeholder}
 								onClick={onClick}
+								name={name}
 							/>
 							<S.RowBox>{error && <S.Error>{error.message}</S.Error>}</S.RowBox>
 						</>

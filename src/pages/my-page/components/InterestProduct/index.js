@@ -92,6 +92,10 @@ const RegisterProduct = () => {
 	// const [pageState, setPageState] = useState(1);
 	// const offset = (pageState - 1) * dataLimit;
 
+	const formatNumber = num => {
+		return Number(num).toLocaleString("ko-KR");
+	};
+
 	return (
 		<>
 			<S.Container>
@@ -123,7 +127,10 @@ const RegisterProduct = () => {
 				) : (
 					displayedProducts.map(product =>
 						product.Product.status === "판매완료" ? (
-							<StatusEndProductList product={product.Product} />
+							<StatusEndProductList
+								product={product.Product}
+								formatNumber={formatNumber}
+							/>
 						) : (
 							<S.ProductContainer key={product.Product.idx}>
 								<img src={product.Product.img_url} />
@@ -135,7 +142,7 @@ const RegisterProduct = () => {
 										<S.Wrapper3>
 											<div>{product.Product.status}</div>
 										</S.Wrapper3>
-										<S.Price>{product.Product.price}</S.Price>
+										<S.Price>{formatNumber(product.Product.price)}</S.Price>
 										<S.PriceText>won</S.PriceText>
 									</S.Wrapper2>
 								</S.MasterWrapper>
@@ -192,7 +199,7 @@ const ProductContainer = styled.div`
 
 const Title = styled.div`
 	margin-top: 50px;
-	font-size: 40px;
+	font-size: 24px;
 	font-weight: bold;
 	color: black;
 `;

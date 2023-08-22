@@ -1,31 +1,98 @@
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
-import TransactionHistory from "../TransactionHistory";
 import Buttons from "./Buttons";
-import { userList } from "mocks/data/user/userList";
+import UserQueryApi from "apis/user.query.api";
+import { useState } from "react";
+import TransactionHistory from "../TransactionHistory";
+import { useSearchParams } from "react-router-dom";
 
 const HouseKeeping = () => {
-	const MyuserList = userList?.filter(user => user.id === 1)[1];
+	const [page, setPage] = useState(1);
+	// const [categoryState, setCategory] = useState("buyer");
+	const [searchParams, setSearchParams] = useSearchParams();
+	const category = searchParams.get("category");
+	const start = searchParams.get("start");
+
+	const getToday = () => {
+		let date = new Date();
+		let year = date.getFullYear();
+		let month = ("0" + (1 + date.getMonth())).slice(-2);
+		let day = ("0" + date.getDate()).slice(-2);
+
+		return `${year}-${month}-${day}`;
+	};
+	const [end, setEnd] = useState(getToday());
+
+	// 현재 날짜 가져오는 로직
+	const [parameter, setParameter] = useState();
+
+	const { data: accountBookData } = UserQueryApi.AccountBookList({
+		page,
+		category,
+		start,
+		end,
+	});
+
+	const setCategoryParams = parameter => {
+		searchParams.set("category", parameter);
+		setSearchParams(searchParams);
+	};
+
+	const setDateParams = parameter => {
+		searchParams.set("start", parameter);
+		setSearchParams(searchParams);
+	};
+
+	const accountDataList = accountBookData?.payList;
+
+	const priceDataList = accountBookData?.amount;
+
+	const formatNumber = num => {
+		return Number(num).toLocaleString("ko-KR");
+	};
 
 	return (
 		<S.Container>
+			{/* <button onClick={() => setCategoryParams("seller")}>test</button>
+			<button onClick={() => setCategoryParams("buyer")}>test</button> */}
 			<S.RowBox>
 				<S.Title>가계부</S.Title>
 			</S.RowBox>
+			{/* <S.DivisionLine /> */}
+			<S.RowBox>
+				<div>
+					<img src={`${process.env.PUBLIC_URL}/img/저금통.png`} alt=" Image" />
+				</div>
+				<S.Title2>
+					<S.ParentDiv>
+						<p>이번달 판매 금액</p>
+						<p>
+							{formatNumber(priceDataList?.thisMonthPurchaseAmount || 0)} 원
+						</p>
+					</S.ParentDiv>
+					<S.ParentDiv>
+						<p>이번달 구매 금액</p>
+						<p>{formatNumber(priceDataList?.thisMonthSaleAmount || 0)} 원</p>
+					</S.ParentDiv>
+					<S.ParentDiv>
+						<p>총 판매 금액</p>
+						<p>{formatNumber(priceDataList?.totalPurchaseAmount || 0)} 원</p>
+					</S.ParentDiv>
+					<S.ParentDiv>
+						<p>총 구매 금액</p>
+						<p>{formatNumber(priceDataList?.totalSaleAmount || 0)} 원</p>
+					</S.ParentDiv>
+				</S.Title2>
+			</S.RowBox>
 			<S.DivisionLine />
-			<S.Title2>
-				<S.ParentDiv>
-					<p>총 판매 금액</p>
-					<p>2,000,000 원</p>
-				</S.ParentDiv>
-				<S.ParentDiv>
-					<p>총 지불 금액</p>
-					<p>2,00,000 원</p>
-				</S.ParentDiv>
-			</S.Title2>
-			<S.DivisionLine />
-			<Buttons />
-			<TransactionHistory MyuserList={MyuserList} />
+			<Buttons
+				setCategoryParams={setCategoryParams}
+				setDateParams={setDateParams}
+			/>
+			<TransactionHistory
+				MyuserList={accountDataList}
+				formatNumber={formatNumber}
+			/>
 		</S.Container>
 	);
 };
@@ -64,6 +131,7 @@ const ProductContainer = styled.div`
 
 const Title = styled.div`
 	margin-top: 20px;
+	margin-bottom: 40px;
 	font-size: 24px;
 	font-weight: bold;
 	color: black;
@@ -109,6 +177,13 @@ const RowBox = styled.div`
 	display: flex;
 	justify-content: space-between;
 	${flexRow}
+	div {
+		img {
+			width: 300px;
+			height: 300px;
+			margin-left: 60px;
+		}
+	}
 `;
 
 const ToggleBox = styled.div`
