@@ -1,18 +1,29 @@
 import ProductQueryApi from "apis/product.query.api";
+import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import BasicSelect from "components/Select";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { RiEmotionSadLine } from "react-icons/ri";
+import { flexCenter } from "styles/common";
+import RecentlyClicked from "components/RecentlyClicked";
 
 const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { keyword } = useParams();
-	// const page = searchParams.get("page") || 1;
 	const [page, setPage] = useState(1);
+	// const pages = searchParams.get("page") || 1;
 	const filter = searchParams.get("filter") || "등록순";
 	const [searchResults, setSearchResults] = useState([]);
 	const [currensValue, setCurrentValue] = useState("등록순");
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!prod) return;
+		onFiltering(filter);
+		setSearchParams({ filter: currensValue, page: data?.pagination?.curPage });
+	}, [filter]);
 
 	const { data, isLoading, refetch } = ProductQueryApi.searchProductList({
 		keyword,
@@ -26,10 +37,11 @@ const SearchPage = () => {
 
 	useEffect(() => {
 		refetch();
+		// setSearchParams({ pages: data?.pagination?.curPage });
 	}, [page]);
 
 	if (isLoading) {
-		return <div>스켈레톤 UI로 변경 예정</div>;
+		return <Loading />;
 	}
 
 	const filteredSearchResults =
@@ -40,7 +52,9 @@ const SearchPage = () => {
 			const filterValue = [title, description, ...tags].join(" ").toLowerCase();
 			return filterValue.includes(keyword.toLowerCase());
 		}) || [];
+	// console.log("필터", filter);
 
+	// util 로 뺀 후
 	const onFiltering = value => {
 		let filteredList = [...filteredSearchResults];
 
@@ -53,12 +67,14 @@ const SearchPage = () => {
 		} else if (value === "고가순") {
 			filteredList.sort((a, b) => b.price - a.price);
 		}
-
 		setSearchResults(filteredList);
 		// filter params만 업데이트하는 로직
-		setSearchParams(new URLSearchParams({ ...searchParams, filter: value }));
+		// setSearchParams({
+		// 	filter: value,
+		// 	page: data?.pagination.curPage,
+		// });
+		// setSearchParams(new URLSearchParams({ ...searchParams, filter: value }));
 	};
-
 	const options = [
 		{ value: "등록순", label: "등록순" },
 		{ value: "인기순", label: "인기순" },
@@ -82,6 +98,12 @@ const SearchPage = () => {
 						setCurrentValue={setCurrentValue}
 					/>
 				</S.ResultandFilter>
+				{filteredSearchResults.length === 0 && (
+					<S.NoSearchResult>
+						검색 결과가 없습니다
+						<RiEmotionSadLine size={40} />
+					</S.NoSearchResult>
+				)}
 				{searchResults.length > 0 ? (
 					<ProductList
 						productList={searchResults}
@@ -98,11 +120,33 @@ const SearchPage = () => {
 					/>
 				)}
 			</S.Wrapper>
+			<RecentlyClicked />
 		</S.Container>
 	);
 };
 
 export default SearchPage;
+
+const NoSearchResult = styled.div`
+	${flexCenter}
+	color: ${({ theme }) => theme.PALETTE.black};
+	font-size: 36px;
+	font-weight: 700;
+	margin: 70px 0 10px 0;
+
+	svg {
+		margin-left: 10px;
+
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 28px;
+			margin-left: 4px;
+		}
+	}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.medium};
+	}
+`;
 
 const Container = styled.div`
 	width: 100%;
@@ -153,4 +197,5 @@ const S = {
 	ResultandFilter,
 	SearchText,
 	AllButton,
+	NoSearchResult,
 };

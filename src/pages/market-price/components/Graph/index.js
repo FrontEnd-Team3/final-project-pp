@@ -1,3 +1,4 @@
+import useWindowSizeCustom from "hooks/useWindowSize";
 import {
 	Line,
 	XAxis,
@@ -11,6 +12,7 @@ import styled from "styled-components";
 
 function LineGraphs({ data }) {
 	const avg = data?.cumulativeAvgPrice;
+	const windowSize = useWindowSizeCustom();
 
 	const arr = avg.map(item => ({
 		name: item.date.split("-").slice(1).join("/"),
@@ -28,14 +30,14 @@ function LineGraphs({ data }) {
 	return (
 		<S.Container>
 			<ComposedChart
-				width={1060}
-				height={600}
+				width={windowSize.width || 1060}
+				height={windowSize.height || 600}
 				data={arr}
 				margin={{
 					top: 120,
 					right: 120,
 					bottom: 0,
-					left: 60,
+					left: 100,
 				}}
 			>
 				<CartesianGrid stroke="#f5f5f5" />
@@ -74,9 +76,8 @@ function LineGraphs({ data }) {
 export default LineGraphs;
 
 const Container = styled.div`
-	width: 1000px;
+	max-width: 1000px;
 	height: 600px;
-	top: 100px;
 	margin-bottom: 100px;
 `;
 

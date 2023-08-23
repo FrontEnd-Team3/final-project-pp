@@ -7,6 +7,7 @@ import { useState } from "react";
 import ProductQueryApi from "apis/product.query.api";
 import { useParams } from "react-router-dom";
 import { getPastDate, getTodayDate } from "utils/marketPriceData";
+import RecentlyClicked from "components/RecentlyClicked";
 
 const MarketPrice = () => {
 	const { keyword } = useParams();
@@ -31,8 +32,9 @@ const MarketPrice = () => {
 					currensValue={currensValue}
 					setCurrentValue={setCurrentValue}
 				/>
-				<Soldout soldoutProd={soldoutProd} />
 			</S.Container>
+			<Soldout soldoutProd={soldoutProd} />
+			<RecentlyClicked />
 		</>
 	);
 };
@@ -41,8 +43,7 @@ export default MarketPrice;
 const Container = styled.div`
 	margin: 0 auto;
 	max-width: 1060px;
-	${flexColumn}
-	align-items: center;
+	${flexColumn}/* align-items: center; */
 `;
 
 const S = {
