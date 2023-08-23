@@ -11,8 +11,11 @@ import * as SCHEMA from "../../../../consts/schema";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 
 const Review = ({ productIndex, reviewData }) => {
+	const navigate = useNavigate();
 	const page = 1;
 	const { data: PayProductData } = UserQueryApi?.PayProductList({
 		page,
@@ -30,8 +33,8 @@ const Review = ({ productIndex, reviewData }) => {
 	const [starState, setStarState] = useState(-1);
 	const starArr = ["*", "*", "*", "*", "*"];
 	const [ondo, setOndo] = useState(OndoData);
-	console.log("OndoData", OndoData);
-	console.log("ondo", ondo);
+
+	const [completeOpen, setCompleteOpen] = useState(false);
 
 	const { review, reviewInfo } = SCHEMA;
 	const schema = yup.object().shape({ review, reviewInfo });
@@ -90,6 +93,11 @@ const Review = ({ productIndex, reviewData }) => {
 				};
 				const response = await AuthApi.userReview(payList_idx, newValue);
 				if (response && response.status === 200) {
+					setCompleteOpen(true);
+					setTimeout(() => {
+						setCompleteOpen(false);
+						window.location.reload();
+					}, 3000);
 					console.log(`리뷰 저장 성공`, response);
 				}
 			}
@@ -103,6 +111,7 @@ const Review = ({ productIndex, reviewData }) => {
 
 	return (
 		<S.Container onSubmit={handleSave}>
+			{completeOpen && <AlertModal message={"등록이 완료되었습니다."} />}
 			<div>
 				<S.ImgWrapper>
 					<img src={PayProductList[0].Product.img_url} />

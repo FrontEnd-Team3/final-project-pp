@@ -8,7 +8,7 @@ import { flexCenter, flexColumn, flexRow } from "styles/common";
  * 호버시 쉐도우 주는거 적용해야함
  *
  */
-const InterestEndProductList = ({ product }) => {
+const InterestEndProductList = ({ product, formatNumber }) => {
 	return (
 		<S.Container>
 			<S.ProductContainer key={product.idx}>
@@ -49,7 +49,7 @@ const InterestEndProductList = ({ product }) => {
 								<div>{product.status}</div>
 							</S.Wrapper3>
 							<div>
-								<p>{product.price}</p> <p>won</p>
+								<p>{formatNumber(product.price)}</p> <p>won</p>
 							</div>
 						</S.Wrapper2>
 					</div>

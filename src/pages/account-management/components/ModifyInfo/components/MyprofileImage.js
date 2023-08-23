@@ -15,8 +15,8 @@ const MyProfileImage = ({ userData, imageSrc }) => {
 export default MyProfileImage;
 
 const ProfileImg = styled.img`
-	width: 160px;
-	height: 160px;
+	width: 180px;
+	height: 180px;
 	border-radius: 100px;
 	margin: 60px 60px;
 `;
