@@ -2,7 +2,6 @@ import ProductQueryApi from "apis/product.query.api";
 import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
-import BasicSelect from "components/Select";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import QueryKey from "consts/queryKey";
@@ -25,46 +24,17 @@ const FreeTransaction = () => {
 	const queryClient = useQueryClient();
 
 	useEffect(() => {
-		console.log("location", location, PAGE);
-		if (PAGE) setPage(PAGE);
-	}, [PAGE]);
+		if (PAGE) setPage(Number(PAGE));
+	}, [PAGE, setPage]);
 
-	// useEffect(() => {
-	// 	setPage(test);
-	// }, [test]);
+	useEffect(() => {
+		setPage(test);
+	}, [test]);
 
-	/*
-	1. 페이지네이션 클릭해서 page 상태 변화
-	2. page 상태 변화로 useEffect 동작 > refetch, params 바꾸고
-	3. params 바뀌면 위에 useEffect 동작하면서 page 상태 변화
-	*/
 	useEffect(() => {
 		refetch();
 		setSearchParams({ page });
-		console.log("page", page);
 	}, [page]);
-
-	console.log("data", data);
-
-	const [currensValue, setCurrentValue] = useState("등록순");
-
-	const [filteredProducts, setFilteredProducts] = useState(data?.product);
-
-	const onFiltering = value => {
-		let filteredList = [...data?.product];
-
-		if (value === "등록순") {
-			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.likeConut - a.likeConut);
-		}
-		setFilteredProducts(filteredList);
-	};
-
-	const options = [
-		{ value: "등록순", label: "등록순" },
-		{ value: "인기순", label: "인기순" },
-	];
 
 	if (isLoading) return <Loading />;
 
@@ -79,18 +49,8 @@ const FreeTransaction = () => {
 				<S.Title>
 					우리 동네 <span>무료</span> 나눔
 				</S.Title>
-				<S.Filter>
-					<BasicSelect
-						variant={"primary"}
-						options={options}
-						selectedValue={"등록순"}
-						onChange={onFiltering}
-						currensValue={"등록순"}
-						setCurrentValue={setCurrentValue}
-					/>
-				</S.Filter>
 				<ProductList
-					productList={filteredProducts || data?.product}
+					productList={data?.product}
 					pagination={data?.pagination}
 					page={page}
 					setPage={setPage}
@@ -127,23 +87,8 @@ const Title = styled.p`
 	}
 `;
 
-const Filter = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	font-size: 13px;
-	color: #788394;
-	margin: 12px 0;
-	& button {
-		color: ${({ theme }) => theme.PALETTE.white};
-		font-size: 14px;
-		margin-left: 15px;
-	}
-`;
-
 const S = {
 	Container,
 	Wrapper,
 	Title,
-	Filter,
 };

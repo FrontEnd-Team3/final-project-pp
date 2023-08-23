@@ -12,7 +12,6 @@ const BasicSelect = ({
 	...rest
 }) => {
 	const [isOpenSelect, setIsOpenSelect] = useState(false);
-	// const [currensValue, setCurrentValue] = useState(selectedValue);
 
 	const isOpenControl = () => {
 		setIsOpenSelect(prev => !prev);
@@ -25,8 +24,6 @@ const BasicSelect = ({
 
 		if (onChange) onChange(value);
 	};
-
-	console.log("현재 옵션", currensValue);
 
 	return (
 		<S.Wrapper onClick={isOpenControl}>

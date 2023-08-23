@@ -24,6 +24,14 @@ const Container = styled.div`
 	font-weight: 600;
 	font-style: italic;
 	font-size: 36px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin: 60px 0;
+		font-size: 24px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin: 30px 0;
+		font-size: 24px;
+	}
 `;
 
 const moveToLeft = keyframes`
@@ -54,7 +62,7 @@ const TopBox = styled.div`
 `;
 
 const TopText = styled.div`
-	animation: ${moveToLeft} 125s linear infinite; /* Adjust the animation duration as needed */
+	animation: ${moveToLeft} 125s linear infinite;
 `;
 
 const BottomBox = styled.div`

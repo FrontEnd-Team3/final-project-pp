@@ -18,7 +18,6 @@ const StartChatBtn = ({ chat }) => {
 		if (!chat.length && !bool) {
 			try {
 				ChatApi.createChatRoom(parseInt(id)).then(res => {
-					// console.log("start", res);
 					ChatApi.saveMessages({
 						room_idx: res.data?.idx,
 						message: "너 나한테 물건을 팔아라!",

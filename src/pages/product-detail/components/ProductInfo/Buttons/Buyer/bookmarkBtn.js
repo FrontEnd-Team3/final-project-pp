@@ -24,7 +24,6 @@ const BookmarkBtn = ({ bookmark }) => {
 		bookmarkData
 			.mutateAsync()
 			.then(res => {
-				console.log("like", res);
 				setIsBookmarked(res.data.message);
 			})
 			.catch(err => console.error(err));
