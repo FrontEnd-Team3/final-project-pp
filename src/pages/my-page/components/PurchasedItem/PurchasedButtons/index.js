@@ -1,4 +1,5 @@
 import BasicButton from "components/Button";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { flexColumn } from "styles/common";
@@ -8,8 +9,29 @@ const PurchasedButtons = ({
 	setOpenReview,
 	reviewExists,
 	poductIdx,
+	setOpenOnReview,
 }) => {
 	const navigate = useNavigate();
+	const [scrollY, setScrollY] = useState(0);
+	useEffect(() => {
+		const handleScroll = () => {
+			setScrollY(window.scrollY);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
+	const handleReview = () => {
+		setOpenOnReview(false);
+		setOpenReview(true);
+		setTimeout(() => {
+			window.scrollTo(0, 530);
+		}, 0);
+	};
 	if (reviewExists) return null;
 	return (
 		<ButtonsContainer>
@@ -38,9 +60,7 @@ const PurchasedButtons = ({
 					borderRadius: "6px",
 					fontWeight: "500",
 				}}
-				onClick={() => {
-					setOpenReview(true);
-				}}
+				onClick={handleReview}
 			/>
 		</ButtonsContainer>
 	);

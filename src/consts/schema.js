@@ -87,5 +87,5 @@ export const review = yup
 export const reviewInfo = yup
 	.string()
 	.min(2, "2자 이상 입력해주세요.")
-	.max(50, "50자 미만 입력해주세요.")
+	.max(500, "500자 미만 입력해주세요.")
 	.required("후기 내용을 입력해주세요.");
