@@ -12,6 +12,7 @@ const HouseKeeping = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const category = searchParams.get("category");
 	const start = searchParams.get("start");
+	const [priceState, setPriceState] = useState(true);
 
 	const getToday = () => {
 		let date = new Date();
@@ -43,6 +44,14 @@ const HouseKeeping = () => {
 		setSearchParams(searchParams);
 	};
 
+	const handleChangePrice = btnName => {
+		if (btnName === "판매") {
+			setPriceState(true);
+		} else {
+			setPriceState(false);
+		}
+	};
+
 	const accountDataList = accountBookData?.payList;
 
 	const priceDataList = accountBookData?.amount;
@@ -53,10 +62,24 @@ const HouseKeeping = () => {
 
 	return (
 		<S.Container>
-			{/* <button onClick={() => setCategoryParams("seller")}>test</button>
-			<button onClick={() => setCategoryParams("buyer")}>test</button> */}
 			<S.RowBox>
 				<S.Title>가계부</S.Title>
+				<S.WrapperBtns>
+					<S.AccountButton
+						onClick={() => {
+							handleChangePrice("판매");
+						}}
+					>
+						판매내역
+					</S.AccountButton>
+					<S.AccountButton
+						onClick={() => {
+							handleChangePrice("구매");
+						}}
+					>
+						구매내역
+					</S.AccountButton>
+				</S.WrapperBtns>
 			</S.RowBox>
 			{/* <S.DivisionLine /> */}
 			<S.RowBox>
@@ -64,24 +87,35 @@ const HouseKeeping = () => {
 					<img src={`${process.env.PUBLIC_URL}/img/저금통.png`} alt=" Image" />
 				</div>
 				<S.Title2>
-					<S.ParentDiv>
-						<p>이번달 판매 금액</p>
-						<p>
-							{formatNumber(priceDataList?.thisMonthPurchaseAmount || 0)} 원
-						</p>
-					</S.ParentDiv>
-					<S.ParentDiv>
-						<p>이번달 구매 금액</p>
-						<p>{formatNumber(priceDataList?.thisMonthSaleAmount || 0)} 원</p>
-					</S.ParentDiv>
-					<S.ParentDiv>
-						<p>총 판매 금액</p>
-						<p>{formatNumber(priceDataList?.totalPurchaseAmount || 0)} 원</p>
-					</S.ParentDiv>
-					<S.ParentDiv>
-						<p>총 구매 금액</p>
-						<p>{formatNumber(priceDataList?.totalSaleAmount || 0)} 원</p>
-					</S.ParentDiv>
+					{priceState ? (
+						<>
+							<S.ParentDiv>
+								<p>총 판매 금액</p>
+								<p>
+									{formatNumber(priceDataList?.totalPurchaseAmount || 0)} 원
+								</p>
+							</S.ParentDiv>
+							<S.ParentDiv>
+								<p>이번달 판매 금액</p>
+								<p>
+									{formatNumber(priceDataList?.thisMonthPurchaseAmount || 0)} 원
+								</p>
+							</S.ParentDiv>
+						</>
+					) : (
+						<>
+							<S.ParentDiv>
+								<p>총 구매 금액</p>
+								<p>{formatNumber(priceDataList?.totalSaleAmount || 0)} 원</p>
+							</S.ParentDiv>
+							<S.ParentDiv>
+								<p>이번달 구매 금액</p>
+								<p>
+									{formatNumber(priceDataList?.thisMonthSaleAmount || 0)} 원
+								</p>
+							</S.ParentDiv>
+						</>
+					)}
 				</S.Title2>
 			</S.RowBox>
 			<S.DivisionLine />
@@ -97,6 +131,36 @@ const HouseKeeping = () => {
 	);
 };
 export default HouseKeeping;
+
+const AccountButton = styled.button`
+	font-size: 16px;
+	border: 1px solid #dddddd;
+	border-radius: 6px;
+	font-weight: 700;
+	margin-right: 16px;
+	width: 100px;
+	padding: 8px;
+	height: 40px;
+	background-color: ${({ theme }) => theme.PALETTE.white};
+	color: ${({ theme }) => theme.PALETTE.black};
+	cursor: pointer;
+	:hover {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+	:focus {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+	:active {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+`;
+
+const WrapperBtns = styled.div`
+	margin-top: 20px;
+`;
 
 const DivisionLine = styled.hr`
 	width: 962px;
@@ -137,8 +201,7 @@ const Title = styled.div`
 	color: black;
 `;
 const Title2 = styled.div`
-	margin-top: 67px;
-	margin-bottom: 44px;
+	margin-bottom: 50px;
 	font-size: 24px;
 	font-weight: bold;
 	color: black;
@@ -156,7 +219,7 @@ const ParentDiv = styled.div`
 		text-align: right;
 		width: 170px;
 	}
-	margin-top: 20px;
+	margin-top: 35px;
 `;
 
 const Wrapper = styled.div`
@@ -194,6 +257,8 @@ const ToggleBox = styled.div`
 `;
 
 const S = {
+	WrapperBtns,
+	AccountButton,
 	DivisionLine,
 	Title,
 	Title2,

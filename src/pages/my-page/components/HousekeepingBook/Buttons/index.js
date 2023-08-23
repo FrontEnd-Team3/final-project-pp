@@ -1,11 +1,14 @@
-import BasicButton from "components/Button";
+import { useState } from "react";
 import styled from "styled-components";
 import { flexRow } from "styles/common";
 
 const Buttons = ({ setCategoryParams, setDateParams }) => {
-	const threeMonthAgo = () => {
+	const [color, setColor] = useState("white");
+	const [fontWeight, setFontWeight] = useState("400");
+	const [selectedButton, setSelectedButton] = useState("");
+	const monthAgo = num => {
 		let now = new Date();
-		let date = new Date(now.setMonth(now.getMonth() - 3));
+		let date = new Date(now.setMonth(now.getMonth() - num));
 		let year = date.getFullYear();
 		let month = ("0" + (1 + date.getMonth())).slice(-2);
 		let day = ("0" + date.getDate()).slice(-2);
@@ -13,140 +16,82 @@ const Buttons = ({ setCategoryParams, setDateParams }) => {
 		return `${year}-${month}-${day}`;
 	};
 
-	const sixMonthAgo = () => {
-		let now = new Date();
-		let date = new Date(now.setMonth(now.getMonth() - 6));
-		let year = date.getFullYear();
-		let month = ("0" + (1 + date.getMonth())).slice(-2);
-		let day = ("0" + date.getDate()).slice(-2);
-
-		return `${year}-${month}-${day}`;
+	const getButtonStyle = buttonName => {
+		if (selectedButton === buttonName) {
+			return {
+				color: "primary",
+				fontWeight: "700",
+			};
+		} else {
+			return {
+				color: "white",
+				fontWeight: "400",
+			};
+		}
 	};
-
-	const nineMonthAgo = () => {
-		let now = new Date();
-		let date = new Date(now.setMonth(now.getMonth() - 9));
-		let year = date.getFullYear();
-		let month = ("0" + (1 + date.getMonth())).slice(-2);
-		let day = ("0" + date.getDate()).slice(-2);
-
-		return `${year}-${month}-${day}`;
-	};
-	const yearAgo = () => {
-		let now = new Date();
-		let date = new Date(now.setMonth(now.getMonth() - 12));
-		let year = date.getFullYear();
-		let month = ("0" + (1 + date.getMonth())).slice(-2);
-		let day = ("0" + date.getDate()).slice(-2);
-
-		return `${year}-${month}-${day}`;
-	};
+	// const handleBtnChange = btnName => {
+	// 	if ((btnName = "총 내역")) {
+	// 		setColor("primary");
+	// 		setFontWeight("700");
+	// 	}
+	// };
 
 	return (
-		<Container>
+		<S.Container>
 			<div>
-				<BasicButton
-					color={"primary"}
-					size={"xmedium"}
-					children={"총 내역"}
-					style={{
-						fontSize: "16px",
-						borderRadius: "6px",
-						fontWeight: "700",
-						marginRight: "24px",
-					}}
-				/>
-				<BasicButton
-					color={"white"}
-					size={"xmedium"}
-					children={"구매내역"}
-					style={{
-						fontSize: "16px",
-						border: "1px solid #dddddd",
-						borderRadius: "6px",
-						fontWeight: "400",
-						marginRight: "24px",
-					}}
+				<S.AccountButton
 					onClick={() => {
 						setCategoryParams("buyer");
 					}}
-				/>
-				<BasicButton
-					color={"white"}
-					size={"xmedium"}
-					children={"판매내역"}
-					style={{
-						fontSize: "16px",
-						border: "1px solid #dddddd",
-						borderRadius: "6px",
-						fontWeight: "400",
-					}}
+				>
+					총내역
+				</S.AccountButton>
+				<S.AccountButton
 					onClick={() => {
 						setCategoryParams("seller");
 					}}
-				/>
+				>
+					판매내역
+				</S.AccountButton>
+				<S.AccountButton
+					onClick={() => {
+						setCategoryParams("buyer");
+					}}
+				>
+					구매내역
+				</S.AccountButton>
 			</div>
 			<div>
-				<BasicButton
-					color={"primary"}
-					size={"small"}
-					children={"3개월"}
-					style={{
-						fontSize: "16px",
-						borderRadius: "6px",
-						fontWeight: "700",
-						marginRight: "16px",
-					}}
+				<S.AccountButton
 					onClick={() => {
-						setDateParams(threeMonthAgo());
+						setDateParams(monthAgo(3));
 					}}
-				/>
-				<BasicButton
-					color={"white"}
-					size={"small"}
-					children={"6개월"}
-					style={{
-						fontSize: "16px",
-						borderRadius: "6px",
-						border: "1px solid #dddddd",
-						fontWeight: "400",
-						marginRight: "16px",
-					}}
+				>
+					3개월
+				</S.AccountButton>
+				<S.AccountButton
 					onClick={() => {
-						setDateParams(sixMonthAgo());
+						setDateParams(monthAgo(6));
 					}}
-				/>
-				<BasicButton
-					color={"white"}
-					size={"small"}
-					children={"9개월"}
-					style={{
-						fontSize: "16px",
-						borderRadius: "6px",
-						border: "1px solid #dddddd",
-						fontWeight: "400",
-						marginRight: "16px",
-					}}
+				>
+					6개월
+				</S.AccountButton>
+				<S.AccountButton
 					onClick={() => {
-						setDateParams(nineMonthAgo());
+						setDateParams(monthAgo(9));
 					}}
-				/>
-				<BasicButton
-					color={"white"}
-					size={"small"}
-					children={"1년"}
-					style={{
-						fontSize: "16px",
-						borderRadius: "6px",
-						fontWeight: "400",
-						border: "1px solid #dddddd",
-					}}
+				>
+					9개월
+				</S.AccountButton>
+				<S.AccountButton
 					onClick={() => {
-						setDateParams(yearAgo());
+						setDateParams(monthAgo(12));
 					}}
-				/>
+				>
+					1년
+				</S.AccountButton>
 			</div>
-		</Container>
+		</S.Container>
 	);
 };
 
@@ -160,3 +105,34 @@ const Container = styled.div`
 	margin-bottom: 30px;
 	margin-top: 103px;
 `;
+
+const AccountButton = styled.button`
+	font-size: 16px;
+	border: 1px solid #dddddd;
+	border-radius: 6px;
+	font-weight: 700;
+	margin-right: 16px;
+	width: 100px;
+	padding: 8px;
+	height: 40px;
+	background-color: ${({ theme }) => theme.PALETTE.white};
+	color: ${({ theme }) => theme.PALETTE.black};
+	cursor: pointer;
+	:hover {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+	:focus {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+	:active {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+`;
+
+const S = {
+	Container,
+	AccountButton,
+};
