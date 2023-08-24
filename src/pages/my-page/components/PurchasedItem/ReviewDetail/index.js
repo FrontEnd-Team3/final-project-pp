@@ -1,5 +1,3 @@
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserQueryApi from "apis/user.query.api";
 import { useState } from "react";
 import styled from "styled-components";
@@ -22,13 +20,10 @@ const ReviewDetail = ({ productIndex, reviewData }) => {
 	const PayProductList = PayReviewList?.filter(
 		product => product.Product.idx === productIndex,
 	);
-	const OndoData = PayProductList[0].Product.User.Ondo.ondo;
 
-	const [starState, setStarState] = useState(-1);
-	const starArr = ["*", "*", "*", "*", "5"];
-	const [ondo, setOndo] = useState(OndoData);
-	console.log("OndoData", OndoData);
-	console.log("ondo", ondo);
+	const ReviewData = PayProductList[0].Review;
+
+	const OndoData = PayProductList[0].Product.User.Ondo.ondo;
 
 	const { review, reviewInfo } = SCHEMA;
 	const schema = yup.object().shape({ review, reviewInfo });
@@ -85,10 +80,17 @@ const ReviewDetail = ({ productIndex, reviewData }) => {
 				</div>
 			</div>
 			<S.RowBox>
-				<S.Title>후기 내용</S.Title>
+				<S.Title>제목: {ReviewData.title}</S.Title>
 			</S.RowBox>
 			<S.DivisionLine />
 			<S.RowBox>
+				<p>내용</p>
+			</S.RowBox>
+			<S.RivieWrapper>
+				<S.DetailText>
+					<p>{ReviewData.content}</p>
+				</S.DetailText>
+				{/* <S.RowBox>
 				<S.Title1>별점</S.Title1>
 			</S.RowBox>
 			<S.StarRowBox>
@@ -103,15 +105,9 @@ const ReviewDetail = ({ productIndex, reviewData }) => {
 						></FontAwesomeIcon>
 					))}
 				</div>
-			</S.StarRowBox>
-			<S.DivisionLine2 />
-			<S.RowBox>
-				<p>후기 제목</p>
-			</S.RowBox>
-			<S.RowBox>
-				<p>후기 내용</p>
-			</S.RowBox>
-			<S.DivisionLine2 />
+			</S.StarRowBox> */}
+				<S.DivisionLine2 />
+			</S.RivieWrapper>
 		</S.Container>
 	);
 };
@@ -140,7 +136,12 @@ const Container = styled.form`
 	display: flex;
 	${flexColumn}
 	${flexCenter}
-	margin-bottom: 100px
+	margin-top: 20px;
+	margin-bottom: 60px;
+`;
+
+const RivieWrapper = styled.div`
+	${flexColumn}
 `;
 
 const ImgWrapper = styled.div`
@@ -190,6 +191,14 @@ const StarRowBox = styled.div`
 	}
 `;
 
+const DetailText = styled.div`
+	width: 960px;
+	height: auto;
+	padding: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+`;
+
 const S = {
 	DivisionLine,
 	DivisionLine2,
@@ -200,4 +209,6 @@ const S = {
 	RowBox,
 	StarRowBox,
 	ImgWrapper,
+	DetailText,
+	RivieWrapper,
 };
