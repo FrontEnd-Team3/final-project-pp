@@ -2,7 +2,6 @@ import ProductQueryApi from "apis/product.query.api";
 import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
 import RecentlyClicked from "components/RecentlyClicked";
-import BasicSelect from "components/Select";
 import QueryKey from "consts/queryKey";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
@@ -24,38 +23,11 @@ const UsedTransaction = () => {
 	useEffect(() => {
 		refetch();
 		setSearchParams({ page });
-		console.log("page", page);
 	}, [page]);
 
 	useEffect(() => {
 		setPage(test);
 	}, [test]);
-
-	const [currensValue, setCurrentValue] = useState("등록순");
-
-	const [filteredProducts, setFilteredProducts] = useState(data?.product);
-
-	const onFiltering = value => {
-		let filteredList = [...data?.product];
-
-		if (value === "등록순") {
-			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.likeConut - a.likeConut);
-		} else if (value === "저가순") {
-			filteredList.sort((a, b) => a.price - b.price);
-		} else if (value === "고가순") {
-			filteredList.sort((a, b) => b.price - a.price);
-		}
-		setFilteredProducts(filteredList);
-	};
-
-	const options = [
-		{ value: "등록순", label: "등록순" },
-		{ value: "인기순", label: "인기순" },
-		{ value: "저가순", label: "저가순" },
-		{ value: "고가순", label: "고가순" },
-	];
 
 	if (isLoading) return <Loading />;
 
@@ -70,18 +42,8 @@ const UsedTransaction = () => {
 				<S.Title>
 					우리 동네 <span>중고</span> 물품
 				</S.Title>
-				<S.Filter>
-					<BasicSelect
-						variant={"primary"}
-						options={options}
-						selectedValue={"등록순"}
-						onChange={onFiltering}
-						currensValue={"등록순"}
-						setCurrentValue={setCurrentValue}
-					/>
-				</S.Filter>
 				<ProductList
-					productList={filteredProducts || data?.product}
+					productList={data?.product}
 					pagination={data?.pagination}
 					page={page}
 					setPage={setPage}
@@ -115,24 +77,8 @@ const Title = styled.p`
 	}
 `;
 
-const Filter = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	font-size: ${({ theme }) => theme.FONT_SIZE.xxsmall};
-	font-size: 13px;
-	color: #788394;
-	margin: 12px 0;
-	& button {
-		color: ${({ theme }) => theme.PALETTE.white};
-		font-size: 14px;
-		margin-left: 15px;
-	}
-`;
-
 const S = {
 	Container,
 	Wrapper,
 	Title,
-	Filter,
 };

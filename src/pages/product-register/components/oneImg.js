@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { TiDelete } from "react-icons/ti";
 
 const OneImg = ({ img }) => {
-	console.log(img.image);
 	return (
 		<S.OneImage>
 			<S.DeleteIcons>

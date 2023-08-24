@@ -57,25 +57,34 @@ const Container = styled.div`
 	margin-bottom: 100px;
 	padding-top: 25px;
 	@media ${({ theme }) => theme.DEVICE.tablet} {
-		width: 768px;
 		flex-direction: column;
 		align-items: center;
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		width: 580px;
+		/* width: 580px; */
 	}
 `;
 
 const InfoContainer = styled.div`
-	width: 432px;
+	margin-left: 20px;
 	${flexColumn}
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		margin-top: 48px;
-		width: 560px;
+		width: 100%;
+		margin-left: 0;
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
 		margin-top: 20px;
-		width: 520px;
+	}
+	button {
+		margin-right: 30px;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			font-size: 20px;
+		}
+	}
+
+	button:last-of-type {
+		margin: 0;
 	}
 `;
 
@@ -121,14 +130,14 @@ const Tag = styled.span`
 	background: ${({ theme }) => theme.PALETTE.white};
 	border-color: ${({ theme }) => theme.PALETTE.primary};
 	color: ${({ theme }) => theme.PALETTE.primary};
-	margin: 5px;
+	margin: 20px 5px 5px 5px;
 	text-align: center;
 	line-height: 16.5px;
 `;
 
 const UserWrapper = styled.div`
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		margin-left: 30px;
+		margin-left: 0;
 	}
 `;
 

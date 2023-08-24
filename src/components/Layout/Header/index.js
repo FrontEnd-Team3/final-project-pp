@@ -4,14 +4,13 @@ import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
-import { useChatData } from "context/chatData.ctx";
 import SearchModal from "./SearchModal";
 import TokenRepository from "repositories/TokenRepository";
 import search from "assets/images/search.png";
 import chat from "assets/images/chat.png";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 
-const Header = () => {
+const Header = ({ socket }) => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
 	const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +34,6 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
-	const { socket, socketID } = useChatData();
 
 	const handleLogout = async () => {
 		try {
@@ -73,10 +71,8 @@ const Header = () => {
 	};
 
 	useEffect(() => {
-		console.log("여기다!!!");
 		socket.emit(`connect-user`, { token: TokenRepository.getToken() });
 		socket.on("newMessage", data => {
-			console.log("전역메시지", data);
 			setNewChat(true);
 		});
 	}, [socket]);

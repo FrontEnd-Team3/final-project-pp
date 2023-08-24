@@ -50,7 +50,6 @@ const Inputs = () => {
 
 	const location = useLocation();
 	const prevData = location.state ? location.state.prevData : null;
-	console.log("현재 불러온 데이터", prevData);
 	const queryClient = useQueryClient();
 
 	const { mutate } = useMutation(data => ProductApi.addProduct(data), {
