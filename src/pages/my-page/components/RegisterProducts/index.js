@@ -7,14 +7,14 @@ import StatusEndProductList from "./StatusEndProductList";
 import EmptyData from "../EmptyData";
 import MyPageSelect from "../MyPageSelect";
 import { useSearchParams } from "react-router-dom";
+// import Pagination from "components/Pagination";
 
 const RegisterProduct = () => {
 	const navigate = useNavigate();
 	const { category } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [categoryState, setCategory] = useState(category);
-	console.log("categoryState", categoryState);
-	const page = searchParams.get("page") || 1;
+	const [page, setPage] = useState(1);
 
 	const [selectedStatus, setSelectedStatus] = useState("전체");
 	const [selectedProductStatus, setSelectedProductStatus] =
@@ -26,9 +26,12 @@ const RegisterProduct = () => {
 	});
 
 	const productList = productData?.products;
-	console.log("ProductList", productList);
-
 	const productPagination = productData?.pagination;
+
+	const count = productPagination?.count;
+	console.log("count", count);
+	const size = productPagination?.page_size;
+	console.log("size", size);
 
 	const sellingProducts =
 		productList?.filter(product => product.status === "판매중") || []; // <-- 기본값을 빈 배열로 설정
@@ -44,10 +47,6 @@ const RegisterProduct = () => {
 			? [...sellingProducts, ...soldProducts]
 			: productList?.filter(product => product.status === selectedStatus);
 
-	console.log("displayedProducts", displayedProducts);
-
-	// const { curPage, startPage, endPage, totalPage, count } = productPagination;
-
 	const stateOptions = [
 		{ value: "전체", label: "전체" },
 		{ value: "판매중", label: "판매중" },
@@ -59,9 +58,9 @@ const RegisterProduct = () => {
 		{ value: "무료나눔", label: "무료나눔" },
 	];
 
-	const [dataLimit, setDataLimit] = useState(8);
-	const [pageState, setPageState] = useState(1);
-	const offset = (pageState - 1) * dataLimit;
+	// const [dataLimit, setDataLimit] = useState(8);
+	// const [pageState, setPageState] = useState(1);
+	// const offset = (pageState - 1) * dataLimit;
 
 	const formatNumber = num => {
 		return Number(num).toLocaleString("ko-KR");
@@ -133,6 +132,12 @@ const RegisterProduct = () => {
 						),
 					)
 				)}
+				{/* <Pagination
+					totalData={count}
+					dataLimit={size}
+					page={page}
+					setPage={setPage}
+				/> */}
 			</S.Container>
 		</>
 	);
