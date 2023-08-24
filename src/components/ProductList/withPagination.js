@@ -13,7 +13,7 @@ const ProductList = ({ productList, pagination, page, setPage }) => {
 			<Pagination
 				totalData={pagination.count}
 				dataLimit={pagination.page_size}
-				page={page}
+				page={parseInt(page)}
 				setPage={setPage}
 			/>
 		</>

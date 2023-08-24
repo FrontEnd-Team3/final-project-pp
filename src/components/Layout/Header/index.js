@@ -71,10 +71,8 @@ const Header = ({ socket }) => {
 	};
 
 	useEffect(() => {
-		console.log("여기다!!!");
 		socket.emit(`connect-user`, { token: TokenRepository.getToken() });
 		socket.on("newMessage", data => {
-			console.log("전역메시지", data);
 			setNewChat(true);
 		});
 	}, [socket]);

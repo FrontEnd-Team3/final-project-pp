@@ -12,16 +12,13 @@ const SelectListModal = ({ idx, setIsModalOpen, setIsAlertModalOpen }) => {
 
 	const { data } = ChatQueryApi.getSpecificChatList(idx);
 	const { data: productData, refetch } = ProductQueryApi.getProductDetail(idx);
-	// console.log("data", data);
 	const UserList = data?.map(chat => chat.User);
-	// console.log("User", UserList);
 
 	// 선택된 유저의 socketId
 	const [selectedUser, setSelectedUser] = useState("");
 
 	// 선택 시 값 변화
 	const handleUserChange = e => {
-		// console.log("token", e.target.value);
 		setSelectedUser(e.target.value);
 	};
 
@@ -38,7 +35,7 @@ const SelectListModal = ({ idx, setIsModalOpen, setIsAlertModalOpen }) => {
 			setIsAlertModalOpen(true);
 			setTimeout(() => {
 				setIsAlertModalOpen(false);
-				refetch().then(() => console.log(productData));
+				refetch();
 			}, 1500);
 		},
 	);
@@ -47,8 +44,7 @@ const SelectListModal = ({ idx, setIsModalOpen, setIsAlertModalOpen }) => {
 		if (selectedUser) {
 			updateStatus
 				.mutateAsync()
-				.then(res => {
-					console.log("update", res);
+				.then(() => {
 					queryClient.invalidateQueries([QueryKey.productDetail, idx]);
 					refetch();
 				})

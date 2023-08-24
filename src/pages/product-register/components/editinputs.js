@@ -49,7 +49,6 @@ const EditInputs = prevData => {
 		...editData.ProductImages.map(v => v.img_url),
 	];
 
-	// console.log("서브 이미지", imageDataList.pop());
 	const [imageArr, setImageArr] = useState(allDataList); // 이미지 담을 배열
 	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 	const [description, setDescription] = useState(editData.description);
@@ -61,7 +60,6 @@ const EditInputs = prevData => {
 	const EditTagList = editData.ProductsTags;
 	const EditTag = EditTagList.map(v => v.Tag.tag);
 	const [taglist, setTaglist] = useState(EditTag);
-	console.log(editData.price);
 	const [price, setPrice] = useState("");
 	const [address, setAddress] = useState(editData.region);
 	const { isToggle, setIsToggle, Toggle } = useToggle();
@@ -71,17 +69,8 @@ const EditInputs = prevData => {
 	const { mutate } = useMutation(data => ProductApi.updateProduct(data), {
 		onSuccess: async data => {
 			await queryClient.invalidateQueries(["registers"]);
-			console.log("data", data);
 		},
 	});
-
-	console.log("뭐야", subImages);
-	console.log("메인이미지", editData.img_url);
-	console.log("서브 이미지", subImages);
-	console.log("제목", editData.title);
-	console.log("description", editData.description);
-	console.log("지역", editData.region);
-	console.log("태그", EditTag);
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import getDate from "utils/getDate";
 
 const OneProduct = ({ product, grid }) => {
-	// console.log("상품", product);
 	const localPrice = product.price?.toLocaleString("ko-KR");
 	const ImageURL = product?.img_url;
 

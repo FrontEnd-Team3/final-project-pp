@@ -2,9 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const ScrollToTop = () => {
-	// Scroll to Top
 	const [scrollY, setScrollY] = useState(0);
-	// console.log("Y", scrollY);
 
 	const handleScrollToTop = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
