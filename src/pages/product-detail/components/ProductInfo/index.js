@@ -52,6 +52,7 @@ const ProductInfo = ({ product }) => {
 export default ProductInfo;
 
 const Container = styled.div`
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 100px;
@@ -59,9 +60,6 @@ const Container = styled.div`
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		flex-direction: column;
 		align-items: center;
-	}
-	@media ${({ theme }) => theme.DEVICE.mobile} {
-		/* width: 580px; */
 	}
 `;
 

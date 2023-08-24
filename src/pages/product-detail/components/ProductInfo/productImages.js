@@ -22,7 +22,7 @@ const ImageContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	width: 600px;
+	width: 100%;
 
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		width: 100%;
