@@ -59,6 +59,13 @@ const ProductApi = {
 		await axiosInstance.get(PATH + `/search`, {
 			params: { category, page, status },
 		}),
+	getProductPageList: async ({ pageParam = 1 }) => {
+		const response = await axiosInstance.get(PATH + `?page=${pageParam}`);
+		if (response.status !== 200) {
+			throw new Error("An error occurred while fetching the data");
+		}
+		return response.data;
+	},
 };
 
 export default ProductApi;

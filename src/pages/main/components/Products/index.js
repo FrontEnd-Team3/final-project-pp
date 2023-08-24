@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { flexCenter } from "styles/common";
 
 const Products = ({ list, title, route }) => {
+	console.log("페이지", list);
 	const navigate = useNavigate();
 	return (
 		<>
