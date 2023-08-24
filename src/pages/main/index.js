@@ -14,19 +14,6 @@ const Main = () => {
 
 	const { data, isLoading, error } = ProductQueryApi.getProductList();
 
-	// const { data, fetchNextPage, status, isLoading, error } = useInfiniteQuery([
-	// 	[QueryKey.productData],
-	// 	ProductApi.getProductPageList,
-	// 	{
-	// 		getNextPageParam: lastPage => {
-	// 			const { curPage, totalPage } = lastPage;
-	// 			if (totalPage == curPage) return false;
-	// 			return curPage + 1; // 'page' 변수가 정의되지 않았으므로 'curPage + 1'을 반환합니다.
-	// 		},
-	// 	},
-	// ]);
-
-	// console.log("페이지 보기위한 데이터", data);
 	if (isLoading) return <Loading />;
 
 	if (error) {
@@ -34,23 +21,6 @@ const Main = () => {
 		queryClient.refetchQueries(QueryKey.productData);
 	}
 
-	// const loadMoreRef = useRef();
-	// useEffect(() => {
-	// 	if (status === "loading") return;
-
-	// 	const observer = new IntersectionObserver(entries => {
-	// 		if (entries[0].isIntersecting) {
-	// 			fetchNextPage();
-	// 		}
-	// 	});
-
-	// 	if (loadMoreRef.current) {
-	// 		observer.observe(loadMoreRef.current);
-	// 	}
-
-	// 	// Clean up function
-	// 	return () => observer.disconnect();
-	// }, [status]);
 	return (
 		<>
 			<Banner />
@@ -67,7 +37,6 @@ const Main = () => {
 				route={"/free-transaction"}
 			/>
 			<RecentlyClicked />
-			{/* <div ref={loadMoreRef}>Loading more...</div> */}
 		</>
 	);
 };

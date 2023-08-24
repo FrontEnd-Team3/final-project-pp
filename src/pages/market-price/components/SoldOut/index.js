@@ -13,6 +13,7 @@ const Soldout = ({ soldoutProd }) => {
 	const prod = data?.products.product;
 	const avg = data?.cumulativeAvgPrice;
 
+	console.log("판매완료 데이터", prod);
 	const totalAvgPrice = avg.reduce((total, item) => {
 		return total + parseFloat(item.avgPrice);
 	}, 0);
@@ -93,6 +94,9 @@ const Gridwrapper = styled.div`
 	grid-gap: 20px;
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		grid-template-columns: repeat(2, 1fr);
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		grid-template-columns: repeat(2, 230px);
 	}
 `;
 
