@@ -48,9 +48,6 @@ const Container = styled.div`
 	@media ${({ theme }) => theme.DEVICE.pc} {
 		padding: 0 20px;
 	}
-	@media ${({ theme }) => theme.DEVICE.mobile} {
-		/* width: 580px; */
-	}
 `;
 
 const S = {
