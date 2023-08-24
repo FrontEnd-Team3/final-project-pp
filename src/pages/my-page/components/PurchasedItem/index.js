@@ -3,7 +3,7 @@ import { flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
 import PurchasedButtons from "./PurchasedButtons";
 import UserQueryApi from "apis/user.query.api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Review from "../Review";
 import BasicButton from "components/Button";
 import ReviewDetail from "./ReviewDetail";
@@ -19,6 +19,19 @@ const PurchasedItem = () => {
 	const [openReview, setOpenReview] = useState(false);
 	const [productIndex, setProductIndex] = useState("");
 	const [openOnReview, setOpenOnReview] = useState(false);
+	const [scrollY, setScrollY] = useState(0);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			setScrollY(window.scrollY);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 
 	const { data: PayProductData } = UserQueryApi?.PayProductList({
 		page,
@@ -26,17 +39,25 @@ const PurchasedItem = () => {
 
 	const PayProductList = PayProductData?.reviewList;
 
+	const handleReviewOn = () => {
+		setOpenOnReview(true);
+		setOpenReview(false);
+		setTimeout(() => {
+			window.scrollTo(0, 560);
+		}, 0);
+	};
+
+	const formatNumber = num => {
+		return Number(num).toLocaleString("ko-KR");
+	};
+
 	return (
 		<S.Container>
 			{openReview ? (
 				<Review productIndex={productIndex} reviewData={PayProductList} />
 			) : null}
 			{openOnReview ? (
-				<ReviewDetail
-					productIndex={productIndex}
-					reviewData={PayProductList}
-					fe
-				/>
+				<ReviewDetail productIndex={productIndex} reviewData={PayProductList} />
 			) : null}
 			<S.RowBox>
 				<S.Title>구매 물품</S.Title>
@@ -50,21 +71,21 @@ const PurchasedItem = () => {
 				) : (
 					PayProductList?.map(product => (
 						<S.ProductContainer
-							key={product.Product.idx}
+							key={product?.Product.idx}
 							onClick={() => {
-								setProductIndex(product.Product.idx);
+								setProductIndex(product?.Product.idx);
 							}}
 						>
-							<p>{product.Product.title}</p>
+							<p>{product?.Product.title}</p>
 
 							<S.RowBox>
-								<p>{product.Product.region}</p>
-								<p>{product.Product.price}원</p>
+								<p>{product?.Product.region}</p>
+								<p>{formatNumber(product?.Product.price)}원</p>
 							</S.RowBox>
 							<DivisionLine2 />
 							<S.RowBox>
-								<img src={product.Product.img_url} />
-								{product.Review?.idx ? (
+								<img src={product?.Product.img_url} />
+								{product?.Review?.idx ? (
 									<BasicButton
 										color={"white"}
 										size={"xmedium"}
@@ -76,7 +97,7 @@ const PurchasedItem = () => {
 											borderRadius: "6px",
 											fontWeight: "500",
 										}}
-										onClick={() => setOpenOnReview(true)}
+										onClick={handleReviewOn}
 									/>
 								) : (
 									<PurchasedButtons
@@ -84,6 +105,7 @@ const PurchasedItem = () => {
 										setOpenReview={setOpenReview}
 										reviewExists={!!product.Review}
 										poductIdx={product.Product.idx}
+										setOpenOnReview={setOpenOnReview}
 									/>
 								)}
 							</S.RowBox>

@@ -1,17 +1,18 @@
 import AuthApi from "apis/auth.api";
 import UserQueryApi from "apis/user.query.api";
 import BasicButton from "components/Button";
-import BasicModal from "components/Modal/WithoutButton";
 import { useState } from "react";
 import styled from "styled-components";
 import ModifyInfoEdit from "./components/ModifyInfoEdit";
 import MyProfileImage from "./components/MyprofileImage";
+import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
+import { flexCenter } from "styles/common";
 
 const AccountPrivacy = () => {
 	const userInfo = UserQueryApi.getUserInfo();
 	const userData = userInfo.data;
 
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 	const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
 	const [imageSrc, setImageSrc] = useState(null);
 	const [emailValue, setEmailValue] = useState(userData?.email);
@@ -146,13 +147,13 @@ const AccountPrivacy = () => {
 										onChange={e => onUpload(e)}
 									/>
 									<BasicButton
-										size={"medium"}
+										size={"xxmedium"}
 										color={"darkBlack"}
 										children={"이미지 변경"}
 										onClick={handleUploadClick}
 									/>
 									<BasicButton
-										size={"medium"}
+										size={"xxmedium"}
 										color={"darkBlack"}
 										children={"이미지 삭제"}
 										onClick={handleDeleteImage}
@@ -201,18 +202,7 @@ const AccountPrivacy = () => {
 						/>
 					</S.PrivacyWrapper>
 				</S.MasterWrapper>
-				{isOpen && (
-					<BasicModal
-						background={"gray"}
-						subtitle={"primary"}
-						title={"primary"}
-						container={"primary"}
-						position={"primary"}
-						titlement={"Have been saved!"}
-						subtitlement={"수정이 완료되었습니다"}
-						onClickOutside={() => setIsOpen(false)}
-					/>
-				)}
+				{isOpen && <AlertModal message={"수정이 완료되었습니다"} />}
 			</>
 		);
 	}
@@ -228,6 +218,7 @@ const MasterWrapper = styled.div`
 const ProfileImgContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	${flexCenter}
 `;
 const PrivacyWrapper = styled.div`
 	width: 1060px;
@@ -258,12 +249,11 @@ const PrivacyCorrection = styled.div`
 const ProfileIntroductionContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin-top: 80px;
 `;
 const ProfileNickName = styled.div`
 	font-size: 22px;
 	font-weight: 900;
-	margin-bottom: 14px;
+	margin-bottom: 36px;
 `;
 const Line = styled.div`
 	width: 950px;

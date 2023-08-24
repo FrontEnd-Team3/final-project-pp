@@ -1,35 +1,166 @@
 import styled from "styled-components";
 import { flexCenter, flexColumn, flexRow } from "styles/common";
-import TransactionHistory from "../TransactionHistory";
 import Buttons from "./Buttons";
-import { userList } from "mocks/data/user/userList";
+import UserQueryApi from "apis/user.query.api";
+import { useState } from "react";
+import TransactionHistory from "../TransactionHistory";
+import { useSearchParams } from "react-router-dom";
 
 const HouseKeeping = () => {
-	const MyuserList = userList?.filter(user => user.id === 1)[1];
+	const [page, setPage] = useState(1);
+	// const [categoryState, setCategory] = useState("buyer");
+	const [searchParams, setSearchParams] = useSearchParams();
+	const category = searchParams.get("category");
+	const start = searchParams.get("start");
+	const [priceState, setPriceState] = useState(true);
+
+	const getToday = () => {
+		let date = new Date();
+		let year = date.getFullYear();
+		let month = ("0" + (1 + date.getMonth())).slice(-2);
+		let day = ("0" + date.getDate()).slice(-2);
+
+		return `${year}-${month}-${day}`;
+	};
+	const [end, setEnd] = useState(getToday());
+
+	// 현재 날짜 가져오는 로직
+	const [parameter, setParameter] = useState();
+
+	const { data: accountBookData } = UserQueryApi.AccountBookList({
+		page,
+		category,
+		start,
+		end,
+	});
+
+	const setCategoryParams = parameter => {
+		searchParams.set("category", parameter);
+		setSearchParams(searchParams);
+	};
+
+	const setDateParams = parameter => {
+		searchParams.set("start", parameter);
+		setSearchParams(searchParams);
+	};
+
+	const handleChangePrice = btnName => {
+		if (btnName === "판매") {
+			setPriceState(true);
+		} else {
+			setPriceState(false);
+		}
+	};
+
+	const accountDataList = accountBookData?.payList;
+
+	const priceDataList = accountBookData?.amount;
+
+	const formatNumber = num => {
+		return Number(num).toLocaleString("ko-KR");
+	};
 
 	return (
 		<S.Container>
 			<S.RowBox>
 				<S.Title>가계부</S.Title>
+				<S.WrapperBtns>
+					<S.AccountButton
+						onClick={() => {
+							handleChangePrice("판매");
+						}}
+					>
+						판매내역
+					</S.AccountButton>
+					<S.AccountButton
+						onClick={() => {
+							handleChangePrice("구매");
+						}}
+					>
+						구매내역
+					</S.AccountButton>
+				</S.WrapperBtns>
+			</S.RowBox>
+			{/* <S.DivisionLine /> */}
+			<S.RowBox>
+				<div>
+					<img src={`${process.env.PUBLIC_URL}/img/저금통.png`} alt=" Image" />
+				</div>
+				<S.Title2>
+					{priceState ? (
+						<>
+							<S.ParentDiv>
+								<p>총 판매 금액</p>
+								<p>
+									{formatNumber(priceDataList?.totalPurchaseAmount || 0)} 원
+								</p>
+							</S.ParentDiv>
+							<S.ParentDiv>
+								<p>이번달 판매 금액</p>
+								<p>
+									{formatNumber(priceDataList?.thisMonthPurchaseAmount || 0)} 원
+								</p>
+							</S.ParentDiv>
+						</>
+					) : (
+						<>
+							<S.ParentDiv>
+								<p>총 구매 금액</p>
+								<p>{formatNumber(priceDataList?.totalSaleAmount || 0)} 원</p>
+							</S.ParentDiv>
+							<S.ParentDiv>
+								<p>이번달 구매 금액</p>
+								<p>
+									{formatNumber(priceDataList?.thisMonthSaleAmount || 0)} 원
+								</p>
+							</S.ParentDiv>
+						</>
+					)}
+				</S.Title2>
 			</S.RowBox>
 			<S.DivisionLine />
-			<S.Title2>
-				<S.ParentDiv>
-					<p>총 판매 금액</p>
-					<p>2,000,000 원</p>
-				</S.ParentDiv>
-				<S.ParentDiv>
-					<p>총 지불 금액</p>
-					<p>2,00,000 원</p>
-				</S.ParentDiv>
-			</S.Title2>
-			<S.DivisionLine />
-			<Buttons />
-			<TransactionHistory MyuserList={MyuserList} />
+			<Buttons
+				setCategoryParams={setCategoryParams}
+				setDateParams={setDateParams}
+			/>
+			<TransactionHistory
+				MyuserList={accountDataList}
+				formatNumber={formatNumber}
+			/>
 		</S.Container>
 	);
 };
 export default HouseKeeping;
+
+const AccountButton = styled.button`
+	font-size: 16px;
+	border: 1px solid #dddddd;
+	border-radius: 6px;
+	font-weight: 700;
+	margin-right: 16px;
+	width: 100px;
+	padding: 8px;
+	height: 40px;
+	background-color: ${({ theme }) => theme.PALETTE.white};
+	color: ${({ theme }) => theme.PALETTE.black};
+	cursor: pointer;
+	:hover {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+	:focus {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+	:active {
+		background-color: ${({ theme }) => theme.PALETTE.primary};
+		color: ${({ theme }) => theme.PALETTE.white};
+	}
+`;
+
+const WrapperBtns = styled.div`
+	margin-top: 20px;
+`;
 
 const DivisionLine = styled.hr`
 	width: 962px;
@@ -64,13 +195,13 @@ const ProductContainer = styled.div`
 
 const Title = styled.div`
 	margin-top: 20px;
+	margin-bottom: 40px;
 	font-size: 24px;
 	font-weight: bold;
 	color: black;
 `;
 const Title2 = styled.div`
-	margin-top: 67px;
-	margin-bottom: 44px;
+	margin-bottom: 50px;
 	font-size: 24px;
 	font-weight: bold;
 	color: black;
@@ -88,7 +219,7 @@ const ParentDiv = styled.div`
 		text-align: right;
 		width: 170px;
 	}
-	margin-top: 20px;
+	margin-top: 35px;
 `;
 
 const Wrapper = styled.div`
@@ -109,6 +240,13 @@ const RowBox = styled.div`
 	display: flex;
 	justify-content: space-between;
 	${flexRow}
+	div {
+		img {
+			width: 300px;
+			height: 300px;
+			margin-left: 60px;
+		}
+	}
 `;
 
 const ToggleBox = styled.div`
@@ -119,6 +257,8 @@ const ToggleBox = styled.div`
 `;
 
 const S = {
+	WrapperBtns,
+	AccountButton,
 	DivisionLine,
 	Title,
 	Title2,

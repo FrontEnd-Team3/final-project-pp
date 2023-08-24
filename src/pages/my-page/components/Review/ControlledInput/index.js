@@ -5,17 +5,37 @@ const ControlledInput = ({
 	value = "",
 	placeholder,
 	type,
+	name,
 	...rest
 }) => {
-	return (
-		<S.Input
-			onChange={onChange}
-			value={value}
-			placeholder={placeholder}
-			type={type}
-			{...rest}
-		/>
+	return name === "reviewInfo" ? (
+		<>
+			<S.TextInput
+				onChange={onChange}
+				value={value}
+				placeholder={placeholder}
+				type={type}
+				{...rest}
+			/>
+		</>
+	) : (
+		<>
+			<S.Input
+				onChange={onChange}
+				value={value}
+				placeholder={placeholder}
+				type={type}
+				{...rest}
+			/>
+		</>
 	);
+	// <S.Input
+	// 	onChange={onChange}
+	// 	value={value}
+	// 	placeholder={placeholder}
+	// 	type={type}
+	// 	{...rest}
+	// />
 };
 
 export default ControlledInput;
@@ -34,6 +54,25 @@ const Input = styled.input`
 	}
 `;
 
+const TextInput = styled.textarea`
+	border: none;
+	padding: 8px 1px;
+	width: 962px;
+	height: 160px;
+	font-size: 16px;
+	white-space: wrap;
+	word-break: break-all;
+	color: ${({ theme }) => theme.PALETTE.black};
+	:focus {
+		outline: none;
+	}
+	::placeholder {
+		color: #c1c1c1;
+		font-size: 16px;
+	}
+`;
+
 const S = {
 	Input,
+	TextInput,
 };
