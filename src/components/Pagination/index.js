@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const Pagination = ({ totalData, dataLimit, page, setPage }) => {
-	const pageCount = Math.ceil(totalData / dataLimit);
+	const pageCount = Math.max(1, Math.ceil(totalData / dataLimit));
 
 	return (
 		<S.Container>

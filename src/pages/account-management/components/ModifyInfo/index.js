@@ -14,7 +14,9 @@ const AccountPrivacy = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
-	const [imageSrc, setImageSrc] = useState(null);
+	const [imageSrc, setImageSrc] = useState(
+		`${process.env.PUBLIC_URL}/img/defaultImg.png`,
+	);
 	const [emailValue, setEmailValue] = useState(userData?.email);
 	const [phoneValue, setPhoneValue] = useState(userData?.phone);
 	const [regionValue, setRegionValue] = useState(userData?.region);

@@ -5,7 +5,7 @@ const MyProfileImage = ({ userData, imageSrc }) => {
 	return (
 		<>
 			<S.ProfileImg
-				src={imageSrc || userData.profile_url || defaultProfileImage}
+				src={userData.profile_url ? userData.profile_url : imageSrc}
 				alt="Profile"
 			/>
 		</>
