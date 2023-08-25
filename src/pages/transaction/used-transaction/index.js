@@ -42,6 +42,7 @@ const UsedTransaction = () => {
 				<S.Title>
 					우리 동네 <span>중고</span> 물품
 				</S.Title>
+				<S.Total>총 {data?.pagination.count}개</S.Total>
 				<ProductList
 					productList={data?.product}
 					pagination={data?.pagination}
@@ -77,8 +78,15 @@ const Title = styled.p`
 	}
 `;
 
+const Total = styled.div`
+	margin: 20px 0;
+	color: darkgray;
+	font-size: 16px;
+`;
+
 const S = {
 	Container,
 	Wrapper,
 	Title,
+	Total,
 };

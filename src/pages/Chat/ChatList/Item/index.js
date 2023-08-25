@@ -40,7 +40,7 @@ const ChatItem = ({ chat, setIsTop }) => {
 					<S.ChatContent>
 						<S.Iproduct>{product.title}</S.Iproduct>
 						<S.Ichat>{lastMessage || "대화 내역이 존재하지 않습니다."}</S.Ichat>
-						<S.Iprice>{product.price}</S.Iprice>
+						<S.Iprice>{product.price.toLocaleString("ko-KR")}</S.Iprice>
 					</S.ChatContent>
 					<S.SettingContent>
 						<S.Imove onClick={() => navigate(`/product/${product.idx}`)}>
