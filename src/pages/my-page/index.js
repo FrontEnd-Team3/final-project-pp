@@ -25,11 +25,17 @@ const MypageContainer = styled.div`
 	${flexCenter}
 	padding: 20px 0;
 	width: 100%;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 `;
 const NavWrapper = styled.div`
 	position: absolute;
 	padding-top: 124px;
 	left: -220px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		display: none;
+	}
 `;
 
 const MyProfileWrapper = styled.div`
@@ -42,6 +48,16 @@ const DivisionLine = styled.hr`
 	height: 1px;
 	background-color: #cccccc;
 	margin: 0 auto;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 90%;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 80%;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		display: none;
+	}
 `;
 
 const S = {

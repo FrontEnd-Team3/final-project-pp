@@ -73,6 +73,16 @@ const Container = styled.div`
 	margin-top: 100px;
 	margin-bottom: 100px;
 	padding-top: 25px;
+	transition: padding 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 40px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		padding: 0 60px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		padding: 0 80px;
+	}
 `;
 
 const RowBox = styled.div`
@@ -81,10 +91,30 @@ const RowBox = styled.div`
 		margin-bottom: 10px;
 	}
 	${flexRow}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 100%;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 90%;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 80%;
+	}
 `;
 const countBox = styled.div`
 	p {
 		margin-bottom: 16px;
+	}
+	transition: margin-right 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		margin-right: 10px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		margin-right: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-right: 30px;
 	}
 `;
 
@@ -95,6 +125,19 @@ const MyImage = styled.div`
 		height: 150px;
 		border-radius: 50%;
 		overflow: hidden;
+	}
+	transition: paddin margin 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 10px;
+		margin: 30px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		padding: 0 10px;
+		margin: 0px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		padding: 5px;
+		margin: 0px;
 	}
 `;
 

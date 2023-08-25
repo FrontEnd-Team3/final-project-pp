@@ -17,6 +17,16 @@ const Container = styled.div`
 	height: 32px;
 	background-color: #e9e9e9;
 	margin-left: 20px;
+	transition: width 0.2s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 300px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 260px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 230px;
+	}
 `;
 
 const Progress = styled.div`
