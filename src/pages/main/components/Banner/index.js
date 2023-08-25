@@ -8,9 +8,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
 	const ImageArr = [FAKEIMG, FAKEIMG2, FAKEIMG3, FAKEIMG4];
+	const route = ["전자기기", "여름옷", "인형", "향수"];
+	const navigate = useNavigate();
 
 	return (
 		<S.BannerContainer>
@@ -23,8 +26,11 @@ const Banner = () => {
 				pagination={{ clickable: true }}
 				scrollbar={{ draggable: true }}
 			>
-				{ImageArr.map(image => (
-					<SwiperSlide className="banner-img">
+				{ImageArr.map((image, i) => (
+					<SwiperSlide
+						className="banner-img"
+						onClick={() => navigate(`search/${route[i]}`)}
+					>
 						<img src={image} style={{ width: "100%" }} />
 					</SwiperSlide>
 				))}
