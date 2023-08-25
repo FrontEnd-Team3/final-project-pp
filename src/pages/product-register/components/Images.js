@@ -66,7 +66,6 @@ const Images = ({
 					</S.MainImg>
 					<S.ImageDesc>
 						<p>* 상품 이미지는 600x600에 최적화 되어 있습니다.</p>
-						<p>- 이미지를 클릭 후 이동하여 등록순서를 변경할 수 있습니다.</p>
 						<p>- 이미지는 최대 5장까지 등록할 수 있습니다.</p>
 					</S.ImageDesc>
 				</S.ImageContainer>
