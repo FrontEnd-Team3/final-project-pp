@@ -2,7 +2,7 @@ import BasicButton from "components/Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { LogoFont } from "styles/common";
-import introImg from "assets/images/intro_img.png";
+import introImg from "assets/images/intro_img.jpg";
 
 const Intro = () => {
 	const navigate = useNavigate();
@@ -16,9 +16,9 @@ const Intro = () => {
 						아니 난 TRIMM이야!
 					</S.DescTitle>
 					<S.DescSub>
-						중요한 건 안 팔려도 TRIMM 하는 마음이야.
+						일상의 모든 거래를 TRIMM과 함께,
 						<br />
-						중고거래의 새 미래 TRIMM 지금 시작하세요!
+						환경을 생각하는 거래, 혁신적인 선택을 만나보세요.
 					</S.DescSub>
 					<S.BtnBox>
 						<BasicButton
@@ -32,9 +32,9 @@ const Intro = () => {
 						<S.Registered>®</S.Registered>
 					</S.LogoBox>
 					<S.BottomDesc>
-						손은 눈보다 빠른 사람들로부터 안전한 실명 거래
+						지구를 위한 중고 거래의 시작
 						<br />
-						손은 눈보다 빠른 사람들로부터 안전한 실명 거래
+						Trade, Reuse, Innovate and Make your Moment
 					</S.BottomDesc>
 				</S.DescBox>
 				<S.ImageBox>
