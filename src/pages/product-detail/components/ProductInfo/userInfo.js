@@ -1,9 +1,13 @@
 import styled from "styled-components";
+import fakeProfile from "../@images/planting.png";
 
 const UserInfo = ({ targetUser }) => {
 	return (
 		<S.Container>
-			<S.ProfileImg src={targetUser.profile_url} className="profileImg" />
+			<S.ProfileImg
+				src={targetUser.profile_url || fakeProfile}
+				className="profileImg"
+			/>
 			<S.InfoContainer>
 				<div style={{ display: "flex" }}>
 					<div className="nickname">{targetUser.nick_name}</div>
