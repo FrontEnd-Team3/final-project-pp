@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { flexRow } from "styles/common";
+import { flexRow, flexColumn, flexCenter } from "styles/common";
 
 const Buttons = ({ setCategoryParams, setDateParams }) => {
 	const [color, setColor] = useState("white");
@@ -41,13 +41,6 @@ const Buttons = ({ setCategoryParams, setDateParams }) => {
 			<div>
 				<S.AccountButton
 					onClick={() => {
-						setCategoryParams("buyer");
-					}}
-				>
-					총내역
-				</S.AccountButton>
-				<S.AccountButton
-					onClick={() => {
 						setCategoryParams("seller");
 					}}
 				>
@@ -61,7 +54,7 @@ const Buttons = ({ setCategoryParams, setDateParams }) => {
 					구매내역
 				</S.AccountButton>
 			</div>
-			<div>
+			<S.MonthBox>
 				<S.AccountButton
 					onClick={() => {
 						setDateParams(monthAgo(3));
@@ -90,7 +83,7 @@ const Buttons = ({ setCategoryParams, setDateParams }) => {
 				>
 					1년
 				</S.AccountButton>
-			</div>
+			</S.MonthBox>
 		</S.Container>
 	);
 };
@@ -104,6 +97,28 @@ const Container = styled.div`
 	justify-content: space-between;
 	margin-bottom: 30px;
 	margin-top: 103px;
+	transition: justify-content 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		${flexColumn};
+		${flexCenter};
+		gap: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		justify-content: space-between;
+	}
+`;
+
+const MonthBox = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	button {
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+	}
 `;
 
 const AccountButton = styled.button`
@@ -135,4 +150,5 @@ const AccountButton = styled.button`
 const S = {
 	Container,
 	AccountButton,
+	MonthBox,
 };

@@ -92,6 +92,27 @@ const ProductContainer = styled.div`
 		border-radius: 6px;
 		overflow: hidden;
 		filter: brightness(40%);
+		transition: overflow 0.3s;
+		@media ${({ theme }) => theme.DEVICE.pc} {
+		}
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			overflow: inherit;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			overflow: inherit;
+			width: 150px;
+			height: 150px;
+		}
+	}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 1000px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 600px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 450px;
 	}
 `;
 
@@ -120,11 +141,26 @@ const Wrapper = styled.div`
 		font-size: 18px;
 		text-decoration: line-through;
 	}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 const Wrapper2 = styled.div`
 	${flexRow}
 	width: 660px;
 	margin-top: 16px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+		flex-wrap: wrap;
+	}
 `;
 
 const Wrapper3 = styled.div`
@@ -136,17 +172,28 @@ const Wrapper3 = styled.div`
 	border: 1px solid rgb(221, 221, 221);
 	border-radius: 4px;
 	margin-right: 30px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-right: 100px;
+		width: 90px;
+		height: 35px;
+		font-size: 14px;
+	}
 `;
 
 const Price = styled.p`
 	font-size: 26px;
 	font-weight: 600;
-	text-decoration: line-through;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-top: 20px;
+	}
 `;
 
 const PriceText = styled.p`
 	font-size: 20px;
 	margin-left: 10px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-top: 20px;
+	}
 `;
 
 const RowBox = styled.div`
@@ -154,12 +201,30 @@ const RowBox = styled.div`
 	display: flex;
 	justify-content: space-between;
 	${flexRow}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 600px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 400px;
+	}
 `;
 
 const TextBox2 = styled.div`
 	position: absolute;
 	left: 825px;
 	top: 214px;
+	cursor: pointer;
+	transition: left top 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		left: 470px;
+		top: 214px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		left: 340px;
+		top: 214px;
+		font-size: 14px;
+	}
 `;
 
 const ToggleBox = styled.div`

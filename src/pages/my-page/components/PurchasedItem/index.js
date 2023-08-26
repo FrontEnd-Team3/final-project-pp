@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Review from "../Review";
 import BasicButton from "components/Button";
 import ReviewDetail from "./ReviewDetail";
+import Pagination from "components/Pagination";
 
 /**
  *
@@ -15,7 +16,7 @@ import ReviewDetail from "./ReviewDetail";
  */
 
 const PurchasedItem = () => {
-	const page = 1;
+	const [page, setPage] = useState(1);
 	const [openReview, setOpenReview] = useState(false);
 	const [productIndex, setProductIndex] = useState("");
 	const [openOnReview, setOpenOnReview] = useState(false);
@@ -50,71 +51,81 @@ const PurchasedItem = () => {
 	const formatNumber = num => {
 		return Number(num).toLocaleString("ko-KR");
 	};
-
-	return (
-		<S.Container>
-			{openReview ? (
-				<Review productIndex={productIndex} reviewData={PayProductList} />
-			) : null}
-			{openOnReview ? (
-				<ReviewDetail productIndex={productIndex} reviewData={PayProductList} />
-			) : null}
-			<S.RowBox>
-				<S.Title>구매 물품</S.Title>
-			</S.RowBox>
-			<Wrapper>
-				{!PayProductList || PayProductList?.length === 0 ? (
-					<EmptyData
-						text={"등록된 상품이 없습니다."}
+	if (PayProductData) {
+		return (
+			<S.Container>
+				{openReview ? (
+					<Review productIndex={productIndex} reviewData={PayProductList} />
+				) : null}
+				{openOnReview ? (
+					<ReviewDetail
 						productIndex={productIndex}
+						reviewData={PayProductList}
 					/>
-				) : (
-					PayProductList?.map(product => (
-						<S.ProductContainer
-							key={product?.Product.idx}
-							onClick={() => {
-								setProductIndex(product?.Product.idx);
-							}}
-						>
-							<p>{product?.Product.title}</p>
+				) : null}
+				<S.RowBox>
+					<S.Title>구매 물품</S.Title>
+				</S.RowBox>
+				<Wrapper>
+					{!PayProductList || PayProductList?.length === 0 ? (
+						<EmptyData
+							text={"등록된 상품이 없습니다."}
+							productIndex={productIndex}
+						/>
+					) : (
+						PayProductList?.map(product => (
+							<S.ProductContainer
+								key={product?.Product.idx}
+								onClick={() => {
+									setProductIndex(product?.Product.idx);
+								}}
+							>
+								<p>{product?.Product.title}</p>
 
-							<S.RowBox>
-								<p>{product?.Product.region}</p>
-								<p>{formatNumber(product?.Product.price)}원</p>
-							</S.RowBox>
-							<DivisionLine2 />
-							<S.RowBox>
-								<img src={product?.Product.img_url} />
-								{product?.Review?.idx ? (
-									<BasicButton
-										color={"white"}
-										size={"xmedium"}
-										children={"리뷰 보러가기"}
-										style={{
-											width: "124px",
-											border: "1px solid #dddddd",
-											fontSize: "16px",
-											borderRadius: "6px",
-											fontWeight: "500",
-										}}
-										onClick={handleReviewOn}
-									/>
-								) : (
-									<PurchasedButtons
-										openReview={openReview}
-										setOpenReview={setOpenReview}
-										reviewExists={!!product.Review}
-										poductIdx={product.Product.idx}
-										setOpenOnReview={setOpenOnReview}
-									/>
-								)}
-							</S.RowBox>
-						</S.ProductContainer>
-					))
-				)}
-			</Wrapper>
-		</S.Container>
-	);
+								<S.RowBox>
+									<p>{product?.Product.region}</p>
+									<p>{formatNumber(product?.Product.price)}원</p>
+								</S.RowBox>
+								<DivisionLine2 />
+								<S.RowBox>
+									<img src={product?.Product.img_url} />
+									{product?.Review?.idx ? (
+										<BasicButton
+											color={"white"}
+											size={"xmedium"}
+											children={"리뷰 보러가기"}
+											style={{
+												width: "124px",
+												border: "1px solid #dddddd",
+												fontSize: "16px",
+												borderRadius: "6px",
+												fontWeight: "500",
+											}}
+											onClick={handleReviewOn}
+										/>
+									) : (
+										<PurchasedButtons
+											openReview={openReview}
+											setOpenReview={setOpenReview}
+											reviewExists={!!product.Review}
+											poductIdx={product.Product.idx}
+											setOpenOnReview={setOpenOnReview}
+										/>
+									)}
+								</S.RowBox>
+							</S.ProductContainer>
+						))
+					)}
+				</Wrapper>
+				<Pagination
+					totalData={PayProductData?.pagination?.count}
+					dataLimit={PayProductData?.pagination?.page_size}
+					page={parseInt(page)}
+					setPage={setPage}
+				/>
+			</S.Container>
+		);
+	}
 };
 export default PurchasedItem;
 
@@ -139,7 +150,18 @@ const Container = styled.div`
 	padding: 20px 0;
 	display: flex;
 	${flexColumn}
-	margin-bottom: 150px
+	margin-bottom: 150px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 962px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 800px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 800px;
+		padding: 20px;
+	}
 `;
 const Wrapper = styled.div`
 	${flexRow}

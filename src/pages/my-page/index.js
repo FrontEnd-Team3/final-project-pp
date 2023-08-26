@@ -35,6 +35,16 @@ const NavWrapper = styled.div`
 const MyProfileWrapper = styled.div`
 	width: 962px;
 	position: relative;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 534px;
+	}
 `;
 
 const DivisionLine = styled.hr`
@@ -42,6 +52,16 @@ const DivisionLine = styled.hr`
 	height: 1px;
 	background-color: #cccccc;
 	margin: 0 auto;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const S = {

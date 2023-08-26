@@ -5,6 +5,7 @@ import UserQueryApi from "apis/user.query.api";
 import { useState } from "react";
 import TransactionHistory from "../TransactionHistory";
 import { useSearchParams } from "react-router-dom";
+import Pagination from "components/Pagination";
 
 const HouseKeeping = () => {
 	const [page, setPage] = useState(1);
@@ -59,76 +60,87 @@ const HouseKeeping = () => {
 	const formatNumber = num => {
 		return Number(num).toLocaleString("ko-KR");
 	};
-
-	return (
-		<S.Container>
-			<S.RowBox>
-				<S.Title>가계부</S.Title>
-				<S.WrapperBtns>
-					<S.AccountButton
-						onClick={() => {
-							handleChangePrice("판매");
-						}}
-					>
-						판매내역
-					</S.AccountButton>
-					<S.AccountButton
-						onClick={() => {
-							handleChangePrice("구매");
-						}}
-					>
-						구매내역
-					</S.AccountButton>
-				</S.WrapperBtns>
-			</S.RowBox>
-			{/* <S.DivisionLine /> */}
-			<S.RowBox>
-				<div>
-					<img src={`${process.env.PUBLIC_URL}/img/저금통.png`} alt=" Image" />
-				</div>
-				<S.Title2>
-					{priceState ? (
-						<>
-							<S.ParentDiv>
-								<p>총 판매 금액</p>
-								<p>
-									{formatNumber(priceDataList?.totalPurchaseAmount || 0)} 원
-								</p>
-							</S.ParentDiv>
-							<S.ParentDiv>
-								<p>이번달 판매 금액</p>
-								<p>
-									{formatNumber(priceDataList?.thisMonthPurchaseAmount || 0)} 원
-								</p>
-							</S.ParentDiv>
-						</>
-					) : (
-						<>
-							<S.ParentDiv>
-								<p>총 구매 금액</p>
-								<p>{formatNumber(priceDataList?.totalSaleAmount || 0)} 원</p>
-							</S.ParentDiv>
-							<S.ParentDiv>
-								<p>이번달 구매 금액</p>
-								<p>
-									{formatNumber(priceDataList?.thisMonthSaleAmount || 0)} 원
-								</p>
-							</S.ParentDiv>
-						</>
-					)}
-				</S.Title2>
-			</S.RowBox>
-			<S.DivisionLine />
-			<Buttons
-				setCategoryParams={setCategoryParams}
-				setDateParams={setDateParams}
-			/>
-			<TransactionHistory
-				MyuserList={accountDataList}
-				formatNumber={formatNumber}
-			/>
-		</S.Container>
-	);
+	if (accountBookData) {
+		return (
+			<S.Container>
+				<S.MainRowBox>
+					<S.Title>가계부</S.Title>
+					<S.WrapperBtns>
+						<S.AccountButton
+							onClick={() => {
+								handleChangePrice("판매");
+							}}
+						>
+							판매내역
+						</S.AccountButton>
+						<S.AccountButton
+							onClick={() => {
+								handleChangePrice("구매");
+							}}
+						>
+							구매내역
+						</S.AccountButton>
+					</S.WrapperBtns>
+				</S.MainRowBox>
+				{/* <S.DivisionLine /> */}
+				<S.RowBox>
+					<div>
+						<img
+							src={`${process.env.PUBLIC_URL}/img/저금통.png`}
+							alt=" Image"
+						/>
+					</div>
+					<S.Title2>
+						{priceState ? (
+							<>
+								<S.ParentDiv>
+									<p>총 판매 금액</p>
+									<p>
+										{formatNumber(priceDataList?.totalPurchaseAmount || 0)} 원
+									</p>
+								</S.ParentDiv>
+								<S.ParentDiv>
+									<p>이번달 판매 금액</p>
+									<p>
+										{formatNumber(priceDataList?.thisMonthPurchaseAmount || 0)}{" "}
+										원
+									</p>
+								</S.ParentDiv>
+							</>
+						) : (
+							<>
+								<S.ParentDiv>
+									<p>총 구매 금액</p>
+									<p>{formatNumber(priceDataList?.totalSaleAmount || 0)} 원</p>
+								</S.ParentDiv>
+								<S.ParentDiv>
+									<p>이번달 구매 금액</p>
+									<p>
+										{formatNumber(priceDataList?.thisMonthSaleAmount || 0)} 원
+									</p>
+								</S.ParentDiv>
+							</>
+						)}
+					</S.Title2>
+				</S.RowBox>
+				<S.DivisionLine />
+				<Buttons
+					setCategoryParams={setCategoryParams}
+					setDateParams={setDateParams}
+				/>
+				<TransactionHistory
+					MyuserList={accountDataList}
+					formatNumber={formatNumber}
+				/>
+				<Pagination
+					totalData={accountBookData?.pagination?.count}
+					dataLimit={accountBookData?.pagination?.page_size}
+					page={parseInt(page)}
+					setPage={setPage}
+				/>
+			</S.Container>
+		);
+	}
 };
 export default HouseKeeping;
 
@@ -160,36 +172,49 @@ const AccountButton = styled.button`
 
 const WrapperBtns = styled.div`
 	margin-top: 20px;
+
+	button:last-of-type {
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			margin-right: 0;
+		}
+	}
 `;
 
 const DivisionLine = styled.hr`
 	width: 962px;
 	height: 1px;
 	background-color: #cccccc;
-	margin-top: 30px;
+	margin: 0 auto;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const Container = styled.div`
-	width: 962px;
+	max-width: 962px;
 	margin: 0 auto;
 	padding: 20px 0;
 	display: flex;
 	${flexColumn}
 	${flexCenter}
-`;
-
-const ProductContainer = styled.div`
-	padding: 35px;
-	width: 962px;
-	height: 270px;
-	border: 1px solid #b6b6b6;
-	border-radius: 6px;
-	${flexRow}
-	img {
-		width: 200px;
-		height: 200px;
-		border-radius: 6px;
-		overflow: hidden;
+	transition: padding width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		/* width: 1000px; */
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		/* width: 700px; */
+		/* display: inline-block; */
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		/* padding: 0 80px;
+		width: 450px; */
 	}
 `;
 
@@ -206,18 +231,22 @@ const Title2 = styled.div`
 	font-weight: bold;
 	color: black;
 	width: 100%;
-	${flexColumn}
-	${flexCenter}
 `;
 const ParentDiv = styled.div`
 	${flexRow}
+	justify-content: space-between;
+
+	p {
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			font-size: 18px;
+		}
+	}
 	p:first-of-type {
 		text-align: left;
-		width: 200px;
 	}
 	p:nth-of-type(2) {
 		text-align: right;
-		width: 170px;
+		/* width: 170px; */
 	}
 	margin-top: 35px;
 `;
@@ -228,23 +257,72 @@ const Wrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 660px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 const Wrapper2 = styled.div`
 	margin-left: 30px;
 	${flexRow}
 	width: 660px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+		flex-wrap: wrap;
+	}
 `;
 
-const RowBox = styled.div`
+const MainRowBox = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	${flexRow}
+	transition: padding width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		padding: 0 20px;
+	}
+`;
+
+const RowBox = styled.div`
+	width: 100%;
+	${flexRow}
+	justify-content: center;
+	align-items: center;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		/* width: 200px; */
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		padding: 0 20px;
+	}
+
+	div:first-of-type {
+		margin-right: 20px;
+	}
 	div {
+		width: 260px;
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 230px;
+		}
 		img {
-			width: 300px;
-			height: 300px;
-			margin-left: 60px;
+			width: 100%;
+			height: auto;
+			transition: width 0.3s;
+			@media ${({ theme }) => theme.DEVICE.tablet} {
+				/* width: 250px;
+				height: 250px; */
+			}
+			@media ${({ theme }) => theme.DEVICE.mobile} {
+				/* width: 200px;
+				height: 200px; */
+			}
 		}
 	}
 `;
@@ -263,10 +341,10 @@ const S = {
 	Title,
 	Title2,
 	Container,
-	ProductContainer,
 	Wrapper,
 	Wrapper2,
 	RowBox,
 	ToggleBox,
 	ParentDiv,
+	MainRowBox,
 };
