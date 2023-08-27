@@ -135,9 +135,7 @@ const Header = ({ socket }) => {
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => {
-									accessToken
-										? navigate("/mypage/:category")
-										: navigate("/Signin");
+									accessToken ? navigate("/mypage/0") : navigate("/Signin");
 								}}
 							>
 								MYPAGE

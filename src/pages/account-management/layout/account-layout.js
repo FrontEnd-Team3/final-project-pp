@@ -14,7 +14,7 @@ const AccoutLayout = () => {
 					<Outlet />
 				</S.MyProfileWrapper>
 			</S.MypageContainer>
-			<S.DivisionLine />
+			{/* <S.DivisionLine /> */}
 		</>
 	);
 };
@@ -26,6 +26,7 @@ const MypageContainer = styled.div`
 	padding: 20px 0;
 	width: 100%;
 `;
+
 const NavWrapper = styled.div`
 	position: absolute;
 	padding-top: 124px;

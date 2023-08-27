@@ -25,7 +25,7 @@ const Input = styled.input`
 	border-radius: 5px;
 	height: 40px;
 	padding: 8px 1px;
-	width: 580px;
+	width: 100%;
 	font-size: 16px;
 	color: ${({ theme }) => theme.PALETTE.black};
 	:focus {

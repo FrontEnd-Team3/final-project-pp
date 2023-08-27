@@ -1,7 +1,6 @@
-import BasicButton from "components/Button";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { flexRow } from "styles/common";
+import { flexRow, flexCenter, flexColumn } from "styles/common";
 import ProgressBar from "./ProgressBar";
 import UserQueryApi from "apis/user.query.api";
 
@@ -16,50 +15,34 @@ const MyProfile = () => {
 
 	if (userData) {
 		return (
-			<>
-				<S.Container>
-					<S.RowBox>
-						<S.MyImage>
-							{userData?.profile_url ? (
-								<img src={userData?.profile_url} alt="User Profile" />
-							) : (
-								<img src="/img/defaultImg.png" alt="Default Profile" />
-							)}
-						</S.MyImage>
-						<S.TextBox>
+			<S.Container>
+				<S.MyProfileWrapper>
+					<S.MyImage>
+						{userData?.profile_url ? (
+							<img src={userData?.profile_url} alt="User Profile" />
+						) : (
+							<img src="/img/defaultImg.png" alt="Default Profile" />
+						)}
+					</S.MyImage>
+					<S.TextBox>
+						<S.RowBox>
+							<p>닉네임 </p>
+							<TextP1>{userData?.nick_name} </TextP1>
+						</S.RowBox>
+						<S.RowBox>
+							<p>활동 지역</p>
+							<TextP2>{userData?.region}</TextP2>
+						</S.RowBox>
+						<div>
+							<p>나의 온도</p>
 							<S.RowBox>
-								<p>닉네임 </p>
-								<TextP1>{userData?.nick_name} </TextP1>
+								<p>{Math.min(userMypageData?.ondo, 100)}℃</p>
+								<ProgressBar percentage={userMypageData?.ondo} />
 							</S.RowBox>
-							<S.RowBox>
-								<p>활동 지역</p>
-								<TextP2>{userData?.region}</TextP2>
-							</S.RowBox>
-							<div>
-								<p>나의 온도</p>
-								<S.RowBox>
-									<p>{userMypageData?.ondo}℃</p>
-									<ProgressBar percentage={userMypageData?.ondo} />
-								</S.RowBox>
-							</div>
-						</S.TextBox>
-					</S.RowBox>
-					<S.countBox>
-						<BasicButton
-							color={"primary"}
-							size={"small"}
-							children={"채팅하기"}
-							style={{
-								fontSize: "14px",
-								height: "28px",
-								borderRadius: "6px",
-								fontWeight: "600",
-							}}
-							onClick={() => navigate("/Chat")}
-						/>
-					</S.countBox>
-				</S.Container>
-			</>
+						</div>
+					</S.TextBox>
+				</S.MyProfileWrapper>
+			</S.Container>
 		);
 	} else {
 		return <></>;
@@ -67,39 +50,99 @@ const MyProfile = () => {
 };
 export default MyProfile;
 
+// const NavBtn = styled.div`
+// 	display: hidden;
+// 	@media ${({ theme }) => theme.DEVICE.tablet} {
+// 	}
+// 	@media ${({ theme }) => theme.DEVICE.mobile} {
+// 		position: absolute;
+// 		left: 20px;
+// 		top: 10px;
+// 	}
+// `;
 const Container = styled.div`
+	max-width: 962px;
 	display: flex;
 	justify-content: space-between;
+	${flexCenter}
 	margin-top: 100px;
 	margin-bottom: 100px;
 	padding-top: 25px;
+	transition: padding width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+	}
 `;
 
-const RowBox = styled.div`
+const MyProfileWrapper = styled.div`
+	// width: 100%;
+	gap: 20px;
 	margin-bottom: 10px;
 	p {
 		margin-bottom: 10px;
 	}
 	${flexRow}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		/* width: 100%; */
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		/* width: 90%; */
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexColumn}
+		${flexCenter}
+	}
 `;
-const countBox = styled.div`
+
+const RowBox = styled.div`
+	// width: 100%;
+	margin-bottom: 10px;
 	p {
-		margin-bottom: 16px;
+		margin-bottom: 10px;
+	}
+	${flexRow}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		/* width: 100%; */
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		/* width: 90%; */
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		/* width: 80%; */
 	}
 `;
 
 const MyImage = styled.div`
-	margin: 0px 40px;
+	/* margin: 0px 40px; */
+
+	width: 150px;
+	height: 150px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+	}
 	img {
-		width: 150px;
-		height: 150px;
 		border-radius: 50%;
 		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		transition: width 0.3s;
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+		}
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+		}
 	}
 `;
 
 const TextBox = styled.div`
 	margin-left: 45px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-top: 20px;
+		margin-left: 0px;
+	}
 `;
 
 const TextP1 = styled.p`
@@ -116,5 +159,6 @@ const S = {
 	TextBox,
 	TextP1,
 	TextP2,
-	countBox,
+	MyProfileWrapper,
+	// NavBtn,
 };

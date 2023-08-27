@@ -53,6 +53,7 @@ const RowBox = styled.div`
 `;
 
 const SignWrapper = styled.div`
+	width: 100%;
 	${flexColumn}
 	position: relative;
 	margin-bottom: 20px;

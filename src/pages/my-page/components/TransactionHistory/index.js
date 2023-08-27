@@ -19,21 +19,25 @@ const TransactionHistory = ({ MyuserList, formatNumber }) => {
 				</S.RowBox>
 				{MyuserList.map(product => (
 					<S.ProductContainer key={product?.Product.idx}>
-						<img src={product?.Product.img_url} />
+						<div>
+							<img src={product?.Product.img_url} />
+						</div>
 						<S.MasterWrapper>
-							<S.Wrapper>
-								<p>{product?.Product.title}</p>
-							</S.Wrapper>
-							<S.Wrapper2>
-								<S.Price>{formatNumber(product?.Product.price)}</S.Price>
-								<S.PriceText>won</S.PriceText>
-							</S.Wrapper2>
+							<div>
+								<S.Wrapper>
+									<p>{product?.Product.title}</p>
+								</S.Wrapper>
+								<S.Wrapper2>
+									<S.Price>{formatNumber(product?.Product.price)}</S.Price>
+									<S.PriceText>won</S.PriceText>
+								</S.Wrapper2>
+							</div>
+							<S.TextBox2>
+								<p onClick={() => navigate(`/product/${product?.Product.idx}`)}>
+									상품 보러가기 〉
+								</p>
+							</S.TextBox2>
 						</S.MasterWrapper>
-						<S.TextBox2>
-							<p onClick={() => navigate(`/product/${product?.Product.idx}`)}>
-								상품 보러가기 〉
-							</p>
-						</S.TextBox2>
 					</S.ProductContainer>
 				))}
 			</S.Container>
@@ -44,24 +48,22 @@ const TransactionHistory = ({ MyuserList, formatNumber }) => {
 };
 export default TransactionHistory;
 
-const DivisionLine = styled.hr`
-	width: 962px;
-	height: 1px;
-	background-color: #cccccc;
-	margin-top: 30px;
-`;
-
 const Container = styled.div`
+	width: 100%;
 	display: flex;
 	${flexColumn}
 	${flexCenter}
-	margin-bottom: 150px
+	margin-bottom: 20px;
+	transition: padding width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 `;
 
 const ProductContainer = styled.div`
 	padding: 35px;
 	margin-top: 30px;
-	width: 962px;
+	width: 100%;
 	height: 270px;
 	border: 1px solid #b6b6b6;
 	border-radius: 6px;
@@ -71,7 +73,21 @@ const ProductContainer = styled.div`
 		width: 200px;
 		height: 200px;
 		border-radius: 6px;
-		overflow: hidden;
+		overflow: inherit;
+		transition: overflow 0.3s;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			overflow: inherit;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			overflow: inherit;
+			width: 100px;
+			height: 100px;
+		}
+	}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		padding: 20px;
+		height: 150px;
 	}
 `;
 
@@ -86,25 +102,30 @@ const Wrapper = styled.div`
 	${flexRow}
 	display: flex;
 	justify-content: space-between;
-	width: 660px;
+	width: 100%;
 	p {
 		font-size: 18px;
+	}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
 	}
 `;
 const Wrapper2 = styled.div`
 	${flexRow}
-	width: 660px;
+	align-items: center;
 	margin-top: 16px;
-`;
-const Wrapper3 = styled.div`
-	${flexRow}
-	align-items:center;
-	width: 105px;
-	height: 40px;
-	justify-content: center;
-	border: 1px solid rgb(221, 221, 221);
-	border-radius: 4px;
-	margin-right: 30px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+		flex-wrap: wrap;
+	}
 `;
 
 const RowBox = styled.div`
@@ -112,49 +133,52 @@ const RowBox = styled.div`
 	display: flex;
 	justify-content: space-between;
 	${flexRow}
+	transition: width 0.3s;
 `;
-const ToggleBox = styled.div`
-	margin-top: 50px;
-	width: 105px;
-	height: 32px;
-	margin-right: 16px;
-`;
-const ToggleBox2 = styled.div`
-	width: 105px;
-	height: 32px;
-`;
+
 const MasterWrapper = styled.div`
 	${flexColumn};
 	margin-left: 30px;
+	justify-content: space-between;
+	width: 100%;
 `;
+
 const Price = styled.p`
 	font-size: 26px;
 	font-weight: 600;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-top: 20px;
+		font-size: 16px;
+	}
 `;
 
 const PriceText = styled.p`
 	font-size: 20px;
 	margin-left: 10px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin-top: 20px;
+		font-size: 16px;
+	}
 `;
 
 const TextBox2 = styled.div`
-	position: absolute;
-	left: 825px;
-	top: 214px;
+	text-align: right;
 	cursor: pointer;
+	transition: left top 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 14px;
+	}
 `;
 
 const S = {
-	DivisionLine,
 	Title,
 	Container,
 	ProductContainer,
 	Wrapper,
 	Wrapper2,
-	Wrapper3,
 	RowBox,
-	ToggleBox,
-	ToggleBox2,
 	MasterWrapper,
 	Price,
 	PriceText,
