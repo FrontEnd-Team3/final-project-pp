@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexColumn, flexRow } from "styles/common";
+import { flexCenter, flexColumn, flexRow } from "styles/common";
 import EmptyData from "../EmptyData";
 import PurchasedButtons from "./PurchasedButtons";
 import UserQueryApi from "apis/user.query.api";
@@ -63,9 +63,7 @@ const PurchasedItem = () => {
 						reviewData={PayProductList}
 					/>
 				) : null}
-				<S.RowBox>
-					<S.Title>구매 물품</S.Title>
-				</S.RowBox>
+				<S.Title>구매 물품</S.Title>
 				<Wrapper>
 					{!PayProductList || PayProductList?.length === 0 ? (
 						<EmptyData
@@ -134,6 +132,16 @@ const DivisionLine = styled.hr`
 	height: 1px;
 	background-color: #cccccc;
 	margin-top: 30px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const DivisionLine2 = styled.hr`
@@ -142,42 +150,69 @@ const DivisionLine2 = styled.hr`
 	background-color: black;
 	margin-top: 10px;
 	margin-bottom: 32px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const Container = styled.div`
-	width: 962px;
-	margin: 0 auto;
+	max-width: 962px;
 	padding: 20px 0;
-	display: flex;
+	margin: 0 auto;
 	${flexColumn}
-	margin-bottom: 150px;
-	transition: width 0.3s;
+	transition: padding width 0.3s;
 	@media ${({ theme }) => theme.DEVICE.pc} {
-		width: 962px;
+		/* width: 1000px; */
 	}
 	@media ${({ theme }) => theme.DEVICE.tablet} {
-		width: 800px;
+		/* width: 700px; */
+		/* display: inline-block; */
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		width: 800px;
-		padding: 20px;
+		/* padding: 0 80px;
+		width: 450px; */
 	}
 `;
 const Wrapper = styled.div`
 	${flexRow}
+	width:100%;
+	${flexCenter}
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexCenter}
+	}
 `;
 
 const ProductContainer = styled.div`
 	padding: 50px 30px 30px 30px;
 	margin-top: 30px;
-	width: 460px;
-	height: 270px;
+	margin: 0 auto;
+	max-width: 430px;
+	height: auto;
+	margin-bottom: 40px;
 	border: 1px solid #b6b6b6;
 	border-radius: 12px;
 	${flexColumn}
+	justify-content:center;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: 100%;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: 100%;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 100%;
+		margin: 20px;
+	}
 	img {
 		width: 95px;
 		height: 95px;
@@ -188,10 +223,20 @@ const ProductContainer = styled.div`
 `;
 
 const Title = styled.div`
+	width: 100%;
 	margin-top: 50px;
 	font-size: 24px;
 	font-weight: bold;
 	color: black;
+	padding: 20px 0px 20px 25.5px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		${flexCenter}
+		padding:0 0 30px 0;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexCenter}
+		padding:0 0 30px 0;
+	}
 `;
 
 const RowBox = styled.div`

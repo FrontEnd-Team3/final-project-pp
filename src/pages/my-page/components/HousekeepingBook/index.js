@@ -226,6 +226,7 @@ const Title = styled.div`
 	color: black;
 `;
 const Title2 = styled.div`
+	margin-left: 30px;
 	margin-bottom: 50px;
 	font-size: 24px;
 	font-weight: bold;

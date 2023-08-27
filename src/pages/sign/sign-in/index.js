@@ -42,13 +42,7 @@ const SignIn = () => {
 	return (
 		<S.Container>
 			<S.LogoWrapper>
-				<S.LogoTitle
-					onClick={() => {
-						navigate(`/`);
-					}}
-				>
-					TRIMM
-				</S.LogoTitle>
+				<S.LogoTitle>TRIMM</S.LogoTitle>
 				<S.SideTitle>Trade, Reuse, Innovate and Make your Moment</S.SideTitle>
 				<S.LogoMent>지구를 위해 버리지 말고 중고 거래를 해보세요!</S.LogoMent>
 			</S.LogoWrapper>

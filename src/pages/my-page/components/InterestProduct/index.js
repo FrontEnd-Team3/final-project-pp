@@ -131,30 +131,40 @@ const RegisterProduct = () => {
 									formatNumber={formatNumber}
 								/>
 							) : (
-								<S.ProductContainer key={product.Product.idx}>
-									<img src={product.Product.img_url} />
-									<S.MasterWrapper>
-										<S.Wrapper>
-											<p>{product.Product.title}</p>
-										</S.Wrapper>
-										<S.Wrapper2>
-											<S.Wrapper3>
-												<div>{product.Product.status}</div>
-											</S.Wrapper3>
-											<S.Price>{formatNumber(product.Product.price)}</S.Price>
-											<S.PriceText>won</S.PriceText>
-										</S.Wrapper2>
-									</S.MasterWrapper>
-									<TextBox2>
-										<p
-											onClick={() =>
-												navigate(`/product/${product.Product.idx}`)
-											}
-										>
-											상품 보러가기 〉
-										</p>
-									</TextBox2>
-								</S.ProductContainer>
+								<S.PContainer>
+									<S.ProductContainer key={product.Product.idx}>
+										<div>
+											<img src={product.Product.img_url} />
+										</div>
+										<S.MasterWrapper>
+											<div>
+												<S.Wrapper>
+													<p>{product.Product.title}</p>
+												</S.Wrapper>
+												<S.Wrapper2>
+													<S.Wrapper3>
+														<div>{product.Product.status}</div>
+													</S.Wrapper3>
+													<S.PriceWrapper>
+														<S.Price>
+															{formatNumber(product.Product.price)}
+														</S.Price>
+														<S.PriceText>won</S.PriceText>
+													</S.PriceWrapper>
+												</S.Wrapper2>
+											</div>
+											<TextBox2>
+												<p
+													onClick={() =>
+														navigate(`/product/${product.Product.idx}`)
+													}
+												>
+													상품 보러가기 〉
+												</p>
+											</TextBox2>
+										</S.MasterWrapper>
+									</S.ProductContainer>
+								</S.PContainer>
 							),
 						)
 					)}
@@ -171,16 +181,25 @@ const RegisterProduct = () => {
 };
 export default RegisterProduct;
 
-// Styles
 const DivisionLine = styled.hr`
 	width: 962px;
 	height: 1px;
 	background-color: #cccccc;
 	margin-top: 30px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const Container = styled.div`
-	width: 962px;
+	max-width: 962px;
 	margin: 0 auto;
 	padding: 20px 0;
 	display: flex;
@@ -188,23 +207,34 @@ const Container = styled.div`
 	${flexCenter}
 	transition: padding width 0.3s;
 	@media ${({ theme }) => theme.DEVICE.pc} {
-		padding: 0 40px;
-		width: 1000px;
+		/* width: 1000px; */
 	}
 	@media ${({ theme }) => theme.DEVICE.tablet} {
-		padding: 0 60px;
-		width: 700px;
+		/* width: 700px; */
+		/* display: inline-block; */
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		padding: 0 80px;
-		width: 450px;
+		/* padding: 0 80px;
+		width: 450px; */
+	}
+`;
+
+const PContainer = styled.div`
+	width: 100%;
+	display: flex;
+	${flexColumn}
+	${flexCenter}
+margin-bottom: 20px;
+	transition: padding width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
 	}
 `;
 
 const ProductContainer = styled.div`
 	padding: 35px;
 	margin-top: 30px;
-	width: 962px;
+	width: 100%;
 	height: 270px;
 	border: 1px solid #b6b6b6;
 	border-radius: 6px;
@@ -214,48 +244,48 @@ const ProductContainer = styled.div`
 		width: 200px;
 		height: 200px;
 		border-radius: 6px;
-		overflow: hidden;
+		overflow: inherit;
 		transition: overflow 0.3s;
-		@media ${({ theme }) => theme.DEVICE.pc} {
-		}
 		@media ${({ theme }) => theme.DEVICE.tablet} {
 			overflow: inherit;
 		}
 		@media ${({ theme }) => theme.DEVICE.mobile} {
 			overflow: inherit;
-			width: 150px;
-			height: 150px;
+			width: 100px;
+			height: 100px;
 		}
 	}
 	transition: width 0.3s;
-	@media ${({ theme }) => theme.DEVICE.pc} {
-		width: 1000px;
-	}
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		width: 600px;
-	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		width: 450px;
+		padding: 20px;
+		height: 150px;
 	}
 `;
 
 const Title = styled.div`
+	width: 100%;
 	margin-top: 50px;
 	font-size: 24px;
 	font-weight: bold;
 	color: black;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const MasterWrapper = styled.div`
 	${flexColumn};
+	justify-content: space-between;
 	margin-left: 30px;
+	width: 100%;
 `;
 
 const Wrapper = styled.div`
 	${flexRow}
 	display: flex;
 	justify-content: space-between;
-	width: 660px;
+	width: 100%;
 	p {
 		font-size: 18px;
 	}
@@ -270,32 +300,38 @@ const Wrapper = styled.div`
 
 const Wrapper2 = styled.div`
 	${flexRow}
-	width: 660px;
+	align-items: center;
 	margin-top: 16px;
 	transition: width 0.3s;
+	width: 100%;
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		width: auto;
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
 		width: auto;
 		flex-wrap: wrap;
+		margin-top: 6px;
 	}
 `;
 
 const Wrapper3 = styled.div`
 	${flexRow}
 	align-items:center;
-	width: 105px;
-	height: 40px;
+	padding: 10px;
 	justify-content: center;
 	border: 1px solid rgb(221, 221, 221);
 	border-radius: 4px;
 	margin-right: 30px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		margin-right: 100px;
-		width: 90px;
-		height: 35px;
-		font-size: 14px;
+		font-size: 12px;
+
+		padding: 5px;
+	}
+	div {
+		width: 100%;
 	}
 `;
 
@@ -303,7 +339,8 @@ const Price = styled.p`
 	font-size: 26px;
 	font-weight: 600;
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		margin-top: 20px;
+		margin-top: 10px;
+		font-size: 16px;
 	}
 `;
 
@@ -311,54 +348,60 @@ const PriceText = styled.p`
 	font-size: 20px;
 	margin-left: 10px;
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		margin-top: 20px;
+		margin-top: 10px;
+		font-size: 16px;
 	}
 `;
 
 const RowBox = styled.div`
 	width: 100%;
-	display: flex;
-	justify-content: space-between;
 	${flexRow}
+	justify-content: center;
+	align-items: center;
 	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 	@media ${({ theme }) => theme.DEVICE.tablet} {
-		width: 600px;
+		padding: 0 20px;
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		width: 400px;
+		padding: 0 20px;
+		${flexColumn}
 	}
 `;
 
 const TextBox2 = styled.div`
-	position: absolute;
-	left: 825px;
-	top: 214px;
+	text-align: right;
 	cursor: pointer;
 	transition: left top 0.3s;
+	width: 100%;
 	@media ${({ theme }) => theme.DEVICE.tablet} {
-		left: 470px;
-		top: 214px;
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		left: 340px;
-		top: 214px;
 		font-size: 14px;
+		margin-top: 12px;
 	}
+`;
+const PriceWrapper = styled.div`
+	${flexRow};
 `;
 
 const ToggleBox = styled.div`
 	${flexRow}
 	margin-top: 50px;
-	margin-right: 150px;
-	width: 105px;
+	width: 100%;
 	height: 32px;
-	div {
-		margin-right: 4px;
+	display: flex;
+	justify-content: flex-end;
+	div:first-child {
+		margin-right: 2px;
 	}
-	transition: margin-right margin-bottom 0.2s;
-	@media ${({ theme }) => theme.DEVICE.pc} {
-		margin-right: 150px;
-		margin-bottom: 30px;
+	div:nth-child(2) {
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 230px;
+		justify-content: center;
 	}
 `;
 
@@ -369,10 +412,12 @@ const S = {
 	Title,
 	MasterWrapper,
 	Container,
+	PContainer,
 	ProductContainer,
 	Wrapper,
 	Wrapper2,
 	Wrapper3,
 	RowBox,
 	ToggleBox,
+	PriceWrapper,
 };

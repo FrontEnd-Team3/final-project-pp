@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { flexRow } from "styles/common";
+import { flexRow, flexCenter, flexColumn } from "styles/common";
 import ProgressBar from "./ProgressBar";
 import UserQueryApi from "apis/user.query.api";
 
@@ -16,7 +16,7 @@ const MyProfile = () => {
 	if (userData) {
 		return (
 			<S.Container>
-				<S.RowBox>
+				<S.MyProfileWrapper>
 					<S.MyImage>
 						{userData?.profile_url ? (
 							<img src={userData?.profile_url} alt="User Profile" />
@@ -41,7 +41,7 @@ const MyProfile = () => {
 							</S.RowBox>
 						</div>
 					</S.TextBox>
-				</S.RowBox>
+				</S.MyProfileWrapper>
 			</S.Container>
 		);
 	} else {
@@ -64,6 +64,7 @@ const Container = styled.div`
 	max-width: 962px;
 	display: flex;
 	justify-content: space-between;
+	${flexCenter}
 	margin-top: 100px;
 	margin-bottom: 100px;
 	padding-top: 25px;
@@ -76,8 +77,29 @@ const Container = styled.div`
 	}
 `;
 
+const MyProfileWrapper = styled.div`
+	// width: 100%;
+	gap: 20px;
+	margin-bottom: 10px;
+	p {
+		margin-bottom: 10px;
+	}
+	${flexRow}
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		/* width: 100%; */
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		/* width: 90%; */
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexColumn}
+		${flexCenter}
+	}
+`;
+
 const RowBox = styled.div`
-	width: 100%;
+	// width: 100%;
 	margin-bottom: 10px;
 	p {
 		margin-bottom: 10px;
@@ -96,22 +118,22 @@ const RowBox = styled.div`
 `;
 
 const MyImage = styled.div`
-	margin: 0px 40px;
+	/* margin: 0px 40px; */
+
 	width: 150px;
 	height: 150px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+	}
 	img {
-		width: 100%;
 		border-radius: 50%;
 		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		transition: width 0.3s;
 		@media ${({ theme }) => theme.DEVICE.mobile} {
-			width: 130px;
-			height: 130px;
 		}
-	}
-	transition: paddin margin 0.3s;
-	@media ${({ theme }) => theme.DEVICE.pc} {
-	}
-	@media ${({ theme }) => theme.DEVICE.tablet} {
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+		}
 	}
 `;
 
@@ -137,5 +159,6 @@ const S = {
 	TextBox,
 	TextP1,
 	TextP2,
+	MyProfileWrapper,
 	// NavBtn,
 };
