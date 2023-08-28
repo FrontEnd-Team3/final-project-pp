@@ -27,6 +27,7 @@ function LineGraphs({ data }) {
 		const test = Math.ceil(Pricearr / 1000) * 1000;
 		return test.toLocaleString();
 	};
+
 	return (
 		<S.Container>
 			<ComposedChart

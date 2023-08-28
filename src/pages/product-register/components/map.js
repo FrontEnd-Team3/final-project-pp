@@ -12,21 +12,20 @@ const Map = ({ address, setAddress }) => {
 	useEffect(() => {
 		const container = document.getElementById("map");
 		const options = {
-			center: new kakao.maps.LatLng(37.5417253860377, 127.043351028535),
+			center: new kakao.maps.LatLng(127.057019282187, 37.5409627375216),
 			//지도의 중심좌표.
 			level: 3, //지도의 레벨(확대, 축소 정도)
 		};
 		// 지도 생성 .
 		const map = new kakao.maps.Map(container, options);
 		setMap(map);
-		const coords = new kakao.maps.LatLng(37.5417253860377, 127.043351028535);
+		const coords = new kakao.maps.LatLng(127.057019282187, 37.5409627375216);
 		var marker = new kakao.maps.Marker({
 			map: map,
 			position: coords,
 		});
 		setMarker(marker);
 	}, []);
-
 	// 위치 변경시 지도에 마크 찍히게
 	const handleAddressChange = newAddress => {
 		setAddress(newAddress);

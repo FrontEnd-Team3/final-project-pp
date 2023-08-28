@@ -6,6 +6,7 @@ import { flexCenter } from "styles/common";
 import getUserData from "utils/getUserData";
 
 const Products = ({ list, title, route }) => {
+	console.log("페이지", list);
 	const navigate = useNavigate();
 	const data = getUserData();
 	let Region;

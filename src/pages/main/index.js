@@ -3,11 +3,11 @@ import Banner from "./components/Banner";
 import Slogan from "./components/Slogan";
 import styled from "styled-components";
 import RecentlyClicked from "components/RecentlyClicked";
-import ProductQueryApi from "apis/product.query.api";
 import { useQueryClient } from "react-query";
-import Loading from "components/Loading";
 import Products from "./components/Products";
 import QueryKey from "consts/queryKey";
+import ProductQueryApi from "apis/product.query.api";
+import Loading from "components/Loading";
 
 const Main = () => {
 	const queryClient = useQueryClient();

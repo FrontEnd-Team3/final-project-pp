@@ -23,7 +23,16 @@ const OneProduct = ({ product }) => {
 					<S.Image src={url}></S.Image>
 				</S.ImageBox>
 				<S.Name>{product.title}</S.Name>
-				<S.FirstLine></S.FirstLine>
+				<S.FirstLine>
+					{/* <S.Location>{product.region}</S.Location> */}
+					<S.Location>지역 데이터 안와요..</S.Location>
+					<S.Iconwrapper>
+						<HiOutlineChatBubbleLeftRight
+							size="16"
+							style={{ marginLeft: "-70px" }}
+						/>
+					</S.Iconwrapper>
+				</S.FirstLine>
 				<S.SecondLine>
 					<S.Price>{product.price.toLocaleString()} 원</S.Price>
 					<S.AgoDate>{soldData}</S.AgoDate>
@@ -45,6 +54,9 @@ const Sold = styled.div`
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		font-size: 80px;
 	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 60px;
+	}
 `;
 const Out = styled.div`
 	margin-left: 50px;
@@ -58,6 +70,9 @@ const Out = styled.div`
 	}
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		font-size: 80px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 60px;
 	}
 `;
 
@@ -77,7 +92,7 @@ const SoldOut = styled.div`
 	}
 	@media ${({ theme }) => theme.DEVICE.mobile} {
 		position: relative;
-		top: 250px;
+		top: 215px;
 	}
 `;
 
