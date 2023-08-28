@@ -7,7 +7,6 @@ const SearchAddress = ({ setAddress, setIsOpen, setValue = () => {} }) => {
 		width: "400px",
 	};
 	const handleAddress = data => {
-		console.log(`주소: ${data.address}`);
 		// 서울시 + .. 구 + .. 동
 		const fullAdress = data.sido + " " + data.sigungu + " " + data.bname;
 		setAddress(fullAdress);

@@ -11,12 +11,6 @@ const AuthApi = {
 				phone,
 				region,
 			});
-			console.log("회원가입", response);
-			if (response.status === 200) {
-				console.log(" 회원가입 성공");
-			} else {
-				console.log(" 회원가입 실패 ");
-			}
 			return response;
 		} catch (error) {
 			console.error(error);
@@ -79,12 +73,6 @@ const AuthApi = {
 			const response = await axiosInstance.patch("/api/user", {
 				...newValue,
 			});
-			console.log("개인정보 수정:", response);
-			if (response.status === 200) {
-				console.log(" 개인정보 수정 성공");
-			} else {
-				console.log(" 개인정보 수정 실패 ");
-			}
 			return response;
 		} catch (error) {
 			console.error(error);
@@ -106,7 +94,6 @@ const AuthApi = {
 			const response = await axiosInstance.get(PATH + "/my-page/product-list", {
 				params: { page, category },
 			});
-			console.log("API Response:", response.data);
 			return response;
 		} catch (error) {
 			console.error(error);
@@ -120,7 +107,6 @@ const AuthApi = {
 					params: { page },
 				},
 			);
-			console.log("API Response:", response.data);
 			return response;
 		} catch (error) {
 			console.error(error);
@@ -131,14 +117,12 @@ const AuthApi = {
 			const response = await axiosInstance.get("/api/review", {
 				params: { page },
 			});
-			console.log("API Response:", response.data);
 			return response;
 		} catch (error) {
 			console.error(error);
 		}
 	},
 	userReview: async (payList_idx, newValue) => {
-		console.log("데이터 확인중", payList_idx, newValue);
 		try {
 			const response = await axiosInstance.post(
 				`/api/review?payList_idx=${payList_idx}`,
@@ -147,12 +131,6 @@ const AuthApi = {
 					headers: { "Content-Type": "multipart/form-data" },
 				},
 			);
-			console.log("개인정보 수정:", response);
-			if (response.status === 200) {
-				console.log(" 개인정보 수정 성공");
-			} else {
-				console.log(" 개인정보 수정 실패 ");
-			}
 			return response;
 		} catch (error) {
 			console.error(error);
@@ -164,7 +142,6 @@ const AuthApi = {
 				PATH +
 					`/my-page/account-book?page=${page}&category=${category}&start=${start}&end=${end}`,
 			);
-			console.log("API Response:", response.data);
 			return response;
 		} catch (error) {
 			console.error(error);

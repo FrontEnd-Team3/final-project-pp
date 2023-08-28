@@ -1,5 +1,4 @@
 export const replacePhone = str => {
-	console.log(str);
 	if (!str) return;
 
 	str = str.replace(/[^0-9]/g, "");

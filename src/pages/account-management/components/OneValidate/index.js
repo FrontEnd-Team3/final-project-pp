@@ -46,7 +46,7 @@ const Error = styled.div`
 `;
 
 const RowBox = styled.div`
-	width: 100%;
+	max-width: 100%;
 	display: flex;
 	${flexRow}
 `;

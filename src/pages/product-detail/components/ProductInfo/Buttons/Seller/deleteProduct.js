@@ -17,7 +17,7 @@ const DeleteProductBtn = () => {
 	);
 
 	const deleteProduct = () => {
-		console.log(deleteData.mutateAsync());
+		deleteData.mutateAsync();
 		setIsAlertModalOpen(true);
 		setTimeout(() => {
 			setIsAlertModalOpen(false);

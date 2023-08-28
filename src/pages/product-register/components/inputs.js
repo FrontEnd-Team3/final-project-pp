@@ -120,7 +120,6 @@ const Inputs = () => {
 			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; // 변환값이 0이면 빈값으로 초기화, 그렇지 않은 경우 입력값 사용(0,003원 이런식으로 입력되는 버그 수정해야함)
 			setValue("price", priceValue);
 			setPrice(priceValue);
-			console.log("price", price);
 		}
 	}, [watchPrice, setValue, category]);
 
