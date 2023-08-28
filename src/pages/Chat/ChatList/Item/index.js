@@ -11,19 +11,12 @@ const ChatItem = ({ chat, setIsTop }) => {
 	let nick_name;
 	const DATA = getUserData();
 	if (DATA) nick_name = DATA.nick_name;
-	// 읽음
-	// const [isOpen, setIsOpen] = useState(false);
 
-	// 페이지 이동
 	const navigate = useNavigate();
 
-	// 채팅방 입장하기 + 이전 방 나가기
 	const handleEnterRoom = () => {
-		// const enterRoomSocket = ConnectSocket();
-		// socket.emit("leave", { targetChat });
 		setTargetChat(idx);
 		socket.emit("join", { room_idx: idx });
-		// enterRoomSocket.disconnect();
 		setChatInfo({
 			title: product.title,
 			prod_idx: product.idx,
@@ -47,7 +40,7 @@ const ChatItem = ({ chat, setIsTop }) => {
 					<S.ChatContent>
 						<S.Iproduct>{product.title}</S.Iproduct>
 						<S.Ichat>{lastMessage || "대화 내역이 존재하지 않습니다."}</S.Ichat>
-						<S.Iprice>{product.price}</S.Iprice>
+						<S.Iprice>{product.price.toLocaleString("ko-KR")}</S.Iprice>
 					</S.ChatContent>
 					<S.SettingContent>
 						<S.Imove onClick={() => navigate(`/product/${product.idx}`)}>
@@ -66,7 +59,6 @@ const Item = styled.div`
 	width: 450px;
 	display: flex;
 	align-items: center;
-	/* justify-content: space-between; */
 	border-bottom: 1px solid #ebebeb;
 	height: 150px;
 	background-color: white;

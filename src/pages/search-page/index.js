@@ -1,9 +1,8 @@
 import ProductQueryApi from "apis/product.query.api";
 import Loading from "components/Loading";
 import ProductList from "components/ProductList/withPagination";
-import BasicSelect from "components/Select";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { flexCenter } from "styles/common";
@@ -13,17 +12,7 @@ const SearchPage = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { keyword } = useParams();
 	const [page, setPage] = useState(1);
-	// const pages = searchParams.get("page") || 1;
 	const filter = searchParams.get("filter") || "등록순";
-	const [searchResults, setSearchResults] = useState([]);
-	const [currensValue, setCurrentValue] = useState("등록순");
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (!prod) return;
-		onFiltering(filter);
-		setSearchParams({ filter: currensValue, page: data?.pagination?.curPage });
-	}, [filter]);
 
 	const { data, isLoading, refetch } = ProductQueryApi.searchProductList({
 		keyword,
@@ -32,12 +21,10 @@ const SearchPage = () => {
 		status: "판매중",
 	});
 
-	console.log("result", data);
 	const prod = data?.product;
 
 	useEffect(() => {
 		refetch();
-		// setSearchParams({ pages: data?.pagination?.curPage });
 	}, [page]);
 
 	if (isLoading) {
@@ -52,35 +39,6 @@ const SearchPage = () => {
 			const filterValue = [title, description, ...tags].join(" ").toLowerCase();
 			return filterValue.includes(keyword.toLowerCase());
 		}) || [];
-	// console.log("필터", filter);
-
-	// util 로 뺀 후
-	const onFiltering = value => {
-		let filteredList = [...filteredSearchResults];
-
-		if (value === "등록순") {
-			filteredList.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-		} else if (value === "인기순") {
-			filteredList.sort((a, b) => b.liked - a.liked);
-		} else if (value === "저가순") {
-			filteredList.sort((a, b) => a.price - b.price);
-		} else if (value === "고가순") {
-			filteredList.sort((a, b) => b.price - a.price);
-		}
-		setSearchResults(filteredList);
-		// filter params만 업데이트하는 로직
-		// setSearchParams({
-		// 	filter: value,
-		// 	page: data?.pagination.curPage,
-		// });
-		// setSearchParams(new URLSearchParams({ ...searchParams, filter: value }));
-	};
-	const options = [
-		{ value: "등록순", label: "등록순" },
-		{ value: "인기순", label: "인기순" },
-		{ value: "저가순", label: "저가순" },
-		{ value: "고가순", label: "고가순" },
-	];
 
 	return (
 		<S.Container>
@@ -89,14 +47,6 @@ const SearchPage = () => {
 					<S.SearchText>
 						<span>"{keyword}"</span>의 검색결과 {data?.pagination?.count}개
 					</S.SearchText>
-					<BasicSelect
-						variant={"primary"}
-						options={options}
-						selectedValue={filter}
-						onChange={onFiltering}
-						currensValue={filter}
-						setCurrentValue={setCurrentValue}
-					/>
 				</S.ResultandFilter>
 				{filteredSearchResults.length === 0 && (
 					<S.NoSearchResult>
@@ -104,21 +54,12 @@ const SearchPage = () => {
 						<RiEmotionSadLine size={40} />
 					</S.NoSearchResult>
 				)}
-				{searchResults.length > 0 ? (
-					<ProductList
-						productList={searchResults}
-						pagination={data?.pagination}
-						page={page}
-						setPage={setPage}
-					/>
-				) : (
-					<ProductList
-						productList={filteredSearchResults}
-						pagination={data?.pagination}
-						page={page}
-						setPage={setPage}
-					/>
-				)}
+				<ProductList
+					productList={filteredSearchResults}
+					pagination={data?.pagination}
+					page={page}
+					setPage={setPage}
+				/>
 			</S.Wrapper>
 			<RecentlyClicked />
 		</S.Container>

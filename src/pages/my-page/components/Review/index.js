@@ -109,6 +109,9 @@ const Review = ({ productIndex, reviewData }) => {
 	const reviewValue = getValues("review");
 	const reviewInfoValue = getValues("reviewInfo");
 
+	// npm i react-responsive 해주세용
+	// const isTabletOrMobile = useMediaQuery({ query: '(max-width: 768px)' })
+
 	return (
 		<S.Container onSubmit={handleSave}>
 			{completeOpen && <AlertModal message={"등록이 완료되었습니다."} />}
@@ -116,64 +119,65 @@ const Review = ({ productIndex, reviewData }) => {
 				<S.ImgWrapper>
 					<img src={PayProductList[0].Product.img_url} />
 				</S.ImgWrapper>
-				<div>
-					<S.Title>{PayProductList[0].Product.title}</S.Title>
-				</div>
+				<S.Title>{PayProductList[0].Product.title}</S.Title>
 			</div>
-			<S.RowBox>
-				<S.Title>후기 작성</S.Title>
-			</S.RowBox>
-			<S.DivisionLine />
-			<S.RowBox>
-				<S.Title1>거래는 어떠셨나요? 별점을 매겨주세요</S.Title1>
-			</S.RowBox>
-			<S.StarRowBox>
-				<div>
-					{starArr.map((_, index) => (
-						<FontAwesomeIcon
-							key={index}
-							icon={faStar}
-							size="2x"
-							color={index <= starState ? "black" : "#dddddd"}
-							onClick={() => handleStarClick(index)}
-						></FontAwesomeIcon>
-					))}
-				</div>
-			</S.StarRowBox>
-			<S.DivisionLine2 />
-			<S.RowBox>
-				<ValidateInput
-					control={control}
-					name={"review"}
-					errors={errors}
-					type={"text"}
-					placeholder={"제목을 입력해주세요"}
-				/>
-			</S.RowBox>
-			<S.RowBox>
-				<ValidateInput
-					control={control}
-					name={"reviewInfo"}
-					errors={errors}
-					type={"text"}
-					placeholder={"내용"}
-				/>
-			</S.RowBox>
-			<S.DivisionLine2 />
-			<S.RowBox>
-				<BasicButton
-					color={"black"}
-					size={"xmedium"}
-					children={"저장하기"}
-					style={{
-						width: "124px",
-						fontSize: "16px",
-						borderRadius: "6px",
-						fontWeight: "600",
-						border: "1px solid #dddddd",
-					}}
-				/>
-			</S.RowBox>
+			<S.TitleRowBox>
+				<S.ReviewTitle>후기 작성</S.ReviewTitle>
+			</S.TitleRowBox>
+			<S.ReviewWrapper>
+				<S.DivisionLine />
+				<S.RowBox>
+					<S.ReviewTitle1>거래는 어떠셨나요? 별점을 매겨주세요</S.ReviewTitle1>
+				</S.RowBox>
+				<S.StarRowBox>
+					<div>
+						{starArr.map((_, index) => (
+							<FontAwesomeIcon
+								key={index}
+								icon={faStar}
+								// size={isTabletOrMobile ? "1x" : "2x"}
+								size="2x"
+								color={index <= starState ? "black" : "#dddddd"}
+								onClick={() => handleStarClick(index)}
+							></FontAwesomeIcon>
+						))}
+					</div>
+				</S.StarRowBox>
+				<S.DivisionLine2 />
+				<S.RowBox>
+					<ValidateInput
+						control={control}
+						name={"review"}
+						errors={errors}
+						type={"text"}
+						placeholder={"제목을 입력해주세요"}
+					/>
+				</S.RowBox>
+				<S.RowBox>
+					<ValidateInput
+						control={control}
+						name={"reviewInfo"}
+						errors={errors}
+						type={"text"}
+						placeholder={"내용"}
+					/>
+				</S.RowBox>
+				<S.DivisionLine2 />
+				<S.ButtonRowBox>
+					<BasicButton
+						color={"black"}
+						size={"xmedium"}
+						children={"저장하기"}
+						style={{
+							width: "124px",
+							fontSize: "16px",
+							borderRadius: "6px",
+							fontWeight: "600",
+							border: "1px solid #dddddd",
+						}}
+					/>
+				</S.ButtonRowBox>
+			</S.ReviewWrapper>
 		</S.Container>
 	);
 };
@@ -184,34 +188,98 @@ const DivisionLine = styled.hr`
 	width: 962px;
 	height: 5px;
 	background-color: #dddddd;
-	margin-top: 30px;
-	border: none;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 const DivisionLine2 = styled.hr`
 	width: 962px;
 	height: 3px;
 	background-color: #dddddd;
-	margin-top: 20px;
-	border: none;
+	margin-top: 40px;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const Container = styled.form`
-	width: 962px;
-	margin: 0 auto;
+	max-width: 962px;
 	padding: 20px 0;
 	display: flex;
 	${flexColumn}
 	${flexCenter}
-	margin-bottom: 100px
+	margin-bottom: 100px;
+	transition: padding width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+	}
+`;
+
+const ReviewWrapper = styled.div`
+	padding: 20px;
+	width: 100%;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		padding: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		padding: 20px;
+	}
 `;
 
 const ImgWrapper = styled.div`
-	img {
-		width: 200px;
+	width: 350px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 230px;
+	}
+	${flexCenter} img {
+		width: 100%;
+		height: auto;
+		transition: width 0.3s;
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+		}
 	}
 `;
 
 const Title = styled.div`
+	margin-top: 20px;
+	font-size: 22px;
+	font-weight: bold;
+	color: black;
+	text-align: center;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		font-size: 22px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 18px;
+	}
+`;
+
+const ReviewTitle = styled.div`
 	margin-top: 20px;
 	font-size: 22px;
 	font-weight: bold;
@@ -224,6 +292,22 @@ const Title1 = styled.div`
 	font-size: 18px;
 	font-weight: bold;
 	color: black;
+`;
+
+const ReviewTitle1 = styled.div`
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: bold;
+	color: black;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		font-size: 18px;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		font-size: 16px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 14px;
+	}
 `;
 
 const Title2 = styled.div`
@@ -239,6 +323,32 @@ const RowBox = styled.div`
 	justify-content: space-between;
 	${flexRow}
 	margin-top: 30px
+`;
+
+const TitleRowBox = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	${flexRow}
+	padding: 20px;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		padding: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		padding: 20px;
+		${flexCenter}
+	}
+`;
+
+const ButtonRowBox = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	${flexRow}
+	margin-top: 30px;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexCenter}
+	}
 `;
 
 const StarRowBox = styled.div`
@@ -260,6 +370,11 @@ const S = {
 	Title2,
 	Container,
 	RowBox,
+	TitleRowBox,
+	ButtonRowBox,
 	StarRowBox,
 	ImgWrapper,
+	ReviewWrapper,
+	ReviewTitle,
+	ReviewTitle1,
 };

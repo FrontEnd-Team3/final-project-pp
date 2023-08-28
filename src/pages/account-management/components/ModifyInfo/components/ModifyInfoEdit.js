@@ -140,7 +140,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 	};
 
 	return (
-		<>
+		<S.MasterWarpper>
 			<S.Title openInput={openInput}>{field}</S.Title>
 			<S.Container>
 				{openInput ? (
@@ -274,22 +274,33 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 					</>
 				)}
 			</S.Container>
-		</>
+		</S.MasterWarpper>
 	);
 };
 
 export default ModifyInfoEdit;
-
+const MasterWarpper = styled.div`
+	max-width: 962px;
+`;
 const InputBox = styled.input`
-	width: 765px;
+	width: 100%;
 	font-size: 16px;
 `;
 
 const Line = styled.div`
-	width: 950px;
+	width: 100%;
 	background-color: #dddddd;
 	height: 2px;
 	margin: 14px 0;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const Title = styled.div`
@@ -300,6 +311,10 @@ const Title = styled.div`
 const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
+	width: 100%;
+	div {
+		width: 100%;
+	}
 `;
 const Value = styled.div`
 	margin-top: 16px;
@@ -311,4 +326,5 @@ const S = {
 	Title,
 	Container,
 	Value,
+	MasterWarpper,
 };

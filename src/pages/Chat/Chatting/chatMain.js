@@ -5,7 +5,7 @@ import MyChat from "./myChat";
 import ChatQueryApi from "apis/chat.api.query";
 import { useEffect, useRef } from "react";
 import OtherChat from "./otherChat";
-import getFilteredList from "./utils/getfilteredList";
+import getFilteredList from "../utils/getfilteredList";
 import { useChatData } from "context/chatData.ctx";
 import ChatApi from "apis/chat.api";
 import { useChatList } from "context/chatList.ctx";
@@ -17,15 +17,12 @@ const ChatMain = () => {
 		parseInt(targetChat),
 	);
 	const [chatList, setChatList] = useChatList();
-	// console.log("chatlist", chatList);
 	let nick_name;
 	const DATA = getUserData();
 	if (DATA) nick_name = DATA.nick_name;
 
 	const filteredByUser = getFilteredList(data, nick_name);
-	// console.log("filtered", filteredByUser);
 
-	// 실시간 메시지 날짜 찾기
 	if (chatList) {
 		[...chatList].map(chat => {
 			const targetIdx = filteredByUser.findIndex(
@@ -34,7 +31,6 @@ const ChatMain = () => {
 					log.date === chat?.createdAt?.split("T")[0],
 			);
 
-			// 메시지 형태 변환해서 맨 뒤에 붙이기
 			filteredByUser[targetIdx]?.logs.push({
 				createdAt: chat.createdAt,
 				message: chat.message,
@@ -74,7 +70,6 @@ const ChatMain = () => {
 					...newChatData,
 				};
 				myChat.createdAt = myChat.createdAt.toISOString();
-				console.log("보내는 값", newChatData);
 				socket.emit("sendMessage", newChatData);
 				await ChatApi.saveMessages({
 					room_idx: parseInt(targetChat),
@@ -82,7 +77,6 @@ const ChatMain = () => {
 				});
 				refetch();
 				setChatInfo(newChatData);
-				// setChatList(prev => [...prev, newChatData]);
 				e.target.input.value = "";
 				chatMainWrapperRef.current.scrollTop =
 					chatMainWrapperRef.current.scrollHeight;

@@ -1,13 +1,9 @@
 import styled from "styled-components";
 
 const MyProfileImage = ({ userData, imageSrc }) => {
-	const defaultProfileImage = "img/profile.png";
 	return (
 		<>
-			<S.ProfileImg
-				src={imageSrc || userData.profile_url || defaultProfileImage}
-				alt="Profile"
-			/>
+			<S.ProfileImg alt="Profile" />
 		</>
 	);
 };

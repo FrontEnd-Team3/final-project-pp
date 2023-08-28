@@ -54,6 +54,14 @@ const RowBox = styled.div`
 const SignWrapper = styled.div`
 	${flexColumn}
 	position: relative;
+	width: 100%;
+	transition: width 0.3s;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 
 const S = {

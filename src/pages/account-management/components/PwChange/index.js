@@ -48,7 +48,6 @@ const PwChange = () => {
 			</S.LogoWrapper>
 			<S.SignWrapper onSubmit={handleSave}>
 				<S.Text>비밀번호 변경</S.Text>
-
 				<ValidateInput
 					control={control}
 					name={"pw"}
@@ -72,7 +71,7 @@ const PwChange = () => {
 						children={"변경사항 저장"}
 						type={"submit"}
 						style={{
-							width: "370px",
+							width: "100%",
 							marginTop: "20px",
 						}}
 					/>
@@ -84,50 +83,107 @@ const PwChange = () => {
 
 export default PwChange;
 
-const LogoMent = styled.div`
-	position: relative;
-	top: 30px;
-`;
-
-const LogoWrapper = styled.div`
-	height: 120px;
-	position: relative;
-`;
-
-const SideTitle = styled.div`
-	font-style: italic;
-	font-weight: bold;
-	font-size: 16px;
-	${LogoFont}
-`;
-
 const Text = styled.div`
 	font-weight: bold;
 	margin-bottom: 40px;
 `;
 
+const LogoMent = styled.div`
+	position: relative;
+	top: 30px;
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		top: 20px;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		top: 16px;
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	}
+`;
+const LogoWrapper = styled.div`
+	height: 150px;
+	${flexCenter}
+	${flexColumn}
+	text-align: center;
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		text-align: center;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		margin: 0;
+	}
+`;
+const SideTitle = styled.div`
+	font-style: italic;
+	font-weight: bold;
+	font-size: 16px;
+	${LogoFont}
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: ${({ theme }) => theme.FONT_SIZE.xsmall};
+	}
+`;
+
 const LogoTitle = styled.div`
-	font-size: 35px;
+	font-size: 55px;
 	font-weight: bold;
 	cursor: pointer;
 	font-style: italic;
 	${LogoFont}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		font-size: 42px;
+	}
 `;
+const Ment = styled.div`
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
 
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		text-align: center;
+	}
+`;
 const SignWrapper = styled.form`
 	border: 1px solid #e8e8e8;
 	border-radius: 8px;
 	width: 450px;
 	${flexColumn}
-	justify-content: start;
+	align-items: center;
 	position: relative;
 	padding: 40px;
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: calc(100% - 40px);
+		padding: 35px 30px;
+	}
+
+	div {
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100%;
+		}
+
+		input {
+			@media ${({ theme }) => theme.DEVICE.mobile} {
+				width: 100%;
+			}
+		}
+	}
 `;
 
+const Wrapper = styled.div`
+	width: 370px;
+	margin: 25px;
+	position: relative;
+	top: 35px;
+`;
 const ButtonWrapper = styled.div`
+	width: 100%;
 	button {
 		font-size: 15px;
 		font-weight: 600;
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100%;
+			font-size: 13px;
+		}
 		:hover {
 			background-color: ${({ theme }) => theme.PALETTE.gray};
 		}
@@ -136,7 +192,6 @@ const ButtonWrapper = styled.div`
 		} */
 	}
 `;
-
 const RealTitle = styled.div`
 	font-size: 38px;
 	font-weight: 900;
@@ -146,7 +201,13 @@ const RealTitle = styled.div`
 	position: relative;
 	top: 50px;
 `;
-
+const Title = styled.p`
+	font-size: 13px;
+	color: ${({ theme }) => theme.PALETTE.black};
+	position: relative;
+	bottom: 4px;
+	font-weight: bold;
+`;
 const Subtitle = styled.p`
 	position: relative;
 	top: 6px;
@@ -156,20 +217,33 @@ const Subtitle = styled.p`
 
 const Container = styled.div`
 	margin: 0 auto;
-	margin-bottom: 130px;
-	margin-top: 60px;
-	height: 510px;
+	max-width: 600px;
+	height: 100vh;
 	border-radius: 12px;
 	${flexCenter}
-	${flexColumn}
-`;
+	flex-direction: column;
+	justify-content: center;
 
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 20px;
+	}
+
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		flex-direction: column;
+		justify-content: center;
+	}
+`;
 const S = {
-	Container,
 	Text,
+	Container,
 	RealTitle,
+	Title,
 	Subtitle,
+	Wrapper,
 	SignWrapper,
+	Ment,
 	LogoTitle,
 	SideTitle,
 	LogoWrapper,

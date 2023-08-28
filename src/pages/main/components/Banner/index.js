@@ -1,116 +1,50 @@
+import FAKEIMG from "./images/banner.jpg";
+import FAKEIMG2 from "./images/banner2.jpg";
+import FAKEIMG3 from "./images/banner3.jpg";
+import FAKEIMG4 from "./images/banner4.jpg";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import styled from "styled-components";
-import FAKEIMG from "./images/banner.png";
-import FAKEIMG2 from "./images/banner2.png";
-import FAKEIMG3 from "./images/banner3.png";
-import { BsFillCircleFill } from "react-icons/bs";
-import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
-	const ImageArr = [FAKEIMG, FAKEIMG2, FAKEIMG3];
-
-	const slideRef = useRef(null);
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const IMAGE_SIZE = 1065;
-	const SLIDE_RANGE = currentIndex * IMAGE_SIZE;
-
-	useEffect(() => {
-		slideRef.current.style.transition = "all 0.5s ease-in-out";
-		slideRef.current.style.transform = `translateX(-${SLIDE_RANGE}px)`;
-	}, [currentIndex]);
+	const ImageArr = [FAKEIMG, FAKEIMG2, FAKEIMG3, FAKEIMG4];
+	const route = ["전자기기", "여름옷", "인형", "향수"];
+	const navigate = useNavigate();
 
 	return (
-		<S.BannerWrapper>
-			<S.BannerContainer ref={slideRef}>
+		<S.BannerContainer>
+			<Swiper
+				className="mySwiper"
+				modules={[Navigation, Pagination]}
+				spaceBetween={10}
+				slidesPerView={1}
+				centeredSlides={true}
+				pagination={{ clickable: true }}
+				scrollbar={{ draggable: true }}
+			>
 				{ImageArr.map((image, i) => (
-					<S.BannerImg key={i} src={image} />
+					<SwiperSlide
+						className="banner-img"
+						onClick={() => navigate(`search/${route[i]}`)}
+					>
+						<img src={image} style={{ width: "100%" }} />
+					</SwiperSlide>
 				))}
-			</S.BannerContainer>
-			<S.BannerButtons>
-				<BsFillCircleFill
-					size="15"
-					color={currentIndex === 0 ? "white" : "gray"}
-					onClick={() => setCurrentIndex(0)}
-					className="bannerBtn"
-				/>
-				<BsFillCircleFill
-					size="15"
-					color={currentIndex === 1 ? "white" : "gray"}
-					onClick={() => setCurrentIndex(1)}
-					className="bannerBtn"
-				/>
-				<BsFillCircleFill
-					size="15"
-					color={currentIndex === 2 ? "white" : "gray"}
-					onClick={() => setCurrentIndex(2)}
-					className="bannerBtn"
-				/>
-			</S.BannerButtons>
-			<div>
-				<S.StaticImg src={FAKEIMG} />
-			</div>
-		</S.BannerWrapper>
+			</Swiper>
+		</S.BannerContainer>
 	);
 };
 
 export default Banner;
 
-const BannerWrapper = styled.div`
-	width: 1060px;
-	margin: 50px auto;
-	position: relative;
-	overflow: hidden;
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		display: block;
-		max-width: 750px;
-	}
-	@media ${({ theme }) => theme.DEVICE.mobile} {
-		display: block;
-		max-width: 560px;
-	}
-`;
-
 const BannerContainer = styled.div`
-	width: 860px;
-	display: flex;
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		display: none;
-	}
+	padding: 30px 0;
+	height: auto;
+	margin: 0 auto;
 `;
 
-const BannerImg = styled.img`
-	width: 1060px;
-	height: 428px;
-	margin-right: 5px;
-`;
-
-const BannerButtons = styled.div`
-	width: 80px;
-	display: flex;
-	justify-content: space-between;
-	position: absolute;
-	top: 90%;
-	left: 45%;
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		display: none;
-	}
-`;
-
-const StaticImg = styled.img`
-	display: none;
-	@media ${({ theme }) => theme.DEVICE.tablet} {
-		display: block;
-		max-width: 750px;
-	}
-	@media ${({ theme }) => theme.DEVICE.mobile} {
-		display: block;
-		max-width: 560px;
-	}
-`;
-
-const S = {
-	BannerWrapper,
-	BannerContainer,
-	BannerImg,
-	BannerButtons,
-	StaticImg,
-};
+const S = { BannerContainer };

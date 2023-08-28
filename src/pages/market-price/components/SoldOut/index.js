@@ -17,7 +17,8 @@ const Soldout = ({ soldoutProd }) => {
 	const totalAvgPrice = avg.reduce((total, item) => {
 		return total + parseFloat(item.avgPrice);
 	}, 0);
-	const count = avg.length;
+
+	const count = avg.filter(item => item.avgPrice !== 0).length;
 	const averagePrice = totalAvgPrice / count;
 
 	const won = Math.floor(averagePrice).toLocaleString();

@@ -4,7 +4,6 @@ import BasicButton from "components/Button";
 import { useState } from "react";
 import styled from "styled-components";
 import ModifyInfoEdit from "./components/ModifyInfoEdit";
-import MyProfileImage from "./components/MyprofileImage";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
 import { flexCenter } from "styles/common";
 
@@ -14,7 +13,9 @@ const AccountPrivacy = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [nickNameValue, setNickNameValue] = useState(userData?.nick_name);
-	const [imageSrc, setImageSrc] = useState(null);
+	const [imageSrc, setImageSrc] = useState(
+		`${process.env.PUBLIC_URL}/img/defaultImg.png`,
+	);
 	const [emailValue, setEmailValue] = useState(userData?.email);
 	const [phoneValue, setPhoneValue] = useState(userData?.phone);
 	const [regionValue, setRegionValue] = useState(userData?.region);
@@ -135,7 +136,11 @@ const AccountPrivacy = () => {
 						</S.PrivacyCorrectionWrapper>
 						<S.Line />
 						<S.ProfileImgContainer>
-							<MyProfileImage userData={userData} imageSrc={imageSrc} />
+							<S.ProfileImg>
+								<img
+									src={userData.profile_url ? userData.profile_url : imageSrc}
+								/>
+							</S.ProfileImg>
 							<S.ProfileIntroductionContainer>
 								<S.ProfileNickName>{userData?.nick_name}님 </S.ProfileNickName>
 								<S.ProfileImgBtnContainer>
@@ -192,14 +197,16 @@ const AccountPrivacy = () => {
 						/>
 						<S.Line />
 						{/* <EditCompleteBtn handleSave={handleSave} /> */}
-						<BasicButton
-							size={"medium"}
-							color={"darkBlack"}
-							children={"변경사항 저장"}
-							style={{ marginTop: "60px", marginLeft: "400px" }}
-							onClick={handleSave}
-							// disabled={!emailValue && !phoneValue && !regionValue && !nickNameValue}
-						/>
+						<S.ButtonWrapper>
+							<BasicButton
+								size={"medium"}
+								color={"darkBlack"}
+								children={"변경사항 저장"}
+								style={{ padding: "20px" }}
+								onClick={handleSave}
+								// disabled={!emailValue && !phoneValue && !regionValue && !nickNameValue}
+							/>
+						</S.ButtonWrapper>
 					</S.PrivacyWrapper>
 				</S.MasterWrapper>
 				{isOpen && <AlertModal message={"수정이 완료되었습니다"} />}
@@ -211,17 +218,40 @@ const AccountPrivacy = () => {
 export default AccountPrivacy;
 
 const MasterWrapper = styled.div`
+	max-width: 962px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 `;
 const ProfileImgContainer = styled.div`
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	${flexCenter}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		flex-direction: column;
+	}
+`;
+const ProfileImg = styled.div`
+	img {
+		border-radius: 100px;
+		width: 180px;
+		height: 180px;
+		margin: 60px 60px;
+		@media ${({ theme }) => theme.DEVICE.pc} {
+		}
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 140px;
+			height: 140px;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100px;
+			height: 100px;
+			margin: 60px 10px;
+		}
+	}
 `;
 const PrivacyWrapper = styled.div`
-	width: 1060px;
 	padding: 60px;
 	margin: 0px 0px 50px 0px;
 	button {
@@ -229,17 +259,38 @@ const PrivacyWrapper = styled.div`
 	}
 `;
 const ProfileImgBtnContainer = styled.div`
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	text-align: center;
+
 	button {
 		margin-right: 16px;
 		height: 40px;
+		@media ${({ theme }) => theme.DEVICE.pc} {
+			padding: 10px;
+			width: 100%;
+		}
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			padding: 10px;
+			width: 100%;
+			font-size: 14px;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			padding: 10px;
+			width: 100%;
+			font-size: 12px;
+			margin-bottom: 10px;
+			margin-right: 5px;
+		}
 	}
 `;
 const PrivacyCorrectionWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexCenter}
+	}
 `;
 const PrivacyCorrection = styled.div`
 	font-size: 24px;
@@ -249,6 +300,9 @@ const PrivacyCorrection = styled.div`
 const ProfileIntroductionContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexCenter}
+	}
 `;
 const ProfileNickName = styled.div`
 	font-size: 22px;
@@ -260,14 +314,47 @@ const Line = styled.div`
 	background-color: #dddddd;
 	height: 1px;
 	margin: 14px 0;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.tablet} {
+		width: auto;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: auto;
+	}
 `;
 const Account = styled.div`
 	margin-top: 60px;
 	font-size: 20px;
 	font-weight: bold;
 `;
+const ButtonWrapper = styled.div`
+	width: 100%;
+	margin-bottom: 30px;
+	button {
+		font-size: 15px;
+		font-weight: 600;
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100%;
+		}
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 100%;
+		}
+		@media ${({ theme }) => theme.DEVICE.pc} {
+			width: 100%;
+		}
+		:hover {
+			background-color: ${({ theme }) => theme.PALETTE.gray};
+		}
+		/* :disabled {
+			background-color: #e6e6e6;
+		} */
+	}
+`;
 
 const S = {
+	ButtonWrapper,
 	MasterWrapper,
 	ProfileImgContainer,
 	PrivacyWrapper,
@@ -275,6 +362,7 @@ const S = {
 	PrivacyCorrection,
 	ProfileIntroductionContainer,
 	ProfileNickName,
+	ProfileImg,
 	ProfileImgBtnContainer,
 	Line,
 	Account,

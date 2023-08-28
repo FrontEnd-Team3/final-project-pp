@@ -6,7 +6,6 @@ import getUserData from "utils/getUserData";
 
 const ChatList = ({ isTop, setIsTop }) => {
 	const { data } = ChatQueryApi.getChatList();
-	// console.log("chat", data?.chats);
 
 	let nick_name;
 	const DATA = getUserData();

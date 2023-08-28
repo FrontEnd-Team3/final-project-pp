@@ -4,14 +4,14 @@ import { LogoFont } from "styles/common";
 import Onecategory from "./oneCategory";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "context/auth.ctx";
-import { useChatData } from "context/chatData.ctx";
 import SearchModal from "./SearchModal";
 import TokenRepository from "repositories/TokenRepository";
 import search from "assets/images/search.png";
 import chat from "assets/images/chat.png";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
+import MiniNav from "pages/my-page/components/MyProfile/MiniNav";
 
-const Header = () => {
+const Header = ({ socket }) => {
 	const navigate = useNavigate();
 	const [state, setState] = useState(null);
 	const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +35,6 @@ const Header = () => {
 			navigate: `/MarketPrice`,
 		},
 	];
-	const { socket, socketID } = useChatData();
 
 	const handleLogout = async () => {
 		try {
@@ -73,10 +72,8 @@ const Header = () => {
 	};
 
 	useEffect(() => {
-		console.log("여기다!!!");
 		socket.emit(`connect-user`, { token: TokenRepository.getToken() });
 		socket.on("newMessage", data => {
-			console.log("전역메시지", data);
 			setNewChat(true);
 		});
 	}, [socket]);
@@ -139,9 +136,7 @@ const Header = () => {
 							<div
 								style={{ cursor: "pointer" }}
 								onClick={() => {
-									accessToken
-										? navigate("/mypage/:category")
-										: navigate("/Signin");
+									accessToken ? navigate("/mypage/0") : navigate("/Signin");
 								}}
 							>
 								MYPAGE
@@ -160,6 +155,9 @@ const Header = () => {
 					</div>
 				</S.LogoWrapper>
 				<S.CategoryWrapper>
+					<S.NavWrapper>
+						<MiniNav />
+					</S.NavWrapper>
 					<S.Category>
 						{categoryArray.map((category, i) => (
 							<Onecategory
@@ -208,6 +206,7 @@ const Form = styled.form`
 	transform: translate(-50%, -50%);
 	width: 400px;
 `;
+const NavWrapper = styled.div``;
 const closeButton = styled.button`
 	font-size: 25px;
 	cursor: pointer;
@@ -516,4 +515,5 @@ const S = {
 	ModalSearchicon,
 	closeButton,
 	Form,
+	NavWrapper,
 };

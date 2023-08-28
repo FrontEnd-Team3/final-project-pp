@@ -54,6 +54,7 @@ const Container = styled.div`
 	align-items: center;
 	gap: 4px;
 	margin-top: 40px;
+	margin-bottom: 40px;
 `;
 
 const ControlBtn = styled.button`

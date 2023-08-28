@@ -26,7 +26,6 @@ const Map = ({ address, setAddress }) => {
 		});
 		setMarker(marker);
 	}, []);
-
 	// 위치 변경시 지도에 마크 찍히게
 	const handleAddressChange = newAddress => {
 		setAddress(newAddress);

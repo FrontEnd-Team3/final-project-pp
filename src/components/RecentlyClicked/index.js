@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { GoBookmark } from "react-icons/go";
 import ImageSlide from "./imageSlide";
 import ScrollToTop from "./scrollToTop";
 import ProductQueryApi from "apis/product.query.api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const RecentlyClicked = () => {
 	// 추후 API로 데이터 들어오면 수정
 	const [likes, setLikes] = useState(0);
 	const { id } = useParams();
+	const navigate = useNavigate();
 
 	const { data, error, refetch } = ProductQueryApi.getRecentlyViewedProducts();
 
@@ -27,8 +27,8 @@ const RecentlyClicked = () => {
 	if (data) {
 		return (
 			<S.Container>
-				<S.Top>
-					찜한 상품 <GoBookmark color="white" size="22" /> {likes}
+				<S.Top onClick={() => navigate("/mypage/interest-product")}>
+					관심 상품 보러가기
 				</S.Top>
 				<S.Middle>
 					<div className="title">최근 본 상품</div>
@@ -69,15 +69,10 @@ const Top = styled.div`
 	color: ${({ theme }) => theme.PALETTE.white};
 	font-weight: 400;
 	line-height: 52px;
-	.heart {
-		font-size: 17px;
-		font-weight: 700;
-	}
 	border-bottom: 3px solid;
-
-	svg {
-		vertical-align: middle;
-	}
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
 `;
 
 const Middle = styled.div`

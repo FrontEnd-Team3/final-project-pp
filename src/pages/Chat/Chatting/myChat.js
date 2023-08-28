@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import FakeProfile from "./planting.png";
-import { getChatTime, getDayOrNight } from "./utils/getTime";
+import { getChatTime, getDayOrNight } from "../utils/getTime";
 
 const MyChat = ({ createdAt, message, user }) => {
 	const dayOrNight = getDayOrNight(createdAt);
