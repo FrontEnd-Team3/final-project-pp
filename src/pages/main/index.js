@@ -44,12 +44,12 @@ const Main = () => {
 export default Main;
 
 const DivisionLine = styled.hr`
-	width: 600px;
+	max-width: 600px;
 	height: 1px;
 	background-color: #cccccc;
 	margin: 0 auto;
 	@media ${({ theme }) => theme.DEVICE.mobile} {
-		width: 500px;
+		width: 100%;
 	}
 `;
 
