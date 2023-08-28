@@ -22,8 +22,6 @@ const MyPageSelect = ({
 		setIsOpenSelect(false);
 	};
 
-	console.log("현재 옵션", selectedStatus);
-
 	return (
 		<S.Wrapper onClick={isOpenControl}>
 			<S.Container variant={variant}>
