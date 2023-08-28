@@ -48,6 +48,7 @@ const MyProfile = () => {
 		return <></>;
 	}
 };
+
 export default MyProfile;
 
 // const NavBtn = styled.div`
@@ -63,7 +64,7 @@ export default MyProfile;
 const Container = styled.div`
 	max-width: 962px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: start;
 	${flexCenter}
 	margin-top: 100px;
 	margin-bottom: 100px;
