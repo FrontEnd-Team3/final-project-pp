@@ -44,9 +44,9 @@ const Nav = () => {
 
 	return (
 		<div>
-			{/* <S.NavIcon>
+			<S.NavIcon>
 				<img src="/img/햄버거버튼.png" />
-			</S.NavIcon> */}
+			</S.NavIcon>
 			<S.MyPageNavWrapper>
 				<S.NavMyPageTitle onClick={() => handleNavigateClick("/mypage")}>
 					마이페이지
@@ -85,9 +85,9 @@ const NavIcon = styled.div`
 	@media ${({ theme }) => theme.DEVICE.mobile} {
 		display: block;
 	}
-	// img {
-	// 	width: 20px;
-	// }
+	img {
+		width: 20px;
+	}
 `;
 
 const MyPageNavWrapper = styled.div`

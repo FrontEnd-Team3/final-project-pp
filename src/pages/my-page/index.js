@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import MyProfile from "./components/MyProfile";
-import Nav from "./components/Nav";
 import { flexCenter } from "styles/common";
+import Nav from "./components/Nav";
 
 const Mypage = () => {
 	return (

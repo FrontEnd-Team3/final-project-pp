@@ -228,6 +228,9 @@ const ProfileImgContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	${flexCenter}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		flex-direction: column;
+	}
 `;
 const ProfileImg = styled.div`
 	img {
@@ -260,14 +263,34 @@ const ProfileImgBtnContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	text-align: center;
+
 	button {
 		margin-right: 16px;
 		height: 40px;
+		@media ${({ theme }) => theme.DEVICE.pc} {
+			padding: 10px;
+			width: 100%;
+		}
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			padding: 10px;
+			width: 100%;
+			font-size: 14px;
+		}
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			padding: 10px;
+			width: 100%;
+			font-size: 12px;
+			margin-bottom: 10px;
+			margin-right: 5px;
+		}
 	}
 `;
 const PrivacyCorrectionWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexCenter}
+	}
 `;
 const PrivacyCorrection = styled.div`
 	font-size: 24px;
@@ -277,6 +300,9 @@ const PrivacyCorrection = styled.div`
 const ProfileIntroductionContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		${flexCenter}
+	}
 `;
 const ProfileNickName = styled.div`
 	font-size: 22px;

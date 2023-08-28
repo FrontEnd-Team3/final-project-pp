@@ -9,6 +9,7 @@ import TokenRepository from "repositories/TokenRepository";
 import search from "assets/images/search.png";
 import chat from "assets/images/chat.png";
 import AlertModal from "pages/product-detail/components/ProductInfo/Modals/alert";
+import MiniNav from "pages/my-page/components/MyProfile/MiniNav";
 
 const Header = ({ socket }) => {
 	const navigate = useNavigate();
@@ -154,6 +155,9 @@ const Header = ({ socket }) => {
 					</div>
 				</S.LogoWrapper>
 				<S.CategoryWrapper>
+					<S.NavWrapper>
+						<MiniNav />
+					</S.NavWrapper>
 					<S.Category>
 						{categoryArray.map((category, i) => (
 							<Onecategory
@@ -202,6 +206,7 @@ const Form = styled.form`
 	transform: translate(-50%, -50%);
 	width: 400px;
 `;
+const NavWrapper = styled.div``;
 const closeButton = styled.button`
 	font-size: 25px;
 	cursor: pointer;
@@ -510,4 +515,5 @@ const S = {
 	ModalSearchicon,
 	closeButton,
 	Form,
+	NavWrapper,
 };
