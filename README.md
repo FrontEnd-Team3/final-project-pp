@@ -19,8 +19,6 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1c474c48-4ab0-43c1-800e-0a4342f39eaf/deploy-status)](https://trimmin.netlify.app)
 
-[![Vercel Status](https://vercelbadge.vercel.app/api/trimm/vercel.app)](https://trimm.vercel.app)
-
 - [vercel](https://trimm.vercel.app)
 - [netlify](https://trimmin.netlify.app)
 
