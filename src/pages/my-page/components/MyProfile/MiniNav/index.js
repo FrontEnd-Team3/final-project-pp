@@ -23,9 +23,11 @@ const MiniNav = () => {
 
 	const handleNavigateClick = path => {
 		navigate(path);
+		isCloseNav();
 	};
 	const handleClick = async path => {
 		await navigate(path);
+		isCloseNav();
 		setTimeout(() => {
 			window.scrollTo(0, 665);
 		}, 0);
@@ -64,7 +66,9 @@ const MiniNav = () => {
 				<S.Container>
 					<S.MyPageNavWrapper open={openNav}>
 						<S.TitleWrapper>
-							<S.NavMyPageTitle onClick={() => handleNavigateClick("/mypage")}>
+							<S.NavMyPageTitle
+								onClick={() => handleNavigateClick("/mypage/0")}
+							>
 								마이페이지
 							</S.NavMyPageTitle>
 							<div onClick={isCloseNav}>
@@ -81,7 +85,11 @@ const MiniNav = () => {
 						<div onClick={() => handleClick("/mypage/house-keeping")}>
 							가계부
 						</div>
-						<S.NavAccountTitle>계정관리</S.NavAccountTitle>
+						<S.NavAccountTitle
+							onClick={() => handleNavigateClick("/account/management")}
+						>
+							계정관리
+						</S.NavAccountTitle>
 						<div onClick={() => handleNavigateClick("/account/management")}>
 							개인정보 수정
 						</div>
