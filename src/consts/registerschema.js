@@ -28,9 +28,4 @@ export const RegisterSchema = yup.object().shape({
 				}
 			},
 		}),
-	edittitle: yup
-		.string()
-		// .required("물품명을 필수로 입력해 주세요")
-		.min(5, "최소 5자 이상 입력해 주세요")
-		.max(40, "40자 이내로 입력해 주세요"),
 });

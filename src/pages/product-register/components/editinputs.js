@@ -33,30 +33,20 @@ const EditInputs = prevData => {
 		},
 	});
 
-	// 이전 데이터 불러와서 editData에 저장
 	const editData = prevData.prevData.searchProduct;
-	// 이미지 데이터 배열 만들기 => ProductImages에는 서브이미지, img_url에는 메인 이미지
-
-	// const subImages = editData.ProductImages.map(v => v.img_url);
-	// const imageDataList = [
-	// 	editData.img_url,
-	// 	...editData.ProductImages.map(v => v.img_url),
-	// ];
-
 	const subImages = [...editData.ProductImages.map(v => v.img_url)];
 	const allDataList = [
 		editData.img_url,
 		...editData.ProductImages.map(v => v.img_url),
 	];
 
-	const [imageArr, setImageArr] = useState(allDataList); // 이미지 담을 배열
-	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
+	const [imageArr, setImageArr] = useState(allDataList);
+	const [imageDBArr, setImageDBArr] = useState([]);
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
 	const queryClient = useQueryClient();
 	const imagesContainerRef = useRef(null);
 
-	// 태그 이전 데이터 가져와서 map 돌려줌 > 태그 데이터 형태 때문에
 	const EditTagList = editData.ProductsTags;
 	const EditTag = EditTagList.map(v => v.Tag.tag);
 	const [taglist, setTaglist] = useState(EditTag);
@@ -75,15 +65,12 @@ const EditInputs = prevData => {
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
 
-	// 입력값 enter로 태그 추가
 	const handleKeyPress = e => {
 		if (e.key === "Enter") {
 			e.preventDefault();
 
-			// 빈값 추가 막기
 			if (e.target.value.trim() === "") return;
 
-			// 중복값 막기
 			const isDuplicate = taglist.some(
 				tagItem => tagItem === e.target.value.trim(),
 			);
@@ -97,9 +84,7 @@ const EditInputs = prevData => {
 		}
 	};
 
-	// 태그 카테고리 li 클릭 시 태그 추가
 	const handleAddTaglist = content => {
-		// 중복값 막기
 		const isDuplicate = taglist.some(tagItem => tagItem === content);
 
 		if (isDuplicate) {
@@ -112,34 +97,27 @@ const EditInputs = prevData => {
 		}
 	};
 
-	// 상품 설명 글자수
 	const handleDescription = e => {
 		const inputValue = e.target.value;
-		// 엔터 두번 이상이면 무조건 한 번으로 인식하게 하는 로직(엔터 남발 방지)
 		const enterEditValue = inputValue.replace(/\n{3,}/g, "\n\n");
 		setDescription(enterEditValue);
 	};
 
-	// 태그 삭제 로직
 	const handleDelete = tagItem => {
-		// 갖고온 현재 idx의 값과 기존에 있는 taglist의 idx 값 비교
 		const updateTags = taglist.filter(v => v !== tagItem);
 		setTaglist(updateTags);
 	};
 
-	// 체크 여부
 	const handleCheckedStatus = () => {
 		setCategory(!category);
 	};
-
-	// 가격 유효성 검사
 	const watchPrice = watch("price");
 	useEffect(() => {
 		if (category) {
 			setValue("price", "0");
 		} else if (!category) {
 			const newWatchPrice = replacePrice(watchPrice);
-			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; // 변환값이 0이면 빈값으로 초기화, 그렇지 않은 경우 입력값 사용(0,003원 이런식으로 입력되는 버그 수정해야함)
+			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice;
 			setValue("price", priceValue);
 			setPrice(priceValue);
 		}
@@ -158,7 +136,6 @@ const EditInputs = prevData => {
 			formData.append("category", category ? 1 : 0);
 			formData.append("region", address);
 			formData.append("tag", taglist);
-			// 데이터를 똑같은 형식으로 넘겨줘야 하는데 그러지 않아서 계속 오류가 남 => 중복 수정 해야됌
 			formData.append("img_url", subImages);
 			formData.append("main_url", editData.img_url);
 			if (imageDBArr !== []) {

@@ -30,6 +30,12 @@ const Inputs = () => {
 		mode: "onChange",
 	});
 
+	const { mutate } = useMutation(data => ProductApi.addProduct(data), {
+		onSuccess: async () => {
+			await queryClient.invalidateQueries(["registers"]);
+		},
+	});
+
 	const [imageArr, setImageArr] = useState([]); // 이미지 담을 배열
 	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
 	const [description, setDescription] = useState("");
@@ -37,11 +43,6 @@ const Inputs = () => {
 	const [price, setPrice] = useState("");
 	const [address, setAddress] = useState("");
 	const { isToggle, setIsToggle, Toggle } = useToggle();
-	const {
-		isToggle: category,
-		setIsToggle: setCategory,
-		Toggle: ToggleCategory,
-	} = useToggle(true);
 	const [isMap, setIsMap] = useState(false);
 	const [isOpened, setIsOpened] = useState();
 	const navigate = useNavigate();
@@ -50,13 +51,13 @@ const Inputs = () => {
 
 	const location = useLocation();
 	const prevData = location.state ? location.state.prevData : null;
+	console.log("현재 불러온 데이터", prevData);
 	const queryClient = useQueryClient();
-
-	const { mutate } = useMutation(data => ProductApi.addProduct(data), {
-		onSuccess: async () => {
-			await queryClient.invalidateQueries(["registers"]);
-		},
-	});
+	const {
+		isToggle: category,
+		setIsToggle: setCategory,
+		Toggle: ToggleCategory,
+	} = useToggle(true);
 
 	// 입력값 enter로 태그 추가
 	const handleKeyPress = e => {
@@ -117,6 +118,7 @@ const Inputs = () => {
 			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice;
 			setValue("price", priceValue);
 			setPrice(priceValue);
+			console.log("price", price);
 		}
 	}, [watchPrice, setValue, category]);
 
