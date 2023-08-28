@@ -14,7 +14,7 @@ const MarketPrice = () => {
 	const [currensValue, setCurrentValue] = useState("1개월");
 	const startDate = Number(currensValue.slice(0, -2));
 
-	console.log("시작날짜", startDate);
+	// console.log("시작날짜", startDate);
 
 	const { data, isLoading } = ProductQueryApi.searchMarketPriceList({
 		keyword,

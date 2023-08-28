@@ -33,16 +33,7 @@ const EditInputs = prevData => {
 		},
 	});
 
-	// 이전 데이터 불러와서 editData에 저장
 	const editData = prevData.prevData.searchProduct;
-	// 이미지 데이터 배열 만들기 => ProductImages에는 서브이미지, img_url에는 메인 이미지
-
-	// const subImages = editData.ProductImages.map(v => v.img_url);
-	// const imageDataList = [
-	// 	editData.img_url,
-	// 	...editData.ProductImages.map(v => v.img_url),
-	// ];
-
 	const subImages = [...editData.ProductImages.map(v => v.img_url)];
 	const allDataList = [
 		editData.img_url,
@@ -74,14 +65,6 @@ const EditInputs = prevData => {
 			console.log("data", data);
 		},
 	});
-
-	console.log("뭐야", subImages);
-	console.log("메인이미지", editData.img_url);
-	console.log("서브 이미지", subImages);
-	console.log("제목", editData.title);
-	console.log("description", editData.description);
-	console.log("지역", editData.region);
-	console.log("태그", EditTag);
 
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
@@ -150,7 +133,7 @@ const EditInputs = prevData => {
 			setValue("price", "0");
 		} else if (!category) {
 			const newWatchPrice = replacePrice(watchPrice);
-			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; // 변환값이 0이면 빈값으로 초기화, 그렇지 않은 경우 입력값 사용(0,003원 이런식으로 입력되는 버그 수정해야함)
+			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; 
 			setValue("price", priceValue);
 			setPrice(priceValue);
 		}
@@ -169,7 +152,6 @@ const EditInputs = prevData => {
 			formData.append("category", category ? 1 : 0);
 			formData.append("region", address);
 			formData.append("tag", taglist);
-			// 데이터를 똑같은 형식으로 넘겨줘야 하는데 그러지 않아서 계속 오류가 남 => 중복 수정 해야됌
 			formData.append("img_url", subImages);
 			formData.append("main_url", editData.img_url);
 			if (imageDBArr !== []) {
