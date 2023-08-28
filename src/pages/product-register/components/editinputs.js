@@ -130,7 +130,7 @@ const EditInputs = prevData => {
 			setValue("price", "0");
 		} else if (!category) {
 			const newWatchPrice = replacePrice(watchPrice);
-			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; 
+			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice;
 			setValue("price", priceValue);
 			setPrice(priceValue);
 		}
