@@ -95,6 +95,9 @@ const Gridwrapper = styled.div`
 	@media ${({ theme }) => theme.DEVICE.tablet} {
 		grid-template-columns: repeat(2, 1fr);
 	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		grid-template-columns: repeat(2, 230px);
+	}
 `;
 
 const Line = styled.div`

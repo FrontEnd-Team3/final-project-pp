@@ -24,7 +24,6 @@ const Images = ({
 			updatedImages.push(URL.createObjectURL(file)); // 미리보기
 			updatedDBImages.push(file); // DB용
 		}
-
 		setImageArr(updatedImages.slice(0, 5));
 		setImageDBArr(updatedDBImages.slice(0, 5));
 	};

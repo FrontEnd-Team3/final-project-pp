@@ -32,11 +32,11 @@ const BackGround = styled.div`
 `;
 
 const Form = styled.form`
-	position: relative;
+	/* position: relative;
 	margin-top: 200px;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 400px;
+	width: 400px; */
 `;
 
 const ModalSearchBar = styled.input`
@@ -61,12 +61,19 @@ const ModalSearchBar = styled.input`
 `;
 
 const ModalSearchicon = styled.img`
-	width: 18px;
+	/* width: 18px;
 	cursor: pointer;
 	position: absolute;
 	bottom: 23px;
-	right: 0;
+	right: 0;*/
+	/* position: relative;
+	margin-top: 200px;
+	left: 700px; */
 	transform: translate(-50%, -50%);
+	cursor: pointer;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		/* margin-left: -30px; */
+	}
 `;
 
 const CloseButton = styled.button`

@@ -63,6 +63,9 @@ const Container = styled.div`
 const Wrapper = styled.div`
 	margin: 50px auto;
 	max-width: 1060px;
+	@media ${({ theme }) => theme.DEVICE.pc} {
+		padding: 0 20px;
+	}
 `;
 
 const Title = styled.p`
