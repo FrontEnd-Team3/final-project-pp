@@ -40,14 +40,13 @@ const EditInputs = prevData => {
 		...editData.ProductImages.map(v => v.img_url),
 	];
 
-	const [imageArr, setImageArr] = useState(allDataList); // 이미지 담을 배열
-	const [imageDBArr, setImageDBArr] = useState([]); // DB로 보낼 베열
+	const [imageArr, setImageArr] = useState(allDataList);
+	const [imageDBArr, setImageDBArr] = useState([]);
 	const [description, setDescription] = useState(editData.description);
 	const [category, setCategory] = useState(editData.category);
 	const queryClient = useQueryClient();
 	const imagesContainerRef = useRef(null);
 
-	// 태그 이전 데이터 가져와서 map 돌려줌 > 태그 데이터 형태 때문에
 	const EditTagList = editData.ProductsTags;
 	const EditTag = EditTagList.map(v => v.Tag.tag);
 	const [taglist, setTaglist] = useState(EditTag);
@@ -66,15 +65,12 @@ const EditInputs = prevData => {
 	// 태그 유효성 검사
 	const watchTag = watch("tag");
 
-	// 입력값 enter로 태그 추가
 	const handleKeyPress = e => {
 		if (e.key === "Enter") {
 			e.preventDefault();
 
-			// 빈값 추가 막기
 			if (e.target.value.trim() === "") return;
 
-			// 중복값 막기
 			const isDuplicate = taglist.some(
 				tagItem => tagItem === e.target.value.trim(),
 			);
@@ -88,9 +84,7 @@ const EditInputs = prevData => {
 		}
 	};
 
-	// 태그 카테고리 li 클릭 시 태그 추가
 	const handleAddTaglist = content => {
-		// 중복값 막기
 		const isDuplicate = taglist.some(tagItem => tagItem === content);
 
 		if (isDuplicate) {
@@ -103,27 +97,20 @@ const EditInputs = prevData => {
 		}
 	};
 
-	// 상품 설명 글자수
 	const handleDescription = e => {
 		const inputValue = e.target.value;
-		// 엔터 두번 이상이면 무조건 한 번으로 인식하게 하는 로직(엔터 남발 방지)
 		const enterEditValue = inputValue.replace(/\n{3,}/g, "\n\n");
 		setDescription(enterEditValue);
 	};
 
-	// 태그 삭제 로직
 	const handleDelete = tagItem => {
-		// 갖고온 현재 idx의 값과 기존에 있는 taglist의 idx 값 비교
 		const updateTags = taglist.filter(v => v !== tagItem);
 		setTaglist(updateTags);
 	};
 
-	// 체크 여부
 	const handleCheckedStatus = () => {
 		setCategory(!category);
 	};
-
-	// 가격 유효성 검사
 	const watchPrice = watch("price");
 	useEffect(() => {
 		if (category) {
