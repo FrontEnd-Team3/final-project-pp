@@ -76,13 +76,6 @@ const Buttons = ({ setCategoryParams, setDateParams }) => {
 				>
 					9개월
 				</S.AccountButton>
-				<S.AccountButton
-					onClick={() => {
-						setDateParams(monthAgo(12));
-					}}
-				>
-					1년
-				</S.AccountButton>
 			</S.MonthBox>
 		</S.Container>
 	);
