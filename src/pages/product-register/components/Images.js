@@ -14,7 +14,7 @@ const Images = ({
 
 	// 이미지 상대 경로 저장
 	const onChangeImage = async e => {
-		const files = e.target.files; // input에 file 선택, e.target.files 파일 선택목록 가져오는 로직, files에 저장
+		const files = e.target.files;
 
 		const updatedImages = [...imageArr];
 		const updatedDBImages = [...imageDBArr];

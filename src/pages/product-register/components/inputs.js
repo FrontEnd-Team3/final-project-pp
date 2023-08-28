@@ -82,7 +82,6 @@ const Inputs = () => {
 
 	// 태그 카테고리 li 클릭 시 태그 추가
 	const handleAddTaglist = content => {
-		// 중복값 막기
 		const isDuplicate = taglist.some(tagItem => tagItem === content);
 
 		if (isDuplicate) {
@@ -98,14 +97,12 @@ const Inputs = () => {
 	// 상품 설명 글자수
 	const handleDescription = e => {
 		const inputValue = e.target.value;
-		// 엔터 두번 이상이면 무조건 한 번으로 인식하게 하는 로직(엔터 남발 방지)
 		const enterEditValue = inputValue.replace(/\n{3,}/g, "\n\n");
 		setDescription(enterEditValue);
 	};
 
 	// 태그 삭제 로직
 	const handleDelete = tagItem => {
-		// 갖고온 현재 idx의 값과 기존에 있는 taglist의 idx 값 비교
 		const updateTags = taglist.filter(v => v !== tagItem);
 		setTaglist(updateTags);
 	};
@@ -117,7 +114,7 @@ const Inputs = () => {
 			setValue("price", "0");
 		} else if (!category) {
 			const newWatchPrice = replacePrice(watchPrice);
-			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice; // 변환값이 0이면 빈값으로 초기화, 그렇지 않은 경우 입력값 사용(0,003원 이런식으로 입력되는 버그 수정해야함)
+			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice;
 			setValue("price", priceValue);
 			setPrice(priceValue);
 			console.log("price", price);
