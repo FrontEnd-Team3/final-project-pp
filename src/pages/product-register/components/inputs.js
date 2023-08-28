@@ -117,7 +117,6 @@ const Inputs = () => {
 			const priceValue = newWatchPrice === "0" ? "" : newWatchPrice;
 			setValue("price", priceValue);
 			setPrice(priceValue);
-			console.log("price", price);
 		}
 	}, [watchPrice, setValue, category]);
 

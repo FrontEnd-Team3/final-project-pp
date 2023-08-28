@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("https://topdragon.co.kr", {
+const socket = io(process.env.REACT_APP_BACKEND_URL, {
 	cors: {
 		origin: "http://localhost:3000",
 		methods: ["GET", "POST"],

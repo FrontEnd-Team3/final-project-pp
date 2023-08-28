@@ -44,8 +44,6 @@ const Signup = () => {
 	}, [phoneNumber, setValue]);
 
 	const onSubmitSignUp = handleSubmit(async data => {
-		console.log("data", data);
-
 		try {
 			const response = await AuthApi.signup(
 				data.email,
@@ -54,8 +52,6 @@ const Signup = () => {
 				data.phone,
 				data.region,
 			);
-			console.log("회원가입data", response);
-
 			if (response && response.status === 200) {
 				setIsOpen(true);
 			}
@@ -63,7 +59,6 @@ const Signup = () => {
 		} catch (error) {
 			console.error(error);
 		}
-		console.log(data);
 	});
 
 	const onClickOutside = () => {
@@ -78,7 +73,6 @@ const Signup = () => {
 	const onEmailCheck = async () => {
 		try {
 			const email = getValues("email");
-			console.log(email);
 			const response = await AuthApi.emailDoubleCheck(email);
 			if (response?.status === 200) {
 				alert("사용 가능한 이메일 입니다.");
@@ -95,7 +89,6 @@ const Signup = () => {
 	const onNickNameCheck = async () => {
 		try {
 			const nickname = getValues("nickName");
-			console.log(nickname);
 			const response = await AuthApi.nickNameDoubleCheck(nickname);
 			if (response?.status === 200) {
 				alert("사용 가능한 닉네임 입니다.");

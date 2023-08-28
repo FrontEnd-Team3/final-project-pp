@@ -54,7 +54,7 @@ const EmptyData = ({ text, field }) => {
 export default EmptyData;
 
 const Container = styled.div`
-	width: 962px;
+	max-width: 962px;
 	margin: 0 auto;
 	padding: 150px 0;
 	display: flex;

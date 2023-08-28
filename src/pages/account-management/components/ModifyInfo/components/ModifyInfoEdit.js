@@ -150,6 +150,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 								? fieldValue || userData["nick_name"]
 								: fieldValue || userData[field]}
 						</S.Value>
+
 						<BasicButton
 							size={"account"}
 							color={"darkBlack"}
@@ -185,12 +186,12 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 						)}
 						<div>
 							{field === "email" && (
-								<>
+								<S.BtnContainer>
 									<BasicButton
 										size={"account"}
 										color={"darkBlack"}
 										children={"취소"}
-										style={{ marginLeft: "5px" }}
+										style={{ marginLeft: "5px", marginBottom: "5px" }}
 										onClick={() => {
 											handleEdit("취소");
 										}}
@@ -200,7 +201,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 										color={"darkBlack"}
 										children={"중복 확인"}
 										onClick={onEmailCheck}
-										style={{ marginLeft: "5px" }}
+										style={{ marginLeft: "5px", marginBottom: "5px" }}
 										disabled={errors[field] || !getValues("email")}
 									/>
 									<BasicButton
@@ -212,16 +213,16 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 											handleEdit("완료");
 										}}
 									/>
-								</>
+								</S.BtnContainer>
 							)}
 
 							{field === "nickName" && (
-								<>
+								<S.BtnContainer>
 									<BasicButton
 										size={"account"}
 										color={"darkBlack"}
 										children={"취소"}
-										style={{ marginLeft: "5px" }}
+										style={{ marginLeft: "5px", marginBottom: "5px" }}
 										onClick={() => {
 											handleEdit("취소");
 										}}
@@ -230,10 +231,39 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 										size={"account"}
 										color={"darkBlack"}
 										children={"중복 확인"}
-										style={{ marginLeft: "5px" }}
+										style={{ marginLeft: "5px", marginBottom: "5px" }}
 										onClick={onNickNameCheck}
 										disabled={errors[field] || !getValues("nickName")}
 									/>
+									<BasicButton
+										size={"account"}
+										color={"darkBlack"}
+										children={"완료"}
+										style={{ marginLeft: "5px", marginBottom: "5px" }}
+										onClick={() => {
+											handleEdit("완료");
+										}}
+									/>
+								</S.BtnContainer>
+							)}
+							{field === "region" && (
+								<S.BtnContainer>
+									<BasicButton
+										size={"account"}
+										color={"darkBlack"}
+										children={"변경"}
+										style={{ marginLeft: "5px", marginBottom: "5px" }}
+										onClick={() => {
+											handleEdit("변경");
+											if (field === "region") {
+												setAddressOpen(true);
+											}
+										}}
+									/>
+								</S.BtnContainer>
+							)}
+							{field !== "email" && field !== "nickName" && (
+								<S.BtnContainer>
 									<BasicButton
 										size={"account"}
 										color={"darkBlack"}
@@ -243,32 +273,7 @@ const ModifyInfoEdit = ({ userData, field, setFieldValue, setUncomplete }) => {
 											handleEdit("완료");
 										}}
 									/>
-								</>
-							)}
-							{field === "region" && (
-								<BasicButton
-									size={"account"}
-									color={"darkBlack"}
-									children={"변경"}
-									style={{ marginLeft: "5px" }}
-									onClick={() => {
-										handleEdit("변경");
-										if (field === "region") {
-											setAddressOpen(true);
-										}
-									}}
-								/>
-							)}
-							{field !== "email" && field !== "nickName" && (
-								<BasicButton
-									size={"account"}
-									color={"darkBlack"}
-									children={"완료"}
-									style={{ marginLeft: "5px" }}
-									onClick={() => {
-										handleEdit("완료");
-									}}
-								/>
+								</S.BtnContainer>
 							)}
 						</div>
 					</>
@@ -312,12 +317,37 @@ const Container = styled.div`
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		button {
+			font-size: 12px;
+		}
+	}
 	div {
-		width: 100%;
+		@media ${({ theme }) => theme.DEVICE.mobile} {
+			width: 100%;
+		}
+		@media ${({ theme }) => theme.DEVICE.tablet} {
+			width: 100%;
+		}
 	}
 `;
 const Value = styled.div`
 	margin-top: 16px;
+`;
+
+const BtnContainer = styled.div`
+	width: 100%;
+
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		button {
+			width: 50%;
+			font-size: 12px;
+		}
+	}
 `;
 
 const S = {
@@ -327,4 +357,5 @@ const S = {
 	Container,
 	Value,
 	MasterWarpper,
+	BtnContainer,
 };
