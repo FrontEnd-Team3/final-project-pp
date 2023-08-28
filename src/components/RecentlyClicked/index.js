@@ -17,8 +17,6 @@ const RecentlyClicked = () => {
 		refetch();
 	}, [id]);
 
-	// console.log("recently", data);
-
 	if (error) {
 		window.location.reload();
 		queryClient.refetchQueries(QueryKey.recentlyViewed);

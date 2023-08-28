@@ -28,7 +28,6 @@ const AuthProvider = ({ children }) => {
 	};
 	const logout = async () => {
 		const response = await AuthApi.logout();
-		console.log("로그아웃", response);
 		TokenRepository.removeToken();
 		setAccessToken(null);
 	};

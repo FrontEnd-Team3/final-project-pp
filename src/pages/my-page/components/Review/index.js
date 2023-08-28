@@ -98,7 +98,6 @@ const Review = ({ productIndex, reviewData }) => {
 						setCompleteOpen(false);
 						window.location.reload();
 					}, 3000);
-					console.log(`리뷰 저장 성공`, response);
 				}
 			}
 		} catch (error) {

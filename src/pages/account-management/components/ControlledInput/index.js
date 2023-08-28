@@ -23,7 +23,7 @@ export default ControlledInput;
 const Input = styled.input`
 	border: none;
 	padding: 8px 1px;
-	width: 370px;
+	width: 100%;
 	font-size: 16px;
 	color: ${({ theme }) => theme.PALETTE.black};
 	:focus {
@@ -31,6 +31,11 @@ const Input = styled.input`
 	}
 	::placeholder {
 		color: #c1c1c1;
+	}
+	@media ${({ theme }) => theme.DEVICE.mobile} {
+		::placeholder {
+			font-size: 10px;
+		}
 	}
 `;
 

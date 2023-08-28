@@ -51,15 +51,6 @@ const router = createBrowserRouter([
 					},
 				],
 			},
-			// {
-			// 	path: "/account",
-			// 	element: <AccountManagement />,
-			// },
-			// {
-			// 	path: "/pwchange",
-			// 	element: <PwChange />,
-			// },
-
 			{
 				path: "/product/:id",
 				element: <ProductDetailPage />,
