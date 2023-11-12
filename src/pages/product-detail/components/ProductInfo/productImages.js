@@ -5,7 +5,7 @@ const ProductImages = ({ product }) => {
 	return (
 		<S.ImageContainer>
 			<S.MainImage className="main">
-				<z src={product.img_url} alt="main" />
+				<img src={product.img_url} alt="main" />
 			</S.MainImage>
 			<S.SubImages className="sub">
 				{subImages.map((img, index) => (
