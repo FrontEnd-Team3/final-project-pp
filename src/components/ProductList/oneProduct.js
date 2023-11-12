@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import getDate from "utils/getDate";
+import LazyImage from "components/LazyImage/LazyImage";
 
 const OneProduct = ({ product, grid }) => {
 	const localPrice = product.price?.toLocaleString("ko-KR");
@@ -14,10 +15,11 @@ const OneProduct = ({ product, grid }) => {
 	const HandlePageMove = () => {
 		navigate(`/product/${product.idx}`);
 	};
+
 	return (
 		<S.Container onClick={HandlePageMove} className={grid}>
 			<S.ImgBox>
-				<S.Image src={ImageURL}></S.Image>
+				<S.StyledLazyImg src={ImageURL}></S.StyledLazyImg>
 			</S.ImgBox>
 			<S.ProductInfo status={product.status}>
 				<div className="infoTop">
@@ -37,6 +39,15 @@ const OneProduct = ({ product, grid }) => {
 
 export default OneProduct;
 
+const StyledLazyImg = styled(LazyImage)`
+	width: 100%;
+	aspect-ratio: 1;
+	border-radius: 4px;
+	transition: all 0.2s linear;
+	:hover {
+		transform: scale(1.05);
+	}
+`;
 const Container = styled.div`
 	cursor: pointer;
 	margin-bottom: 20px;
@@ -142,4 +153,4 @@ const Tag = styled.span`
 	text-align: center;
 	line-height: 16.5px;
 `;
-const S = { Container, ImgBox, Image, ProductInfo, Tag };
+const S = { Container, ImgBox, Image, ProductInfo, Tag, StyledLazyImg };
