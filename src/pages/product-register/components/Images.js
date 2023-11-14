@@ -3,6 +3,7 @@ import { flexCenter } from "styles/common";
 import { AiFillCamera } from "react-icons/ai";
 import { useRef } from "react";
 import { TiDelete } from "react-icons/ti";
+import imageCompression from "browser-image-compression";
 const Images = ({
 	imageArr,
 	setImageArr,
